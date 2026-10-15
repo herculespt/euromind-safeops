@@ -31,3 +31,16 @@ jobs:
         run: python -m compileall -q src tests
       - name: Built-in credential scan
         run: safeops --root . scan
+      - name: Verify buildable wheel
+        run: python -m pip wheel --no-deps --wheel-dir dist .
+
+  quality-gate:
+    name: quality-gate
+    needs: [tests]
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require entire cross-platform test matrix
+        env:
+          MATRIX_RESULT: ${{ needs.tests.result }}
+        run: test "$MATRIX_RESULT" = "success"

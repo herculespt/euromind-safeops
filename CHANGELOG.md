@@ -2,7 +2,26 @@
 
 The format follows Keep a Changelog conventions; versions follow Semantic Versioning where practicable.
 
-## [0.1.0] — Unreleased / initial public release candidate
+## [Unreleased]
+
+### Repository maintenance
+- Add a stable `quality-gate` CI job that requires the full nine-platform Python matrix.
+- Add a package build verification step, automated dependency-update proposals, CODEOWNERS, and documented branch protection policy.
+- Add maintainer and release guides and clarify current publication status.
+
+## [0.2.0] — 2026-10-15
+
+### Added
+- First-party OpenAI Responses API and Anthropic Messages API advisory adapters.
+- Provider configuration status command, setup guide and PowerShell examples.
+- Offline protocol contract tests for both providers.
+
+### Security
+- Task content is checked before contacting any external provider.
+- Fixed native HTTPS endpoints and per-provider environment variable credentials.
+- Native provider responses remain advisory-only, with explicit user consent required.
+
+## [0.1.0] — 2026-10-15 (initial public source commit)
 
 ### Added
 - Initial installable SafeOps CLI and Python stdlib implementation.

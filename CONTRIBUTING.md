@@ -17,7 +17,8 @@ python -m compileall -q src tests
 safeops --root . scan
 ```
 
-6. Open a PR using the PR template. Explain the change, risks, tests, and whether the change involves network access or code execution.
+6. Open a PR using the PR template. Explain the change, risks, tests, and whether the change involves network access or code execution. The `quality-gate` check aggregates the full CI matrix and should pass before merging.
+7. For release or governance changes, follow [Maintainer guide](docs/MAINTAINER_GUIDE.md) and [Release procedure](docs/RELEASING.md).
 
 ## Project rules
 
