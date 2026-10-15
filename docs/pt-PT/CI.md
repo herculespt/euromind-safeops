@@ -30,6 +30,21 @@ e fora da seleção, verificam a integridade de recursos gerados e rejeitam
 ligações, junctions, pipes e erros de inspeção nos descendentes. A distribuição
 exige `target_runner.py`, os seus testes e os dois guias dos alvos.
 
+## Resumos agregados dos testes
+
+A matriz executa `python -m euromind_safeops.ci_runner --tests tests`. Os dois
+jobs de distribuição executam o mesmo módulo instalado com Python isolado fora
+do checkout. `GITHUB_STEP_SUMMARY` fornece o destino em todos os runners, sem
+interpolação de variáveis específica da shell. São acrescentados totais unittest,
+fase e código, incluindo falhas tratadas de descoberta/execução. Suites vazias
+ou totalmente ignoradas e falhas de escrita do resumo não passam. O adaptador
+reutiliza o runner fixo; o resumo não recebe nomes/mensagens ou conteúdos dos testes.
+Os logs existentes mantêm a saída normal dos testes.
+
+Consultar o [contrato da saída](OUTPUT.md) EN/PT-PT. Os resumos não são JUnit,
+cobertura ou uploads. Não mudam Actions, permissões ou nome do check obrigatório.
+Os arquivos exigem o módulo CI, os dois guias da saída e os testes de regressão.
+
 ## Actions revistas em 15 de outubro de 2026
 
 | Action | Versão | Commit oficial |

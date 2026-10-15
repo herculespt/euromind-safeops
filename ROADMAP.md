@@ -2,7 +2,7 @@
 
 This roadmap is directional, not a promise of dates or delivered features.
 
-Current source version: **0.3.0a4** (alpha prerelease). See [status](docs/STATUS.md)
+Current source version: **0.3.0a5** (alpha prerelease). See [status](docs/STATUS.md)
 and [PT-PT](docs/pt-PT/STATUS.md). Source milestones are not published releases.
 
 ## v0.1.0 — Initial open-source foundation (implemented)
@@ -52,9 +52,15 @@ No tagged release or package publication is implied by this source version.
 - [x] Bind selected regular files, including generated descendants, in the approval; preserve the workspace-wide snapshot.
 - [x] EN/PT-PT targeting, compatibility and status guides, plus installed-wheel regression coverage.
 
+## 0.3.0a5 — Structured output and CI summaries (implemented in source)
+- [x] Optional global `--json`: one schema-1 envelope for handled command results, errors and warnings, preserving default output and process exit codes.
+- [x] UTF-8 output and argument-error messages that do not echo supplied values; explicit help/version and process-failure boundaries.
+- [x] Shared fail-closed unittest statistics and aggregate Markdown summaries in all nine matrix and two installed-wheel jobs.
+- [x] Offline output/reporting regressions, EN/PT-PT contract and synchronized current documentation/version/status.
+
 ## Next — Policy and integration hardening (planned)
 - [ ] OS-enforced workspace filesystem allowlists that restrict arbitrary reads; 0.3.0a4 check target selection does not implement this isolation boundary.
-- [ ] Structured JSON output options and improved CI test reporting.
+- [ ] JUnit/coverage reports and reviewed report-artifact publication; aggregate summaries are implemented, not coverage proof.
 - [ ] Live compatible/local-model checks and broader account/model validation; the separate OpenAI and Anthropic smokes do not establish universal compatibility.
 - [ ] Broader test adapters without permitting AI-generated commands.
 - [ ] Cross-platform locking and clearer interrupted-run recovery.

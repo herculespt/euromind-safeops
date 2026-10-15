@@ -1,10 +1,10 @@
 # Execution policy and upgrade compatibility
 
-<!-- safeops-version: 0.3.0a4 -->
+<!-- safeops-version: 0.3.0a5 -->
 
 [Português (Portugal)](pt-PT/EXECUTION.md)
 
-Current source version: **0.3.0a4**, alpha prerelease. This document describes
+Current source version: **0.3.0a5**, alpha prerelease. This document describes
 implemented behavior; see [status](STATUS.md) for exclusions and publication state.
 
 ## Configuration
@@ -33,6 +33,15 @@ Schema 2 accepts exactly `schema`, `checks` and `targets`. The target mapping
 names exactly the enabled checks. Selected directory trees are validated without
 imports before approval/run, with the fixed child rechecking before execution.
 See the [target guide](TARGETS.md) for the JSON example, limits and compatibility.
+
+## Output and CI reporting
+
+Source 0.3.0a5 adds optional global `--json` envelopes and aggregate CI summaries;
+see the [output contract](OUTPUT.md). Presentation does not change approval
+authority. Config schemas 1/2, plan schema 1, approval schema 2 and runner protocol
+2 are retained. The package-version change requires a fresh plan/approval while
+preserving history. Invalid CLI arguments now return 2 from Python `main`; the
+subprocess status remains 2. Help/version remain text actions.
 
 ## Advisory path preflight
 

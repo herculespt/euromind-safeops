@@ -1,10 +1,10 @@
 # Estado de implementação e publicação
 
-<!-- safeops-version: 0.3.0a4 -->
+<!-- safeops-version: 0.3.0a5 -->
 
 [English](../STATUS.md)
 
-**Versão atual do código: 0.3.0a4 — pré-versão alfa.** O CI cobre Python
+**Versão atual do código: 0.3.0a5 — pré-versão alfa.** O CI cobre Python
 3.11–3.13 em Linux, Windows e macOS. Não existem dependências externas em
 execução. Este marco do código não é uma release publicada: tags e releases
 GitHub exigem autorização própria; a publicação em registos de pacotes não
@@ -23,6 +23,8 @@ está configurada nem verificada.
 | Adaptadores de aconselhamento OpenAI, Anthropic e compatíveis | Consentimento expresso, envio apenas da tarefa e respostas UTF-8 estritas; contratos offline e HTTP em loopback; pedidos reais separados OpenAI `gpt-4.1-mini` e Anthropic `claude-haiku-5-5`, com revisão dos planos, verificados em 15 de outubro de 2026 |
 | Validação prévia dos caminhos de âmbito | Antes do fornecedor/gravação e novamente na aprovação/execução; os caminhos não restringem os alvos fixos |
 | Diretórios explícitos das verificações | Schema 2 opcional; validação recursiva de ligações e digest dos ficheiros selecionados; sem isolamento pelo SO |
+| Envelopes JSON da CLI | `--json` global opcional; schema 1, resultados/erros/avisos tratados e códigos 0/1/2; [contrato](OUTPUT.md) |
+| Resumos agregados do CI | Contagens unittest nos nove ambientes e dois jobs com wheel; sem afirmar JUnit/cobertura/uploads |
 | Main protegida e comunicação privada de vulnerabilidades | Definições verificadas como observações operacionais datadas |
 | CI e validação de distribuição | Nove ambientes, dois jobs de construção e gate agregado obrigatório |
 | Guias atuais EN/PT-PT e verificação da versão | Testes comparam metadados, ajuda da CLI e marcadores da documentação |
@@ -39,6 +41,7 @@ está configurada nem verificada.
 | Aprovações assinadas, auditoria inviolável ou atestação remota | Não implementadas |
 | Deploy de produção ou publicação automática de releases | Não implementados |
 | Inferência real de modelos compatíveis/locais e compatibilidade alargada de contas/modelos | Pendente; os testes separados OpenAI e Anthropic não demonstram estas capacidades |
+| Relatórios JUnit/cobertura e upload de relatórios | Planeados; resumos agregados implementados |
 | Lockfiles de workflows, builds integralmente reproduzíveis e auditoria independente de segredos em todo o histórico | Trabalho separado pendente |
 
 O [roadmap](../../ROADMAP.md) regista o trabalho futuro sem prometer datas ou
@@ -62,8 +65,9 @@ Consulta a [compatibilidade de execução](EXECUTION.md), o
 A [validação dos fornecedores](PROVIDER_TESTING.md) distingue respostas fixas dos
 pedidos reais separados nos registos [OpenAI](audits/2026-10-15-openai-smoke.md) e
 [Anthropic](audits/2026-10-15-anthropic-smoke.md), testados na versão 0.3.0a2.
-A versão atual 0.3.0a4 acrescenta [diretórios das verificações](TARGETS.md)
-opcionais, preservando a [validação do âmbito](SCOPE.md) e o schema 1 predefinido.
+A versão atual 0.3.0a5 acrescenta [saída estruturada e resumos CI](OUTPUT.md),
+preservando os [diretórios opcionais](TARGETS.md), a [validação do âmbito](SCOPE.md)
+e o schema 1 predefinido.
 A ligação à versão invalida aprovações anteriores; a configuração de schema 2
 liga também os ficheiros selecionados. A restrição
 completa do sistema de ficheiros continua planeada. Não foi publicada uma release.

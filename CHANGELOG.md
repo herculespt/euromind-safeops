@@ -4,7 +4,22 @@ The format follows Keep a Changelog conventions; versions follow Semantic Versio
 
 ## [Unreleased]
 
-Current source milestone: **0.3.0a4**. No tag or public release is implied.
+Current source milestone: **0.3.0a5**. No tag or public release is implied.
+
+## [0.3.0a5] — 2026-10-15 (source prerelease; not a published release)
+
+### Added
+- Global optional `--json` before the CLI command: schema-1 envelope for all eight commands, handled usage/policy/filesystem errors and critical-plan warnings, with matching 0/1/2 process codes.
+- UTF-8 JSON stdout, sanitized argument-error messages without argument values, and explicit data/error/warning semantics. Default command output and text help/version remain available.
+- Shared fail-closed unittest statistics and a stdlib `ci_runner` that appends aggregate numeric Markdown summaries. Empty/all-skipped suites, unusable discovery and summary-write errors cannot pass normally.
+- CI summaries in nine matrix jobs and two installed-wheel distribution jobs, keeping pinned Actions, permissions and the stable required `quality-gate`.
+- Offline output/reporting tests, EN/PT-PT output contract, status/roadmap/README/CI/maintainer and archive coverage.
+
+### Compatibility and limits
+- Source 0.3.0a5 invalidates previous approvals through the existing package-version binding. Preserve history and create a new reviewed plan/approval. Config schemas 1/2, plan schema 1, approval schema 2 and runner protocol 2 remain supported.
+- Invalid CLI arguments now return 2 from the Python `main` function instead of raising argparse's error `SystemExit`; subprocess exit status remains 2. Help/version retain their standard text/SystemExit behavior.
+- Handled filesystem access errors now return a controlled CLI failure. JSON does not sanitize trusted check output or authorize execution; interrupted processes may not emit an envelope/summary.
+- JUnit, coverage and uploaded report artifacts remain planned. No new dependency, live provider request, tag, release or package publication.
 
 ## [0.3.0a4] — 2026-10-15 (source prerelease; not a published release)
 

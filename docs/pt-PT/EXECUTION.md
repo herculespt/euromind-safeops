@@ -1,10 +1,10 @@
 # Política de execução e compatibilidade
 
-<!-- safeops-version: 0.3.0a4 -->
+<!-- safeops-version: 0.3.0a5 -->
 
 [English](../EXECUTION.md)
 
-Versão atual do código: **0.3.0a4**, pré-versão alfa. Este guia descreve o que está
+Versão atual do código: **0.3.0a5**, pré-versão alfa. Este guia descreve o que está
 implementado; consulta o [estado](STATUS.md) para limitações e publicações.
 
 ## Configuração
@@ -33,6 +33,15 @@ O schema 2 aceita exatamente `schema`, `checks` e `targets`; o mapa de alvos
 contém exatamente as verificações ativas. As árvores são validadas sem imports
 antes da aprovação/execução e novamente no processo filho. O [guia dos alvos](TARGETS.md)
 inclui exemplo JSON, limites e compatibilidade.
+
+## Saída e relatórios do CI
+
+A versão 0.3.0a5 acrescenta envelopes `--json` opcionais e resumos agregados do
+CI; consultar o [contrato da saída](OUTPUT.md). A apresentação não altera a
+autoridade de aprovação. Mantêm-se os schemas 1/2 de configuração, 1 de plano,
+2 de aprovação e o protocolo 2. A mudança de versão exige plano/aprovação novos,
+preservando o histórico. Argumentos inválidos devolvem agora 2 de `main` em
+Python; o código do processo mantém-se 2. Ajuda/versão continuam textuais.
 
 ## Validação prévia dos caminhos
 

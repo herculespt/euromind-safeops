@@ -32,6 +32,7 @@ class RepositoryHygieneTests(unittest.TestCase):
             "docs/pt-PT/PROJECT_SCOPE.md",
             "docs/SCOPE.md", "docs/pt-PT/SCOPE.md",
             "docs/TARGETS.md", "docs/pt-PT/TARGETS.md",
+            "docs/OUTPUT.md", "docs/pt-PT/OUTPUT.md",
         ):
             with self.subTest(path=name):
                 text = (ROOT / name).read_text(encoding="utf-8")
@@ -42,6 +43,10 @@ class RepositoryHygieneTests(unittest.TestCase):
                 first_version = re.search(r"\b\d+\.\d+\.\d+(?:a\d+)?\b", visible)
                 self.assertIsNotNone(first_version, "Missing visible current source version")
                 self.assertEqual(first_version.group(0), __version__)
+                if name == "README.md":
+                    self.assertIn(f"| Capability | {__version__} |", text)
+                for sample_version in re.findall(r'"safeops_version":\s*"([^"]+)"', text):
+                    self.assertEqual(sample_version, __version__, "Stale JSON example version")
 
     def test_roadmap_and_latest_changelog_match_source_version(self):
         for name in ("ROADMAP.md", "CHANGELOG.md"):
@@ -62,8 +67,10 @@ class RepositoryHygieneTests(unittest.TestCase):
             "docs/pt-PT/PROJECT_SCOPE.md",
             "docs/SCOPE.md", "docs/pt-PT/SCOPE.md",
             "docs/TARGETS.md", "docs/pt-PT/TARGETS.md",
+            "docs/OUTPUT.md", "docs/pt-PT/OUTPUT.md",
             "src/euromind_safeops/scope.py", "tests/test_scope.py",
             "src/euromind_safeops/target_runner.py", "tests/test_targets.py",
+            "src/euromind_safeops/ci_runner.py", "tests/test_json_output.py", "tests/test_ci_reporting.py",
             ".github/workflows/ci.yml", ".github/CODEOWNERS",
         ):
             with self.subTest(path=name):

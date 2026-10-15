@@ -64,3 +64,8 @@ targets, review both the whole-workspace and selected-file approval boundary;
 [generated caches](TARGETS.md) can invalidate a later run. Before closing the
 Issue, update its checklist and the PR body with actual PR/main CI evidence,
 remaining limits and publication status.
+
+For JSON/CI changes, check the optional [envelope contract](OUTPUT.md), default
+CLI compatibility and process codes. Inspect the job summaries as well as logs
+for each matrix/distribution job. Summary totals do not replace failure gates or
+prove coverage; keep JUnit/coverage/artifact publication marked as planned.
