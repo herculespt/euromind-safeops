@@ -1,4 +1,4 @@
-# Architecture — v0.1.0
+# Architecture — v0.2.0
 
 ## Data flow
 
@@ -23,7 +23,7 @@ flowchart TD
 | `cli.py` | Parser, command lifecycle and JSON display |
 | `core.py` | Workspace path hygiene, JSON storage, file snapshotting, audit |
 | `planning.py` | Rule-based risk and role suggestions, plan fingerprinting |
-| `providers.py` | Offline and opt-in OpenAI-compatible non-executable advice |
+| `providers.py` | Offline, native OpenAI Responses, Anthropic Messages and compatible non-executable advice |
 | `execution.py` | Config validation, approval and strict fixed check commands |
 | `scanning.py` | Credential pattern heuristics without disclosing matched values |
 
@@ -45,7 +45,7 @@ All generated files live in a project-local `.safeops/` directory, which should 
 ## Execution model
 
 - The offline planner gives **advice**, not edits.
-- The optional HTTP adapter sends only supplied task text.
+- The optional HTTP adapters send only supplied task text; native endpoints are pinned, and AI output is always untrusted advice.
 - Allowed checks are hard-coded as Python `compileall` and `unittest` modules.
 - The tool passes subprocess arguments directly, not through a shell.
 - **Test code itself is executable and NOT sandboxed.**

@@ -6,11 +6,10 @@
 ![Status](https://img.shields.io/badge/status-alpha-orange)
 ![License](https://img.shields.io/badge/license-Apache--2.0-blue)
 
-> **Status: v0.1.0 alpha.** This is a genuinely executable initial release, **not** a complete multi-agent IDE, sandbox, autonomous coding system, or security guarantee. See [Implemented vs. planned](#implemented-vs-planned).
+> **Status: v0.2.0 alpha.** This is a genuinely executable initial release, **not** a complete multi-agent IDE, sandbox, autonomous coding system, or security guarantee. See [Implemented vs. planned](#implemented-vs-planned).
 >
-> The GitHub links in these files are the **intended** home of the project; verify the repository exists before announcing a public release.
 
-EuroMind SafeOps helps software maintainers plan engineering tasks, classify risk, obtain an explicit human approval, and run a small set of deterministic checks while maintaining a locally stored integrity and audit trail. An optional OpenAI-compatible provider can provide **advice only**; its text cannot be executed as code or shell commands by SafeOps.
+EuroMind SafeOps helps software maintainers plan engineering tasks, classify risk, obtain an explicit human approval, and run a small set of deterministic checks while maintaining a locally stored integrity and audit trail. Optional OpenAI, Anthropic Claude, and OpenAI-compatible providers can provide **advice only**; its text cannot be executed as code or shell commands by SafeOps.
 
 The project is written from scratch as a general-purpose, independent tool. It contains **no SEND source code, private infrastructure configuration, credentials, or proprietary components**.
 
@@ -19,7 +18,7 @@ The project is written from scratch as a general-purpose, independent tool. It c
 - Python 3.11+ and no third-party runtime dependencies.
 - Risk classification: low, medium, high, critical; critical execution blocked.
 - Specialist routing suggestion: general engineering, backend, DevOps, mobile, security, documentation.
-- Advisory provider adapters: offline deterministic suggestions and opt-in OpenAI-compatible chat-completions.
+- Advisory provider adapters: offline, OpenAI Responses API, Anthropic Messages API, and OpenAI-compatible chat-completions (remote access is opt-in).
 - SHA-256 plan fingerprints, workspace snapshots and approval linkage.
 - Human confirmation before running any check; every check is a fixed Python command (no shell interpolation).
 - Offline audit events (`.safeops/audit.jsonl`) and basic credential-pattern scanner.
@@ -54,32 +53,33 @@ safeops --root examples/demo_project run YOUR_PLAN_ID
 
 **Important:** `approve` does not modify code. `run` executes only the predefined `compile` and `unit-tests` checks on trusted local source. Existing repository tests can execute arbitrary Python; this tool is **not a sandbox**. Do not run against untrusted repositories or code.
 
-### Optional remote advisory provider
+### Optional AI advice — OpenAI, Anthropic and local models
+
+All remote integrations require explicit consent (`--allow-remote`) and the model ID you wish to use. They send only the task description, not repository files. Official provider API access may be billed separately from chat subscriptions.
 
 ```bash
-# Use an explicitly trusted OpenAI-compatible endpoint:
-export SAFEOPS_API_KEY="YOUR_KEY"
-safeops --root examples/demo_project plan "Suggest improvements for this demo" \
+safeops providers
+
+# OpenAI Responses API (requires OPENAI_API_KEY):
+safeops --root examples/demo_project plan "Review the design" \
+  --provider openai --model YOUR_OPENAI_MODEL_ID --allow-remote
+
+# Anthropic Claude Messages API (requires ANTHROPIC_API_KEY):
+safeops --root examples/demo_project plan "Review the design" \
+  --provider anthropic --model YOUR_CLAUDE_MODEL_ID --allow-remote
+
+# An optional local OpenAI-compatible server:
+safeops --root examples/demo_project plan "Review the design" \
   --provider openai-compatible \
-  --endpoint https://YOUR_TRUSTED_PROVIDER/v1/chat/completions \
-  --model YOUR_MODEL_NAME --allow-remote
+  --endpoint http://127.0.0.1:8080/v1/chat/completions \
+  --model YOUR_LOCAL_MODEL --allow-remote
 ```
 
-PowerShell:
-
-```powershell
-$env:SAFEOPS_API_KEY = "YOUR_KEY"
-safeops --root examples/demo_project plan "Review the demo design" `
-  --provider openai-compatible `
-  --endpoint "https://YOUR_TRUSTED_PROVIDER/v1/chat/completions" `
-  --model "YOUR_MODEL_NAME" --allow-remote
-```
-
-Only task text and a minimal system instruction are sent to the configured endpoint; project files are **not** automatically uploaded. HTTPS is mandatory except for literal local loopback HTTP. External calls require `--allow-remote`. Do not include confidential text in the task. Advice is stored in a local plan and **never authorized as executable code**.
+**See [Provider setup and PowerShell examples](docs/PROVIDERS.md).** Never commit keys or include confidential text in prompts. AI advice cannot authorize code execution or repository modifications.
 
 ## Implemented vs. planned
 
-| Capability | v0.1.0 |
+| Capability | v0.2.0 |
 |---|---|
 | CLI + offline task planning | Implemented |
 | Deterministic rule-based risk routing | Implemented; conservative heuristic, not a security classifier |
@@ -87,8 +87,8 @@ Only task text and a minimal system instruction are sent to the configured endpo
 | Approvals and local audit log | Implemented; local integrity checks, not tamper-proof security logs |
 | Compile + Python `unittest` execution | Implemented; runs trusted repository code, not isolated |
 | Best-effort credential pattern scan | Implemented; incomplete by design |
-| OpenAI-compatible advisory provider | Implemented, strictly opt-in |
-| Claude SDK / direct provider integration | Planned |
+| OpenAI, Anthropic Claude and OpenAI-compatible advisory providers | Implemented, strictly opt-in |
+| Native Anthropic Messages API and OpenAI Responses API | Implemented with mocked HTTP contract tests; live credentials not tested |
 | Container or OS sandboxing / isolation | **Not implemented** |
 | Automatic code patches, Git writes, PR generation | **Not implemented** |
 | Multi-agent autonomous orchestration | **Not implemented** |
@@ -106,12 +106,12 @@ This is a **safety workflow, not an isolation boundary**. Workspace hashes can b
 
 ## Project & community
 
-- [Getting started](docs/QUICKSTART.md) · [Architecture](docs/ARCHITECTURE.md) · [Trust model](docs/TRUST_MODEL.md)
+- [Getting started](docs/QUICKSTART.md) · [Provider setup](docs/PROVIDERS.md) · [Architecture](docs/ARCHITECTURE.md) · [Trust model](docs/TRUST_MODEL.md)
 - [Português (Portugal)](docs/pt-PT/README.md) · [Project scope](docs/PROJECT_SCOPE.md)
 - [Contributing](CONTRIBUTING.md) · [Code of conduct](CODE_OF_CONDUCT.md) · [Governance](GOVERNANCE.md)
 - [Security reporting](SECURITY.md) · [Roadmap](ROADMAP.md) · [Changelog](CHANGELOG.md)
 
-No claims of user adoption, downloads or external contributors are made. Community contributions are welcome once the public repository is created.
+No claims of user adoption, downloads or external contributors are made. Community contributions are welcome.
 
 ## License
 

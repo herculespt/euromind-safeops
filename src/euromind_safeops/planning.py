@@ -31,12 +31,18 @@ def specialization(task: str) -> str:
     return "general-engineering"
 
 
-def create_plan(root: Path, task: str, files: list[str], advice: str, provider: str) -> dict[str, Any]:
+def validate_task(task: str) -> str:
+    """Reject missing, oversized or obviously sensitive task text before remote calls."""
     task = task.strip()
     if not task or len(task) > 2000:
         raise SafeOpsError("Task must contain 1–2000 characters")
     if any(re.search(p, task) for p in SENSITIVE_TEXT):
-        raise SafeOpsError("Task appears to contain a secret; do not save credentials in plans")
+        raise SafeOpsError("Task appears to contain a secret; do not save or transmit credentials")
+    return task
+
+
+def create_plan(root: Path, task: str, files: list[str], advice: str, provider: str) -> dict[str, Any]:
+    task = validate_task(task)
     if len(files) > 20:
         raise SafeOpsError("At most 20 scope paths")
     for name in files:
