@@ -140,6 +140,7 @@ This is a **safety workflow, not an isolation boundary**. Workspace hashes can b
 - [Measured coverage and CI threshold](docs/COVERAGE.md)
 - [Local JUnit reports and outcome mapping](docs/REPORTING.md)
 - [Local run locking and explicit recovery](docs/LOCKING.md)
+- [Alpha package publication procedure](docs/RELEASING.md) · [Registry package description](docs/PACKAGE.md)
 - [Provider testing and live validation status](docs/PROVIDER_TESTING.md)
 - [Current implementation status](docs/STATUS.md) · [Execution policy and upgrade compatibility](docs/EXECUTION.md)
 - [Repository audit — 2026-10-15](docs/audits/2026-10-15.md) · [Auditoria em PT-PT](docs/pt-PT/audits/2026-10-15.md)

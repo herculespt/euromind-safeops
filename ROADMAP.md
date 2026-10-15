@@ -80,7 +80,8 @@ No tagged release or package publication is implied by this source version.
 ## Next — Policy and integration hardening (planned)
 - [ ] OS-enforced workspace filesystem allowlists that restrict arbitrary reads; 0.3.0a4 check target selection does not implement this isolation boundary.
 - [ ] Broader OS/Python coverage profiles and reviewed report-artifact publication; Linux/Python 3.12 measurement and local JUnit/summaries are implemented.
-- [ ] First authorized alpha GitHub Release and PyPI configuration/publication, with verified registry evidence; work in progress.
+- [x] Manual alpha package validation/publishing workflow, pinned Actions, registry-ready bilingual metadata and exact source/CI/hash checks.
+- [ ] First authorized alpha GitHub Release and actual PyPI publisher registration/publication, with verified delivery evidence; work in progress.
 - [ ] Live compatible/local-model checks and broader account/model validation; the separate OpenAI and Anthropic smokes do not establish universal compatibility.
 - [ ] Broader test adapters without permitting AI-generated commands.
 - [ ] Process-tree supervision/termination, independently verified automatic recovery and distributed/network-filesystem leases; current recovery remains explicitly human-confirmed and local.

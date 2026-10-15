@@ -8,7 +8,9 @@
 covered by CI on Linux, Windows and macOS. No third-party runtime dependencies.
 The code is available in this GitHub repository. At this milestone review, the
 first alpha GitHub Release is being prepared with maintainer authorization;
-PyPI publication still requires configuration, authentication and verification.
+The manual alpha workflow and registry metadata are prepared; PyPI account
+authentication, publisher registration and actual registry publication remain
+pending. The sign-in request was interrupted, and no account grant was made.
 A repository version, GitHub Release and installable PyPI package are separate
 deliveries. Publication evidence will be recorded here after verification.
 

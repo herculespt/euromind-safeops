@@ -13,6 +13,11 @@ Current source milestone: **0.3.0a8**. No tag or public release is implied.
 - Separate real subprocess probe, data reset before the full suite, combined minimum 90%, local JSON/Cobertura XML validation and numeric job summary. All package modules and zero excluded lines are required; the twelve-job layout and stable quality-gate remain.
 - Guias EN/PT-PT de cobertura, CI, manutenção, versão/estado/roadmap e aprovação de execução atualizados. A versão do código, release GitHub e pacote PyPI são entregas distintas; primeira publicação autorizada em preparação.
 
+### Publication preparation / Preparação da publicação
+- Bilingual registry README with absolute links, metadata consistency check, pinned release tools and manual candidate-validation/PyPI OIDC workflow. Package-only artifact transfer; no test-report upload.
+- Exact protected-main ancestry/latest successful CI, published alpha tag/version checks, isolated installed-wheel tests, SHA-256 transfer verification and post-upload registry/install checks.
+- GitHub release publication is authorized; actual delivery is recorded in status. PyPI account sign-in/publisher registration remains pending.
+
 ### Compatibility and limits / Compatibilidade e limites
 - Existing schemas and runner 3/lock 1 protocols retained. Version binding still requires a new reviewed plan and explicit approval; no approval migration.
 - Coverage is an observed Linux/Python 3.12 profile, not correctness/security proof; abrupt exits, disabled instrumentation and platform-specific paths can remain unmeasured. Reports stay on the runner without upload.
