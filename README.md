@@ -99,8 +99,8 @@ safeops --root examples/demo_project plan "Review the design" \
 | Compile + Python `unittest` execution | Implemented; unit-test checks reject empty/all-skipped suites; trusted code, not isolated |
 | Best-effort credential pattern scan | Implemented; incomplete by design |
 | OpenAI, Anthropic Claude and OpenAI-compatible advisory providers | Implemented, strictly opt-in |
-| Native Anthropic Messages API and OpenAI Responses API | Implemented with mocked HTTP contract tests; live credentials not tested |
-| Strict provider responses and transport regression tests | Implemented; real loopback HTTP fixtures, no live model validation |
+| Native Anthropic Messages API and OpenAI Responses API | Implemented; OpenAI `gpt-4.1-mini` live smoke passed on 2026-10-15; Anthropic remains fixture-tested |
+| Strict provider responses and transport regression tests | Implemented; loopback fixtures plus a separate verified OpenAI live smoke test |
 | Container or OS sandboxing / isolation | **Not implemented** |
 | Automatic code patches, Git writes, PR generation | **Not implemented** |
 | Multi-agent autonomous orchestration | **Not implemented** |

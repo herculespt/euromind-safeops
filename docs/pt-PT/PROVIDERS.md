@@ -7,7 +7,7 @@
 Os adaptadores nativos foram introduzidos na versão 0.2.0. A versão atual
 acrescenta validação JSON estrita, mantendo protocolos apenas consultivos.
 A [evidência dos testes](PROVIDER_TESTING.md) distingue contratos simulados,
-HTTP real em loopback e o teste de modelo real ainda pendente.
+HTTP real em loopback e um pedido real OpenAI `gpt-4.1-mini` aprovado em 15 de outubro de 2026. A inferência Anthropic e de modelos compatíveis/locais continua por validar.
 
 | `--provider` | Protocolo | Autenticação | Consentimento remoto |
 |---|---|---|---|
@@ -65,6 +65,12 @@ exceto HTTP em loopback literal. Não pode conter credenciais, query ou fragment
 As origens nativas OpenAI/Anthropic são fixas e não aceitam substituição por
 `--endpoint`. Os redirecionamentos são rejeitados.
 
+O SafeOps lê credenciais do ambiente do processo; não carrega `.env.local`
+automaticamente. Um ficheiro local autorizado deve ficar fora do Git/artefactos e
+ser carregado por um mecanismo de confiança. A pesquisa heurística continua a
+inspecionar ficheiros ignorados dentro do workspace; validar o código público
+num checkout limpo sem credenciais locais, sem enfraquecer as regras de pesquisa.
+
 ## Comportamento e limites
 
 - Não há chamadas remotas durante `init`, `doctor`, `scan`, `review`, `approve`,
@@ -82,7 +88,7 @@ As origens nativas OpenAI/Anthropic são fixas e não aceitam substituição por
 - A classificação de risco e os controlos de integridade/execução são determinísticos.
 - O CI usa simulações e HTTP real local com respostas fixas. Não valida contas,
   inferência ou todos os modelos. O [procedimento de teste real](PROVIDER_TESTING.md)
-  regista esse trabalho como pendente.
+  regista separadamente o pedido real OpenAI já verificado e as restantes validações pendentes.
 
 Consulta as [referências de protocolo](../PROVIDER_TESTING.md#compatibility-and-primary-references),
 o [estado de implementação](STATUS.md) e a [segurança](SECURITY.md).

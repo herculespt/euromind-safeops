@@ -15,7 +15,7 @@
 - Registo de auditoria local e pesquisa limitada de padrões típicos de credenciais.
 - Aconselhamento opcional através de OpenAI Responses API, Anthropic Messages API (Claude) ou modelos locais compatíveis com Chat Completions.
 - Comando `safeops providers`, que informa se existem chaves configuradas sem mostrar o seu valor.
-- Respostas de fornecedores com validação JSON UTF-8 estrita, testes de falhas de transporte e integração HTTP real com respostas locais fixas; inferência com modelos reais ainda não validada.
+- Respostas de fornecedores com validação JSON UTF-8 estrita, testes de falhas de transporte e integração HTTP real com respostas locais fixas; um pedido real OpenAI `gpt-4.1-mini` verificado; Anthropic e modelos compatíveis/locais ainda por validar.
 
 **Não implementa** agentes autónomos que editem código, isolamento seguro, execução arbitrária, pipelines de produção, proteção garantida contra ataques. O código dos testes executa com os privilégios do utilizador: não utilizes repositórios não confiáveis.
 

@@ -4,7 +4,7 @@ The format follows Keep a Changelog conventions; versions follow Semantic Versio
 
 ## [Unreleased]
 
-No additional changes recorded beyond the source milestone below.
+Documentation-only follow-up for source 0.3.0a2: verified a live OpenAI `gpt-4.1-mini` advisory request, saved plan and integrity review on 2026-10-15. Updated EN/PT-PT status, roadmap and evidence without changing runtime code, schemas or version. Anthropic/compatible-model validation remains pending; no release was published.
 
 ## [0.3.0a2] — 2026-10-15 (source prerelease; not a published release)
 
@@ -19,7 +19,7 @@ No additional changes recorded beyond the source milestone below.
 ### Compatibility
 - Configuration/plan schema 1 and approval schema 2 are unchanged. The package-version change invalidates earlier execution approvals: retain records and create a fresh plan and explicit approval.
 - Previously accepted ambiguous/non-UTF-8 provider responses now fail with controlled errors. Valid UTF-8 JSON objects remain supported, with optional UTF-8 BOM.
-- No real API credentials or local model endpoint were available for this milestone. Live authentication, inference and per-account model compatibility remain unverified; no release or package was published.
+- The initial transport-hardening milestone used no real API credentials or local model endpoint. A subsequent live OpenAI smoke test is recorded above; Anthropic, compatible-model inference and broader account/model compatibility remain unverified. No release or package was published.
 
 ## [0.3.0a1] — 2026-10-15 (source prerelease; not a published release)
 

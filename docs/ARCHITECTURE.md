@@ -51,7 +51,7 @@ Plans and configuration retain schema 1. Approval schema 2 binds the plan finger
 
 - The offline planner gives **advice**, not edits.
 - The optional HTTP adapters send only supplied task text; native endpoints are pinned, and AI output is always untrusted advice.
-- Provider responses share strict UTF-8 object decoding with stored JSON and reject duplicate keys/non-finite numbers. Transport doubles and real loopback fixture requests cover the HTTP path; live model validation remains [pending](PROVIDER_TESTING.md).
+- Provider responses share strict UTF-8 object decoding with stored JSON and reject duplicate keys/non-finite numbers. Transport doubles and real loopback fixture requests cover the HTTP path; a separate live OpenAI smoke test has passed, while other provider/model validation remains [pending](PROVIDER_TESTING.md).
 - Allowed checks are hard-coded as Python `compileall` and the internal `euromind_safeops.check_runner` module, which uses stdlib `unittest`.
 - Discovery and `load_tests` hooks run inside that approved child process. Empty discovery, zero executed cases and all-skipped suites fail. Nested regular packages with `__init__.py` are supported.
 - The tool passes subprocess arguments directly, not through a shell.

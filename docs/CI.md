@@ -16,7 +16,7 @@ checks credential patterns and builds a wheel. Jobs have explicit timeouts.
 Provider tests use transport doubles and bind temporary HTTP fixture servers only
 to 127.0.0.1 on OS-assigned ports. They need no API keys or external model access.
 The same tests run against installed wheels. See [provider validation](PROVIDER_TESTING.md)
-for the separate live-model test that remains pending.
+for the separate successful OpenAI smoke test and remaining provider/model gaps. Live requests are not added to CI.
 
 ## Reviewed Actions — 2026-10-15
 
