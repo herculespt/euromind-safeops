@@ -6,17 +6,17 @@
 
 ```mermaid
 flowchart TD
-  U[User / CLI] --> V{Task and paths valid?}
+  U["User / CLI"] --> V{"Task and paths valid?"}
   V -->|No| X[Fail closed]
   V -->|Yes| P[Task planner]
-  P --> R[Deterministic risk & specialist routing]
+  P --> R["Deterministic risk & specialist routing"]
   P -. Explicit opt-in .-> A[Remote advisory provider]
-  R --> D[Immutable-by-convention plan JSON + SHA-256]
+  R --> D["Immutable-by-convention plan JSON + SHA-256"]
   A -. Untrusted advisory text only .-> D
-  D --> H[Human review & approval]
-  H --> G{Non-critical, valid scope and unchanged integrity?}
+  D --> H["Human review & approval"]
+  H --> G{"Non-critical, valid scope and unchanged integrity?"}
   G -->|No| X[Fail closed]
-  G -->|Yes| E[Fixed compile / unit test checks]
+  G -->|Yes| E["Fixed compile / unit test checks"]
   E --> L[Local JSONL audit]
 ```
 
