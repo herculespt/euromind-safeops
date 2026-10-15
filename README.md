@@ -1,6 +1,6 @@
 # EuroMind SafeOps
 
-<!-- safeops-version: 0.3.0a2 -->
+<!-- safeops-version: 0.3.0a3 -->
 
 **A safety-focused, provider-agnostic engineering orchestration CLI.**
 
@@ -8,7 +8,7 @@
 ![Status](https://img.shields.io/badge/status-alpha-orange)
 ![License](https://img.shields.io/badge/license-Apache--2.0-blue)
 
-> **Source version: 0.3.0a2 (alpha prerelease).** See [current implementation and publication status](docs/STATUS.md) and [Implemented vs. planned](#implemented-vs-planned). Source versions do not imply a published GitHub Release or package.
+> **Source version: 0.3.0a3 (alpha prerelease).** See [current implementation and publication status](docs/STATUS.md) and [Implemented vs. planned](#implemented-vs-planned). Source versions do not imply a published GitHub Release or package.
 >
 
 EuroMind SafeOps helps software maintainers plan engineering tasks, classify risk, obtain an explicit human approval, and run a small set of deterministic checks while maintaining a locally stored integrity and audit trail. Optional OpenAI, Anthropic Claude, and OpenAI-compatible providers can provide **advice only**; their text cannot be executed as code or shell commands by SafeOps.
@@ -24,6 +24,7 @@ EuroMind SafeOps is developed independently as a general-purpose open-source too
 - SHA-256 plan fingerprints, workspace snapshots and approval linkage.
 - Strict UTF-8 JSON policy validation and approvals bound to the installed version and fixed execution contract.
 - Unit-test checks require discovery and execution of at least one non-skipped case; nested regular test packages are supported.
+- Portable advisory path preflight before provider access, persistence, approval and run; see [scope policy](docs/SCOPE.md).
 - Human confirmation before running any check; every check is a fixed Python command (no shell interpolation).
 - Offline audit events (`.safeops/audit.jsonl`) and basic credential-pattern scanner.
 - Portable CLI and `unittest`-based CI for Linux/macOS/Windows.
@@ -60,7 +61,7 @@ safeops --root examples/demo_project run YOUR_PLAN_ID
 **Upgrading from 0.2.0:** keep the workspace and its history. Valid schema-1 configuration remains supported, but old approvals are rejected. Review the current source, create a new plan and approve it explicitly. See [execution policy and compatibility](docs/EXECUTION.md).
 
 The existing version binding also requires new execution approval when upgrading
-from 0.3.0a1 to 0.3.0a2; the configuration/plan/approval schemas are unchanged.
+from 0.3.0a2 to 0.3.0a3; the configuration/plan/approval schemas are unchanged.
 
 ### Optional AI advice — OpenAI, Anthropic and local models
 
@@ -88,7 +89,7 @@ safeops --root examples/demo_project plan "Review the design" \
 
 ## Implemented vs. planned
 
-| Capability | 0.3.0a2 |
+| Capability | 0.3.0a3 |
 |---|---|
 | CLI + offline task planning | Implemented |
 | Deterministic rule-based risk routing | Implemented; conservative heuristic, not a security classifier |
@@ -99,8 +100,10 @@ safeops --root examples/demo_project plan "Review the design" \
 | Compile + Python `unittest` execution | Implemented; unit-test checks reject empty/all-skipped suites; trusted code, not isolated |
 | Best-effort credential pattern scan | Implemented; incomplete by design |
 | OpenAI, Anthropic Claude and OpenAI-compatible advisory providers | Implemented, strictly opt-in |
-| Native Anthropic Messages API and OpenAI Responses API | Implemented; separate OpenAI `gpt-4.1-mini` and Anthropic `claude-haiku-5-5` live smokes passed on 2026-10-15 |
+| Native Anthropic Messages API and OpenAI Responses API | Implemented; separate OpenAI `gpt-4.1-mini` and Anthropic `claude-haiku-5-5` live smokes passed on source 0.3.0a2 on 2026-10-15 |
 | Strict provider responses and transport regression tests | Implemented; loopback fixtures plus separate verified OpenAI and Anthropic live smoke tests |
+| Advisory scope-path preflight | Implemented; validates declared paths before side effects and rechecks links; does not restrict fixed check targets |
+| Filesystem path allowlist / check isolation | **Not implemented**; scope remains advisory |
 | Container or OS sandboxing / isolation | **Not implemented** |
 | Automatic code patches, Git writes, PR generation | **Not implemented** |
 | Multi-agent autonomous orchestration | **Not implemented** |

@@ -18,6 +18,11 @@ to 127.0.0.1 on OS-assigned ports. They need no API keys or external model acces
 The same tests run against installed wheels. See [provider validation](PROVIDER_TESTING.md)
 for the separate successful OpenAI and Anthropic smoke tests and remaining provider/model gaps. Live requests are not added to CI.
 
+Scope regression tests prove that invalid declarations never invoke even the
+mocked provider and that changed links cannot reach approved subprocess checks.
+Windows jobs exercise junctions; POSIX jobs exercise named pipes. Both packaged
+scope guides and `scope.py` are checked in the distribution jobs.
+
 ## Reviewed Actions — 2026-10-15
 
 | Action | Release | Official commit |

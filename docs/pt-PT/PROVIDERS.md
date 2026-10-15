@@ -1,14 +1,15 @@
-# Fornecedores de aconselhamento — 0.3.0a2
+# Fornecedores de aconselhamento — 0.3.0a3
 
-<!-- safeops-version: 0.3.0a2 -->
+<!-- safeops-version: 0.3.0a3 -->
 
 [English](../PROVIDERS.md)
 
-Os adaptadores nativos foram introduzidos na versão 0.2.0. A versão atual
-acrescenta validação JSON estrita, mantendo protocolos apenas consultivos.
+Os adaptadores nativos foram introduzidos na versão 0.2.0. A versão 0.3.0a2
+introduziu JSON estrito; a 0.3.0a3 acrescenta [validação prévia do âmbito](SCOPE.md)
+antes do fornecedor, mantendo os protocolos apenas consultivos.
 A [evidência dos testes](PROVIDER_TESTING.md) distingue contratos simulados,
 HTTP real em loopback e pedidos reais separados OpenAI `gpt-4.1-mini` e Anthropic
-`claude-haiku-5-5`, aprovados em 15 de outubro de 2026. A inferência de modelos
+`claude-haiku-5-5`, aprovados na versão 0.3.0a2 em 15 de outubro de 2026. A inferência de modelos
 compatíveis/locais e a compatibilidade universal continuam por validar.
 
 | `--provider` | Protocolo | Autenticação | Consentimento remoto |

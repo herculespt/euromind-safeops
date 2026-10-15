@@ -28,7 +28,7 @@ A built-in scanner is not sufficient for secure release. Inspect `git diff`, use
 
 1. Merge the release PR after all required checks pass.
 2. In GitHub, open **Releases → Draft a new release**.
-3. Create a new version tag matching the approved package version on the verified release commit; do not reuse tags. Use an alpha suffix such as `v0.3.0a2` for the current source milestone if that prerelease is separately authorized for publication.
+3. Create a new version tag matching the approved package version on the verified release commit; do not reuse tags. Use an alpha suffix such as `v0.3.0a3` for the current source milestone if that prerelease is separately authorized for publication.
 4. Use the matching changelog section as release notes and explicitly label the release **Alpha** or **Pre-release** if applicable.
 5. Verify that the released tag matches the tested source commit and that license, archive and documentation are present.
 6. Publish the GitHub Release only after the maintainer has checked the tag, notes and source archives.

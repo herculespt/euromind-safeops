@@ -30,6 +30,7 @@ class RepositoryHygieneTests(unittest.TestCase):
             "docs/pt-PT/README.md", "docs/pt-PT/SECURITY.md", "docs/pt-PT/STATUS.md", "docs/pt-PT/EXECUTION.md",
             "docs/PROVIDER_TESTING.md", "docs/pt-PT/PROVIDER_TESTING.md", "docs/pt-PT/PROVIDERS.md",
             "docs/pt-PT/PROJECT_SCOPE.md",
+            "docs/SCOPE.md", "docs/pt-PT/SCOPE.md",
         ):
             with self.subTest(path=name):
                 text = (ROOT / name).read_text(encoding="utf-8")
@@ -58,6 +59,8 @@ class RepositoryHygieneTests(unittest.TestCase):
             "docs/adr/0002-versioned-check-contract.md", "docs/pt-PT/adr/0002-versioned-check-contract.md",
             "docs/PROVIDER_TESTING.md", "docs/pt-PT/PROVIDER_TESTING.md", "docs/pt-PT/PROVIDERS.md",
             "docs/pt-PT/PROJECT_SCOPE.md",
+            "docs/SCOPE.md", "docs/pt-PT/SCOPE.md",
+            "src/euromind_safeops/scope.py", "tests/test_scope.py",
             ".github/workflows/ci.yml", ".github/CODEOWNERS",
         ):
             with self.subTest(path=name):

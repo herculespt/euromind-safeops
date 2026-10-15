@@ -1,10 +1,10 @@
 # Política de execução e compatibilidade
 
-<!-- safeops-version: 0.3.0a2 -->
+<!-- safeops-version: 0.3.0a3 -->
 
 [English](../EXECUTION.md)
 
-Versão atual do código: **0.3.0a2**, pré-versão alfa. Este guia descreve o que está
+Versão atual do código: **0.3.0a3**, pré-versão alfa. Este guia descreve o que está
 implementado; consulta o [estado](STATUS.md) para limitações e publicações.
 
 ## Configuração
@@ -28,6 +28,15 @@ profundidade excessiva detetada pelo descodificador produz um erro controlado. A
 configuração não permite plugins, comandos arbitrários ou uma lista de caminhos
 autorizados. Os caminhos do plano são informação de âmbito, sem isolamento.
 
+## Validação prévia dos caminhos
+
+A versão 0.3.0a3 valida e normaliza os caminhos declarados antes do fornecedor e
+da gravação, e volta a verificá-los antes da aprovação/execução. Os planos
+históricos continuam disponíveis para revisão; âmbitos inseguros não autorizam
+verificações. `--path` não reduz o digest do workspace nem os alvos dos comandos
+fixos. A [política de âmbito](SCOPE.md) descreve sintaxe, ficheiros futuros,
+ligações e limitações de concorrência.
+
 ## Contrato da aprovação
 
 Os planos mantêm o schema 1. As novas aprovações usam o schema 2 e ligam:
@@ -49,6 +58,11 @@ contornar esta regra.
 Atualizar de 0.3.0a1 para 0.3.0a2 também exige novo plano e aprovação, porque o
 contrato existente liga a versão do pacote. Os schemas de configuração/plano 1
 e aprovação 2 não mudam nesta atualização da validação dos fornecedores.
+
+Atualizar de 0.3.0a2 para 0.3.0a3 também exige um novo plano e aprovação pela
+ligação à versão. Mantêm-se os schemas 1 de configuração/planos e 2 de aprovação.
+As formas de caminho agora não suportadas falham antes do fornecedor; os
+registos antigos continuam disponíveis para revisão, sem serem reescritos.
 
 Alterar a versão do pacote ou o contrato dos comandos invalida uma aprovação,
 mesmo sem alterações ao projeto ou à configuração. Uma mudança de comportamento

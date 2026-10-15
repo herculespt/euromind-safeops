@@ -10,6 +10,7 @@ from pathlib import Path
 from . import __version__
 from .core import SafeOpsError, atomic_json_write, audit, file_in_workspace, read_json, sha256, tree_digest, utc_now, workspace
 from .planning import load_plan
+from .scope import validate_scope_paths
 
 CHECKS = {
     "compile": ["-m", "compileall", "-q", "src", "tests"],
@@ -47,6 +48,7 @@ def approve(root: Path, plan_id: str, reason: str, confirmation: str) -> dict:
     plan = load_plan(root, plan_id)
     if plan["risk"] == "critical":
         raise SafeOpsError("Critical-risk plans cannot be approved under the current policy")
+    validate_scope_paths(root, plan.get("paths"))
     if tree_digest(root) != plan["workspace_digest"]:
         raise SafeOpsError("Workspace changed since planning; create a new plan")
     cfg = get_config(root)
@@ -65,6 +67,7 @@ def run(root: Path, plan_id: str, *, timeout: int = 60) -> dict:
     plan = load_plan(root, plan_id)
     if plan["risk"] == "critical":
         raise SafeOpsError("Critical-risk plans are blocked")
+    validate_scope_paths(root, plan.get("paths"))
     approved = read_json(file_in_workspace(root, "approvals", plan_id))
     cfg = get_config(root)
     if (approved.get("schema") != APPROVAL_SCHEMA_VERSION or

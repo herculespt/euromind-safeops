@@ -1,18 +1,20 @@
-# Architecture — 0.3.0a2
+# Architecture — 0.3.0a3
 
-<!-- safeops-version: 0.3.0a2 -->
+<!-- safeops-version: 0.3.0a3 -->
 
 ## Data flow
 
 ```mermaid
 flowchart TD
-  U[User / CLI] --> P[Task planner]
+  U[User / CLI] --> V{Task and paths valid?}
+  V -->|No| X[Fail closed]
+  V -->|Yes| P[Task planner]
   P --> R[Deterministic risk & specialist routing]
   P -. Explicit opt-in .-> A[Remote advisory provider]
   R --> D[Immutable-by-convention plan JSON + SHA-256]
   A -. Untrusted advisory text only .-> D
   D --> H[Human review & approval]
-  H --> G{Non-critical and integrity unchanged?}
+  H --> G{Non-critical, valid scope and unchanged integrity?}
   G -->|No| X[Fail closed]
   G -->|Yes| E[Fixed compile / unit test checks]
   E --> L[Local JSONL audit]
@@ -24,6 +26,7 @@ flowchart TD
 |---|---|
 | `cli.py` | Parser, command lifecycle and JSON display |
 | `core.py` | Workspace path hygiene, shared strict UTF-8 JSON decoder, storage, file snapshotting, audit |
+| `scope.py` | Portable advisory path syntax, link/reparse checks and lifecycle preflight |
 | `planning.py` | Rule-based risk and role suggestions, plan fingerprinting |
 | `providers.py` | Offline, native OpenAI Responses, Anthropic Messages and compatible non-executable advice |
 | `execution.py` | Config validation, approval and strict fixed check commands |
@@ -50,6 +53,7 @@ Plans and configuration retain schema 1. Approval schema 2 binds the plan finger
 ## Execution model
 
 - The offline planner gives **advice**, not edits.
+- [Scope preflight](SCOPE.md) precedes remote advice/persistence and runs again at approval/run. Declared paths remain advisory; snapshots and fixed check targets are not narrowed.
 - The optional HTTP adapters send only supplied task text; native endpoints are pinned, and AI output is always untrusted advice.
 - Provider responses share strict UTF-8 object decoding with stored JSON and reject duplicate keys/non-finite numbers. Transport doubles and real loopback fixture requests cover the HTTP path; separate live OpenAI and Anthropic smoke tests have passed, while compatible/local-model and broader account/model validation remain [pending](PROVIDER_TESTING.md).
 - Allowed checks are hard-coded as Python `compileall` and the internal `euromind_safeops.check_runner` module, which uses stdlib `unittest`.

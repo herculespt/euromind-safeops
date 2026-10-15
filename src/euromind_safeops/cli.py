@@ -12,6 +12,7 @@ from .core import SafeOpsError, atomic_json_write, audit, read_json, secure_dir,
 from .execution import APPROVAL_SCHEMA_VERSION, CONFIG_SCHEMA_VERSION, approve, execution_contract_digest, get_config, run
 from .planning import create_plan, load_plan, specialization, validate_task
 from .providers import offline_advice, remote_advice, provider_status
+from .scope import validate_scope_paths
 from .scanning import scan
 
 
@@ -25,7 +26,7 @@ def make_parser() -> argparse.ArgumentParser:
     commands.add_parser("providers", help="List advisory backends and credential availability")
     p = commands.add_parser("plan", help="Create a hashed, advisory-only task plan")
     p.add_argument("task", help="Short task description; never paste secrets")
-    p.add_argument("--path", action="append", default=[], help="Relative scope path (repeatable)")
+    p.add_argument("--path", action="append", default=[], help="Portable relative advisory path; not a check restriction (repeatable)")
     p.add_argument("--provider", choices=["offline", "openai", "anthropic", "openai-compatible"], default="offline")
     p.add_argument("--endpoint", default="")
     p.add_argument("--model", default="")
@@ -80,6 +81,7 @@ def main(argv: list[str] | None = None) -> int:
         workspace(root)
         if args.command == "plan":
             validate_task(args.task)
+            scope_paths = validate_scope_paths(root, args.path)
             if args.provider != "offline":
                 if args.provider == "openai-compatible" and not args.endpoint:
                     raise SafeOpsError("Custom provider needs --endpoint")
@@ -90,7 +92,7 @@ def main(argv: list[str] | None = None) -> int:
                 if args.allow_remote or args.endpoint or args.model or args.provider_timeout != 15:
                     raise SafeOpsError("Remote flags only apply to remote providers")
                 advice = offline_advice(args.task, specialization(args.task))
-            plan = create_plan(root, args.task, args.path, advice, args.provider)
+            plan = create_plan(root, args.task, scope_paths, advice, args.provider)
             audit(root, "plan", plan["id"], plan["risk"])
             print(json.dumps(plan, indent=2, ensure_ascii=False))
             if plan["risk"] == "critical":

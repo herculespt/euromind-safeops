@@ -2,7 +2,7 @@
 
 This roadmap is directional, not a promise of dates or delivered features.
 
-Current source version: **0.3.0a2** (alpha prerelease). See [status](docs/STATUS.md)
+Current source version: **0.3.0a3** (alpha prerelease). See [status](docs/STATUS.md)
 and [PT-PT](docs/pt-PT/STATUS.md). Source milestones are not published releases.
 
 ## v0.1.0 — Initial open-source foundation (implemented)
@@ -39,8 +39,14 @@ No tagged release or package publication is implied by this source version.
 - [x] Separate live OpenAI `gpt-4.1-mini` smoke test on 2026-10-15: one saved advisory plan, successful integrity review and no execution approval; see [evidence](docs/audits/2026-10-15-openai-smoke.md).
 - [x] Separate live Anthropic `claude-haiku-5-5` smoke test on 2026-10-15: one saved advisory plan, successful integrity review and no execution approval; see [evidence](docs/audits/2026-10-15-anthropic-smoke.md).
 
+## 0.3.0a3 — Advisory scope preflight (implemented in source)
+- [x] Portable relative path validation before any provider invocation and plan persistence.
+- [x] Recheck declared path components at approval/run; reject links, junctions, traversal and internal/generated paths.
+- [x] Canonical advisory path records, future-path support and regression tests without real provider access.
+- [x] EN/PT-PT scope policy and upgrade documentation; existing configuration/plan/approval schemas retained.
+
 ## Next — Policy and integration hardening (planned)
-- [ ] Explicit workspace filesystem allowlists.
+- [ ] Explicit workspace filesystem allowlists that restrict checks/reads; 0.3.0a3 advisory path preflight does not implement this boundary.
 - [ ] Structured JSON output options and improved CI test reporting.
 - [ ] Live compatible/local-model checks and broader account/model validation; the separate OpenAI and Anthropic smokes do not establish universal compatibility.
 - [ ] Broader test adapters without permitting AI-generated commands.

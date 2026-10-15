@@ -1,24 +1,28 @@
 # Validação dos fornecedores e procedimento de teste real
 
-<!-- safeops-version: 0.3.0a2 -->
+<!-- safeops-version: 0.3.0a3 -->
 
 [English](../PROVIDER_TESTING.md)
 
-Versão atual do código: **0.3.0a2**, pré-versão alfa. Este registo inclui
+Versão atual do código: **0.3.0a3**, pré-versão alfa. Este registo inclui
 pedidos reais separados OpenAI e Anthropic verificados, sem afirmar publicação
 de release ou validação universal de fornecedores/modelos.
+
+Os registos reais abaixo mantêm a versão testada 0.3.0a2. A alteração de admissão
+de caminhos da versão atual 0.3.0a3 é validada offline, sem novo pedido faturável.
 
 ## Evidência — 15 de outubro de 2026
 
 | Camada | Verificado | Limite |
 |---|---|---|
+| Admissão do âmbito (0.3.0a3) | Caminhos inválidos não invocam o fornecedor; caminhos válidos/futuros são guardados; ligações alteradas falham nova validação | Fornecedores simulados; sem allowlist ou isolamento seguro |
 | Contratos OpenAI/Anthropic | Origens fixas, cabeçalhos de autenticação, serialização e blocos de texto | Transporte simulado; sem ligação aos fornecedores |
 | Falhas de transporte | HTTP 401/429/500, erros de URL, timeout, formatos inválidos e erros sem detalhes sensíveis | Respostas fixas e testes offline |
 | JSON e limites | UTF-8/BOM, chaves repetidas, números não finitos, codificação inválida, limite de 256 000 bytes e aconselhamento de 6 000 caracteres | Objetos válidos suportados; descodificador comum ao estado local |
 | Integração HTTP compatível | POST real em 127.0.0.1, gravação de plano pela CLI, texto português, sem envio de código nem aprovação automática | Servidor local de teste; sem inferência |
 | Redirecionamentos | Respostas reais 301/302/303/307/308; o destino não recebe pedidos | Apenas servidores locais de teste |
-| Inferência real OpenAI | **Aprovada: `gpt-4.1-mini`, 15 de outubro de 2026** | Um plano guardado e verificado; consultar [evidência datada](audits/2026-10-15-openai-smoke.md) |
-| Inferência real Anthropic | **Aprovada: `claude-haiku-5-5`, 15 de outubro de 2026** | Um plano guardado e verificado; consultar [evidência datada](audits/2026-10-15-anthropic-smoke.md) |
+| Inferência real OpenAI | **Aprovada: `gpt-4.1-mini`, 15 de outubro de 2026** | Versão testada 0.3.0a2; plano guardado/revisto; consultar [evidência datada](audits/2026-10-15-openai-smoke.md) |
+| Inferência real Anthropic | **Aprovada: `claude-haiku-5-5`, 15 de outubro de 2026** | Versão testada 0.3.0a2; plano guardado/revisto; consultar [evidência datada](audits/2026-10-15-anthropic-smoke.md) |
 | Inferência real de modelos compatíveis/locais | **Pendente** | Não é afirmada validação real desses endpoints/modelos |
 
 O servidor compatível devolve texto predefinido; não é um modelo de IA. Os testes
@@ -79,7 +83,8 @@ ou mudanças de fornecedor automáticas.
 
 ## Compatibilidade e referências
 
-A versão 0.3.0a2 torna mais estrita a leitura das respostas. Os schemas de
+A versão 0.3.0a2 introduziu a leitura estrita das respostas; a 0.3.0a3 acrescenta
+[validação prévia do âmbito](SCOPE.md). Os schemas de
 configuração/plano 1 e aprovação 2 mantêm-se. Atualizar o pacote invalida as
 aprovações de execução anteriores através da ligação à versão já existente:
 preservar o histórico e criar novo plano e aprovação explícita antes de executar
