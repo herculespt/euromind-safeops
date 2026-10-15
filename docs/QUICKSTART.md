@@ -1,8 +1,8 @@
 # Quickstart
 
-<!-- safeops-version: 0.3.0a5 -->
+<!-- safeops-version: 0.3.0a6 -->
 
-Current source version: **0.3.0a5**, alpha prerelease. Requires Python 3.11+, Git optional, and a trusted source tree. The default schema-1 checks require `src/` and a nonempty unittest suite under `tests/`; optional [schema-2 targets](TARGETS.md) select other directories. Nested test packages need `__init__.py`.
+Current source version: **0.3.0a6**, alpha prerelease. Requires Python 3.11+, Git optional, and a trusted source tree. The default schema-1 checks require `src/` and a nonempty unittest suite under `tests/`; optional [schema-2 targets](TARGETS.md) select other directories. Nested test packages need `__init__.py`.
 
 ```bash
 git clone https://github.com/herculespt/euromind-safeops.git
@@ -50,7 +50,7 @@ fixed checks. See the [scope policy](SCOPE.md).
 - `Invalid config`: use exactly `schema` (integer 1) and a nonempty `checks` list of unique supported names. Unknown fields, duplicate JSON keys and non-finite numbers are rejected.
 - `Missing or stale approval`: review the current version and source, then create a new plan and approval; do not modify old approval files to bypass the check.
 - `Critical-risk plans cannot be approved`: intentionally unsupported; use your organization's external review/release process.
-- `run.lock` exists after a crash: confirm no check process is running before manually removing the lock.
+- A retained `run.lock` blocks after interruption: inspect `doctor`, independently verify parent/child checks stopped, then use [explicit archival recovery](LOCKING.md). Never delete `run.guard`.
 
 `doctor` counts candidate test filenames recursively without importing them. It does not prove that tests will be discovered or executed; only an approved run does discovery.
 

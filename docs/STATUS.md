@@ -1,10 +1,10 @@
 # Implementation and publication status
 
-<!-- safeops-version: 0.3.0a5 -->
+<!-- safeops-version: 0.3.0a6 -->
 
 [Português (Portugal)](pt-PT/STATUS.md)
 
-**Current source version: 0.3.0a5 — alpha prerelease.** Python 3.11–3.13 is
+**Current source version: 0.3.0a6 — alpha prerelease.** Python 3.11–3.13 is
 covered by CI on Linux, Windows and macOS. No third-party runtime dependencies.
 This source milestone is not a published release: GitHub Releases/tags require
 separate approval, and package-registry publication is not configured or verified.
@@ -18,7 +18,9 @@ separate approval, and package-registry publication is not configured or verifie
 | Strict configuration and stored JSON | Schema-1 defaults and opt-in schema-2 targets, unique fixed checks, UTF-8/finite/unique-key JSON |
 | Approval schema 2 and execution-contract binding | Package/command changes require new plan and explicit approval |
 | Fixed compile and unittest checks | Empty/all-skipped test execution fails; no isolation or coverage guarantee |
-| UTF-8 check streams, lock and timeout | Existing crash/race and trusted-code limits remain |
+| UTF-8 check streams and timeout | Direct-child timeout; process-tree supervision not implemented |
+| Native local run guard and owned marker | Cooperative POSIX/Windows locking; guard persists, abandoned/legacy markers block |
+| Lock diagnostics and explicit archival recovery | Doctor fingerprint/status, human process verification, receipt/audit; no automatic stale inference or approval grant |
 | OpenAI, Anthropic and compatible advisory adapters | Explicit consent, task-only request, strict UTF-8 response objects; offline contracts/loopback fixtures; separate live OpenAI `gpt-4.1-mini` and Anthropic `claude-haiku-5-5` requests and saved-plan reviews verified on 2026-10-15 |
 | Portable advisory scope preflight | Validated before remote advice/persistence and rechecked at approval/run; paths do not restrict fixed checks |
 | Explicit fixed-check directory targets | Optional schema 2; recursive link checks and selected-file approval digest; not an OS access boundary |
@@ -40,6 +42,7 @@ separate approval, and package-registry publication is not configured or verifie
 | Signed approvals, tamper-proof audit, remote attestation | Not implemented |
 | Production deployment or automatic release publication | Not implemented |
 | Live compatible/local-model inference and broader account/model compatibility | Pending; separate successful OpenAI and Anthropic smokes do not establish these |
+| Distributed/network-filesystem locks, process-tree supervision and automatic recovery decisions | Planned; current locking is cooperative/local and recovery explicitly human-confirmed |
 | JUnit/coverage reports and report-artifact uploads | Planned; aggregate summaries are implemented |
 | Workflow dependency lockfiles, complete reproducible builds, independent history-wide secret audit | Pending separate work |
 
@@ -62,8 +65,9 @@ See [execution compatibility](EXECUTION.md), [trust model](TRUST_MODEL.md),
 Provider evidence distinguishes fixtures from the separate verified live requests in
 [provider testing](PROVIDER_TESTING.md), the [OpenAI record](audits/2026-10-15-openai-smoke.md)
 and the [Anthropic record](audits/2026-10-15-anthropic-smoke.md).
-The live requests above were tested on source 0.3.0a2. Current source 0.3.0a5
-adds [structured CLI output and CI summaries](OUTPUT.md), preserving optional
+The live requests above were tested on source 0.3.0a2. Current source 0.3.0a6
+adds [native locking and explicit recovery](LOCKING.md), preserving
+[structured output and summaries](OUTPUT.md), optional
 [check directory targets](TARGETS.md), advisory [scope preflight](SCOPE.md) and
 schema-1 defaults. The version-bound contract
 invalidates earlier execution approvals; schema-2 config also binds selected files.

@@ -2,7 +2,7 @@
 
 This roadmap is directional, not a promise of dates or delivered features.
 
-Current source version: **0.3.0a5** (alpha prerelease). See [status](docs/STATUS.md)
+Current source version: **0.3.0a6** (alpha prerelease). See [status](docs/STATUS.md)
 and [PT-PT](docs/pt-PT/STATUS.md). Source milestones are not published releases.
 
 ## v0.1.0 — Initial open-source foundation (implemented)
@@ -58,12 +58,19 @@ No tagged release or package publication is implied by this source version.
 - [x] Shared fail-closed unittest statistics and aggregate Markdown summaries in all nine matrix and two installed-wheel jobs.
 - [x] Offline output/reporting regressions, EN/PT-PT contract and synchronized current documentation/version/status.
 
+## 0.3.0a6 — Native local locking and explicit recovery (implemented in source)
+- [x] Persistent nonblocking POSIX/Windows native guard and exclusively created owned marker; no unprotected fallback.
+- [x] Guard covers approval/snapshot validation and checks; descriptor noninheritance and unchanged-owner cleanup.
+- [x] Read-only point-in-time doctor diagnostics, bounded marker fingerprint/format and no PID-based liveness inference.
+- [x] Explicit recovery confirmation/acknowledgement/reason, busy-guard rejection, original-marker archive, receipt and audit without granting approval.
+- [x] Real subprocess contention/abrupt-death regressions and EN/PT-PT lock/compatibility/status/maintainer guides.
+
 ## Next — Policy and integration hardening (planned)
 - [ ] OS-enforced workspace filesystem allowlists that restrict arbitrary reads; 0.3.0a4 check target selection does not implement this isolation boundary.
 - [ ] JUnit/coverage reports and reviewed report-artifact publication; aggregate summaries are implemented, not coverage proof.
 - [ ] Live compatible/local-model checks and broader account/model validation; the separate OpenAI and Anthropic smokes do not establish universal compatibility.
 - [ ] Broader test adapters without permitting AI-generated commands.
-- [ ] Cross-platform locking and clearer interrupted-run recovery.
+- [ ] Process-tree supervision/termination, independently verified automatic recovery and distributed/network-filesystem leases; current recovery remains explicitly human-confirmed and local.
 - [ ] Expand the PT-PT documentation alongside English documentation.
 
 ## Future — Controlled agent workflows (planned; no version or date committed)

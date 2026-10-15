@@ -1,6 +1,6 @@
-# Saída estruturada da CLI — 0.3.0a5
+# Saída estruturada da CLI — 0.3.0a6
 
-<!-- safeops-version: 0.3.0a5 -->
+<!-- safeops-version: 0.3.0a6 -->
 
 [English](../OUTPUT.md)
 
@@ -21,13 +21,13 @@ conter literalmente `--json` sem ativar o modo global.
 
 ## Envelope de schema 1
 
-Os oito comandos (`init`, `providers`, `doctor`, `scan`, `plan`, `review`,
-`approve`, `run`) devolvem um único objeto JSON UTF-8 nos resultados tratados:
+Os nove comandos (`init`, `providers`, `doctor`, `scan`, `plan`, `review`,
+`approve`, `run`, `recover-lock`) devolvem um único objeto JSON UTF-8 nos resultados tratados:
 
 ```json
 {
   "schema": 1,
-  "safeops_version": "0.3.0a5",
+  "safeops_version": "0.3.0a6",
   "command": "scan",
   "ok": true,
   "exit_code": 0,
@@ -81,10 +81,15 @@ potencialmente sensível. Não é um serviço adicional de remoção de dados, u
 assinatura, autorização automática ou isolamento. A funcionalidade e os testes
 offline não exigem pedidos a fornecedores.
 
-A versão 0.3.0a5 preserva os schemas 1/2 de configuração, 1 de plano e 2 de
-aprovação e o protocolo 2 do runner. A ligação à versão continua a invalidar
+A versão 0.3.0a6 preserva os schemas 1/2 de configuração, 1 de plano e 2 de
+aprovação; o protocolo 3 do runner inclui agora protocolo 1 do bloqueio nativo. A ligação à versão continua a invalidar
 aprovações anteriores: preservar o histórico e criar novo plano revisto e
 aprovação. Não há migração automática nem publicação de release ou pacote.
+
+`doctor.data.run_lock` acrescenta diagnóstico momentâneo da guarda/marcador.
+`recover-lock` usa o mesmo envelope e exige [confirmações explícitas](LOCKING.md).
+Uma recuperação pode falhar após o arquivo: rever recibo/arquivo e `doctor`
+antes de repetir. Nunca concede aprovação de execução.
 
 ## Resumos do CI
 

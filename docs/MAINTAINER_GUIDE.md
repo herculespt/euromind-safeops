@@ -69,3 +69,9 @@ For JSON/CI changes, check the optional [envelope contract](OUTPUT.md), default
 CLI compatibility and process codes. Inspect the job summaries as well as logs
 for each matrix/distribution job. Summary totals do not replace failure gates or
 prove coverage; keep JUnit/coverage/artifact publication marked as planned.
+
+For interrupted runs, follow [native-lock recovery](LOCKING.md): independently
+verify parent/child checks stopped, inspect the marker fingerprint and archive
+with explicit acknowledgement/reason. Never remove the persistent guard or
+infer liveness from a PID. Inspect receipt/archive/audit after any recovery
+error; recovery is not one transaction and grants no execution approval.

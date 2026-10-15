@@ -8,8 +8,9 @@ import sys
 from pathlib import Path
 
 from . import __version__
-from .core import SafeOpsError, atomic_json_write, audit, read_json, secure_dir, tree_digest, workspace
+from .core import SafeOpsError, atomic_json_write, audit, secure_dir, tree_digest, workspace
 from .execution import APPROVAL_SCHEMA_VERSION, CONFIG_SCHEMA_VERSION, approve, execution_contract_digest, get_config, run
+from .locking import lock_status, recover_lock
 from .planning import create_plan, load_plan, specialization, validate_task
 from .providers import offline_advice, remote_advice, provider_status
 from .scope import validate_scope_paths
@@ -55,6 +56,11 @@ def make_parser() -> argparse.ArgumentParser:
     run_parser.add_argument("plan_id")
     run_parser.add_argument("--timeout", type=int, default=60)
     commands.add_parser("scan", help="Best-effort secret pattern scan, file/line only")
+    recovery = commands.add_parser("recover-lock", help="Archive a retained marker after verifying no checks are running")
+    recovery.add_argument("--confirm", required=True, help="Repeat the exact doctor marker fingerprint")
+    recovery.add_argument("--reason", required=True)
+    recovery.add_argument("--confirm-no-running-checks", action="store_true",
+                          help="Acknowledge independently verifying parent/child checks have stopped")
     return parser
 
 
@@ -101,12 +107,15 @@ def _execute(args: argparse.Namespace) -> tuple[dict, int, list[str]]:
                 "source_files_digest": tree_digest(root),
                 "test_files": len(list(test_root.rglob("test*.py"))) if test_root else 0,
                 "approval_schema": APPROVAL_SCHEMA_VERSION,
-                "execution_contract": execution_contract_digest()}, 0, []
+                "execution_contract": execution_contract_digest(),
+                "run_lock": lock_status(root)}, 0, []
     if args.command == "scan":
         findings = scan(root)
         return {"findings": findings, "count": len(findings),
                 "note": "Pattern checks are not a full security audit"}, 1 if findings else 0, []
     workspace(root)
+    if args.command == "recover-lock":
+        return recover_lock(root, args.confirm, args.reason, args.confirm_no_running_checks), 0, []
     if args.command == "plan":
         validate_task(args.task)
         scope_paths = validate_scope_paths(root, args.path)

@@ -27,7 +27,7 @@ Human approval intent; source code under review; local credentials; repository i
 | Empty or all-skipped unit-test suite | Child runner requires discovered cases and a non-skipped execution | Trusted tests can manipulate the interpreter; assertion quality is not verified |
 | Remote data exfiltration | Opt-in provider, task-only payload, HTTPS/loopback-only | User may paste secrets into task; TLS trusts endpoint |
 | Hidden credentials in repository | Heuristic scanner prints only file/line | Unknown secret formats will be missed |
-| Concurrent check runs | Exclusive local lockfile | Crash can leave lock; filesystem races exist |
+| Concurrent check runs/recovery | Persistent native guard, owned marker and fingerprint/acknowledgement-bound archival recovery; [policy](LOCKING.md) | Local cooperative lock; retained markers do not prove child liveness; no distributed guarantee, process-tree supervision or protection from a state owner rewriting files |
 | Root symlink to private directory | Root resolves explicitly; `.safeops` symlink rejected | Other local filesystem races possible |
 
 ## Explicitly unsupported

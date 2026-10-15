@@ -45,6 +45,13 @@ Consultar o [contrato da saída](OUTPUT.md) EN/PT-PT. Os resumos não são JUnit
 cobertura ou uploads. Não mudam Actions, permissões ou nome do check obrigatório.
 Os arquivos exigem o módulo CI, os dois guias da saída e os testes de regressão.
 
+Os testes do bloqueio lançam processos reais concorrentes e uma execução
+aprovada, verificam recuperação recusada com guarda ocupada, marcador após morte
+abrupta e arquivo com preservação do histórico. Windows executa uma junction
+no diretório de estado; POSIX executa um pipe com nome. Os dois jobs de
+distribuição exigem `locking.py`, testes e os dois [guias](LOCKING.md). Não há
+recuperação de bloqueios reais do projeto nem pedidos a fornecedores.
+
 ## Actions revistas em 15 de outubro de 2026
 
 | Action | Versão | Commit oficial |

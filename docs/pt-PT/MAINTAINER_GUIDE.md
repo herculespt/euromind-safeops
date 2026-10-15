@@ -52,3 +52,9 @@ Nas alterações JSON/CI, verificar o [contrato do envelope](OUTPUT.md), a saíd
 predefinida e os códigos do processo. Inspecionar resumos e logs em cada job da
 matriz/distribuição. Os totais não substituem o gate nem provam cobertura; manter
 JUnit/cobertura/publicação de relatórios como planeados.
+
+Nas interrupções, seguir a [recuperação do bloqueio](LOCKING.md): verificar de
+forma independente os processos principais/filhos, rever o fingerprint e
+arquivar com confirmação e razão expressas. Nunca apagar a guarda nem deduzir
+o estado dos processos pelo PID. Rever recibo/arquivo/auditoria após um erro;
+a recuperação não é uma transação única nem concede aprovação de execução.

@@ -1,10 +1,10 @@
 # Política de execução e compatibilidade
 
-<!-- safeops-version: 0.3.0a5 -->
+<!-- safeops-version: 0.3.0a6 -->
 
 [English](../EXECUTION.md)
 
-Versão atual do código: **0.3.0a5**, pré-versão alfa. Este guia descreve o que está
+Versão atual do código: **0.3.0a6**, pré-versão alfa. Este guia descreve o que está
 implementado; consulta o [estado](STATUS.md) para limitações e publicações.
 
 ## Configuração
@@ -36,11 +36,11 @@ inclui exemplo JSON, limites e compatibilidade.
 
 ## Saída e relatórios do CI
 
-A versão 0.3.0a5 acrescenta envelopes `--json` opcionais e resumos agregados do
+A versão 0.3.0a5 introduziu envelopes `--json` opcionais e resumos agregados do
 CI; consultar o [contrato da saída](OUTPUT.md). A apresentação não altera a
 autoridade de aprovação. Mantêm-se os schemas 1/2 de configuração, 1 de plano,
-2 de aprovação e o protocolo 2. A mudança de versão exige plano/aprovação novos,
-preservando o histórico. Argumentos inválidos devolvem agora 2 de `main` em
+2 de aprovação; a versão atual usa protocolo 3 do runner e 1 do bloqueio.
+A mudança de versão exige plano/aprovação novos, preservando o histórico. Argumentos inválidos devolvem agora 2 de `main` em
 Python; o código do processo mantém-se 2. Ajuda/versão continuam textuais.
 
 ## Validação prévia dos caminhos
@@ -57,7 +57,7 @@ ligações e limitações de concorrência.
 Os planos mantêm o schema 1. As novas aprovações usam o schema 2 e ligam:
 
 - ID e fingerprint do plano, snapshot do código e hash da configuração validada.
-- Versão carregada do SafeOps, protocolo, tabela fixa de comandos/adaptador de alvos e política UTF-8, através do digest do contrato de execução.
+- Versão carregada, protocolo do runner/bloqueio nativo, tabela fixa de comandos/adaptador e política UTF-8, através do digest do contrato de execução.
 - Na configuração de schema 2, um `targets_digest` adicional de todos os ficheiros regulares selecionados, incluindo exclusões do snapshot normal.
 
 O `doctor` apresenta a versão, o schema de configuração, os diretórios efetivos,
@@ -87,6 +87,11 @@ na aprovação. Mantêm-se os schemas 1 de plano e 2 de aprovação. Caches gera
 nas árvores selecionadas podem invalidar execuções posteriores; rever e criar
 novo plano/aprovação.
 
+Atualizar para 0.3.0a6 exige novo plano/aprovação: protocolo 3 do runner e 1 do
+bloqueio nativo local. Marcadores antigos/desconhecidos continuam a bloquear;
+usar [diagnóstico e recuperação por arquivo](LOCKING.md) apenas após verificar
+que os processos principais e filhos terminaram. Nunca apagar a guarda persistente.
+
 Alterar a versão do pacote ou o contrato dos comandos invalida uma aprovação,
 mesmo sem alterações ao projeto ou à configuração. Uma mudança de comportamento
 exige atualizar a versão do pacote/protocolo. Estes registos são verificações
@@ -112,9 +117,11 @@ O runner interno devolve 0 no sucesso, 1 para falhas de testes e 2 para
 descoberta/execução inutilizável. O comando `safeops run` devolve código CLI 1
 quando uma verificação falha; configuração inválida ou aprovação obsoleta
 produzem código CLI 2. O timeout mantém o código -1 no resultado e o limite
-de 1–300 segundos por verificação. O bloqueio exclusivo é libertado no fim ou
-num erro controlado; um crash pode exigir recuperação manual. As verificações
-falhadas são registadas na auditoria local. A saída capturada mantém UTF-8 e
+de 1–300 segundos por verificação. A guarda nativa persistente abrange validação
+de aprovação/configuração/snapshots e as verificações. O fim/erro normal remove apenas o marcador próprio
+e inalterado; a morte abrupta liberta o bloqueio nativo, mas retém o marcador.
+O [guia do bloqueio](LOCKING.md) descreve diagnóstico, recuperação, estado antigo
+e limites. As verificações falhadas são registadas na auditoria local. A saída capturada mantém UTF-8 e
 é truncada no resultado devolvido.
 
 Os testes e hooks de descoberta continuam a executar Python de confiança e

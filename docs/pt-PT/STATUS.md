@@ -1,10 +1,10 @@
 # Estado de implementação e publicação
 
-<!-- safeops-version: 0.3.0a5 -->
+<!-- safeops-version: 0.3.0a6 -->
 
 [English](../STATUS.md)
 
-**Versão atual do código: 0.3.0a5 — pré-versão alfa.** O CI cobre Python
+**Versão atual do código: 0.3.0a6 — pré-versão alfa.** O CI cobre Python
 3.11–3.13 em Linux, Windows e macOS. Não existem dependências externas em
 execução. Este marco do código não é uma release publicada: tags e releases
 GitHub exigem autorização própria; a publicação em registos de pacotes não
@@ -19,7 +19,9 @@ está configurada nem verificada.
 | Configuração e JSON estritos | Configuração predefinida de schema 1 e alvos opcionais de schema 2, verificações únicas predefinidas e JSON UTF-8 sem chaves repetidas ou números não finitos |
 | Aprovações schema 2 ligadas ao contrato de execução | Alterar versão/comandos exige novo plano e aprovação expressa |
 | Verificações fixas de compilação e unittest | Suites vazias ou totalmente ignoradas falham; sem isolamento ou garantia de cobertura |
-| Saída UTF-8, bloqueio e timeout | Mantêm-se as limitações de crashes, concorrência e código de confiança |
+| Saída UTF-8 e timeout | Timeout do subprocesso direto; sem supervisão de toda a árvore de processos |
+| Guarda nativa local e marcador próprio | Bloqueio cooperativo POSIX/Windows; guarda persistente, marcadores abandonados/antigos bloqueiam |
+| Diagnóstico e recuperação explícita por arquivo | Estado/fingerprint no doctor, verificação humana, recibo/auditoria; sem dedução automática ou aprovação |
 | Adaptadores de aconselhamento OpenAI, Anthropic e compatíveis | Consentimento expresso, envio apenas da tarefa e respostas UTF-8 estritas; contratos offline e HTTP em loopback; pedidos reais separados OpenAI `gpt-4.1-mini` e Anthropic `claude-haiku-5-5`, com revisão dos planos, verificados em 15 de outubro de 2026 |
 | Validação prévia dos caminhos de âmbito | Antes do fornecedor/gravação e novamente na aprovação/execução; os caminhos não restringem os alvos fixos |
 | Diretórios explícitos das verificações | Schema 2 opcional; validação recursiva de ligações e digest dos ficheiros selecionados; sem isolamento pelo SO |
@@ -41,6 +43,7 @@ está configurada nem verificada.
 | Aprovações assinadas, auditoria inviolável ou atestação remota | Não implementadas |
 | Deploy de produção ou publicação automática de releases | Não implementados |
 | Inferência real de modelos compatíveis/locais e compatibilidade alargada de contas/modelos | Pendente; os testes separados OpenAI e Anthropic não demonstram estas capacidades |
+| Bloqueios distribuídos/de rede, supervisão da árvore de processos e recuperação automática | Planeados; bloqueio atual local/cooperativo e recuperação com confirmação humana |
 | Relatórios JUnit/cobertura e upload de relatórios | Planeados; resumos agregados implementados |
 | Lockfiles de workflows, builds integralmente reproduzíveis e auditoria independente de segredos em todo o histórico | Trabalho separado pendente |
 
@@ -65,9 +68,9 @@ Consulta a [compatibilidade de execução](EXECUTION.md), o
 A [validação dos fornecedores](PROVIDER_TESTING.md) distingue respostas fixas dos
 pedidos reais separados nos registos [OpenAI](audits/2026-10-15-openai-smoke.md) e
 [Anthropic](audits/2026-10-15-anthropic-smoke.md), testados na versão 0.3.0a2.
-A versão atual 0.3.0a5 acrescenta [saída estruturada e resumos CI](OUTPUT.md),
-preservando os [diretórios opcionais](TARGETS.md), a [validação do âmbito](SCOPE.md)
-e o schema 1 predefinido.
+A versão atual 0.3.0a6 acrescenta [bloqueio nativo e recuperação explícita](LOCKING.md),
+preservando [saída estruturada/resumos CI](OUTPUT.md), [diretórios opcionais](TARGETS.md),
+a [validação do âmbito](SCOPE.md) e o schema 1 predefinido.
 A ligação à versão invalida aprovações anteriores; a configuração de schema 2
 liga também os ficheiros selecionados. A restrição
 completa do sistema de ficheiros continua planeada. Não foi publicada uma release.

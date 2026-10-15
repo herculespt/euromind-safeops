@@ -43,6 +43,13 @@ See the EN/PT-PT [output contract](OUTPUT.md). Summaries are not JUnit, coverage
 or uploaded artifacts. No Action, permission or required-check name changes.
 The archive checks require the CI module, both output guides and regression tests.
 
+Native-lock regressions launch real competing processes and an approved run,
+verify busy recovery refusal and abrupt-death marker retention, and check safe
+archival with plan/approval history preserved. Windows runs a state-directory
+junction case; POSIX runs a named-pipe case. Both distribution jobs require
+`locking.py`, its tests and both [locking guides](LOCKING.md). No real-project
+recovery or provider call occurs in these fixtures.
+
 ## Reviewed Actions — 2026-10-15
 
 | Action | Release | Official commit |
