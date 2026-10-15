@@ -25,7 +25,7 @@ No tagged release or package publication is implied by this source version.
 - [ ] Broader HTTP transport failure and malformed-response tests.
 - [ ] Broader test adapters without permitting AI-generated commands.
 - [ ] Cross-platform locking and clearer interrupted-run recovery.
-- [ ] Pin CI actions to reviewed commit SHAs and verify minimum build-tool versions.
+- [x] Pin CI actions to reviewed commit SHAs and verify minimum build-tool versions and installed distributions.
 - [ ] Expand the PT-PT documentation alongside English documentation.
 
 ## v0.3 — Controlled agent workflows (proposed)

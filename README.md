@@ -110,6 +110,7 @@ This is a **safety workflow, not an isolation boundary**. Workspace hashes can b
 - [Português (Portugal)](docs/pt-PT/README.md) · [Project scope](docs/PROJECT_SCOPE.md)
 - [Contributing](CONTRIBUTING.md) · [Code of conduct](CODE_OF_CONDUCT.md) · [Governance](GOVERNANCE.md)
 - [Maintainer guide & branch protection](docs/MAINTAINER_GUIDE.md) · [Release procedure](docs/RELEASING.md)
+- [CI and package build contract](docs/CI.md)
 - [Repository audit — 2026-10-15](docs/audits/2026-10-15.md) · [Auditoria em PT-PT](docs/pt-PT/audits/2026-10-15.md)
 - [Security reporting](SECURITY.md) · [Roadmap](ROADMAP.md) · [Changelog](CHANGELOG.md)
 

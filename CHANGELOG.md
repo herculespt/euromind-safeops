@@ -5,9 +5,12 @@ The format follows Keep a Changelog conventions; versions follow Semantic Versio
 ## [Unreleased]
 
 ### Fixed
+- Correct the unsupported setuptools build floor; require the tested 83.0.0 baseline and remove the redundant standalone wheel build dependency.
 - Preserve UTF-8 stdout and stderr from fixed Python checks even when the inherited environment requests ASCII or the operating system uses a legacy locale.
 
 ### Repository maintenance
+- Pin reviewed checkout/setup-python v7 Actions to official commit SHAs, disable checkout credential persistence and require minimum/latest-backend artifact checks in `quality-gate`.
+- Include public documentation, examples, tests and CI contracts in source distributions.
 - Document authorized enablement of private vulnerability reporting, dependency graph, Dependabot alerts and security updates; add the PT-PT security policy.
 - Record the verified protected-main baseline and repository audit in English and Portuguese (Portugal).
 - Synchronize the roadmap with native OpenAI and Anthropic adapters already implemented in source.
