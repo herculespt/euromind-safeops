@@ -35,7 +35,7 @@ O plano **não modifica código**. A execução necessita de aprovação explíc
 
 Para utilizar OpenAI ou Claude, configura `OPENAI_API_KEY` ou `ANTHROPIC_API_KEY` no ambiente e fornece o modelo pretendido e `--allow-remote`. Vê [as instruções completas dos fornecedores](../PROVIDERS.md). Uma subscrição de chat não inclui necessariamente créditos de API.
 
-Consulta a [documentação principal](../../README.md), [arquitetura](../ARCHITECTURE.md), [modelo de confiança](../TRUST_MODEL.md) e [regras de segurança](../../SECURITY.md).
+Consulta a [documentação principal](../../README.md), [arquitetura](../ARCHITECTURE.md), [modelo de confiança](../TRUST_MODEL.md) e [regras de segurança](SECURITY.md).
 
 ## Manutenção e validação
 
