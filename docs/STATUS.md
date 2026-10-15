@@ -1,10 +1,10 @@
 # Implementation and publication status
 
-<!-- safeops-version: 0.3.0a6 -->
+<!-- safeops-version: 0.3.0a7 -->
 
 [Português (Portugal)](pt-PT/STATUS.md)
 
-**Current source version: 0.3.0a6 — alpha prerelease.** Python 3.11–3.13 is
+**Current source version: 0.3.0a7 — alpha prerelease.** Python 3.11–3.13 is
 covered by CI on Linux, Windows and macOS. No third-party runtime dependencies.
 This source milestone is not a published release: GitHub Releases/tags require
 separate approval, and package-registry publication is not configured or verified.
@@ -25,7 +25,7 @@ separate approval, and package-registry publication is not configured or verifie
 | Portable advisory scope preflight | Validated before remote advice/persistence and rechecked at approval/run; paths do not restrict fixed checks |
 | Explicit fixed-check directory targets | Optional schema 2; recursive link checks and selected-file approval digest; not an OS access boundary |
 | Structured CLI JSON envelopes | Optional global `--json`; schema 1, handled results/errors/warnings and 0/1/2 exit codes; [contract](OUTPUT.md) |
-| Aggregate CI test summaries | Shared unittest counts in nine matrix and two installed-wheel jobs; no JUnit/coverage/upload claim |
+| Aggregate CI summaries and local JUnit XML | Generated/validated in nine matrix and two installed-wheel jobs; synthetic cases and fixed outcomes; [contract](REPORTING.md) |
 | Protected main and security-reporting workflow | Verified settings are dated operational observations |
 | CI and distribution validation | Nine test environments, minimum/latest backend jobs and required aggregate gate |
 | English/PT-PT current guides and version checks | Metadata, CLI help and versioned-document markers are tested |
@@ -43,7 +43,7 @@ separate approval, and package-registry publication is not configured or verifie
 | Production deployment or automatic release publication | Not implemented |
 | Live compatible/local-model inference and broader account/model compatibility | Pending; separate successful OpenAI and Anthropic smokes do not establish these |
 | Distributed/network-filesystem locks, process-tree supervision and automatic recovery decisions | Planned; current locking is cooperative/local and recovery explicitly human-confirmed |
-| JUnit/coverage reports and report-artifact uploads | Planned; aggregate summaries are implemented |
+| Coverage measurement and report-artifact uploads | Planned; local JUnit XML and aggregate summaries are implemented |
 | Workflow dependency lockfiles, complete reproducible builds, independent history-wide secret audit | Pending separate work |
 
 The [roadmap](../ROADMAP.md) records future work without assigning delivery dates
@@ -65,8 +65,9 @@ See [execution compatibility](EXECUTION.md), [trust model](TRUST_MODEL.md),
 Provider evidence distinguishes fixtures from the separate verified live requests in
 [provider testing](PROVIDER_TESTING.md), the [OpenAI record](audits/2026-10-15-openai-smoke.md)
 and the [Anthropic record](audits/2026-10-15-anthropic-smoke.md).
-The live requests above were tested on source 0.3.0a2. Current source 0.3.0a6
-adds [native locking and explicit recovery](LOCKING.md), preserving
+The live requests above were tested on source 0.3.0a2. Current source 0.3.0a7
+adds [local JUnit reporting](REPORTING.md), preserving
+[native locking and explicit recovery](LOCKING.md),
 [structured output and summaries](OUTPUT.md), optional
 [check directory targets](TARGETS.md), advisory [scope preflight](SCOPE.md) and
 schema-1 defaults. The version-bound contract

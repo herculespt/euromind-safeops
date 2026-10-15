@@ -1,10 +1,10 @@
 # Execution policy and upgrade compatibility
 
-<!-- safeops-version: 0.3.0a6 -->
+<!-- safeops-version: 0.3.0a7 -->
 
 [Português (Portugal)](pt-PT/EXECUTION.md)
 
-Current source version: **0.3.0a6**, alpha prerelease. This document describes
+Current source version: **0.3.0a7**, alpha prerelease. This document describes
 implemented behavior; see [status](STATUS.md) for exclusions and publication state.
 
 ## Configuration
@@ -88,6 +88,10 @@ Upgrading to 0.3.0a6 requires a fresh plan/approval: runner protocol 3 adds nati
 local locking and lock protocol 1. Existing PID/unknown run markers stay blocking;
 use [diagnostics and explicit archival recovery](LOCKING.md) only after verifying
 parent and child checks stopped. Never remove the persistent guard.
+
+Source 0.3.0a7 adds optional maintainer-only [JUnit reporting](REPORTING.md),
+retaining runner protocol 3 and lock protocol 1. The version binding still requires
+a new reviewed plan/approval. Approved checks do not create JUnit reports.
 
 Changes to the package version or fixed command contract invalidate an existing
 approval even if workspace files and configuration are unchanged. Maintainers

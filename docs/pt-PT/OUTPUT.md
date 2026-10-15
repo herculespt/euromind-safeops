@@ -1,6 +1,6 @@
-# Saída estruturada da CLI — 0.3.0a6
+# Saída estruturada da CLI — 0.3.0a7
 
-<!-- safeops-version: 0.3.0a6 -->
+<!-- safeops-version: 0.3.0a7 -->
 
 [English](../OUTPUT.md)
 
@@ -27,7 +27,7 @@ Os nove comandos (`init`, `providers`, `doctor`, `scan`, `plan`, `review`,
 ```json
 {
   "schema": 1,
-  "safeops_version": "0.3.0a6",
+  "safeops_version": "0.3.0a7",
   "command": "scan",
   "ok": true,
   "exit_code": 0,
@@ -81,8 +81,8 @@ potencialmente sensível. Não é um serviço adicional de remoção de dados, u
 assinatura, autorização automática ou isolamento. A funcionalidade e os testes
 offline não exigem pedidos a fornecedores.
 
-A versão 0.3.0a6 preserva os schemas 1/2 de configuração, 1 de plano e 2 de
-aprovação; o protocolo 3 do runner inclui agora protocolo 1 do bloqueio nativo. A ligação à versão continua a invalidar
+A versão 0.3.0a7 preserva os schemas 1/2 de configuração, 1 de plano e 2 de
+aprovação; o protocolo 3 do runner mantém protocolo 1 do bloqueio nativo. A ligação à versão continua a invalidar
 aprovações anteriores: preservar o histórico e criar novo plano revisto e
 aprovação. Não há migração automática nem publicação de release ou pacote.
 
@@ -106,7 +106,10 @@ a descoberta/execução identifica a fase incompleta; as contagens podem estar
 incompletas. O resumo contém apenas totais e metadados fixos; nomes, mensagens e
 conteúdos dos testes ficam nos logs normais. Isto não remove dados desses logs
 nem prova cobertura, qualidade das asserções ou isolamento. Uma terminação
-forçada pode impedir o resumo. JUnit, cobertura e upload de relatórios permanecem planeados.
+forçada pode impedir o resumo. `--junit CAMINHO` opcional escreve XML local com
+casos sintéticos por resultado; ver [contrato JUnit](REPORTING.md). Erros de escrita
+produzem código 2; o relatório descreve o resultado dos testes, que pode diferir
+do código final do adaptador. Cobertura e upload permanecem planeados.
 
 A matriz dos nove ambientes e os dois jobs com wheel instalada usam o adaptador.
 Mantêm-se `quality-gate` e as permissões. Consultar o [CI](CI.md), a

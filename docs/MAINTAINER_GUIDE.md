@@ -68,7 +68,10 @@ remaining limits and publication status.
 For JSON/CI changes, check the optional [envelope contract](OUTPUT.md), default
 CLI compatibility and process codes. Inspect the job summaries as well as logs
 for each matrix/distribution job. Summary totals do not replace failure gates or
-prove coverage; keep JUnit/coverage/artifact publication marked as planned.
+prove coverage. Inspect generated local [JUnit reports](REPORTING.md), their fixed
+outcome mapping and runner-error entries; synthetic identifiers deliberately do
+not identify failing source tests. Keep coverage/artifact publication planned.
+Do not upload reports or ordinary logs without a separate data review.
 
 For interrupted runs, follow [native-lock recovery](LOCKING.md): independently
 verify parent/child checks stopped, inspect the marker fingerprint and archive

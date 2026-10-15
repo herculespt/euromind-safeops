@@ -1,6 +1,6 @@
-# Architecture — 0.3.0a6
+# Architecture — 0.3.0a7
 
-<!-- safeops-version: 0.3.0a6 -->
+<!-- safeops-version: 0.3.0a7 -->
 
 ## Data flow
 
@@ -32,13 +32,17 @@ flowchart TD
 | `execution.py` | Config validation, approval and strict fixed check commands |
 | `locking.py` | Persistent native guard, owned-marker cleanup, doctor status and explicit archival recovery |
 | `check_runner.py` | Child-process unittest discovery, fail-closed execution and aggregate statistics |
-| `ci_runner.py` | Maintainer CI adapter appending numeric UTF-8 job summaries; not a new approved check |
+| `ci_runner.py` | Maintainer CI adapter appending numeric UTF-8 summaries and optional local JUnit; not a new approved check |
+| `junit.py` | Fixed outcome recorder and atomic UTF-8 XML export with synthetic identifiers; no test-supplied report text |
 | `target_runner.py` | Recursive directory-target preflight, selected in-memory compilation and selected unittest discovery |
 | `scanning.py` | Credential pattern heuristics without disclosing matched values |
 
 ## Storage
 
-All generated files live in a project-local `.safeops/` directory, which should be ignored by Git:
+Workspace state lives in project-local `.safeops/`, which should be ignored by Git.
+Maintainer CI summaries/JUnit reports use explicitly selected output paths,
+with CI placing XML under `runner.temp`; they are not approval/audit state.
+See [reporting](REPORTING.md).
 
 ```
 .safeops/

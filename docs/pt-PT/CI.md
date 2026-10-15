@@ -41,9 +41,15 @@ ou totalmente ignoradas e falhas de escrita do resumo não passam. O adaptador
 reutiliza o runner fixo; o resumo não recebe nomes/mensagens ou conteúdos dos testes.
 Os logs existentes mantêm a saída normal dos testes.
 
-Consultar o [contrato da saída](OUTPUT.md) EN/PT-PT. Os resumos não são JUnit,
-cobertura ou uploads. Não mudam Actions, permissões ou nome do check obrigatório.
-Os arquivos exigem o módulo CI, os dois guias da saída e os testes de regressão.
+Consultar o [contrato da saída](OUTPUT.md) e [JUnit](REPORTING.md) EN/PT-PT.
+Os onze jobs de testes passam também `--junit` com destino em `runner.temp`,
+analisando o XML para verificar contagens, versão, fase concluída e código 0.
+Na distribuição, a validação usa Python isolado da wheel instalada. O XML exporta
+identificadores sintéticos e categorias fixas, incluindo subtestes e fixtures;
+os totais podem diferir da contagem unittest. Os relatórios ficam no runner,
+sem upload nem medição de cobertura. Falhar testes/escrita/validação bloqueia o
+gate. Não mudam Actions, permissões ou nome do check obrigatório. Os arquivos
+exigem `junit.py`, guias de relatórios/saída EN/PT-PT e testes de regressão.
 
 Os testes do bloqueio lançam processos reais concorrentes e uma execução
 aprovada, verificam recuperação recusada com guarda ocupada, marcador após morte

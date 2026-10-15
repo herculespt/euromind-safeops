@@ -7,9 +7,11 @@ from __future__ import annotations
 
 import sys
 import unittest
+from collections.abc import Callable
 
 
-def run_suite(start_directory: str = "tests") -> tuple[int, dict]:
+def run_suite(start_directory: str = "tests", *,
+              resultclass: Callable[..., unittest.TextTestResult] | None = None) -> tuple[int, dict]:
     stats = {"discovered": 0, "run": 0, "failures": 0, "errors": 0, "skipped": 0,
              "expected_failures": 0, "unexpected_successes": 0, "phase": "discovery"}
     try:
@@ -24,7 +26,7 @@ def run_suite(start_directory: str = "tests") -> tuple[int, dict]:
         return 2, stats
     stats["phase"] = "execution"
     try:
-        result = unittest.TextTestRunner(verbosity=2).run(suite)
+        result = unittest.TextTestRunner(verbosity=2, resultclass=resultclass).run(suite)
     except (Exception, SystemExit) as exc:
         print(f"SafeOps: test execution failed ({type(exc).__name__})", file=sys.stderr)
         return 2, stats
