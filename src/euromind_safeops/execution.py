@@ -67,6 +67,8 @@ def run(root: Path, plan_id: str, *, timeout: int = 60) -> dict:
     try:
         with os.fdopen(fd, "w", encoding="utf-8") as handle:
             handle.write(str(os.getpid()))
+        # Keep Python check streams and their decoding independent of the OS locale.
+        check_env = {**os.environ, "PYTHONIOENCODING": "utf-8"}
         for check in cfg["checks"]:
             if check == "unit-tests" and not list((root / "tests").glob("test*.py")):
                 raise SafeOpsError("No test*.py files in tests/; refusing false-positive test run")
@@ -75,7 +77,8 @@ def run(root: Path, plan_id: str, *, timeout: int = 60) -> dict:
             command = [sys.executable, *CHECKS[check]]
             try:
                 completed = subprocess.run(command, cwd=root, capture_output=True, text=True,
-                                           timeout=timeout, check=False, errors="replace")
+                                           timeout=timeout, check=False, encoding="utf-8",
+                                           errors="replace", env=check_env)
                 result = {"check": check, "exit_code": completed.returncode,
                           "stdout": completed.stdout[-12000:], "stderr": completed.stderr[-12000:]}
             except subprocess.TimeoutExpired:

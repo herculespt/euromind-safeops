@@ -1,0 +1,42 @@
+# Guia de manutenção
+
+[English](../MAINTAINER_GUIDE.md)
+
+## Proteção verificada em 15 de outubro de 2026
+
+Após autorização expressa do maintainer, foi criado e verificado o ruleset
+[Protect main — 25151466](https://github.com/herculespt/euromind-safeops/rules/25151466),
+com estado **Active** e alvo exclusivo `refs/heads/main`.
+
+| Requisito | Configuração verificada |
+|---|---|
+| Pull request antes da integração | Obrigatório |
+| Aprovações obrigatórias | 0, por existir um único maintainer |
+| Check obrigatório | `quality-gate`, da origem GitHub Actions |
+| Branch atualizada antes da integração | Obrigatório |
+| Resolução de conversas de revisão | Obrigatória |
+| Eliminação e force pushes | Bloqueados |
+| Exceções de bypass | Nenhuma |
+
+A API da branch confirmou `protected: true` e a conta autenticada recebeu
+`current_user_can_bypass: never`. Esta verificação descreve o estado nessa data;
+as definições podem ser alteradas por quem tenha permissões administrativas.
+
+## Procedimento para alterações
+
+1. Abrir uma Issue para alterações de comportamento, execução, permissões ou limites de confiança.
+2. Criar uma branch a partir da `main` atual e manter a alteração limitada ao objetivo.
+3. Rever o diff completo, executar os testes e atualizar a documentação em inglês e PT-PT, com UTF-8 correto.
+4. Abrir uma pull request e aguardar o `quality-gate` dos nove ambientes de CI.
+5. Resolver as conversas e confirmar que a branch continua atualizada antes da integração.
+6. Pedir autorização para alterações administrativas sensíveis e publicação de releases.
+
+Nunca introduzir código privado do SEND, credenciais ou dados de utilizadores.
+Não utilizar force push. Os resultados dos modelos são aconselhamento e não
+substituem a revisão humana. Os testes executam código com os privilégios do
+operador; a ferramenta não implementa isolamento seguro.
+
+Os passos de reprodução das regras e de publicação constam do
+[guia em inglês](../MAINTAINER_GUIDE.md) e do
+[procedimento de releases](../RELEASING.md). Consulta também a
+[auditoria](audits/2026-10-15.md).

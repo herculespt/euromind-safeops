@@ -1,12 +1,14 @@
 # Security Policy
 
+[Português (Portugal)](docs/pt-PT/SECURITY.md)
+
 ## Scope and maturity
 
 EuroMind SafeOps v0.2.0 is an **alpha developer tool**. It is not a sandbox, cannot ensure the safety of source code being tested, and must not be used to authorize production operations. The risk classifier and pattern scanner are best-effort heuristics.
 
 ## Reporting vulnerabilities
 
-**Do not open public issues containing exploits, credential material or details of an unpatched vulnerability.** For this public repository, prefer **Security → Advisories → Report a vulnerability** (enable private vulnerability reporting in repository settings). If private reporting is unavailable, open a public issue asking the maintainer to enable a private disclosure channel, without revealing vulnerability details.
+**Do not open public issues containing exploits, credential material or details of an unpatched vulnerability.** Use **Security → Advisories → Report a vulnerability** for private reports. Private vulnerability reporting was enabled and verified on 2026-10-15 after maintainer authorization. If that channel later becomes unavailable, open a public issue asking the maintainer to enable a private disclosure channel, without revealing vulnerability details.
 
 There is no guaranteed response-time SLA. No bug bounty is offered.
 
