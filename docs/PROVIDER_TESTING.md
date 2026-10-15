@@ -5,7 +5,7 @@
 [Português (Portugal)](pt-PT/PROVIDER_TESTING.md)
 
 Current source: **0.3.0a2**, alpha prerelease. This is a validation record and
-procedure, including one verified live OpenAI request. It does not imply a published release or universal provider/model validation.
+procedure, including separate verified live OpenAI and Anthropic requests. It does not imply a published release or universal provider/model validation.
 
 ## Evidence — 2026-10-15
 
@@ -17,13 +17,14 @@ procedure, including one verified live OpenAI request. It does not imply a publi
 | Compatible HTTP integration | Real POST on 127.0.0.1, CLI plan persistence, Portuguese text, no source upload or automatic approval | Local fixture server; no inference |
 | Redirect policy | Real 301/302/303/307/308 responses; destination receives no request | Local fixture servers only |
 | Live OpenAI inference | **Passed: `gpt-4.1-mini`, 2026-10-15** | One advisory plan saved and integrity-reviewed; see [dated evidence](audits/2026-10-15-openai-smoke.md) |
-| Live Anthropic/compatible-model inference | **Pending** | No live validation of those adapters/models is claimed |
+| Live Anthropic inference | **Passed: `claude-haiku-5-5`, 2026-10-15** | One advisory plan saved and integrity-reviewed; see [dated evidence](audits/2026-10-15-anthropic-smoke.md) |
+| Live compatible/local-model inference | **Pending** | No live validation of those endpoints/models is claimed |
 
 The compatible fixture is an HTTP service returning predetermined text, not a
 provider model. The CI fixture tests do not authenticate to a vendor or establish model quality,
 billing, rate-limit recovery or universal API compatibility. The separate live
-OpenAI test verifies authentication and usable advice for one request/account/model;
-it does not establish those broader properties. `safeops providers` reports native credential-variable presence. For the compatible
+OpenAI and Anthropic tests each verify authentication and usable advice for one
+request/account/model; they do not establish those broader properties. `safeops providers` reports native credential-variable presence. For the compatible
 adapter, `configured: true` means adapter availability, without endpoint validation.
 Neither indicator is a connectivity or model-health test.
 
@@ -36,7 +37,7 @@ python -m unittest discover -s tests -p test_provider_transport.py -v
 python -m unittest discover -s tests -v
 ```
 
-The successful OpenAI smoke test is tracked in [issue #12](https://github.com/herculespt/euromind-safeops/issues/12). The [dated record](audits/2026-10-15-openai-smoke.md) preserves the tested source commit, prompt, model and outcome. Further providers/accounts/models remain separate work.
+The successful OpenAI smoke is tracked in [issue #12](https://github.com/herculespt/euromind-safeops/issues/12) and its [dated record](audits/2026-10-15-openai-smoke.md). The successful Anthropic smoke is tracked in [issue #17](https://github.com/herculespt/euromind-safeops/issues/17) and its [dated record](audits/2026-10-15-anthropic-smoke.md). Each preserves the tested source commit, prompt, requested model ID and outcome. Compatible/local endpoints and broader accounts/models remain separate work.
 
 ## Repeat a live smoke test — manual and opt-in
 

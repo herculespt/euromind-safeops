@@ -60,3 +60,9 @@ package publication is part of this validation.
 
 See [provider validation](../PROVIDER_TESTING.md), [implementation status](../STATUS.md)
 and [issue #12](https://github.com/herculespt/euromind-safeops/issues/12).
+
+## Later native-provider evidence
+
+A separate [Anthropic smoke record](2026-10-15-anthropic-smoke.md) documents a
+later native Anthropic request. It does not change this OpenAI test's original
+source commit, result or limitations.

@@ -5,8 +5,8 @@
 [English](../PROVIDER_TESTING.md)
 
 Versão atual do código: **0.3.0a2**, pré-versão alfa. Este registo inclui
-um pedido real OpenAI verificado, sem afirmar publicação de release ou validação
-universal de fornecedores/modelos.
+pedidos reais separados OpenAI e Anthropic verificados, sem afirmar publicação
+de release ou validação universal de fornecedores/modelos.
 
 ## Evidência — 15 de outubro de 2026
 
@@ -18,14 +18,15 @@ universal de fornecedores/modelos.
 | Integração HTTP compatível | POST real em 127.0.0.1, gravação de plano pela CLI, texto português, sem envio de código nem aprovação automática | Servidor local de teste; sem inferência |
 | Redirecionamentos | Respostas reais 301/302/303/307/308; o destino não recebe pedidos | Apenas servidores locais de teste |
 | Inferência real OpenAI | **Aprovada: `gpt-4.1-mini`, 15 de outubro de 2026** | Um plano guardado e verificado; consultar [evidência datada](audits/2026-10-15-openai-smoke.md) |
-| Inferência real Anthropic/compatível | **Pendente** | Não é afirmada validação real desses adaptadores/modelos |
+| Inferência real Anthropic | **Aprovada: `claude-haiku-5-5`, 15 de outubro de 2026** | Um plano guardado e verificado; consultar [evidência datada](audits/2026-10-15-anthropic-smoke.md) |
+| Inferência real de modelos compatíveis/locais | **Pendente** | Não é afirmada validação real desses endpoints/modelos |
 
 O servidor compatível devolve texto predefinido; não é um modelo de IA. Os testes
 do CI não validam autenticação real, qualidade, faturação, recuperação de limites
-de utilização ou compatibilidade universal. O teste OpenAI separado verifica
-autenticação e texto utilizável para um pedido/conta/modelo, sem estabelecer
-as restantes propriedades. `safeops
-providers` indica a presença das chaves nos adaptadores nativos. No compatível,
+de utilização ou compatibilidade universal. Os testes separados OpenAI e Anthropic
+verificam, cada um, autenticação e texto utilizável para um pedido/conta/modelo,
+sem estabelecer as restantes propriedades. `safeops providers` indica a presença
+das chaves nos adaptadores nativos. No compatível,
 `configured: true` indica disponibilidade do adaptador, sem validar endpoint.
 Nenhum destes indicadores comprova conectividade ou saúde do modelo.
 
@@ -38,7 +39,7 @@ python -m unittest discover -s tests -p test_provider_transport.py -v
 python -m unittest discover -s tests -v
 ```
 
-O teste OpenAI bem-sucedido está registado na [issue #12](https://github.com/herculespt/euromind-safeops/issues/12). A [evidência datada](audits/2026-10-15-openai-smoke.md) preserva commit, tarefa, modelo e resultado. Outros fornecedores, contas e modelos continuam a exigir trabalho próprio.
+O teste OpenAI consta da [issue #12](https://github.com/herculespt/euromind-safeops/issues/12) e do [registo datado](audits/2026-10-15-openai-smoke.md). O teste Anthropic consta da [issue #17](https://github.com/herculespt/euromind-safeops/issues/17) e do [registo datado](audits/2026-10-15-anthropic-smoke.md). Cada registo preserva commit, tarefa, ID do modelo pedido e resultado. Endpoints compatíveis/locais e compatibilidade alargada de contas/modelos continuam a exigir trabalho próprio.
 
 ## Repetir o teste com modelo real — manual e expresso
 

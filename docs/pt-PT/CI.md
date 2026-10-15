@@ -18,7 +18,7 @@ Os testes dos fornecedores usam simulações e servidores HTTP de teste ligados
 apenas a 127.0.0.1, em portas temporárias escolhidas pelo sistema operativo.
 Não exigem chaves de API nem acesso externo a modelos e também correm contra
 as wheels instaladas. A [validação dos fornecedores](PROVIDER_TESTING.md)
-regista separadamente o teste real OpenAI já aprovado e as restantes lacunas. Os pedidos reais não são acrescentados ao CI.
+regista separadamente os testes reais OpenAI e Anthropic já aprovados e as restantes lacunas. Os pedidos reais não são acrescentados ao CI.
 
 ## Actions revistas em 15 de outubro de 2026
 
