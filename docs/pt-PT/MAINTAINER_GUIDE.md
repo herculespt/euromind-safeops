@@ -27,7 +27,7 @@ as definições podem ser alteradas por quem tenha permissões administrativas.
 1. Abrir uma Issue para alterações de comportamento, execução, permissões ou limites de confiança.
 2. Criar uma branch a partir da `main` atual e manter a alteração limitada ao objetivo.
 3. Rever o diff completo, executar os testes e atualizar a documentação em inglês e PT-PT, com UTF-8 correto.
-4. Abrir uma pull request e aguardar o `quality-gate` dos nove ambientes de CI.
+4. Abrir uma pull request e aguardar o `quality-gate` dos nove ambientes e dos dois jobs de distribuição; consulta o [guia de CI](CI.md).
 5. Resolver as conversas e confirmar que a branch continua atualizada antes da integração.
 6. Pedir autorização para alterações administrativas sensíveis e publicação de releases.
 

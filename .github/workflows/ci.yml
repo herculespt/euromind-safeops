@@ -13,14 +13,17 @@ jobs:
   tests:
     name: Python ${{ matrix.python-version }} / ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
     strategy:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
         python-version: ['3.11', '3.12', '3.13']
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.0
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install project
@@ -34,13 +37,82 @@ jobs:
       - name: Verify buildable wheel
         run: python -m pip wheel --no-deps --wheel-dir dist .
 
+  distribution:
+    name: Distribution / ${{ matrix.backend.name }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        backend:
+          - name: minimum setuptools
+            requirement: setuptools==83.0.0
+          - name: latest setuptools
+            requirement: setuptools>=83.0.0
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.0
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.11'
+      - name: Install build frontend and selected backend
+        env:
+          SETUPTOOLS_REQUIREMENT: ${{ matrix.backend.requirement }}
+        run: python -m pip install --upgrade build "$SETUPTOOLS_REQUIREMENT"
+      - name: Build source archive and wheel from source archive
+        run: python -m build --no-isolation
+      - name: Verify archive metadata and public documentation
+        run: |
+          python - <<'PY'
+          from email.parser import BytesParser
+          from pathlib import Path, PurePosixPath
+          import tarfile
+          import tomllib
+          from zipfile import ZipFile
+
+          project = tomllib.loads(Path('pyproject.toml').read_text(encoding='utf-8'))['project']
+          wheels = list(Path('dist').glob('*.whl'))
+          sources = list(Path('dist').glob('*.tar.gz'))
+          assert len(wheels) == len(sources) == 1, 'Expected one wheel and one source archive'
+          with ZipFile(wheels[0]) as archive:
+              names = archive.namelist()
+              metadata = BytesParser().parsebytes(archive.read(next(n for n in names if n.endswith('/METADATA'))))
+              assert metadata['Name'] == project['name']
+              assert metadata['Version'] == project['version']
+              assert metadata['License-Expression'] == project['license']
+              assert not metadata.get_all('Requires-Dist'), 'Unexpected runtime dependency'
+              assert any(n.endswith('/LICENSE') for n in names), 'Missing wheel license'
+              assert 'euromind_safeops/py.typed' in names
+          with tarfile.open(sources[0]) as archive:
+              source_names = [PurePosixPath(n).parts[1:] for n in archive.getnames()]
+          source_paths = {'/'.join(parts) for parts in source_names}
+          for required in ('LICENSE', 'README.md', 'SECURITY.md', 'docs/QUICKSTART.md', 'docs/pt-PT/README.md', 'docs/pt-PT/SECURITY.md', '.github/CODEOWNERS', '.github/workflows/ci.yml', 'tests/test_execution.py'):
+              assert required in source_paths, f'Missing source documentation: {required}'
+          for name in [*names, *source_paths]:
+              parts = PurePosixPath(name).parts
+              assert not any(p in ('.git', '.safeops', '.venv', '__pycache__') or p == '.env' or p.startswith('.env.') for p in parts), f'Unexpected runtime or secret file: {name}'
+          print('Archive metadata, license and documentation verified')
+          PY
+      - name: Install wheel and smoke-test CLI outside checkout
+        run: |
+          python -m venv "$RUNNER_TEMP/safeops-wheel"
+          "$RUNNER_TEMP/safeops-wheel/bin/python" -m pip install --no-index --no-deps dist/*.whl
+          cd "$RUNNER_TEMP"
+          "$RUNNER_TEMP/safeops-wheel/bin/python" -I -m euromind_safeops --version
+          "$RUNNER_TEMP/safeops-wheel/bin/safeops" --version
+
   quality-gate:
     name: quality-gate
-    needs: [tests]
+    needs: [tests, distribution]
     if: ${{ always() }}
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
-      - name: Require entire cross-platform test matrix
+      - name: Require test matrix and distribution checks
         env:
           MATRIX_RESULT: ${{ needs.tests.result }}
-        run: test "$MATRIX_RESULT" = "success"
+          DISTRIBUTION_RESULT: ${{ needs.distribution.result }}
+        run: |
+          test "$MATRIX_RESULT" = "success"
+          test "$DISTRIBUTION_RESULT" = "success"

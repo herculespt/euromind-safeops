@@ -33,7 +33,7 @@ change. Recheck the active ruleset before relying on it. See the
 
 1. Go to **Settings → Branches → Add branch protection rule** (or **Settings → Rules → Rulesets → New branch ruleset**) and target `main`.
 2. Enable **Require a pull request before merging**. Maintain a PR-only workflow, even for documentation and CI changes.
-3. Enable **Require status checks to pass before merging** and select **`quality-gate`** after it appears in a completed CI run. This one check depends on successful completion of all nine Python/OS matrix jobs.
+3. Enable **Require status checks to pass before merging** and select **`quality-gate`** after it appears in a completed CI run. This one check requires all nine Python/OS environments and both distribution jobs; see [CI and package build contract](CI.md).
 4. Enable **Require branches to be up to date before merging** and **Require conversation resolution before merging**.
 5. Leave **Allow force pushes** and **Allow deletions** disabled; set **Do not allow bypassing the above settings** if available for the account and use case.
 6. **Do not require an approving reviewer until a second trusted maintainer exists**: GitHub does not permit authors to approve their own PRs, so requiring one approval now can block legitimate maintenance. Continue human self-review with a written checklist until an independent reviewer is available.

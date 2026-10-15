@@ -51,4 +51,7 @@ explicitamente para preservar os acentos em `stdout` e `stderr`, mesmo quando
 o ambiente herdado pede ASCII. Esta correção está descrita em `Unreleased` até
 ser publicada uma versão autorizada.
 
+O [guia de CI e construção do pacote](CI.md) descreve as Actions fixadas por SHA,
+a versão mínima de construção e a validação dos artefactos fora do checkout.
+
 Licença: Apache 2.0. Projeto independente, sem código privado do SEND.
