@@ -1,8 +1,8 @@
 # Project scope and provenance
 
-<!-- safeops-version: 0.3.0a1 -->
+<!-- safeops-version: 0.3.0a2 -->
 
-EuroMind SafeOps 0.3.0a1 is an original, independent, generic command-line policy and verification tool for development workflows. It is not a repackaging of the private SEND application. The [status](STATUS.md) distinguishes implemented capabilities from future work and public releases.
+EuroMind SafeOps 0.3.0a2 is an original, independent, generic command-line policy and verification tool for development workflows. It is not a repackaging of the private SEND application. The [status](STATUS.md) distinguishes implemented capabilities from future work and public releases.
 
 ## Public components
 

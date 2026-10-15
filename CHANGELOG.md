@@ -6,6 +6,21 @@ The format follows Keep a Changelog conventions; versions follow Semantic Versio
 
 No additional changes recorded beyond the source milestone below.
 
+## [0.3.0a2] — 2026-10-15 (source prerelease; not a published release)
+
+### Fixed
+- Reject ambiguous or non-UTF-8 provider JSON using the same strict decoder as stored state: duplicate keys, non-finite numbers, overflow and UTF-16 are not accepted.
+
+### Added
+- Offline provider transport and malformed-response regression tests, including HTTP/URL/timeout failures, exact response-size limits, native request serialization, Unicode and bounded advisory text.
+- Real loopback HTTP integration tests for the compatible adapter, CLI plan persistence, rejected redirects and redacted HTTP error bodies. These use deterministic fixtures, not a live AI model.
+- English/PT-PT provider testing evidence and secure live-test instructions, plus a complete PT-PT provider setup guide.
+
+### Compatibility
+- Configuration/plan schema 1 and approval schema 2 are unchanged. The package-version change invalidates earlier execution approvals: retain records and create a fresh plan and explicit approval.
+- Previously accepted ambiguous/non-UTF-8 provider responses now fail with controlled errors. Valid UTF-8 JSON objects remain supported, with optional UTF-8 BOM.
+- No real API credentials or local model endpoint were available for this milestone. Live authentication, inference and per-account model compatibility remain unverified; no release or package was published.
+
 ## [0.3.0a1] — 2026-10-15 (source prerelease; not a published release)
 
 ### Added

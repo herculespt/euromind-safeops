@@ -77,6 +77,32 @@ def atomic_json_write(path: Path, data: Any, *, replace: bool = False) -> None:
             os.unlink(tmp)
 
 
+def decode_json_object(raw: bytes) -> dict[str, Any]:
+    """Decode unambiguous UTF-8 JSON; callers enforce size and sanitize errors."""
+    def unique_object(pairs):
+        result = {}
+        for key, item in pairs:
+            if key in result:
+                raise ValueError("Duplicate JSON object key")
+            result[key] = item
+        return result
+
+    def reject_constant(_value):
+        raise ValueError("Non-standard JSON numeric constant")
+
+    def finite_float(text):
+        number = float(text)
+        if not math.isfinite(number):
+            raise ValueError("Non-finite JSON numeric value")
+        return number
+
+    value = json.loads(raw.decode("utf-8-sig"), object_pairs_hook=unique_object,
+                       parse_constant=reject_constant, parse_float=finite_float)
+    if not isinstance(value, dict):
+        raise ValueError("Expected an object")
+    return value
+
+
 def read_json(path: Path) -> dict[str, Any]:
     if path.is_symlink():
         raise SafeOpsError(f"Refusing symlink: {path}")
@@ -85,28 +111,7 @@ def read_json(path: Path) -> dict[str, Any]:
             raw = handle.read(256_001)
         if len(raw) > 256_000:
             raise SafeOpsError("JSON file exceeds limit")
-        def unique_object(pairs):
-            result = {}
-            for key, item in pairs:
-                if key in result:
-                    raise ValueError("Duplicate JSON object key")
-                result[key] = item
-            return result
-
-        def reject_constant(_value):
-            raise ValueError("Non-standard JSON numeric constant")
-
-        def finite_float(text):
-            number = float(text)
-            if not math.isfinite(number):
-                raise ValueError("Non-finite JSON numeric value")
-            return number
-
-        value = json.loads(raw.decode("utf-8-sig"), object_pairs_hook=unique_object,
-                           parse_constant=reject_constant, parse_float=finite_float)
-        if not isinstance(value, dict):
-            raise ValueError("Expected an object")
-        return value
+        return decode_json_object(raw)
     except (OSError, ValueError, UnicodeError, RecursionError) as exc:
         raise SafeOpsError(f"Cannot read {path.name}: {exc}") from exc
 

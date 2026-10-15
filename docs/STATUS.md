@@ -1,10 +1,10 @@
 # Implementation and publication status
 
-<!-- safeops-version: 0.3.0a1 -->
+<!-- safeops-version: 0.3.0a2 -->
 
 [Português (Portugal)](pt-PT/STATUS.md)
 
-**Current source version: 0.3.0a1 — alpha prerelease.** Python 3.11–3.13 is
+**Current source version: 0.3.0a2 — alpha prerelease.** Python 3.11–3.13 is
 covered by CI on Linux, Windows and macOS. No third-party runtime dependencies.
 This source milestone is not a published release: GitHub Releases/tags require
 separate approval, and package-registry publication is not configured or verified.
@@ -19,7 +19,7 @@ separate approval, and package-registry publication is not configured or verifie
 | Approval schema 2 and execution-contract binding | Package/command changes require new plan and explicit approval |
 | Fixed compile and unittest checks | Empty/all-skipped test execution fails; no isolation or coverage guarantee |
 | UTF-8 check streams, lock and timeout | Existing crash/race and trusted-code limits remain |
-| OpenAI, Anthropic and compatible advisory adapters | Explicit consent, task-only request; offline mocked contracts, not live account validation |
+| OpenAI, Anthropic and compatible advisory adapters | Explicit consent, task-only request, strict UTF-8 response objects; offline contracts and real loopback HTTP fixtures, not live account/model validation |
 | Protected main and security-reporting workflow | Verified settings are dated operational observations |
 | CI and distribution validation | Nine test environments, minimum/latest backend jobs and required aggregate gate |
 | English/PT-PT current guides and version checks | Metadata, CLI help and versioned-document markers are tested |
@@ -53,3 +53,6 @@ version does not create a tag, GitHub Release, store upload or package publicati
 
 See [execution compatibility](EXECUTION.md), [trust model](TRUST_MODEL.md),
 [CI contract](CI.md) and [release procedure](RELEASING.md).
+
+Provider validation evidence and the remaining live-model check are recorded in
+[provider testing](PROVIDER_TESTING.md). A loopback fixture is not an AI model.

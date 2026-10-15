@@ -2,7 +2,7 @@
 
 This roadmap is directional, not a promise of dates or delivered features.
 
-Current source version: **0.3.0a1** (alpha prerelease). See [status](docs/STATUS.md)
+Current source version: **0.3.0a2** (alpha prerelease). See [status](docs/STATUS.md)
 and [PT-PT](docs/pt-PT/STATUS.md). Source milestones are not published releases.
 
 ## v0.1.0 — Initial open-source foundation (implemented)
@@ -31,10 +31,16 @@ No tagged release or package publication is implied by this source version.
 - [x] English/PT-PT execution policy, compatibility guide and implemented-versus-planned status.
 - [x] Pinned CI Actions and minimum/latest-backend builds, with the full suite tested against installed wheels.
 
+## 0.3.0a2 — Provider transport validation (implemented in source)
+- [x] Shared strict UTF-8 JSON object decoding for stored state and provider responses.
+- [x] HTTP/URL/timeout errors, response byte limits, malformed provider responses and redacted CLI failures covered by offline tests.
+- [x] Real loopback HTTP integration, including CLI plan creation and blocked redirects; no model inference is claimed.
+- [x] EN/PT-PT provider setup, test evidence and live-test procedure.
+
 ## Next — Policy and integration hardening (planned)
 - [ ] Explicit workspace filesystem allowlists.
 - [ ] Structured JSON output options and improved CI test reporting.
-- [ ] Broader HTTP transport failure and malformed-response tests.
+- [ ] Live model/account smoke test with securely supplied credentials, or a configured local model; see [provider testing](docs/PROVIDER_TESTING.md).
 - [ ] Broader test adapters without permitting AI-generated commands.
 - [ ] Cross-platform locking and clearer interrupted-run recovery.
 - [ ] Expand the PT-PT documentation alongside English documentation.

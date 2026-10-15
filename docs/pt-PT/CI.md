@@ -14,6 +14,12 @@ GitHub. Cada ambiente instala o pacote, executa os testes, compila o código,
 pesquisa padrões de credenciais e constrói uma wheel. Os jobs têm limites de
 tempo explícitos.
 
+Os testes dos fornecedores usam simulações e servidores HTTP de teste ligados
+apenas a 127.0.0.1, em portas temporárias escolhidas pelo sistema operativo.
+Não exigem chaves de API nem acesso externo a modelos e também correm contra
+as wheels instaladas. A [validação dos fornecedores](PROVIDER_TESTING.md)
+mantém o teste com modelo real como trabalho separado e pendente.
+
 ## Actions revistas em 15 de outubro de 2026
 
 | Action | Versão | Commit oficial |

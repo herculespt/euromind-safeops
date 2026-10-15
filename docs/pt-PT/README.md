@@ -1,10 +1,10 @@
 # EuroMind SafeOps — Português (Portugal)
 
-<!-- safeops-version: 0.3.0a1 -->
+<!-- safeops-version: 0.3.0a2 -->
 
 **Ferramenta open source de orquestração de engenharia com aprovação humana e execução controlada de verificações.**
 
-## O que já funciona na versão 0.3.0a1 (pré-versão alfa do código)
+## O que já funciona na versão 0.3.0a2 (pré-versão alfa do código)
 
 - CLI Python 3.11+ sem dependências externas obrigatórias em tempo de execução.
 - Planeamento local de tarefas com classificação de risco e especialidade sugerida.
@@ -15,6 +15,7 @@
 - Registo de auditoria local e pesquisa limitada de padrões típicos de credenciais.
 - Aconselhamento opcional através de OpenAI Responses API, Anthropic Messages API (Claude) ou modelos locais compatíveis com Chat Completions.
 - Comando `safeops providers`, que informa se existem chaves configuradas sem mostrar o seu valor.
+- Respostas de fornecedores com validação JSON UTF-8 estrita, testes de falhas de transporte e integração HTTP real com respostas locais fixas; inferência com modelos reais ainda não validada.
 
 **Não implementa** agentes autónomos que editem código, isolamento seguro, execução arbitrária, pipelines de produção, proteção garantida contra ataques. O código dos testes executa com os privilégios do utilizador: não utilizes repositórios não confiáveis.
 
@@ -44,7 +45,10 @@ a [política de execução e compatibilidade](EXECUTION.md) e o
 [estado do que está implementado e planeado](STATUS.md). A versão do código não
 significa que exista uma release ou publicação de pacote.
 
-Para utilizar OpenAI ou Claude, configura `OPENAI_API_KEY` ou `ANTHROPIC_API_KEY` no ambiente e fornece o modelo pretendido e `--allow-remote`. Vê [as instruções completas dos fornecedores](../PROVIDERS.md). Uma subscrição de chat não inclui necessariamente créditos de API.
+A ligação à versão também exige nova aprovação de execução ao atualizar de
+0.3.0a1 para 0.3.0a2, sem alterar os schemas de configuração, planos ou aprovações.
+
+Para utilizar OpenAI ou Claude, configura `OPENAI_API_KEY` ou `ANTHROPIC_API_KEY` no ambiente e fornece o modelo pretendido e `--allow-remote`. Vê [as instruções completas dos fornecedores](PROVIDERS.md) e a [evidência dos testes](PROVIDER_TESTING.md). Uma subscrição de chat não inclui necessariamente créditos de API.
 
 Consulta a [documentação principal](../../README.md), [arquitetura](../ARCHITECTURE.md), [modelo de confiança](../TRUST_MODEL.md) e [regras de segurança](SECURITY.md).
 

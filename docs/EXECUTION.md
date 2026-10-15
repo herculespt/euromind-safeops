@@ -1,10 +1,10 @@
 # Execution policy and upgrade compatibility
 
-<!-- safeops-version: 0.3.0a1 -->
+<!-- safeops-version: 0.3.0a2 -->
 
 [Português (Portugal)](pt-PT/EXECUTION.md)
 
-Current source version: **0.3.0a1**, alpha prerelease. This document describes
+Current source version: **0.3.0a2**, alpha prerelease. This document describes
 implemented behavior; see [status](STATUS.md) for exclusions and publication state.
 
 ## Configuration
@@ -44,6 +44,10 @@ stored plans remain readable, but legacy approvals cannot authorize execution.
 Review the current source, create a new plan, review it and approve the new ID
 explicitly. Old approval files are not modified, deleted or automatically
 converted. Do not edit an old record to bypass this requirement.
+
+Upgrading from 0.3.0a1 to 0.3.0a2 also requires a new plan and approval because
+the existing execution contract binds the package version. Configuration/plan
+schema 1 and approval schema 2 do not change in this provider-validation update.
 
 Changes to the package version or fixed command contract invalidate an existing
 approval even if workspace files and configuration are unchanged. Maintainers

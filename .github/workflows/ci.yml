@@ -87,7 +87,7 @@ jobs:
           with tarfile.open(sources[0]) as archive:
               source_names = [PurePosixPath(n).parts[1:] for n in archive.getnames()]
           source_paths = {'/'.join(parts) for parts in source_names}
-          for required in ('LICENSE', 'README.md', 'SECURITY.md', 'docs/QUICKSTART.md', 'docs/STATUS.md', 'docs/EXECUTION.md', 'docs/pt-PT/README.md', 'docs/pt-PT/SECURITY.md', 'docs/pt-PT/STATUS.md', 'docs/pt-PT/EXECUTION.md', '.github/CODEOWNERS', '.github/workflows/ci.yml', 'tests/test_execution.py', 'src/euromind_safeops/check_runner.py'):
+          for required in ('LICENSE', 'README.md', 'SECURITY.md', 'docs/QUICKSTART.md', 'docs/STATUS.md', 'docs/EXECUTION.md', 'docs/pt-PT/README.md', 'docs/pt-PT/SECURITY.md', 'docs/pt-PT/STATUS.md', 'docs/pt-PT/EXECUTION.md', '.github/CODEOWNERS', '.github/workflows/ci.yml', 'tests/test_execution.py', 'src/euromind_safeops/check_runner.py', 'tests/test_provider_transport.py', 'docs/PROVIDER_TESTING.md', 'docs/pt-PT/PROVIDER_TESTING.md', 'docs/pt-PT/PROVIDERS.md'):
               assert required in source_paths, f'Missing source documentation: {required}'
           for name in [*names, *source_paths]:
               parts = PurePosixPath(name).parts

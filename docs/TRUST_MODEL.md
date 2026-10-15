@@ -22,6 +22,7 @@ Human approval intent; source code under review; local credentials; repository i
 | Check command injection | Fixed command table, `shell=False` | Python tests can execute arbitrary code |
 | Reusing approval after tool/command changes | Schema-2 approval binds package version and fixed execution contract | Local actors can rewrite state and recompute hashes |
 | Ambiguous policy JSON | Exact config keys/types, unique supported checks, strict UTF-8 JSON with unique keys and finite numbers | No filesystem allowlist or signed policy is implemented |
+| Ambiguous provider JSON or error-body disclosure | Shared strict UTF-8 object decoder, bounded read and redacted HTTP/URL/timeout CLI errors; blocked redirects | Tests use doubles/local fixtures; live authentication, total request deadlines and model security are not established |
 | Empty or all-skipped unit-test suite | Child runner requires discovered cases and a non-skipped execution | Trusted tests can manipulate the interpreter; assertion quality is not verified |
 | Remote data exfiltration | Opt-in provider, task-only payload, HTTPS/loopback-only | User may paste secrets into task; TLS trusts endpoint |
 | Hidden credentials in repository | Heuristic scanner prints only file/line | Unknown secret formats will be missed |

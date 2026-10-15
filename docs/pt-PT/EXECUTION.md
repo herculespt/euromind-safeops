@@ -1,10 +1,10 @@
 # Política de execução e compatibilidade
 
-<!-- safeops-version: 0.3.0a1 -->
+<!-- safeops-version: 0.3.0a2 -->
 
 [English](../EXECUTION.md)
 
-Versão atual do código: **0.3.0a1**, pré-versão alfa. Este guia descreve o que está
+Versão atual do código: **0.3.0a2**, pré-versão alfa. Este guia descreve o que está
 implementado; consulta o [estado](STATUS.md) para limitações e publicações.
 
 ## Configuração
@@ -45,6 +45,10 @@ não autorizam a execução. Revê o código atual, cria um plano novo, revê-o 
 aprova expressamente o novo ID. Os registos anteriores não são alterados,
 apagados ou convertidos automaticamente. Não edites uma aprovação para
 contornar esta regra.
+
+Atualizar de 0.3.0a1 para 0.3.0a2 também exige novo plano e aprovação, porque o
+contrato existente liga a versão do pacote. Os schemas de configuração/plano 1
+e aprovação 2 não mudam nesta atualização da validação dos fornecedores.
 
 Alterar a versão do pacote ou o contrato dos comandos invalida uma aprovação,
 mesmo sem alterações ao projeto ou à configuração. Uma mudança de comportamento

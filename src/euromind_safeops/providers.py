@@ -11,7 +11,7 @@ import os
 from urllib.parse import urlparse
 from urllib.request import Request, HTTPRedirectHandler, build_opener
 
-from .core import SafeOpsError
+from .core import SafeOpsError, decode_json_object
 from .planning import validate_task
 
 SYSTEM_PROMPT = (
@@ -79,10 +79,7 @@ def _post_json(endpoint: str, payload: dict, headers: dict[str, str], timeout: i
             data = response.read(MAX_RESPONSE_BYTES + 1)
         if len(data) > MAX_RESPONSE_BYTES:
             raise SafeOpsError("Provider response too large")
-        decoded = json.loads(data)
-        if not isinstance(decoded, dict):
-            raise ValueError("Response is not an object")
-        return decoded
+        return decode_json_object(data)
     except SafeOpsError:
         raise
     except Exception as exc:

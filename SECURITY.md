@@ -1,12 +1,12 @@
 # Security Policy
 
-<!-- safeops-version: 0.3.0a1 -->
+<!-- safeops-version: 0.3.0a2 -->
 
 [Português (Portugal)](docs/pt-PT/SECURITY.md)
 
 ## Scope and maturity
 
-EuroMind SafeOps 0.3.0a1 is an **alpha developer tool**. It is not a sandbox, cannot ensure the safety of source code being tested, and must not be used to authorize production operations. The risk classifier and pattern scanner are best-effort heuristics.
+EuroMind SafeOps 0.3.0a2 is an **alpha developer tool**. It is not a sandbox, cannot ensure the safety of source code being tested, and must not be used to authorize production operations. The risk classifier and pattern scanner are best-effort heuristics.
 
 ## Reporting vulnerabilities
 
@@ -25,4 +25,5 @@ There is no guaranteed response-time SLA. No bug bounty is offered.
 - Plans store task text and advisory output locally; avoid sensitive information.
 - Source-tree snapshots exclude generated directories and ignore symlinks. Review these limitations before relying on approvals.
 - Empty and all-skipped unit-test suites fail, but trusted test code can still terminate the interpreter or falsify its behavior; nonempty discovery does not prove useful assertions or coverage.
+- Provider JSON uses strict UTF-8 object decoding and bounded reads; HTTP/URL/timeout errors are exposed as controlled type-only CLI messages. Response bodies and exception detail are not printed by that error path. Test fixtures do not establish live-model security or vendor/account compatibility; see [provider testing](docs/PROVIDER_TESTING.md).
 - Configuration schema 1 remains supported; approval schema 2 binds the version and fixed execution contract. Existing approvals are not silently migrated. See [execution policy](docs/EXECUTION.md).

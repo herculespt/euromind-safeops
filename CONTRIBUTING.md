@@ -31,6 +31,7 @@ safeops --root . scan
 - Ensure docs and source use valid UTF-8, including PT-PT diacritics.
 - Update package metadata and `__version__`, current EN/PT-PT document version markers, implementation status, roadmap and changelog together when behavior/version changes. Preserve dated audit and historical-version records.
 - Changes to fixed checks or runner behavior must update the execution contract and document approval compatibility; never migrate approval intent automatically.
+- Keep [provider test evidence](docs/PROVIDER_TESTING.md) explicit: transport doubles and loopback fixtures do not establish live authentication or inference. Never add real credentials or default billable API calls to tests.
 
 ## License
 

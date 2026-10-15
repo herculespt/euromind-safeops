@@ -1,8 +1,8 @@
 # Quickstart
 
-<!-- safeops-version: 0.3.0a1 -->
+<!-- safeops-version: 0.3.0a2 -->
 
-Current source version: **0.3.0a1**, alpha prerelease. Requires Python 3.11+, Git optional, and a trusted source tree with `src/` and a nonempty unittest suite under `tests/`. Nested test directories need `__init__.py`.
+Current source version: **0.3.0a2**, alpha prerelease. Requires Python 3.11+, Git optional, and a trusted source tree with `src/` and a nonempty unittest suite under `tests/`. Nested test directories need `__init__.py`.
 
 ```bash
 git clone https://github.com/herculespt/euromind-safeops.git
