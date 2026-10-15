@@ -1,6 +1,6 @@
-# Architecture — 0.3.0a4
+# Architecture — 0.3.0a5
 
-<!-- safeops-version: 0.3.0a4 -->
+<!-- safeops-version: 0.3.0a5 -->
 
 ## Data flow
 
@@ -24,13 +24,14 @@ flowchart TD
 
 | Module | Responsibility |
 |---|---|
-| `cli.py` | Parser, command lifecycle and JSON display |
+| `cli.py` | Parser, command lifecycle, default display and optional schema-1 JSON envelopes |
 | `core.py` | Workspace path hygiene, shared strict UTF-8 JSON decoder, storage, file snapshotting, audit |
 | `scope.py` | Portable advisory path syntax, link/reparse checks and lifecycle preflight |
 | `planning.py` | Rule-based risk and role suggestions, plan fingerprinting |
 | `providers.py` | Offline, native OpenAI Responses, Anthropic Messages and compatible non-executable advice |
 | `execution.py` | Config validation, approval and strict fixed check commands |
-| `check_runner.py` | Child-process unittest discovery, execution and rejection of empty/all-skipped results |
+| `check_runner.py` | Child-process unittest discovery, fail-closed execution and aggregate statistics |
+| `ci_runner.py` | Maintainer CI adapter appending numeric UTF-8 job summaries; not a new approved check |
 | `target_runner.py` | Recursive directory-target preflight, selected in-memory compilation and selected unittest discovery |
 | `scanning.py` | Credential pattern heuristics without disclosing matched values |
 
@@ -64,6 +65,11 @@ Plans retain schema 1. Configuration defaults to schema 1; optional schema 2 sel
 - **Test code itself is executable and NOT sandboxed.**
 - Critical plans cannot be approved or run.
 - Any source-tree or approval-policy change invalidates an existing approval.
+
+[Optional JSON output](OUTPUT.md) is a presentation layer around command results,
+controlled errors and warnings. The CI adapter reuses the same unittest function
+and writes only aggregate counts to the job summary. Existing logs remain trusted
+code output; no new command authority, provider protocol or isolation is added.
 
 ## Design tradeoffs
 

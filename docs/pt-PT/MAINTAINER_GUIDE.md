@@ -47,3 +47,8 @@ alvos de schema 2, rever a integridade do workspace e dos ficheiros selecionados
 [as caches geradas](TARGETS.md) podem invalidar uma execução posterior. Antes de
 fechar a issue, atualizar a lista de critérios e o texto da PR com evidência real
 do CI da PR/main, limites restantes e estado de publicação.
+
+Nas alterações JSON/CI, verificar o [contrato do envelope](OUTPUT.md), a saída
+predefinida e os códigos do processo. Inspecionar resumos e logs em cada job da
+matriz/distribuição. Os totais não substituem o gate nem provam cobertura; manter
+JUnit/cobertura/publicação de relatórios como planeados.

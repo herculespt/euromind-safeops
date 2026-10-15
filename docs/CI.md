@@ -28,6 +28,21 @@ selected/outside fixtures, verify selected-file integrity (including generated
 resources), and reject descendant links, junctions, pipes and inspection errors.
 The distribution checks require `target_runner.py`, its tests and both target guides.
 
+## Aggregate test summaries
+
+The matrix unit-test step runs `python -m euromind_safeops.ci_runner --tests tests`.
+Both distribution jobs run the same installed module with isolated Python outside
+the checkout. `GITHUB_STEP_SUMMARY` supplies the output path on every runner,
+without shell-specific variable interpolation. The adapter appends numeric unittest
+counts, phase and exit status, including handled discovery/execution failures.
+Empty/all-skipped suites and summary-write errors do not pass. It reuses the fixed
+runner implementation; no test names/messages or captured output enter the summary.
+Existing logs still contain ordinary test output.
+
+See the EN/PT-PT [output contract](OUTPUT.md). Summaries are not JUnit, coverage
+or uploaded artifacts. No Action, permission or required-check name changes.
+The archive checks require the CI module, both output guides and regression tests.
+
 ## Reviewed Actions — 2026-10-15
 
 | Action | Release | Official commit |

@@ -1,6 +1,6 @@
 # EuroMind SafeOps
 
-<!-- safeops-version: 0.3.0a4 -->
+<!-- safeops-version: 0.3.0a5 -->
 
 **A safety-focused, provider-agnostic engineering orchestration CLI.**
 
@@ -8,7 +8,7 @@
 ![Status](https://img.shields.io/badge/status-alpha-orange)
 ![License](https://img.shields.io/badge/license-Apache--2.0-blue)
 
-> **Source version: 0.3.0a4 (alpha prerelease).** See [current implementation and publication status](docs/STATUS.md) and [Implemented vs. planned](#implemented-vs-planned). Source versions do not imply a published GitHub Release or package.
+> **Source version: 0.3.0a5 (alpha prerelease).** See [current implementation and publication status](docs/STATUS.md) and [Implemented vs. planned](#implemented-vs-planned). Source versions do not imply a published GitHub Release or package.
 >
 
 EuroMind SafeOps helps software maintainers plan engineering tasks, classify risk, obtain an explicit human approval, and run a small set of deterministic checks while maintaining a locally stored integrity and audit trail. Optional OpenAI, Anthropic Claude, and OpenAI-compatible providers can provide **advice only**; their text cannot be executed as code or shell commands by SafeOps.
@@ -61,9 +61,13 @@ safeops --root examples/demo_project run YOUR_PLAN_ID
 **Upgrading from 0.2.0:** keep the workspace and its history. Valid schema-1 configuration remains supported, but old approvals are rejected. Review the current source, create a new plan and approve it explicitly. See [execution policy and compatibility](docs/EXECUTION.md).
 
 The existing version binding also requires new execution approval when upgrading
-to 0.3.0a4. Schema-1 defaults remain supported; optional schema 2 selects
+to 0.3.0a5. Schema-1 defaults remain supported; optional schema 2 selects
 [fixed-check directories](docs/TARGETS.md). Plan schema 1 and approval schema 2
 remain supported, with an additional target digest required for schema-2 config.
+
+For automation, put `--json` before the command, for example
+`safeops --json --root examples/demo_project doctor`. Default output remains
+available; see the [JSON and CI summary contract](docs/OUTPUT.md).
 
 ### Optional AI advice — OpenAI, Anthropic and local models
 
@@ -91,9 +95,11 @@ safeops --root examples/demo_project plan "Review the design" \
 
 ## Implemented vs. planned
 
-| Capability | 0.3.0a4 |
+| Capability | 0.3.0a5 |
 |---|---|
 | CLI + offline task planning | Implemented |
+| Optional structured CLI output | Implemented; global `--json`, schema-1 envelope, handled errors/warnings and stable exit codes; [contract](docs/OUTPUT.md) |
+| Aggregate CI test summaries | Implemented across nine matrix and two installed-wheel jobs; JUnit/coverage/report uploads remain planned |
 | Deterministic rule-based risk routing | Implemented; conservative heuristic, not a security classifier |
 | SHA-256 plan integrity and workspace snapshots | Implemented with documented scope and limits |
 | Approvals and local audit log | Implemented; local integrity checks, not tamper-proof security logs |
@@ -128,7 +134,7 @@ This is a **safety workflow, not an isolation boundary**. Workspace hashes can b
 - [Português (Portugal)](docs/pt-PT/README.md) · [Project scope](docs/PROJECT_SCOPE.md)
 - [Contributing](CONTRIBUTING.md) · [Code of conduct](CODE_OF_CONDUCT.md) · [Governance](GOVERNANCE.md)
 - [Maintainer guide & branch protection](docs/MAINTAINER_GUIDE.md) · [Release procedure](docs/RELEASING.md)
-- [CI and package build contract](docs/CI.md)
+- [CI and package build contract](docs/CI.md) · [JSON output and CI summaries](docs/OUTPUT.md)
 - [Provider testing and live validation status](docs/PROVIDER_TESTING.md)
 - [Current implementation status](docs/STATUS.md) · [Execution policy and upgrade compatibility](docs/EXECUTION.md)
 - [Repository audit — 2026-10-15](docs/audits/2026-10-15.md) · [Auditoria em PT-PT](docs/pt-PT/audits/2026-10-15.md)

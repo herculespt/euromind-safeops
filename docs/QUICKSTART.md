@@ -1,8 +1,8 @@
 # Quickstart
 
-<!-- safeops-version: 0.3.0a4 -->
+<!-- safeops-version: 0.3.0a5 -->
 
-Current source version: **0.3.0a4**, alpha prerelease. Requires Python 3.11+, Git optional, and a trusted source tree. The default schema-1 checks require `src/` and a nonempty unittest suite under `tests/`; optional [schema-2 targets](TARGETS.md) select other directories. Nested test packages need `__init__.py`.
+Current source version: **0.3.0a5**, alpha prerelease. Requires Python 3.11+, Git optional, and a trusted source tree. The default schema-1 checks require `src/` and a nonempty unittest suite under `tests/`; optional [schema-2 targets](TARGETS.md) select other directories. Nested test packages need `__init__.py`.
 
 ```bash
 git clone https://github.com/herculespt/euromind-safeops.git
@@ -53,3 +53,7 @@ fixed checks. See the [scope policy](SCOPE.md).
 - `run.lock` exists after a crash: confirm no check process is running before manually removing the lock.
 
 `doctor` counts candidate test filenames recursively without importing them. It does not prove that tests will be discovered or executed; only an approved run does discovery.
+
+For automation, use global `--json` before the command; see the
+[structured output and CI summary contract](OUTPUT.md). Default output remains
+available. This does not grant execution approval.
