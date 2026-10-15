@@ -12,7 +12,7 @@ safeops --root examples/demo_project doctor
 safeops --root examples/demo_project plan "Improve demo documentation"
 ```
 
-The clone URL works **only after** the maintainer creates and populates the public repository. For downloaded source archives, unpack the directory and run the install commands there.
+The public repository contains the alpha source. For downloaded source archives, unpack the directory and run the install commands there.
 
 The `plan` command prints an `id`. Use that ID:
 

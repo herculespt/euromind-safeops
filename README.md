@@ -9,7 +9,7 @@
 > **Status: v0.2.0 alpha.** This is a genuinely executable initial release, **not** a complete multi-agent IDE, sandbox, autonomous coding system, or security guarantee. See [Implemented vs. planned](#implemented-vs-planned).
 >
 
-EuroMind SafeOps helps software maintainers plan engineering tasks, classify risk, obtain an explicit human approval, and run a small set of deterministic checks while maintaining a locally stored integrity and audit trail. Optional OpenAI, Anthropic Claude, and OpenAI-compatible providers can provide **advice only**; its text cannot be executed as code or shell commands by SafeOps.
+EuroMind SafeOps helps software maintainers plan engineering tasks, classify risk, obtain an explicit human approval, and run a small set of deterministic checks while maintaining a locally stored integrity and audit trail. Optional OpenAI, Anthropic Claude, and OpenAI-compatible providers can provide **advice only**; their text cannot be executed as code or shell commands by SafeOps.
 
 The project is written from scratch as a general-purpose, independent tool. It contains **no SEND source code, private infrastructure configuration, credentials, or proprietary components**.
 
@@ -109,9 +109,10 @@ This is a **safety workflow, not an isolation boundary**. Workspace hashes can b
 - [Getting started](docs/QUICKSTART.md) · [Provider setup](docs/PROVIDERS.md) · [Architecture](docs/ARCHITECTURE.md) · [Trust model](docs/TRUST_MODEL.md)
 - [Português (Portugal)](docs/pt-PT/README.md) · [Project scope](docs/PROJECT_SCOPE.md)
 - [Contributing](CONTRIBUTING.md) · [Code of conduct](CODE_OF_CONDUCT.md) · [Governance](GOVERNANCE.md)
+- [Maintainer guide & branch protection](docs/MAINTAINER_GUIDE.md) · [Release procedure](docs/RELEASING.md)
 - [Security reporting](SECURITY.md) · [Roadmap](ROADMAP.md) · [Changelog](CHANGELOG.md)
 
-No claims of user adoption, downloads or external contributors are made. Community contributions are welcome.
+No claims of user adoption, downloads or external contributors are made. Community contributions are welcome. GitHub Releases and PyPI publication are separate, manual steps and should not be assumed from a commit or CI badge.
 
 ## License
 
