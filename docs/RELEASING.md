@@ -7,6 +7,8 @@ There is **no claim that a GitHub Release or PyPI distribution already exists**.
 - `main` is protected and `quality-gate` is required.
 - The intended release scope and risk are reviewed in a pull request.
 - Versions in `pyproject.toml` and `src/euromind_safeops/__init__.py` agree.
+- CLI help, current EN/PT-PT document markers, [status](STATUS.md), roadmap and changelog agree; dated audit baselines remain historical.
+- Execution-contract changes have an explicit compatibility decision; approvals are never silently migrated.
 - `CHANGELOG.md`, `README.md`, support notes, and provider docs describe what is implemented, with unresolved limitations stated clearly.
 - No private credentials, proprietary code or source-tree runtime `.safeops` data are included.
 
@@ -26,7 +28,7 @@ A built-in scanner is not sufficient for secure release. Inspect `git diff`, use
 
 1. Merge the release PR after all required checks pass.
 2. In GitHub, open **Releases → Draft a new release**.
-3. Create a new annotated version tag such as `v0.2.0` on the verified release commit; do not reuse tags.
+3. Create a new version tag matching the approved package version on the verified release commit; do not reuse tags. Use an alpha suffix such as `v0.3.0a1` for the current source milestone if that prerelease is separately authorized for publication.
 4. Use the matching changelog section as release notes and explicitly label the release **Alpha** or **Pre-release** if applicable.
 5. Verify that the released tag matches the tested source commit and that license, archive and documentation are present.
 6. Publish the GitHub Release only after the maintainer has checked the tag, notes and source archives.

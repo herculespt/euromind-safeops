@@ -58,7 +58,11 @@ secret format is absent.
 tests and the CI files needed by the repository hygiene tests in source archives.
 Generated state and environment files are excluded. Each job then installs the
 wheel with no index or dependency resolution in a fresh virtual environment and
-checks both CLI entry points outside the checkout. No artifact is published.
+checks both CLI entry points outside the checkout. It also runs the complete test
+suite against the installed wheel from that external working directory. This
+exercises the packaged child runner, rather than relying only on editable source
+imports. Tests remain in the source archive, not in the runtime wheel. No artifact
+is published.
 
 ## Review and rollback
 

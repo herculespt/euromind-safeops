@@ -29,6 +29,8 @@ safeops --root . scan
 - Avoid shell execution or interpolating prompts into commands.
 - Prefer standard-library functionality; justify any runtime dependencies.
 - Ensure docs and source use valid UTF-8, including PT-PT diacritics.
+- Update package metadata and `__version__`, current EN/PT-PT document version markers, implementation status, roadmap and changelog together when behavior/version changes. Preserve dated audit and historical-version records.
+- Changes to fixed checks or runner behavior must update the execution contract and document approval compatibility; never migrate approval intent automatically.
 
 ## License
 

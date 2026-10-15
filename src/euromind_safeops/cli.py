@@ -9,14 +9,14 @@ from pathlib import Path
 
 from . import __version__
 from .core import SafeOpsError, atomic_json_write, audit, read_json, secure_dir, tree_digest, workspace
-from .execution import approve, get_config, run
+from .execution import APPROVAL_SCHEMA_VERSION, CONFIG_SCHEMA_VERSION, approve, execution_contract_digest, get_config, run
 from .planning import create_plan, load_plan, specialization, validate_task
 from .providers import offline_advice, remote_advice, provider_status
 from .scanning import scan
 
 
 def make_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(prog="safeops", description="Safety-focused engineering orchestration (v0.2.0 alpha)")
+    parser = argparse.ArgumentParser(prog="safeops", description=f"Safety-focused engineering orchestration (v{__version__}, alpha)")
     parser.add_argument("--root", type=Path, default=Path.cwd(), help="Project directory (default: current directory)")
     parser.add_argument("--version", action="version", version=__version__)
     commands = parser.add_subparsers(dest="command", required=True)
@@ -55,7 +55,7 @@ def main(argv: list[str] | None = None) -> int:
             if directory.exists():
                 raise SafeOpsError("Already initialized (.safeops exists)")
             directory.mkdir(mode=0o700)
-            atomic_json_write(directory / "config.json", {"schema": 1, "checks": ["compile", "unit-tests"]})
+            atomic_json_write(directory / "config.json", {"schema": CONFIG_SCHEMA_VERSION, "checks": ["compile", "unit-tests"]})
             (directory / "plans").mkdir()
             (directory / "approvals").mkdir()
             print(f"Initialized: {directory}")
@@ -67,7 +67,10 @@ def main(argv: list[str] | None = None) -> int:
         if args.command == "doctor":
             cfg = get_config(root)
             print(json.dumps({"version": __version__, "root": str(root), "checks": cfg["checks"],
-                              "source_files_digest": tree_digest(root), "test_files": len(list((root / "tests").glob("test*.py")))}, indent=2))
+                              "source_files_digest": tree_digest(root),
+                              "test_files": len(list((root / "tests").rglob("test*.py"))),
+                              "approval_schema": APPROVAL_SCHEMA_VERSION,
+                              "execution_contract": execution_contract_digest()}, indent=2))
             return 0
         if args.command == "scan":
             findings = scan(root)

@@ -87,20 +87,21 @@ jobs:
           with tarfile.open(sources[0]) as archive:
               source_names = [PurePosixPath(n).parts[1:] for n in archive.getnames()]
           source_paths = {'/'.join(parts) for parts in source_names}
-          for required in ('LICENSE', 'README.md', 'SECURITY.md', 'docs/QUICKSTART.md', 'docs/pt-PT/README.md', 'docs/pt-PT/SECURITY.md', '.github/CODEOWNERS', '.github/workflows/ci.yml', 'tests/test_execution.py'):
+          for required in ('LICENSE', 'README.md', 'SECURITY.md', 'docs/QUICKSTART.md', 'docs/STATUS.md', 'docs/EXECUTION.md', 'docs/pt-PT/README.md', 'docs/pt-PT/SECURITY.md', 'docs/pt-PT/STATUS.md', 'docs/pt-PT/EXECUTION.md', '.github/CODEOWNERS', '.github/workflows/ci.yml', 'tests/test_execution.py', 'src/euromind_safeops/check_runner.py'):
               assert required in source_paths, f'Missing source documentation: {required}'
           for name in [*names, *source_paths]:
               parts = PurePosixPath(name).parts
               assert not any(p in ('.git', '.safeops', '.venv', '__pycache__') or p == '.env' or p.startswith('.env.') for p in parts), f'Unexpected runtime or secret file: {name}'
           print('Archive metadata, license and documentation verified')
           PY
-      - name: Install wheel and smoke-test CLI outside checkout
+      - name: Install wheel and test CLI and execution outside checkout
         run: |
           python -m venv "$RUNNER_TEMP/safeops-wheel"
           "$RUNNER_TEMP/safeops-wheel/bin/python" -m pip install --no-index --no-deps dist/*.whl
           cd "$RUNNER_TEMP"
           "$RUNNER_TEMP/safeops-wheel/bin/python" -I -m euromind_safeops --version
           "$RUNNER_TEMP/safeops-wheel/bin/safeops" --version
+          "$RUNNER_TEMP/safeops-wheel/bin/python" -I -m unittest discover -s "$GITHUB_WORKSPACE/tests" -v
 
   quality-gate:
     name: quality-gate

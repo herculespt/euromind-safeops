@@ -1,13 +1,17 @@
 # EuroMind SafeOps — Português (Portugal)
 
+<!-- safeops-version: 0.3.0a1 -->
+
 **Ferramenta open source de orquestração de engenharia com aprovação humana e execução controlada de verificações.**
 
-## O que já funciona na versão 0.2.0 (alfa)
+## O que já funciona na versão 0.3.0a1 (pré-versão alfa do código)
 
 - CLI Python 3.11+ sem dependências externas obrigatórias em tempo de execução.
 - Planeamento local de tarefas com classificação de risco e especialidade sugerida.
 - Registo de aprovação humana ligado ao conteúdo do plano e do código-fonte.
 - Execução de duas verificações predefinidas: compilação Python e testes `unittest`.
+- Validação estrita da configuração e de JSON UTF-8; aprovações ligadas à versão e ao contrato de execução.
+- Rejeição de suites vazias ou totalmente ignoradas; suporte a subdiretórios de testes com `__init__.py`.
 - Registo de auditoria local e pesquisa limitada de padrões típicos de credenciais.
 - Aconselhamento opcional através de OpenAI Responses API, Anthropic Messages API (Claude) ou modelos locais compatíveis com Chat Completions.
 - Comando `safeops providers`, que informa se existem chaves configuradas sem mostrar o seu valor.
@@ -33,6 +37,13 @@ safeops --root examples/demo_project run ID_DO_PLANO
 
 O plano **não modifica código**. A execução necessita de aprovação explícita e é bloqueada quando o projeto muda desde o planeamento.
 
+Ao atualizar da versão 0.2.0, preserva o workspace e o histórico. A configuração
+válida de schema 1 continua suportada, mas as aprovações antigas não podem ser
+reutilizadas: revê o código, cria um plano novo e aprova-o expressamente. Consulta
+a [política de execução e compatibilidade](EXECUTION.md) e o
+[estado do que está implementado e planeado](STATUS.md). A versão do código não
+significa que exista uma release ou publicação de pacote.
+
 Para utilizar OpenAI ou Claude, configura `OPENAI_API_KEY` ou `ANTHROPIC_API_KEY` no ambiente e fornece o modelo pretendido e `--allow-remote`. Vê [as instruções completas dos fornecedores](../PROVIDERS.md). Uma subscrição de chat não inclui necessariamente créditos de API.
 
 Consulta a [documentação principal](../../README.md), [arquitetura](../ARCHITECTURE.md), [modelo de confiança](../TRUST_MODEL.md) e [regras de segurança](SECURITY.md).
@@ -48,8 +59,8 @@ Consulta o [guia de manutenção](MAINTAINER_GUIDE.md) e a
 [auditoria de 15 de outubro de 2026](audits/2026-10-15.md), incluindo as limitações
 e os próximos trabalhos. A saída das verificações Python passa a utilizar UTF-8
 explicitamente para preservar os acentos em `stdout` e `stderr`, mesmo quando
-o ambiente herdado pede ASCII. Esta correção está descrita em `Unreleased` até
-ser publicada uma versão autorizada.
+o ambiente herdado pede ASCII. Esta correção está incluída no marco de código
+`0.3.0a1` do changelog; a publicação continua a exigir autorização própria.
 
 O [guia de CI e construção do pacote](CI.md) descreve as Actions fixadas por SHA,
 a versão mínima de construção e a validação dos artefactos fora do checkout.

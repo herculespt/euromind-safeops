@@ -2,6 +2,9 @@
 
 This roadmap is directional, not a promise of dates or delivered features.
 
+Current source version: **0.3.0a1** (alpha prerelease). See [status](docs/STATUS.md)
+and [PT-PT](docs/pt-PT/STATUS.md). Source milestones are not published releases.
+
 ## v0.1.0 — Initial open-source foundation (implemented)
 - [x] Packageable CLI, offline plans and specialist suggestions.
 - [x] Conservative risk classes and blocked critical executions.
@@ -19,16 +22,24 @@ This roadmap is directional, not a promise of dates or delivered features.
 
 No tagged release or package publication is implied by this source version.
 
-## Next — Policy and integration hardening (proposed)
-- [ ] Explicit workspace allowlists and policy schema validation.
+## 0.3.0a1 — Policy and execution hardening (implemented in source)
+- [x] Strict config schema and UTF-8 JSON validation, including duplicate keys and non-finite numbers.
+- [x] Versioned execution contract and approval schema 2; old approvals require a new plan and review.
+- [x] Child-process unittest discovery; empty and all-skipped suites fail.
+- [x] Nested regular test packages, discovery errors and timeout regression coverage.
+- [x] Source, metadata, CLI help and current-document version consistency checks.
+- [x] English/PT-PT execution policy, compatibility guide and implemented-versus-planned status.
+- [x] Pinned CI Actions and minimum/latest-backend builds, with the full suite tested against installed wheels.
+
+## Next — Policy and integration hardening (planned)
+- [ ] Explicit workspace filesystem allowlists.
 - [ ] Structured JSON output options and improved CI test reporting.
 - [ ] Broader HTTP transport failure and malformed-response tests.
 - [ ] Broader test adapters without permitting AI-generated commands.
 - [ ] Cross-platform locking and clearer interrupted-run recovery.
-- [x] Pin CI actions to reviewed commit SHAs and verify minimum build-tool versions and installed distributions.
 - [ ] Expand the PT-PT documentation alongside English documentation.
 
-## v0.3 — Controlled agent workflows (proposed)
+## Future — Controlled agent workflows (planned; no version or date committed)
 - [ ] Specialist plugin protocol and capability manifests.
 - [ ] Candidate patch proposals without direct workspace mutation.
 - [ ] Dry-run diffs, provenance records and human-reviewed application.
