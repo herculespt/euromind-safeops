@@ -4,7 +4,7 @@
 
 [Português (Portugal)](pt-PT/PROVIDERS.md)
 
-Native adapters were introduced in source version 0.2.0. Source 0.3.0a2 adds strict response JSON validation without changing their advisory-only request protocols. See [test evidence and live-test procedure](PROVIDER_TESTING.md); live credentials and model inference remain unverified.
+Native adapters were introduced in source version 0.2.0. Source 0.3.0a2 adds strict response JSON validation without changing their advisory-only request protocols. See [test evidence and live-test procedure](PROVIDER_TESTING.md); one live OpenAI `gpt-4.1-mini` request passed on 2026-10-15. Anthropic and compatible/local-model inference remain unverified; this does not establish compatibility with all models or accounts.
 
 EuroMind SafeOps supports four advisory backends. **All provider outputs are untrusted text, not executable actions.** Native integrations use fixed official HTTPS API endpoints with no endpoint override.
 
@@ -69,6 +69,12 @@ safeops --root examples/demo_project plan "Review architecture" `
 ```
 
 **Never commit, paste or log real API keys.** Prefer a secret manager or environment injection. `safeops providers` reports native credential-variable presence, never their contents. For the compatible adapter, `configured: true` means adapter availability, not a verified endpoint or model.
+
+SafeOps reads credentials from the process environment; it does not automatically
+load `.env.local`. An approved local env file must remain outside Git/artifacts and
+be loaded by a trusted launcher. The heuristic scanner still inspects ignored files
+inside its workspace; validate public-source exports from a clean checkout without
+local credentials instead of weakening scanner rules.
 
 ## Security and limitations
 

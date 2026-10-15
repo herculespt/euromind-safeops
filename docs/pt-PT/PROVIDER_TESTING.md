@@ -4,8 +4,9 @@
 
 [English](../PROVIDER_TESTING.md)
 
-Versão atual do código: **0.3.0a2**, pré-versão alfa. Este registo não afirma
-que existe uma release publicada ou que um modelo real foi validado.
+Versão atual do código: **0.3.0a2**, pré-versão alfa. Este registo inclui
+um pedido real OpenAI verificado, sem afirmar publicação de release ou validação
+universal de fornecedores/modelos.
 
 ## Evidência — 15 de outubro de 2026
 
@@ -16,11 +17,14 @@ que existe uma release publicada ou que um modelo real foi validado.
 | JSON e limites | UTF-8/BOM, chaves repetidas, números não finitos, codificação inválida, limite de 256 000 bytes e aconselhamento de 6 000 caracteres | Objetos válidos suportados; descodificador comum ao estado local |
 | Integração HTTP compatível | POST real em 127.0.0.1, gravação de plano pela CLI, texto português, sem envio de código nem aprovação automática | Servidor local de teste; sem inferência |
 | Redirecionamentos | Respostas reais 301/302/303/307/308; o destino não recebe pedidos | Apenas servidores locais de teste |
-| Inferência real OpenAI/Anthropic ou modelo local | **Pendente** | Sem credenciais de API nem endpoint de modelo disponíveis no ambiente de validação |
+| Inferência real OpenAI | **Aprovada: `gpt-4.1-mini`, 15 de outubro de 2026** | Um plano guardado e verificado; consultar [evidência datada](audits/2026-10-15-openai-smoke.md) |
+| Inferência real Anthropic/compatível | **Pendente** | Não é afirmada validação real desses adaptadores/modelos |
 
 O servidor compatível devolve texto predefinido; não é um modelo de IA. Os testes
-não validam autenticação real, qualidade, faturação, configuração TLS/da conta,
-recuperação de limites de utilização ou compatibilidade universal. `safeops
+do CI não validam autenticação real, qualidade, faturação, recuperação de limites
+de utilização ou compatibilidade universal. O teste OpenAI separado verifica
+autenticação e texto utilizável para um pedido/conta/modelo, sem estabelecer
+as restantes propriedades. `safeops
 providers` indica a presença das chaves nos adaptadores nativos. No compatível,
 `configured: true` indica disponibilidade do adaptador, sem validar endpoint.
 Nenhum destes indicadores comprova conectividade ou saúde do modelo.
@@ -34,9 +38,9 @@ python -m unittest discover -s tests -p test_provider_transport.py -v
 python -m unittest discover -s tests -v
 ```
 
-A validação real está registada na [issue #12](https://github.com/herculespt/euromind-safeops/issues/12), ainda aberta.
+O teste OpenAI bem-sucedido está registado na [issue #12](https://github.com/herculespt/euromind-safeops/issues/12). A [evidência datada](audits/2026-10-15-openai-smoke.md) preserva commit, tarefa, modelo e resultado. Outros fornecedores, contas e modelos continuam a exigir trabalho próprio.
 
-## Teste com modelo real — manual, expresso e ainda pendente
+## Repetir o teste com modelo real — manual e expresso
 
 1. Instalar o código ou a wheel revistos. Fornecer a credencial do fornecedor por
    injeção segura no ambiente ou gestor de segredos. Nunca colocar chaves no chat,
