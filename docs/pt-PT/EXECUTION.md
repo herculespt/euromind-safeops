@@ -1,10 +1,10 @@
 # Política de execução e compatibilidade
 
-<!-- safeops-version: 0.3.0a7 -->
+<!-- safeops-version: 0.3.0a8 -->
 
 [English](../EXECUTION.md)
 
-Versão atual do código: **0.3.0a7**, pré-versão alfa. Este guia descreve o que está
+Versão atual do código: **0.3.0a8**, pré-versão alfa. Este guia descreve o que está
 implementado; consulta o [estado](STATUS.md) para limitações e publicações.
 
 ## Configuração
@@ -92,9 +92,16 @@ bloqueio nativo local. Marcadores antigos/desconhecidos continuam a bloquear;
 usar [diagnóstico e recuperação por arquivo](LOCKING.md) apenas após verificar
 que os processos principais e filhos terminaram. Nunca apagar a guarda persistente.
 
-A versão 0.3.0a7 acrescenta [JUnit opcional de manutenção](REPORTING.md), mantendo
+A versão 0.3.0a7 acrescentou [JUnit opcional de manutenção](REPORTING.md), mantendo
 protocolos 3 do runner e 1 do bloqueio. A ligação à versão exige novo plano e
 aprovação revistos. As verificações aprovadas não geram JUnit.
+
+A versão 0.3.0a8 acrescenta o [gate de cobertura de manutenção](COVERAGE.md),
+mantendo schemas/protocolos e a ligação da aprovação à versão. Criar/integrar
+uma PR GitHub não aprova a execução no SafeOps. Para verificações autorizadas,
+criar um plano sobre a árvore final inalterada, revê-lo, aprovar expressamente
+o novo ID com uma razão e executar as verificações fixas. Nunca renovar registos
+antigos automaticamente.
 
 Alterar a versão do pacote ou o contrato dos comandos invalida uma aprovação,
 mesmo sem alterações ao projeto ou à configuração. Uma mudança de comportamento

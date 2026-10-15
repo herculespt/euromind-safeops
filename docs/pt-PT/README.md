@@ -1,14 +1,14 @@
 # EuroMind SafeOps — Português (Portugal)
 
-<!-- safeops-version: 0.3.0a7 -->
+<!-- safeops-version: 0.3.0a8 -->
 
 **Ferramenta open source de orquestração de engenharia com aprovação humana e execução controlada de verificações.**
 
-## O que já funciona na versão 0.3.0a7 (pré-versão alfa do código)
+## O que já funciona na versão 0.3.0a8 (pré-versão alfa do código)
 
 - CLI Python 3.11+ sem dependências externas obrigatórias em tempo de execução.
 - `--json` global opcional com envelope comum de resultados/erros/avisos; [contrato](OUTPUT.md).
-- Resumos unittest e [JUnit XML local](REPORTING.md) gerados e validados nos nove ambientes CI e nos dois jobs com wheel instalada; identificadores sintéticos e categorias fixas. Cobertura/uploads permanecem planeados.
+- Resumos unittest e [JUnit XML local](REPORTING.md) gerados e validados nos nove ambientes CI e nos dois jobs com wheel instalada; identificadores sintéticos e categorias fixas. [Cobertura](COVERAGE.md) medida em Linux/Python 3.12 com mínimo combinado de 90%; uploads permanecem planeados.
 - Planeamento local de tarefas com classificação de risco e especialidade sugerida.
 - Registo de aprovação humana ligado ao conteúdo do plano e do código-fonte.
 - Seleção opcional de [diretórios das verificações](TARGETS.md) no schema 2, com validação recursiva e digest dos ficheiros selecionados; sem isolamento pelo sistema operativo.
@@ -50,7 +50,7 @@ a [política de execução e compatibilidade](EXECUTION.md) e o
 [estado do que está implementado e planeado](STATUS.md). A versão do código não
 significa que exista uma release ou publicação de pacote.
 
-Atualizar para 0.3.0a7 exige novo plano/aprovação pela ligação à versão.
+Atualizar para 0.3.0a8 exige novo plano/aprovação pela ligação à versão.
 Mantém-se o schema 1 predefinido; o schema 2 opcional seleciona diretórios e
 exige digest dos ficheiros selecionados. Mantêm-se os schemas 1 de plano e 2 de aprovação.
 

@@ -1,6 +1,6 @@
-# Fixed-check directory targets — 0.3.0a7
+# Fixed-check directory targets — 0.3.0a8
 
-<!-- safeops-version: 0.3.0a7 -->
+<!-- safeops-version: 0.3.0a8 -->
 
 [Português (Portugal)](pt-PT/TARGETS.md)
 

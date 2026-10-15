@@ -35,6 +35,7 @@ class RepositoryHygieneTests(unittest.TestCase):
             "docs/OUTPUT.md", "docs/pt-PT/OUTPUT.md",
             "docs/LOCKING.md", "docs/pt-PT/LOCKING.md",
             "docs/REPORTING.md", "docs/pt-PT/REPORTING.md",
+            "docs/COVERAGE.md", "docs/pt-PT/COVERAGE.md",
         ):
             with self.subTest(path=name):
                 text = (ROOT / name).read_text(encoding="utf-8")
@@ -76,7 +77,8 @@ class RepositoryHygieneTests(unittest.TestCase):
             "src/euromind_safeops/ci_runner.py", "tests/test_json_output.py", "tests/test_ci_reporting.py",
             "src/euromind_safeops/locking.py", "tests/test_locking.py",
             "src/euromind_safeops/junit.py", "docs/REPORTING.md", "docs/pt-PT/REPORTING.md",
-            ".github/workflows/ci.yml", ".github/CODEOWNERS",
+            "docs/COVERAGE.md", "docs/pt-PT/COVERAGE.md",
+            "requirements-ci.txt", ".github/workflows/ci.yml", ".github/CODEOWNERS",
         ):
             with self.subTest(path=name):
                 self.assertTrue((ROOT / name).is_file(), name)

@@ -47,7 +47,14 @@ analisando o XML para verificar contagens, versão, fase concluída e código 0.
 Na distribuição, a validação usa Python isolado da wheel instalada. O XML exporta
 identificadores sintéticos e categorias fixas, incluindo subtestes e fixtures;
 os totais podem diferir da contagem unittest. Os relatórios ficam no runner,
-sem upload nem medição de cobertura. Falhar testes/escrita/validação bloqueia o
+sem upload. A [cobertura medida](COVERAGE.md) é obrigatória no job existente
+Linux/Python 3.12: ferramenta de desenvolvimento fixada mede instruções/decisões
+do pacote e filhos Python suportados, combina dados, gera JSON/Cobertura XML e
+exige 90% combinado. Uma sonda separada verifica a medição dos filhos e os seus
+dados são apagados antes da medição real. Os relatórios incluem todos os módulos,
+zero linhas excluídas e contagens JSON/XML iguais. Totais numéricos entram no
+resumo. Os restantes perfis executam testes sem instrumentação; mantêm-se número
+de jobs e dependências do gate. Falhar testes/escrita/validação bloqueia o
 gate. Não mudam Actions, permissões ou nome do check obrigatório. Os arquivos
 exigem `junit.py`, guias de relatórios/saída EN/PT-PT e testes de regressão.
 

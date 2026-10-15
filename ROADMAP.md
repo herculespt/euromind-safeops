@@ -2,7 +2,7 @@
 
 This roadmap is directional, not a promise of dates or delivered features.
 
-Current source version: **0.3.0a7** (alpha prerelease). See [status](docs/STATUS.md)
+Current source version: **0.3.0a8** (alpha prerelease). See [status](docs/STATUS.md)
 and [PT-PT](docs/pt-PT/STATUS.md). Source milestones are not published releases.
 
 ## v0.1.0 — Initial open-source foundation (implemented)
@@ -71,9 +71,16 @@ No tagged release or package publication is implied by this source version.
 - [x] Generate and validate XML in nine matrix and two installed-wheel jobs; no upload or coverage claim.
 - [x] Offline reporting regressions and synchronized EN/PT-PT contract, compatibility, version and implemented/planned status.
 
+## 0.3.0a8 — Measured CI coverage (implemented in source)
+- [x] Development-only pinned coverage tool, package statements/branches and supported subprocess measurement in Linux/Python 3.12.
+- [x] Independent child probe, clean measurement data, local JSON/Cobertura XML, numeric summary and minimum 90% combined gate.
+- [x] Require all package modules, zero excluded lines and matching JSON/XML counts without changing the twelve-job CI layout.
+- [x] EN/PT-PT coverage/CI/status/upgrade documentation and explicit fresh-plan/review/approval/run procedure.
+
 ## Next — Policy and integration hardening (planned)
 - [ ] OS-enforced workspace filesystem allowlists that restrict arbitrary reads; 0.3.0a4 check target selection does not implement this isolation boundary.
-- [ ] Coverage measurement and reviewed report-artifact publication; local JUnit and aggregate summaries are implemented, not coverage proof.
+- [ ] Broader OS/Python coverage profiles and reviewed report-artifact publication; Linux/Python 3.12 measurement and local JUnit/summaries are implemented.
+- [ ] First authorized alpha GitHub Release and PyPI configuration/publication, with verified registry evidence; work in progress.
 - [ ] Live compatible/local-model checks and broader account/model validation; the separate OpenAI and Anthropic smokes do not establish universal compatibility.
 - [ ] Broader test adapters without permitting AI-generated commands.
 - [ ] Process-tree supervision/termination, independently verified automatic recovery and distributed/network-filesystem leases; current recovery remains explicitly human-confirmed and local.

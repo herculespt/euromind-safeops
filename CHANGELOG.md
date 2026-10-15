@@ -4,7 +4,19 @@ The format follows Keep a Changelog conventions; versions follow Semantic Versio
 
 ## [Unreleased]
 
-Current source milestone: **0.3.0a7**. No tag or public release is implied.
+Current source milestone: **0.3.0a8**. No tag or public release is implied.
+
+## [0.3.0a8] — 2026-10-15 (alpha source; publication tracked in docs/STATUS.md)
+
+### Added / Adicionado
+- Pinned development-only coverage.py 7.16.2, statements/branches and supported Python subprocess measurement in the existing Linux/Python 3.12 CI job. No new runtime dependency.
+- Separate real subprocess probe, data reset before the full suite, combined minimum 90%, local JSON/Cobertura XML validation and numeric job summary. All package modules and zero excluded lines are required; the twelve-job layout and stable quality-gate remain.
+- Guias EN/PT-PT de cobertura, CI, manutenção, versão/estado/roadmap e aprovação de execução atualizados. A versão do código, release GitHub e pacote PyPI são entregas distintas; primeira publicação autorizada em preparação.
+
+### Compatibility and limits / Compatibilidade e limites
+- Existing schemas and runner 3/lock 1 protocols retained. Version binding still requires a new reviewed plan and explicit approval; no approval migration.
+- Coverage is an observed Linux/Python 3.12 profile, not correctness/security proof; abrupt exits, disabled instrumentation and platform-specific paths can remain unmeasured. Reports stay on the runner without upload.
+- Broader coverage profiles and report publication remain planned. No provider request is involved. Publication evidence is tracked separately from this source change.
 
 ## [0.3.0a7] — 2026-10-15 (source prerelease; not a published release)
 

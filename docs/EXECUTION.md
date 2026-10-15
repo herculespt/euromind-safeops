@@ -1,10 +1,10 @@
 # Execution policy and upgrade compatibility
 
-<!-- safeops-version: 0.3.0a7 -->
+<!-- safeops-version: 0.3.0a8 -->
 
 [Português (Portugal)](pt-PT/EXECUTION.md)
 
-Current source version: **0.3.0a7**, alpha prerelease. This document describes
+Current source version: **0.3.0a8**, alpha prerelease. This document describes
 implemented behavior; see [status](STATUS.md) for exclusions and publication state.
 
 ## Configuration
@@ -89,9 +89,15 @@ local locking and lock protocol 1. Existing PID/unknown run markers stay blockin
 use [diagnostics and explicit archival recovery](LOCKING.md) only after verifying
 parent and child checks stopped. Never remove the persistent guard.
 
-Source 0.3.0a7 adds optional maintainer-only [JUnit reporting](REPORTING.md),
+Source 0.3.0a7 added optional maintainer-only [JUnit reporting](REPORTING.md),
 retaining runner protocol 3 and lock protocol 1. The version binding still requires
 a new reviewed plan/approval. Approved checks do not create JUnit reports.
+
+Source 0.3.0a8 adds a maintainer [coverage gate](COVERAGE.md), retaining these
+schemas/protocols and the package-version approval binding. Creating or merging
+a GitHub PR does not create a SafeOps execution approval. For an authorized check
+run, create a plan against the final unchanged tree, review it, explicitly approve
+that new ID with a reason, and run its fixed checks. Never auto-renew old records.
 
 Changes to the package version or fixed command contract invalidate an existing
 approval even if workspace files and configuration are unchanged. Maintainers

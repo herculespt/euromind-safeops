@@ -51,7 +51,9 @@ do CI da PR/main, limites restantes e estado de publicação.
 Nas alterações JSON/CI, verificar o [contrato do envelope](OUTPUT.md), a saída
 predefinida e os códigos do processo. Inspecionar resumos e logs em cada job da
 matriz/distribuição. Os totais não substituem o gate nem provam cobertura; manter
-cobertura/publicação de relatórios como planeados. Inspecionar o [JUnit local](REPORTING.md),
+outros perfis de cobertura/publicação de relatórios como planeados. Rever o
+[gate de cobertura](COVERAGE.md), sonda de subprocessos e exclusões antes de alterar
+o mínimo de 90%; nunca reduzi-lo para esconder uma regressão. Inspecionar o [JUnit local](REPORTING.md),
 mapeamento de categorias e erros do runner; os identificadores sintéticos não
 identificam o teste-fonte que falhou. Rever os dados antes de qualquer upload
 de relatórios ou logs normais.

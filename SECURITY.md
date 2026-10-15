@@ -1,12 +1,12 @@
 # Security Policy
 
-<!-- safeops-version: 0.3.0a7 -->
+<!-- safeops-version: 0.3.0a8 -->
 
 [Português (Portugal)](docs/pt-PT/SECURITY.md)
 
 ## Scope and maturity
 
-EuroMind SafeOps 0.3.0a7 is an **alpha developer tool**. It is not a sandbox, cannot ensure the safety of source code being tested, and must not be used to authorize production operations. The risk classifier and pattern scanner are best-effort heuristics.
+EuroMind SafeOps 0.3.0a8 is an **alpha developer tool**. It is not a sandbox, cannot ensure the safety of source code being tested, and must not be used to authorize production operations. The risk classifier and pattern scanner are best-effort heuristics.
 
 ## Reporting vulnerabilities
 
