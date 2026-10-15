@@ -28,12 +28,24 @@ class RepositoryHygieneTests(unittest.TestCase):
             "README.md", "SECURITY.md", "docs/ARCHITECTURE.md", "docs/PROVIDERS.md",
             "docs/PROJECT_SCOPE.md", "docs/QUICKSTART.md", "docs/STATUS.md", "docs/EXECUTION.md",
             "docs/pt-PT/README.md", "docs/pt-PT/SECURITY.md", "docs/pt-PT/STATUS.md", "docs/pt-PT/EXECUTION.md",
+            "docs/PROVIDER_TESTING.md", "docs/pt-PT/PROVIDER_TESTING.md", "docs/pt-PT/PROVIDERS.md",
         ):
             with self.subTest(path=name):
                 text = (ROOT / name).read_text(encoding="utf-8")
                 marker = re.search(r"^<!-- safeops-version: ([^ ]+) -->$", text, re.MULTILINE)
                 self.assertIsNotNone(marker, "Missing current-version marker")
                 self.assertEqual(marker.group(1), __version__)
+                visible = re.sub(r"<!--.*?-->", "", text, flags=re.DOTALL)
+                first_version = re.search(r"\b\d+\.\d+\.\d+(?:a\d+)?\b", visible)
+                self.assertIsNotNone(first_version, "Missing visible current source version")
+                self.assertEqual(first_version.group(0), __version__)
+
+    def test_roadmap_and_latest_changelog_match_source_version(self):
+        for name in ("ROADMAP.md", "CHANGELOG.md"):
+            with self.subTest(path=name):
+                first_version = re.search(r"\b\d+\.\d+\.\d+(?:a\d+)?\b", (ROOT / name).read_text(encoding="utf-8"))
+                self.assertIsNotNone(first_version)
+                self.assertEqual(first_version.group(0), __version__)
 
     def test_required_community_and_maintainer_documents(self):
         for name in (
@@ -43,6 +55,7 @@ class RepositoryHygieneTests(unittest.TestCase):
             "docs/RELEASING.md", "docs/pt-PT/README.md",
             "docs/STATUS.md", "docs/EXECUTION.md", "docs/pt-PT/STATUS.md", "docs/pt-PT/EXECUTION.md",
             "docs/adr/0002-versioned-check-contract.md", "docs/pt-PT/adr/0002-versioned-check-contract.md",
+            "docs/PROVIDER_TESTING.md", "docs/pt-PT/PROVIDER_TESTING.md", "docs/pt-PT/PROVIDERS.md",
             ".github/workflows/ci.yml", ".github/CODEOWNERS",
         ):
             with self.subTest(path=name):

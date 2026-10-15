@@ -1,6 +1,6 @@
-# Architecture — 0.3.0a1
+# Architecture — 0.3.0a2
 
-<!-- safeops-version: 0.3.0a1 -->
+<!-- safeops-version: 0.3.0a2 -->
 
 ## Data flow
 
@@ -23,7 +23,7 @@ flowchart TD
 | Module | Responsibility |
 |---|---|
 | `cli.py` | Parser, command lifecycle and JSON display |
-| `core.py` | Workspace path hygiene, JSON storage, file snapshotting, audit |
+| `core.py` | Workspace path hygiene, shared strict UTF-8 JSON decoder, storage, file snapshotting, audit |
 | `planning.py` | Rule-based risk and role suggestions, plan fingerprinting |
 | `providers.py` | Offline, native OpenAI Responses, Anthropic Messages and compatible non-executable advice |
 | `execution.py` | Config validation, approval and strict fixed check commands |
@@ -51,6 +51,7 @@ Plans and configuration retain schema 1. Approval schema 2 binds the plan finger
 
 - The offline planner gives **advice**, not edits.
 - The optional HTTP adapters send only supplied task text; native endpoints are pinned, and AI output is always untrusted advice.
+- Provider responses share strict UTF-8 object decoding with stored JSON and reject duplicate keys/non-finite numbers. Transport doubles and real loopback fixture requests cover the HTTP path; live model validation remains [pending](PROVIDER_TESTING.md).
 - Allowed checks are hard-coded as Python `compileall` and the internal `euromind_safeops.check_runner` module, which uses stdlib `unittest`.
 - Discovery and `load_tests` hooks run inside that approved child process. Empty discovery, zero executed cases and all-skipped suites fail. Nested regular packages with `__init__.py` are supported.
 - The tool passes subprocess arguments directly, not through a shell.

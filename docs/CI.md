@@ -13,6 +13,11 @@ The test matrix covers Python 3.11, 3.12 and 3.13 on GitHub-hosted Linux, Window
 and macOS. Each job installs the package, runs unit tests, compiles the source,
 checks credential patterns and builds a wheel. Jobs have explicit timeouts.
 
+Provider tests use transport doubles and bind temporary HTTP fixture servers only
+to 127.0.0.1 on OS-assigned ports. They need no API keys or external model access.
+The same tests run against installed wheels. See [provider validation](PROVIDER_TESTING.md)
+for the separate live-model test that remains pending.
+
 ## Reviewed Actions — 2026-10-15
 
 | Action | Release | Official commit |

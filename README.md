@@ -1,6 +1,6 @@
 # EuroMind SafeOps
 
-<!-- safeops-version: 0.3.0a1 -->
+<!-- safeops-version: 0.3.0a2 -->
 
 **A safety-focused, provider-agnostic engineering orchestration CLI.**
 
@@ -8,7 +8,7 @@
 ![Status](https://img.shields.io/badge/status-alpha-orange)
 ![License](https://img.shields.io/badge/license-Apache--2.0-blue)
 
-> **Source version: 0.3.0a1 (alpha prerelease).** See [current implementation and publication status](docs/STATUS.md) and [Implemented vs. planned](#implemented-vs-planned). Source versions do not imply a published GitHub Release or package.
+> **Source version: 0.3.0a2 (alpha prerelease).** See [current implementation and publication status](docs/STATUS.md) and [Implemented vs. planned](#implemented-vs-planned). Source versions do not imply a published GitHub Release or package.
 >
 
 EuroMind SafeOps helps software maintainers plan engineering tasks, classify risk, obtain an explicit human approval, and run a small set of deterministic checks while maintaining a locally stored integrity and audit trail. Optional OpenAI, Anthropic Claude, and OpenAI-compatible providers can provide **advice only**; their text cannot be executed as code or shell commands by SafeOps.
@@ -59,6 +59,9 @@ safeops --root examples/demo_project run YOUR_PLAN_ID
 
 **Upgrading from 0.2.0:** keep the workspace and its history. Valid schema-1 configuration remains supported, but old approvals are rejected. Review the current source, create a new plan and approve it explicitly. See [execution policy and compatibility](docs/EXECUTION.md).
 
+The existing version binding also requires new execution approval when upgrading
+from 0.3.0a1 to 0.3.0a2; the configuration/plan/approval schemas are unchanged.
+
 ### Optional AI advice — OpenAI, Anthropic and local models
 
 All remote integrations require explicit consent (`--allow-remote`) and the model ID you wish to use. They send only the task description, not repository files. Official provider API access may be billed separately from chat subscriptions.
@@ -85,7 +88,7 @@ safeops --root examples/demo_project plan "Review the design" \
 
 ## Implemented vs. planned
 
-| Capability | 0.3.0a1 |
+| Capability | 0.3.0a2 |
 |---|---|
 | CLI + offline task planning | Implemented |
 | Deterministic rule-based risk routing | Implemented; conservative heuristic, not a security classifier |
@@ -97,6 +100,7 @@ safeops --root examples/demo_project plan "Review the design" \
 | Best-effort credential pattern scan | Implemented; incomplete by design |
 | OpenAI, Anthropic Claude and OpenAI-compatible advisory providers | Implemented, strictly opt-in |
 | Native Anthropic Messages API and OpenAI Responses API | Implemented with mocked HTTP contract tests; live credentials not tested |
+| Strict provider responses and transport regression tests | Implemented; real loopback HTTP fixtures, no live model validation |
 | Container or OS sandboxing / isolation | **Not implemented** |
 | Automatic code patches, Git writes, PR generation | **Not implemented** |
 | Multi-agent autonomous orchestration | **Not implemented** |
@@ -119,6 +123,7 @@ This is a **safety workflow, not an isolation boundary**. Workspace hashes can b
 - [Contributing](CONTRIBUTING.md) · [Code of conduct](CODE_OF_CONDUCT.md) · [Governance](GOVERNANCE.md)
 - [Maintainer guide & branch protection](docs/MAINTAINER_GUIDE.md) · [Release procedure](docs/RELEASING.md)
 - [CI and package build contract](docs/CI.md)
+- [Provider testing and live validation status](docs/PROVIDER_TESTING.md)
 - [Current implementation status](docs/STATUS.md) · [Execution policy and upgrade compatibility](docs/EXECUTION.md)
 - [Repository audit — 2026-10-15](docs/audits/2026-10-15.md) · [Auditoria em PT-PT](docs/pt-PT/audits/2026-10-15.md)
 - [Security reporting](SECURITY.md) · [Roadmap](ROADMAP.md) · [Changelog](CHANGELOG.md)

@@ -1,8 +1,10 @@
-# AI advisory providers — 0.3.0a1
+# AI advisory providers — 0.3.0a2
 
-<!-- safeops-version: 0.3.0a1 -->
+<!-- safeops-version: 0.3.0a2 -->
 
-Native adapters were introduced in source version 0.2.0 and retain the same advisory-only protocols in 0.3.0a1. Live provider credentials have not been validated by the offline test suite.
+[Português (Portugal)](pt-PT/PROVIDERS.md)
+
+Native adapters were introduced in source version 0.2.0. Source 0.3.0a2 adds strict response JSON validation without changing their advisory-only request protocols. See [test evidence and live-test procedure](PROVIDER_TESTING.md); live credentials and model inference remain unverified.
 
 EuroMind SafeOps supports four advisory backends. **All provider outputs are untrusted text, not executable actions.** Native integrations use fixed official HTTPS API endpoints with no endpoint override.
 
@@ -66,14 +68,15 @@ safeops --root examples/demo_project plan "Review architecture" `
   --provider anthropic --model YOUR_CLAUDE_MODEL_ID --allow-remote
 ```
 
-**Never commit, paste or log real API keys.** Prefer a secret manager or environment injection. `safeops providers` only reports whether variables are configured, never their contents.
+**Never commit, paste or log real API keys.** Prefer a secret manager or environment injection. `safeops providers` reports native credential-variable presence, never their contents. For the compatible adapter, `configured: true` means adapter availability, not a verified endpoint or model.
 
 ## Security and limitations
 
 - Provider calls are opt-in; no provider is contacted during `init`, `doctor`, `scan`, `review`, `approve`, `run`, or offline `plan`.
 - OpenAI requests specify `store: false`; consult the provider's current API data policies for full data retention details.
-- Provider calls have a 15-second default timeout (configurable from 1 to 60 seconds), bounded JSON responses, no follow-up model tool calls and no model-controlled execution.
+- Provider calls have a 15-second default network-operation timeout (configurable from 1 to 60 seconds), not a guaranteed total wall-clock deadline. The response read is limited to 256,001 bytes; objects above 256,000 bytes fail. Advice is limited to 6,000 characters. There are no automatic retries, follow-up model tool calls or model-controlled execution.
+- Responses must be UTF-8 JSON objects (optional UTF-8 BOM accepted). Duplicate object keys, non-finite numbers/overflow, other encodings and malformed/non-object JSON are rejected with controlled errors. Unknown non-text content blocks are not executed; a usable text response is still required.
 - Model responses are recorded in `.safeops/plans` as **untrusted advisory text** and must be reviewed before approval.
 - Risk classification, workspace integrity, and execution gates remain deterministic, unaffected by the text returned by any provider.
-- Network tests use mocked HTTP transport. They do not prove live API authentication or compatibility with every individual model.
+- CI uses transport doubles and a real HTTP server on literal loopback with deterministic fixture responses. Native request/response contracts are tested without contacting vendors. These tests do not prove live API authentication, model inference or compatibility with every individual model. See the [testing guide](PROVIDER_TESTING.md).
 - Official API protocol references: [OpenAI Responses API](https://platform.openai.com/docs/api-reference/responses), [Anthropic Messages API](https://docs.anthropic.com/en/api/messages).
