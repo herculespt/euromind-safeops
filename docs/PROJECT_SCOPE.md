@@ -1,12 +1,15 @@
 # Project scope and provenance
 
-EuroMind SafeOps is an original, independent, generic open-source project. The scope of v0.1 is a small command-line policy and verification tool for development workflows. It is not a repackaging of the private SEND application.
+<!-- safeops-version: 0.3.0a1 -->
+
+EuroMind SafeOps 0.3.0a1 is an original, independent, generic command-line policy and verification tool for development workflows. It is not a repackaging of the private SEND application. The [status](STATUS.md) distinguishes implemented capabilities from future work and public releases.
 
 ## Public components
 
 - Generic planning and auditing algorithms.
 - Conservative policy checks, specialist suggestions and fixed test runners.
 - OpenAI-compatible advisory provider with opt-in transport.
+- Native OpenAI and Anthropic advisory providers, strict configuration and version-bound approvals.
 - Documentation, public examples and tests.
 
 ## Strict exclusions

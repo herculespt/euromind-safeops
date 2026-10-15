@@ -1,10 +1,12 @@
 # Security Policy
 
+<!-- safeops-version: 0.3.0a1 -->
+
 [Português (Portugal)](docs/pt-PT/SECURITY.md)
 
 ## Scope and maturity
 
-EuroMind SafeOps v0.2.0 is an **alpha developer tool**. It is not a sandbox, cannot ensure the safety of source code being tested, and must not be used to authorize production operations. The risk classifier and pattern scanner are best-effort heuristics.
+EuroMind SafeOps 0.3.0a1 is an **alpha developer tool**. It is not a sandbox, cannot ensure the safety of source code being tested, and must not be used to authorize production operations. The risk classifier and pattern scanner are best-effort heuristics.
 
 ## Reporting vulnerabilities
 
@@ -22,3 +24,5 @@ There is no guaranteed response-time SLA. No bug bounty is offered.
 - A zero-findings scan is **not proof** that a codebase is free of secrets.
 - Plans store task text and advisory output locally; avoid sensitive information.
 - Source-tree snapshots exclude generated directories and ignore symlinks. Review these limitations before relying on approvals.
+- Empty and all-skipped unit-test suites fail, but trusted test code can still terminate the interpreter or falsify its behavior; nonempty discovery does not prove useful assertions or coverage.
+- Configuration schema 1 remains supported; approval schema 2 binds the version and fixed execution contract. Existing approvals are not silently migrated. See [execution policy](docs/EXECUTION.md).

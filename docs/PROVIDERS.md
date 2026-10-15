@@ -1,4 +1,8 @@
-# AI advisory providers — v0.2.0
+# AI advisory providers — 0.3.0a1
+
+<!-- safeops-version: 0.3.0a1 -->
+
+Native adapters were introduced in source version 0.2.0 and retain the same advisory-only protocols in 0.3.0a1. Live provider credentials have not been validated by the offline test suite.
 
 EuroMind SafeOps supports four advisory backends. **All provider outputs are untrusted text, not executable actions.** Native integrations use fixed official HTTPS API endpoints with no endpoint override.
 

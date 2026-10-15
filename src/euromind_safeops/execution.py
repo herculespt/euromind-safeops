@@ -7,20 +7,35 @@ import subprocess
 import sys
 from pathlib import Path
 
+from . import __version__
 from .core import SafeOpsError, atomic_json_write, audit, file_in_workspace, read_json, sha256, tree_digest, utc_now, workspace
 from .planning import load_plan
 
 CHECKS = {
     "compile": ["-m", "compileall", "-q", "src", "tests"],
-    "unit-tests": ["-m", "unittest", "discover", "-s", "tests", "-v"],
+    "unit-tests": ["-m", "euromind_safeops.check_runner"],
 }
+CONFIG_SCHEMA_VERSION = 1
+APPROVAL_SCHEMA_VERSION = 2
+RUNNER_PROTOCOL_VERSION = 1
+
+
+def execution_contract_digest() -> str:
+    """Invalidate approvals when the installed version or fixed runner contract changes."""
+    return sha256({"safeops_version": __version__, "runner_protocol": RUNNER_PROTOCOL_VERSION,
+                   "checks": CHECKS, "python_io_encoding": "utf-8"})
 
 
 def get_config(root: Path) -> dict:
     config = read_json(workspace(root) / "config.json")
     check_names = config.get("checks")
-    if config.get("schema") != 1 or not isinstance(check_names, list) or not check_names or any(x not in CHECKS for x in check_names):
-        raise SafeOpsError("Invalid config: checks must be nonempty and restricted to supported check names")
+    if (set(config) != {"schema", "checks"} or type(config.get("schema")) is not int or
+            config["schema"] != CONFIG_SCHEMA_VERSION):
+        raise SafeOpsError("Invalid config: expected exactly schema (integer 1) and checks")
+    if (not isinstance(check_names, list) or not check_names or
+            any(not isinstance(x, str) or x not in CHECKS for x in check_names) or
+            len(set(check_names)) != len(check_names)):
+        raise SafeOpsError("Invalid config: checks must be a nonempty list of unique supported names")
     return config
 
 
@@ -35,8 +50,9 @@ def approve(root: Path, plan_id: str, reason: str, confirmation: str) -> dict:
     if tree_digest(root) != plan["workspace_digest"]:
         raise SafeOpsError("Workspace changed since planning; create a new plan")
     cfg = get_config(root)
-    record = {"schema": 1, "plan_id": plan_id, "fingerprint": plan["fingerprint"],
+    record = {"schema": APPROVAL_SCHEMA_VERSION, "plan_id": plan_id, "fingerprint": plan["fingerprint"],
               "workspace_digest": plan["workspace_digest"], "config_digest": sha256(cfg),
+              "execution_contract": execution_contract_digest(),
               "reason": reason.strip(), "approved_at": utc_now()}
     atomic_json_write(file_in_workspace(root, "approvals", plan_id), record)
     audit(root, "approve", plan_id, "approved")
@@ -51,11 +67,13 @@ def run(root: Path, plan_id: str, *, timeout: int = 60) -> dict:
         raise SafeOpsError("Critical-risk plans are blocked")
     approved = read_json(file_in_workspace(root, "approvals", plan_id))
     cfg = get_config(root)
-    if (approved.get("schema") != 1 or approved.get("plan_id") != plan_id or
+    if (approved.get("schema") != APPROVAL_SCHEMA_VERSION or
+            approved.get("execution_contract") != execution_contract_digest() or
+            approved.get("plan_id") != plan_id or
             approved.get("fingerprint") != plan["fingerprint"] or
             approved.get("workspace_digest") != plan["workspace_digest"] or
             approved.get("config_digest") != sha256(cfg)):
-        raise SafeOpsError("Missing or stale approval")
+        raise SafeOpsError("Missing or stale approval; create a new plan and approve it under this version")
     if tree_digest(root) != plan["workspace_digest"]:
         raise SafeOpsError("Workspace changed since planning; approval is stale")
     lock = workspace(root) / "run.lock"
@@ -70,8 +88,6 @@ def run(root: Path, plan_id: str, *, timeout: int = 60) -> dict:
         # Keep Python check streams and their decoding independent of the OS locale.
         check_env = {**os.environ, "PYTHONIOENCODING": "utf-8"}
         for check in cfg["checks"]:
-            if check == "unit-tests" and not list((root / "tests").glob("test*.py")):
-                raise SafeOpsError("No test*.py files in tests/; refusing false-positive test run")
             if check == "compile" and not ((root / "src").is_dir() and (root / "tests").is_dir()):
                 raise SafeOpsError("compile requires src/ and tests/ directories")
             command = [sys.executable, *CHECKS[check]]

@@ -61,7 +61,10 @@ O `MANIFEST.in` inclui documentos da comunidade, documentação, demonstração,
 testes e ficheiros de CI necessários aos testes de organização. Exclui estado
 gerado e ficheiros de ambiente. Cada job instala depois a wheel sem acesso ao
 índice nem resolução de dependências, num ambiente virtual novo, e testa as duas
-formas de iniciar a CLI fora do checkout. Nenhum artefacto é publicado.
+formas de iniciar a CLI fora do checkout. Executa também a suite completa contra
+a wheel instalada, a partir desse diretório externo, incluindo o processo filho
+de testes empacotado. Os testes ficam no arquivo de código, não na wheel de
+execução. Nenhum artefacto é publicado.
 
 ## Revisão e reversão
 

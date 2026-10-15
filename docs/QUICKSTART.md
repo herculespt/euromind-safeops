@@ -1,6 +1,8 @@
 # Quickstart
 
-Requires Python 3.11+, Git optional, a trusted source tree with `src/` and `tests/test*.py`.
+<!-- safeops-version: 0.3.0a1 -->
+
+Current source version: **0.3.0a1**, alpha prerelease. Requires Python 3.11+, Git optional, and a trusted source tree with `src/` and a nonempty unittest suite under `tests/`. Nested test directories need `__init__.py`.
 
 ```bash
 git clone https://github.com/herculespt/euromind-safeops.git
@@ -22,7 +24,7 @@ safeops --root examples/demo_project approve YOUR_PLAN_ID --confirm YOUR_PLAN_ID
 safeops --root examples/demo_project run YOUR_PLAN_ID
 ```
 
-`approve` rejects critical risk plans; `run` aborts if source files or configuration have changed since planning. To update code, create a **new plan** and approval. This release does not alter project source files itself.
+`approve` rejects critical risk plans; `run` aborts if the source, configuration or versioned execution contract has changed. To update code or upgrade SafeOps, review the current source, create a **new plan** and approval. Old approval files are preserved but are not migrated or reused. Valid configuration schema 1 remains supported; see [execution policy](EXECUTION.md). This source version does not alter project source files itself.
 
 To inspect what may be committed:
 
@@ -39,6 +41,11 @@ Open PowerShell in the project directory. Replace `python` with `py -3` if requi
 
 - `Workspace not initialized`: run `safeops --root PATH init`.
 - `Workspace changed since planning`: regenerate the plan and approval.
-- `No test*.py files`: provide genuine `unittest` tests; an empty suite must not pass silently.
+- `No tests discovered`: provide discoverable `test*.py` modules containing genuine unittest cases; nested directories need `__init__.py`.
+- `No non-skipped tests executed`: empty or all-skipped execution is a failed check; inspect discovery and skip conditions.
+- `Invalid config`: use exactly `schema` (integer 1) and a nonempty `checks` list of unique supported names. Unknown fields, duplicate JSON keys and non-finite numbers are rejected.
+- `Missing or stale approval`: review the current version and source, then create a new plan and approval; do not modify old approval files to bypass the check.
 - `Critical-risk plans cannot be approved`: intentionally unsupported; use your organization's external review/release process.
 - `run.lock` exists after a crash: confirm no check process is running before manually removing the lock.
+
+`doctor` counts candidate test filenames recursively without importing them. It does not prove that tests will be discovered or executed; only an approved run does discovery.

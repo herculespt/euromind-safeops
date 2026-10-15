@@ -1,12 +1,14 @@
 # EuroMind SafeOps
 
+<!-- safeops-version: 0.3.0a1 -->
+
 **A safety-focused, provider-agnostic engineering orchestration CLI.**
 
 [![CI](https://github.com/herculespt/euromind-safeops/actions/workflows/ci.yml/badge.svg)](https://github.com/herculespt/euromind-safeops/actions/workflows/ci.yml)
 ![Status](https://img.shields.io/badge/status-alpha-orange)
 ![License](https://img.shields.io/badge/license-Apache--2.0-blue)
 
-> **Status: v0.2.0 alpha source.** This is an executable initial implementation, **not** a complete multi-agent IDE, sandbox, autonomous coding system, or security guarantee. See [Implemented vs. planned](#implemented-vs-planned).
+> **Source version: 0.3.0a1 (alpha prerelease).** See [current implementation and publication status](docs/STATUS.md) and [Implemented vs. planned](#implemented-vs-planned). Source versions do not imply a published GitHub Release or package.
 >
 
 EuroMind SafeOps helps software maintainers plan engineering tasks, classify risk, obtain an explicit human approval, and run a small set of deterministic checks while maintaining a locally stored integrity and audit trail. Optional OpenAI, Anthropic Claude, and OpenAI-compatible providers can provide **advice only**; their text cannot be executed as code or shell commands by SafeOps.
@@ -20,6 +22,8 @@ The project is written from scratch as a general-purpose, independent tool. It c
 - Specialist routing suggestion: general engineering, backend, DevOps, mobile, security, documentation.
 - Advisory provider adapters: offline, OpenAI Responses API, Anthropic Messages API, and OpenAI-compatible chat-completions (remote access is opt-in).
 - SHA-256 plan fingerprints, workspace snapshots and approval linkage.
+- Strict UTF-8 JSON policy validation and approvals bound to the installed version and fixed execution contract.
+- Unit-test checks require discovery and execution of at least one non-skipped case; nested regular test packages are supported.
 - Human confirmation before running any check; every check is a fixed Python command (no shell interpolation).
 - Offline audit events (`.safeops/audit.jsonl`) and basic credential-pattern scanner.
 - Portable CLI and `unittest`-based CI for Linux/macOS/Windows.
@@ -53,6 +57,8 @@ safeops --root examples/demo_project run YOUR_PLAN_ID
 
 **Important:** `approve` does not modify code. `run` executes only the predefined `compile` and `unit-tests` checks on trusted local source. Existing repository tests can execute arbitrary Python; this tool is **not a sandbox**. Do not run against untrusted repositories or code.
 
+**Upgrading from 0.2.0:** keep the workspace and its history. Valid schema-1 configuration remains supported, but old approvals are rejected. Review the current source, create a new plan and approve it explicitly. See [execution policy and compatibility](docs/EXECUTION.md).
+
 ### Optional AI advice — OpenAI, Anthropic and local models
 
 All remote integrations require explicit consent (`--allow-remote`) and the model ID you wish to use. They send only the task description, not repository files. Official provider API access may be billed separately from chat subscriptions.
@@ -79,13 +85,15 @@ safeops --root examples/demo_project plan "Review the design" \
 
 ## Implemented vs. planned
 
-| Capability | v0.2.0 |
+| Capability | 0.3.0a1 |
 |---|---|
 | CLI + offline task planning | Implemented |
 | Deterministic rule-based risk routing | Implemented; conservative heuristic, not a security classifier |
 | SHA-256 plan integrity and workspace snapshots | Implemented with documented scope and limits |
 | Approvals and local audit log | Implemented; local integrity checks, not tamper-proof security logs |
-| Compile + Python `unittest` execution | Implemented; runs trusted repository code, not isolated |
+| Strict configuration schema and UTF-8 JSON parsing | Implemented; duplicate keys, non-finite numbers and unsupported policy fields rejected |
+| Versioned execution contract | Implemented; old, changed-command or changed-version approvals rejected |
+| Compile + Python `unittest` execution | Implemented; unit-test checks reject empty/all-skipped suites; trusted code, not isolated |
 | Best-effort credential pattern scan | Implemented; incomplete by design |
 | OpenAI, Anthropic Claude and OpenAI-compatible advisory providers | Implemented, strictly opt-in |
 | Native Anthropic Messages API and OpenAI Responses API | Implemented with mocked HTTP contract tests; live credentials not tested |
@@ -97,8 +105,8 @@ safeops --root examples/demo_project plan "Review the design" \
 ## Safety model
 
 1. A plan records its source-tree hash (excluding `.safeops`, `.git`, virtual environments, and other generated dirs) and a SHA-256 fingerprint.
-2. Human approval requires explicitly repeating the plan ID and providing a reason. An approval is tied to the plan, repository snapshot and check configuration.
-3. Execution fails if the plan, code tree or check configuration changes after approval.
+2. Human approval requires explicitly repeating the plan ID and providing a reason. A schema-2 approval binds the plan, repository snapshot, validated configuration, package version and fixed execution contract.
+3. Execution fails if those approved inputs change; upgrading requires a new plan and approval. Tests are imported only inside an approved child process.
 4. **Critical tasks are blocked** in this alpha version, including production deployments, deletion and credentials management.
 5. `run` executes only predefined compile and unit-test commands, never task text or model output.
 
@@ -111,6 +119,7 @@ This is a **safety workflow, not an isolation boundary**. Workspace hashes can b
 - [Contributing](CONTRIBUTING.md) · [Code of conduct](CODE_OF_CONDUCT.md) · [Governance](GOVERNANCE.md)
 - [Maintainer guide & branch protection](docs/MAINTAINER_GUIDE.md) · [Release procedure](docs/RELEASING.md)
 - [CI and package build contract](docs/CI.md)
+- [Current implementation status](docs/STATUS.md) · [Execution policy and upgrade compatibility](docs/EXECUTION.md)
 - [Repository audit — 2026-10-15](docs/audits/2026-10-15.md) · [Auditoria em PT-PT](docs/pt-PT/audits/2026-10-15.md)
 - [Security reporting](SECURITY.md) · [Roadmap](ROADMAP.md) · [Changelog](CHANGELOG.md)
 

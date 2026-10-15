@@ -3,11 +3,13 @@
 from __future__ import annotations
 
 import re
+import importlib.metadata
 import tomllib
 import unittest
 from pathlib import Path
 
 from euromind_safeops import __version__
+from euromind_safeops.cli import make_parser
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -17,12 +19,30 @@ class RepositoryHygieneTests(unittest.TestCase):
         package = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))
         self.assertEqual(package["project"]["version"], __version__)
 
+    def test_installed_metadata_and_cli_help_match_source_version(self):
+        self.assertEqual(importlib.metadata.version("euromind-safeops"), __version__)
+        self.assertIn(__version__, make_parser().format_help())
+
+    def test_current_versioned_documents_match_source_version(self):
+        for name in (
+            "README.md", "SECURITY.md", "docs/ARCHITECTURE.md", "docs/PROVIDERS.md",
+            "docs/PROJECT_SCOPE.md", "docs/QUICKSTART.md", "docs/STATUS.md", "docs/EXECUTION.md",
+            "docs/pt-PT/README.md", "docs/pt-PT/SECURITY.md", "docs/pt-PT/STATUS.md", "docs/pt-PT/EXECUTION.md",
+        ):
+            with self.subTest(path=name):
+                text = (ROOT / name).read_text(encoding="utf-8")
+                marker = re.search(r"^<!-- safeops-version: ([^ ]+) -->$", text, re.MULTILINE)
+                self.assertIsNotNone(marker, "Missing current-version marker")
+                self.assertEqual(marker.group(1), __version__)
+
     def test_required_community_and_maintainer_documents(self):
         for name in (
             "README.md", "LICENSE", "SECURITY.md", "CONTRIBUTING.md",
             "GOVERNANCE.md", "CODE_OF_CONDUCT.md", "CHANGELOG.md", "ROADMAP.md",
             "docs/ARCHITECTURE.md", "docs/PROVIDERS.md", "docs/MAINTAINER_GUIDE.md",
             "docs/RELEASING.md", "docs/pt-PT/README.md",
+            "docs/STATUS.md", "docs/EXECUTION.md", "docs/pt-PT/STATUS.md", "docs/pt-PT/EXECUTION.md",
+            "docs/adr/0002-versioned-check-contract.md", "docs/pt-PT/adr/0002-versioned-check-contract.md",
             ".github/workflows/ci.yml", ".github/CODEOWNERS",
         ):
             with self.subTest(path=name):

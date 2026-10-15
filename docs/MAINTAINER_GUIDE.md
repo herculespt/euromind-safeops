@@ -47,7 +47,7 @@ These steps describe how to reproduce or review the baseline. The required check
 2. Create a focused `feature/`, `fix/`, `docs/` or `chore/` branch from the current `main`.
 3. Keep PRs self-contained. Complete the PR template and test the exact commit being merged.
 4. Confirm `quality-gate` success and review GitHub Actions logs. For security-related changes, inspect the full diff even when CI is green.
-5. Merge by squash to keep a concise history and avoid direct pushes to `main`.
+5. Merge the tested head through the PR with a merge commit to preserve the branch's commits and ancestry. Do not push directly to `main` or rewrite history.
 6. For releases, use [Releasing](RELEASING.md); avoid claiming public packages or releases until they exist.
 
 ## Maintenance priorities

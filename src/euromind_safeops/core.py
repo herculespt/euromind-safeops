@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import math
 import os
 import re
 import tempfile
@@ -80,14 +81,33 @@ def read_json(path: Path) -> dict[str, Any]:
     if path.is_symlink():
         raise SafeOpsError(f"Refusing symlink: {path}")
     try:
-        raw = path.read_bytes()
+        with path.open("rb") as handle:
+            raw = handle.read(256_001)
         if len(raw) > 256_000:
             raise SafeOpsError("JSON file exceeds limit")
-        value = json.loads(raw)
+        def unique_object(pairs):
+            result = {}
+            for key, item in pairs:
+                if key in result:
+                    raise ValueError("Duplicate JSON object key")
+                result[key] = item
+            return result
+
+        def reject_constant(_value):
+            raise ValueError("Non-standard JSON numeric constant")
+
+        def finite_float(text):
+            number = float(text)
+            if not math.isfinite(number):
+                raise ValueError("Non-finite JSON numeric value")
+            return number
+
+        value = json.loads(raw.decode("utf-8-sig"), object_pairs_hook=unique_object,
+                           parse_constant=reject_constant, parse_float=finite_float)
         if not isinstance(value, dict):
             raise ValueError("Expected an object")
         return value
-    except (OSError, ValueError, UnicodeError) as exc:
+    except (OSError, ValueError, UnicodeError, RecursionError) as exc:
         raise SafeOpsError(f"Cannot read {path.name}: {exc}") from exc
 
 
