@@ -31,7 +31,7 @@ as definições podem ser alteradas por quem tenha permissões administrativas.
 5. Resolver as conversas, confirmar que a branch continua atualizada e integrar o commit testado através da PR, com merge commit para preservar os commits e a ascendência da branch.
 6. Pedir autorização para alterações administrativas sensíveis e publicação de releases.
 
-Nunca introduzir código privado do SEND, credenciais ou dados de utilizadores.
+Nunca introduzir código proprietário, credenciais ou dados de utilizadores.
 Não utilizar force push. Os resultados dos modelos são aconselhamento e não
 substituem a revisão humana. Os testes executam código com os privilégios do
 operador; a ferramenta não implementa isolamento seguro.

@@ -13,7 +13,7 @@
 
 EuroMind SafeOps helps software maintainers plan engineering tasks, classify risk, obtain an explicit human approval, and run a small set of deterministic checks while maintaining a locally stored integrity and audit trail. Optional OpenAI, Anthropic Claude, and OpenAI-compatible providers can provide **advice only**; their text cannot be executed as code or shell commands by SafeOps.
 
-The project is written from scratch as a general-purpose, independent tool. It contains **no SEND source code, private infrastructure configuration, credentials, or proprietary components**.
+EuroMind SafeOps is developed independently as a general-purpose open-source tool. Contributions must be original or appropriately licensed and free of credentials, private infrastructure configuration and proprietary components.
 
 ## Features
 

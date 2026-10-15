@@ -29,6 +29,7 @@ class RepositoryHygieneTests(unittest.TestCase):
             "docs/PROJECT_SCOPE.md", "docs/QUICKSTART.md", "docs/STATUS.md", "docs/EXECUTION.md",
             "docs/pt-PT/README.md", "docs/pt-PT/SECURITY.md", "docs/pt-PT/STATUS.md", "docs/pt-PT/EXECUTION.md",
             "docs/PROVIDER_TESTING.md", "docs/pt-PT/PROVIDER_TESTING.md", "docs/pt-PT/PROVIDERS.md",
+            "docs/pt-PT/PROJECT_SCOPE.md",
         ):
             with self.subTest(path=name):
                 text = (ROOT / name).read_text(encoding="utf-8")
@@ -56,6 +57,7 @@ class RepositoryHygieneTests(unittest.TestCase):
             "docs/STATUS.md", "docs/EXECUTION.md", "docs/pt-PT/STATUS.md", "docs/pt-PT/EXECUTION.md",
             "docs/adr/0002-versioned-check-contract.md", "docs/pt-PT/adr/0002-versioned-check-contract.md",
             "docs/PROVIDER_TESTING.md", "docs/pt-PT/PROVIDER_TESTING.md", "docs/pt-PT/PROVIDERS.md",
+            "docs/pt-PT/PROJECT_SCOPE.md",
             ".github/workflows/ci.yml", ".github/CODEOWNERS",
         ):
             with self.subTest(path=name):

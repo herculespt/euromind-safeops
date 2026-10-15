@@ -21,9 +21,8 @@ Tarefa pública enviada:
 > Suggest one documentation check for a public Python CLI. Reply in one short sentence.
 
 O adaptador enviou esta tarefa, a instrução fixa do sistema e os metadados do
-pedido. Não foram enviados ficheiros de repositórios nem conteúdo privado do
-SEND. A credencial foi criada com autorização expressa, mantida fora dos
-resultados das ferramentas, Git e artefactos públicos, e fornecida pelo ambiente
+pedido. Não foram enviados ficheiros de repositórios nem dados privados. A
+credencial foi criada com autorização expressa, mantida fora dos resultados das ferramentas, Git e artefactos públicos, e fornecida pelo ambiente
 do processo. Este registo não inclui credenciais nem identificadores privados da conta.
 
 ## Resultado observado
