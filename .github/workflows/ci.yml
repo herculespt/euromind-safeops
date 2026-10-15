@@ -28,8 +28,70 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install project
         run: python -m pip install -e .
+      - name: Install coverage development tool
+        if: matrix.os == 'ubuntu-latest' && matrix.python-version == '3.12'
+        run: python -m pip install -r requirements-ci.txt
       - name: Unit tests
+        if: matrix.os != 'ubuntu-latest' || matrix.python-version != '3.12'
         run: python -m euromind_safeops.ci_runner --tests tests --junit "${{ runner.temp }}/safeops-junit.xml"
+      - name: Unit tests with measured coverage gate
+        if: matrix.os == 'ubuntu-latest' && matrix.python-version == '3.12'
+        env:
+          COVERAGE_FILE: ${{ runner.temp }}/safeops-coverage
+          COVERAGE_RCFILE: ${{ github.workspace }}/pyproject.toml
+        run: |
+          # Probe uses its own data, then erases it before the real measurement.
+          python -m coverage erase
+          python - <<'PY'
+          import os
+          from pathlib import Path
+          probe = Path(os.environ['RUNNER_TEMP']) / 'safeops-coverage-probe.py'
+          probe.write_text('import subprocess, sys\nsubprocess.run([sys.executable, "-m", "euromind_safeops", "--version"], check=True)\n', encoding='utf-8')
+          PY
+          python -m coverage run "$RUNNER_TEMP/safeops-coverage-probe.py"
+          python -m coverage combine --quiet
+          python -m coverage json --fail-under=0 -o "$RUNNER_TEMP/safeops-probe.json"
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          data = json.loads((Path(os.environ['RUNNER_TEMP']) / 'safeops-probe.json').read_text())
+          assert data['files']['src/euromind_safeops/__main__.py']['executed_lines'], 'Subprocess coverage missing'
+          print('Subprocess coverage probe verified')
+          PY
+          python -m coverage erase
+          python -m coverage run -m euromind_safeops.ci_runner --tests tests --junit "$RUNNER_TEMP/safeops-junit.xml"
+          python -m coverage combine --quiet
+          python -m coverage json -o "$RUNNER_TEMP/safeops-coverage.json"
+          python -m coverage xml -o "$RUNNER_TEMP/safeops-coverage.xml"
+          python -m coverage report
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          from xml.etree import ElementTree as ET
+          report = Path(os.environ['RUNNER_TEMP']) / 'safeops-coverage.json'
+          data = json.loads(report.read_text())
+          expected = {p.as_posix() for p in Path('src/euromind_safeops').glob('*.py')}
+          assert set(data['files']) == expected, 'Incomplete package coverage report'
+          assert data['meta']['branch_coverage'], 'Branch measurement missing'
+          t = data['totals']
+          assert t['num_statements'] > 0 and t['num_branches'] > 0
+          assert t['excluded_lines'] == 0, 'Unexpected excluded source lines'
+          assert (t['covered_lines'] + t['covered_branches']) / (t['num_statements'] + t['num_branches']) >= .90
+          xml = ET.parse(Path(os.environ['RUNNER_TEMP']) / 'safeops-coverage.xml').getroot()
+          assert xml.tag == 'coverage'
+          assert int(xml.get('lines-valid')) == t['num_statements']
+          assert int(xml.get('lines-covered')) == t['covered_lines']
+          assert int(xml.get('branches-valid')) == t['num_branches']
+          assert int(xml.get('branches-covered')) == t['covered_branches']
+          lines = ['\n### SafeOps coverage — Linux / Python 3.12', '', '| Metric | Measured |', '|---|---:|',
+                   f"| Statements | {t['covered_lines']} / {t['num_statements']} |",
+                   f"| Branches | {t['covered_branches']} / {t['num_branches']} |",
+                   f"| Combined | {t['percent_covered']:.2f}% |", '| Required combined | 90.00% |', '',
+                   'Observed execution, not proof of correctness or isolation. Local reports are not uploaded.', '']
+          with Path(os.environ['GITHUB_STEP_SUMMARY']).open('a', encoding='utf-8') as handle:
+              handle.write('\n'.join(lines))
+          print('Coverage JSON/XML and 90% combined gate verified')
+          PY
       - name: Verify local JUnit report
         run: >-
           python -c "import os, pathlib, xml.etree.ElementTree as E; from euromind_safeops import __version__; r = E.parse(pathlib.Path(os.environ['RUNNER_TEMP']) / 'safeops-junit.xml').getroot(); s = r.find('testsuite'); p = {v.get('name'): v.get('value') for v in s.find('properties')}; assert r.tag == 'testsuites' and int(r.get('tests')) > 0; assert all(r.get(k) == s.get(k) for k in r.attrib); assert r.get('failures') == r.get('errors') == '0'; assert int(r.get('tests')) == len(s.findall('testcase')); assert p == {'safeops_version': __version__, 'report_schema': '1', 'phase': 'completed', 'check_exit_code': '0'}; print('Local JUnit report verified')"
@@ -95,7 +157,7 @@ jobs:
           with tarfile.open(sources[0]) as archive:
               source_names = [PurePosixPath(n).parts[1:] for n in archive.getnames()]
           source_paths = {'/'.join(parts) for parts in source_names}
-          for required in ('LICENSE', 'README.md', 'SECURITY.md', 'docs/QUICKSTART.md', 'docs/STATUS.md', 'docs/EXECUTION.md', 'docs/pt-PT/README.md', 'docs/pt-PT/SECURITY.md', 'docs/pt-PT/STATUS.md', 'docs/pt-PT/EXECUTION.md', '.github/CODEOWNERS', '.github/workflows/ci.yml', 'tests/test_execution.py', 'src/euromind_safeops/check_runner.py', 'tests/test_provider_transport.py', 'docs/PROVIDER_TESTING.md', 'docs/pt-PT/PROVIDER_TESTING.md', 'docs/pt-PT/PROVIDERS.md', 'docs/SCOPE.md', 'docs/pt-PT/SCOPE.md', 'src/euromind_safeops/scope.py', 'tests/test_scope.py', 'docs/TARGETS.md', 'docs/pt-PT/TARGETS.md', 'src/euromind_safeops/target_runner.py', 'tests/test_targets.py', 'docs/OUTPUT.md', 'docs/pt-PT/OUTPUT.md', 'src/euromind_safeops/ci_runner.py', 'tests/test_json_output.py', 'tests/test_ci_reporting.py', 'docs/LOCKING.md', 'docs/pt-PT/LOCKING.md', 'src/euromind_safeops/locking.py', 'tests/test_locking.py', 'src/euromind_safeops/junit.py', 'docs/REPORTING.md', 'docs/pt-PT/REPORTING.md'):
+          for required in ('LICENSE', 'README.md', 'SECURITY.md', 'docs/QUICKSTART.md', 'docs/STATUS.md', 'docs/EXECUTION.md', 'docs/pt-PT/README.md', 'docs/pt-PT/SECURITY.md', 'docs/pt-PT/STATUS.md', 'docs/pt-PT/EXECUTION.md', '.github/CODEOWNERS', '.github/workflows/ci.yml', 'tests/test_execution.py', 'src/euromind_safeops/check_runner.py', 'tests/test_provider_transport.py', 'docs/PROVIDER_TESTING.md', 'docs/pt-PT/PROVIDER_TESTING.md', 'docs/pt-PT/PROVIDERS.md', 'docs/SCOPE.md', 'docs/pt-PT/SCOPE.md', 'src/euromind_safeops/scope.py', 'tests/test_scope.py', 'docs/TARGETS.md', 'docs/pt-PT/TARGETS.md', 'src/euromind_safeops/target_runner.py', 'tests/test_targets.py', 'docs/OUTPUT.md', 'docs/pt-PT/OUTPUT.md', 'src/euromind_safeops/ci_runner.py', 'tests/test_json_output.py', 'tests/test_ci_reporting.py', 'docs/LOCKING.md', 'docs/pt-PT/LOCKING.md', 'src/euromind_safeops/locking.py', 'tests/test_locking.py', 'src/euromind_safeops/junit.py', 'docs/REPORTING.md', 'docs/pt-PT/REPORTING.md', 'requirements-ci.txt', 'docs/COVERAGE.md', 'docs/pt-PT/COVERAGE.md'):
               assert required in source_paths, f'Missing source documentation: {required}'
           for name in [*names, *source_paths]:
               parts = PurePosixPath(name).parts

@@ -1,6 +1,6 @@
-# Local JUnit reporting — 0.3.0a7
+# Local JUnit reporting — 0.3.0a8
 
-<!-- safeops-version: 0.3.0a7 -->
+<!-- safeops-version: 0.3.0a8 -->
 
 [Português (Portugal)](pt-PT/REPORTING.md)
 
@@ -71,8 +71,9 @@ tests, which can modify their own process and files.
 The nine matrix and two installed-wheel jobs generate XML under `runner.temp`
 and parse it to verify counts, version and successful completed status. Reports
 stay on that runner; no upload Action, package inclusion or report publication is
-configured. `quality-gate` remains required. Coverage measurement and reviewed
-artifact publication remain planned. No provider request is involved.
+configured. `quality-gate` remains required. [Measured coverage](COVERAGE.md) is
+implemented for Linux/Python 3.12; broader profiles and reviewed artifact
+publication remain planned. No provider request is involved.
 
 See [CI](CI.md), [structured output](OUTPUT.md), [execution compatibility](EXECUTION.md)
 and [implementation status](STATUS.md).

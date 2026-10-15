@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "euromind-safeops"
-version = "0.3.0a7"
+version = "0.3.0a8"
 description = "Provider-agnostic, safety-focused AI engineering orchestration CLI"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -37,3 +37,14 @@ where = ["src"]
 
 [tool.setuptools.package-data]
 euromind_safeops = ["py.typed"]
+
+[tool.coverage.run]
+branch = true
+source_pkgs = ["euromind_safeops"]
+patch = ["subprocess"]
+parallel = true
+
+[tool.coverage.report]
+fail_under = 90
+precision = 2
+ignore_errors = false

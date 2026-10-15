@@ -45,7 +45,14 @@ parse the resulting XML and verify counts, version, completed phase and check
 exit code 0. The distribution verification uses isolated installed-wheel Python.
 JUnit exports synthetic identifiers and fixed categories, including subtest and
 fixture outcomes; XML totals can differ from unittest run counts. Reports stay
-on the runner, with no upload or coverage measurement. A failed test/report step
+on the runner, with no upload. [Coverage measurement](COVERAGE.md) is required in
+the existing Linux/Python 3.12 job: a pinned development tool measures package
+statements/branches and supported Python children, combines data, exports local
+JSON/Cobertura XML and enforces 90% combined coverage. A separate probe verifies
+child measurement, then its data is erased. The reports must include every
+package module with zero excluded lines and matching JSON/XML counts. Numeric
+coverage totals enter the job summary. Other profiles run uninstrumented tests;
+job count and gate dependencies remain unchanged. A failed test/report step
 blocks the gate. No Action, permission or required-check name changes. Archive
 checks require `junit.py`, both reporting/output guides and regression tests.
 

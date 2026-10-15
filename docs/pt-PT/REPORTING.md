@@ -1,6 +1,6 @@
-# Relatórios JUnit locais — 0.3.0a7
+# Relatórios JUnit locais — 0.3.0a8
 
-<!-- safeops-version: 0.3.0a7 -->
+<!-- safeops-version: 0.3.0a8 -->
 
 [English](../REPORTING.md)
 
@@ -73,8 +73,9 @@ maliciosos, que podem modificar o próprio processo e os ficheiros.
 Os nove jobs da matriz e os dois com wheel instalada geram XML em `runner.temp`
 e analisam contagens, versão e estado concluído aprovado. Os relatórios ficam no
 runner; não existe upload, inclusão nos pacotes nem publicação de relatórios.
-Mantém-se `quality-gate`. Medição de cobertura e publicação de artefactos após
-revisão continuam planeadas. Não são feitos pedidos a fornecedores.
+Mantém-se `quality-gate`. A [cobertura medida](COVERAGE.md) está implementada em
+Linux/Python 3.12; outros perfis e publicação de artefactos após revisão continuam
+planeados. Não são feitos pedidos a fornecedores.
 
 Consultar [CI](CI.md), [saída estruturada](OUTPUT.md),
 [compatibilidade de execução](EXECUTION.md) e [estado](STATUS.md).

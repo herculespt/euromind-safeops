@@ -1,6 +1,6 @@
-# Fornecedores de aconselhamento — 0.3.0a7
+# Fornecedores de aconselhamento — 0.3.0a8
 
-<!-- safeops-version: 0.3.0a7 -->
+<!-- safeops-version: 0.3.0a8 -->
 
 [English](../PROVIDERS.md)
 

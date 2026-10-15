@@ -1,13 +1,16 @@
 # Implementation and publication status
 
-<!-- safeops-version: 0.3.0a7 -->
+<!-- safeops-version: 0.3.0a8 -->
 
 [Português (Portugal)](pt-PT/STATUS.md)
 
-**Current source version: 0.3.0a7 — alpha prerelease.** Python 3.11–3.13 is
+**Current source version: 0.3.0a8 — alpha prerelease.** Python 3.11–3.13 is
 covered by CI on Linux, Windows and macOS. No third-party runtime dependencies.
-This source milestone is not a published release: GitHub Releases/tags require
-separate approval, and package-registry publication is not configured or verified.
+The code is available in this GitHub repository. At this milestone review, the
+first alpha GitHub Release is being prepared with maintainer authorization;
+PyPI publication still requires configuration, authentication and verification.
+A repository version, GitHub Release and installable PyPI package are separate
+deliveries. Publication evidence will be recorded here after verification.
 
 ## Implemented
 
@@ -26,6 +29,7 @@ separate approval, and package-registry publication is not configured or verifie
 | Explicit fixed-check directory targets | Optional schema 2; recursive link checks and selected-file approval digest; not an OS access boundary |
 | Structured CLI JSON envelopes | Optional global `--json`; schema 1, handled results/errors/warnings and 0/1/2 exit codes; [contract](OUTPUT.md) |
 | Aggregate CI summaries and local JUnit XML | Generated/validated in nine matrix and two installed-wheel jobs; synthetic cases and fixed outcomes; [contract](REPORTING.md) |
+| Measured coverage gate | Linux/Python 3.12, package statements/branches and supported Python children, combined minimum 90%; [limits](COVERAGE.md) |
 | Protected main and security-reporting workflow | Verified settings are dated operational observations |
 | CI and distribution validation | Nine test environments, minimum/latest backend jobs and required aggregate gate |
 | English/PT-PT current guides and version checks | Metadata, CLI help and versioned-document markers are tested |
@@ -43,7 +47,7 @@ separate approval, and package-registry publication is not configured or verifie
 | Production deployment or automatic release publication | Not implemented |
 | Live compatible/local-model inference and broader account/model compatibility | Pending; separate successful OpenAI and Anthropic smokes do not establish these |
 | Distributed/network-filesystem locks, process-tree supervision and automatic recovery decisions | Planned; current locking is cooperative/local and recovery explicitly human-confirmed |
-| Coverage measurement and report-artifact uploads | Planned; local JUnit XML and aggregate summaries are implemented |
+| Broader coverage profiles and report-artifact uploads | Planned; measured Linux/Python 3.12 coverage, local JUnit and summaries are implemented |
 | Workflow dependency lockfiles, complete reproducible builds, independent history-wide secret audit | Pending separate work |
 
 The [roadmap](../ROADMAP.md) records future work without assigning delivery dates
@@ -65,11 +69,11 @@ See [execution compatibility](EXECUTION.md), [trust model](TRUST_MODEL.md),
 Provider evidence distinguishes fixtures from the separate verified live requests in
 [provider testing](PROVIDER_TESTING.md), the [OpenAI record](audits/2026-10-15-openai-smoke.md)
 and the [Anthropic record](audits/2026-10-15-anthropic-smoke.md).
-The live requests above were tested on source 0.3.0a2. Current source 0.3.0a7
-adds [local JUnit reporting](REPORTING.md), preserving
+The live requests above were tested on source 0.3.0a2. Current source 0.3.0a8
+adds [measured coverage](COVERAGE.md), preserving [local JUnit reporting](REPORTING.md),
 [native locking and explicit recovery](LOCKING.md),
 [structured output and summaries](OUTPUT.md), optional
 [check directory targets](TARGETS.md), advisory [scope preflight](SCOPE.md) and
 schema-1 defaults. The version-bound contract
 invalidates earlier execution approvals; schema-2 config also binds selected files.
-A complete filesystem allowlist remains planned. No release is published.
+A complete filesystem allowlist remains planned. See the publication status above.

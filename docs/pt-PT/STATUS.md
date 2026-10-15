@@ -1,14 +1,16 @@
 # Estado de implementação e publicação
 
-<!-- safeops-version: 0.3.0a7 -->
+<!-- safeops-version: 0.3.0a8 -->
 
 [English](../STATUS.md)
 
-**Versão atual do código: 0.3.0a7 — pré-versão alfa.** O CI cobre Python
+**Versão atual do código: 0.3.0a8 — pré-versão alfa.** O CI cobre Python
 3.11–3.13 em Linux, Windows e macOS. Não existem dependências externas em
-execução. Este marco do código não é uma release publicada: tags e releases
-GitHub exigem autorização própria; a publicação em registos de pacotes não
-está configurada nem verificada.
+execução. O código já está disponível neste repositório GitHub. Nesta revisão,
+a primeira release alfa está em preparação, com autorização do maintainer.
+A publicação no PyPI ainda exige configuração, autenticação e verificação.
+A versão do código, a release GitHub e o pacote instalável pelo PyPI são
+entregas distintas. A evidência de publicação será registada aqui após validação.
 
 ## Implementado
 
@@ -27,6 +29,7 @@ está configurada nem verificada.
 | Diretórios explícitos das verificações | Schema 2 opcional; validação recursiva de ligações e digest dos ficheiros selecionados; sem isolamento pelo SO |
 | Envelopes JSON da CLI | `--json` global opcional; schema 1, resultados/erros/avisos tratados e códigos 0/1/2; [contrato](OUTPUT.md) |
 | Resumos agregados e JUnit XML local | Gerados/validados nos nove ambientes e dois jobs com wheel; casos sintéticos e categorias fixas; [contrato](REPORTING.md) |
+| Gate de cobertura medida | Linux/Python 3.12, instruções/decisões do pacote e filhos Python suportados, mínimo combinado de 90%; [limites](COVERAGE.md) |
 | Main protegida e comunicação privada de vulnerabilidades | Definições verificadas como observações operacionais datadas |
 | CI e validação de distribuição | Nove ambientes, dois jobs de construção e gate agregado obrigatório |
 | Guias atuais EN/PT-PT e verificação da versão | Testes comparam metadados, ajuda da CLI e marcadores da documentação |
@@ -44,7 +47,7 @@ está configurada nem verificada.
 | Deploy de produção ou publicação automática de releases | Não implementados |
 | Inferência real de modelos compatíveis/locais e compatibilidade alargada de contas/modelos | Pendente; os testes separados OpenAI e Anthropic não demonstram estas capacidades |
 | Bloqueios distribuídos/de rede, supervisão da árvore de processos e recuperação automática | Planeados; bloqueio atual local/cooperativo e recuperação com confirmação humana |
-| Medição da cobertura e upload de relatórios | Planeados; JUnit XML local e resumos agregados implementados |
+| Cobertura noutros perfis e upload de relatórios | Planeados; medição Linux/Python 3.12, JUnit local e resumos implementados |
 | Lockfiles de workflows, builds integralmente reproduzíveis e auditoria independente de segredos em todo o histórico | Trabalho separado pendente |
 
 O [roadmap](../../ROADMAP.md) regista o trabalho futuro sem prometer datas ou
@@ -68,7 +71,7 @@ Consulta a [compatibilidade de execução](EXECUTION.md), o
 A [validação dos fornecedores](PROVIDER_TESTING.md) distingue respostas fixas dos
 pedidos reais separados nos registos [OpenAI](audits/2026-10-15-openai-smoke.md) e
 [Anthropic](audits/2026-10-15-anthropic-smoke.md), testados na versão 0.3.0a2.
-A versão atual 0.3.0a7 acrescenta [JUnit local](REPORTING.md), preservando
+A versão atual 0.3.0a8 acrescenta [cobertura medida](COVERAGE.md), preservando [JUnit local](REPORTING.md),
 [bloqueio nativo e recuperação explícita](LOCKING.md),
 [saída estruturada/resumos CI](OUTPUT.md), [diretórios opcionais](TARGETS.md),
 a [validação do âmbito](SCOPE.md) e o schema 1 predefinido.

@@ -70,7 +70,9 @@ CLI compatibility and process codes. Inspect the job summaries as well as logs
 for each matrix/distribution job. Summary totals do not replace failure gates or
 prove coverage. Inspect generated local [JUnit reports](REPORTING.md), their fixed
 outcome mapping and runner-error entries; synthetic identifiers deliberately do
-not identify failing source tests. Keep coverage/artifact publication planned.
+not identify failing source tests. Keep broader coverage profiles/artifact publication planned. Review the measured
+[coverage gate](COVERAGE.md), its subprocess probe and exclusions before changing
+the 90% threshold; never lower it just to hide a regression.
 Do not upload reports or ordinary logs without a separate data review.
 
 For interrupted runs, follow [native-lock recovery](LOCKING.md): independently
