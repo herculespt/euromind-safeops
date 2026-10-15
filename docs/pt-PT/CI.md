@@ -25,6 +25,11 @@ simulado e que ligações alteradas não chegam aos subprocessos aprovados. Os j
 Windows testam junctions; os POSIX testam pipes com nome. Os jobs de distribuição
 verificam os dois guias de âmbito e o módulo `scope.py` empacotados.
 
+Os testes dos alvos executam subprocessos fixos aprovados com ficheiros dentro
+e fora da seleção, verificam a integridade de recursos gerados e rejeitam
+ligações, junctions, pipes e erros de inspeção nos descendentes. A distribuição
+exige `target_runner.py`, os seus testes e os dois guias dos alvos.
+
 ## Actions revistas em 15 de outubro de 2026
 
 | Action | Versão | Commit oficial |

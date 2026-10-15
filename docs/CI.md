@@ -23,6 +23,11 @@ mocked provider and that changed links cannot reach approved subprocess checks.
 Windows jobs exercise junctions; POSIX jobs exercise named pipes. Both packaged
 scope guides and `scope.py` are checked in the distribution jobs.
 
+Target-selection regression tests run real approved fixed subprocesses against
+selected/outside fixtures, verify selected-file integrity (including generated
+resources), and reject descendant links, junctions, pipes and inspection errors.
+The distribution checks require `target_runner.py`, its tests and both target guides.
+
 ## Reviewed Actions — 2026-10-15
 
 | Action | Release | Official commit |

@@ -1,6 +1,6 @@
 # EuroMind SafeOps
 
-<!-- safeops-version: 0.3.0a3 -->
+<!-- safeops-version: 0.3.0a4 -->
 
 **A safety-focused, provider-agnostic engineering orchestration CLI.**
 
@@ -8,7 +8,7 @@
 ![Status](https://img.shields.io/badge/status-alpha-orange)
 ![License](https://img.shields.io/badge/license-Apache--2.0-blue)
 
-> **Source version: 0.3.0a3 (alpha prerelease).** See [current implementation and publication status](docs/STATUS.md) and [Implemented vs. planned](#implemented-vs-planned). Source versions do not imply a published GitHub Release or package.
+> **Source version: 0.3.0a4 (alpha prerelease).** See [current implementation and publication status](docs/STATUS.md) and [Implemented vs. planned](#implemented-vs-planned). Source versions do not imply a published GitHub Release or package.
 >
 
 EuroMind SafeOps helps software maintainers plan engineering tasks, classify risk, obtain an explicit human approval, and run a small set of deterministic checks while maintaining a locally stored integrity and audit trail. Optional OpenAI, Anthropic Claude, and OpenAI-compatible providers can provide **advice only**; their text cannot be executed as code or shell commands by SafeOps.
@@ -61,7 +61,9 @@ safeops --root examples/demo_project run YOUR_PLAN_ID
 **Upgrading from 0.2.0:** keep the workspace and its history. Valid schema-1 configuration remains supported, but old approvals are rejected. Review the current source, create a new plan and approve it explicitly. See [execution policy and compatibility](docs/EXECUTION.md).
 
 The existing version binding also requires new execution approval when upgrading
-from 0.3.0a2 to 0.3.0a3; the configuration/plan/approval schemas are unchanged.
+to 0.3.0a4. Schema-1 defaults remain supported; optional schema 2 selects
+[fixed-check directories](docs/TARGETS.md). Plan schema 1 and approval schema 2
+remain supported, with an additional target digest required for schema-2 config.
 
 ### Optional AI advice — OpenAI, Anthropic and local models
 
@@ -89,7 +91,7 @@ safeops --root examples/demo_project plan "Review the design" \
 
 ## Implemented vs. planned
 
-| Capability | 0.3.0a3 |
+| Capability | 0.3.0a4 |
 |---|---|
 | CLI + offline task planning | Implemented |
 | Deterministic rule-based risk routing | Implemented; conservative heuristic, not a security classifier |
@@ -103,7 +105,8 @@ safeops --root examples/demo_project plan "Review the design" \
 | Native Anthropic Messages API and OpenAI Responses API | Implemented; separate OpenAI `gpt-4.1-mini` and Anthropic `claude-haiku-5-5` live smokes passed on source 0.3.0a2 on 2026-10-15 |
 | Strict provider responses and transport regression tests | Implemented; loopback fixtures plus separate verified OpenAI and Anthropic live smoke tests |
 | Advisory scope-path preflight | Implemented; validates declared paths before side effects and rechecks links; does not restrict fixed check targets |
-| Filesystem path allowlist / check isolation | **Not implemented**; scope remains advisory |
+| Explicit fixed-check directory targets | Implemented in optional config schema 2; recursive link checks and selected-file approval digest; [limits](docs/TARGETS.md) |
+| OS-enforced filesystem allowlist / check isolation | **Not implemented**; trusted Python retains filesystem access |
 | Container or OS sandboxing / isolation | **Not implemented** |
 | Automatic code patches, Git writes, PR generation | **Not implemented** |
 | Multi-agent autonomous orchestration | **Not implemented** |

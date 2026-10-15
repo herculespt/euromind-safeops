@@ -1,15 +1,15 @@
 # Execution policy and upgrade compatibility
 
-<!-- safeops-version: 0.3.0a3 -->
+<!-- safeops-version: 0.3.0a4 -->
 
 [Português (Portugal)](pt-PT/EXECUTION.md)
 
-Current source version: **0.3.0a3**, alpha prerelease. This document describes
+Current source version: **0.3.0a4**, alpha prerelease. This document describes
 implemented behavior; see [status](STATUS.md) for exclusions and publication state.
 
 ## Configuration
 
-The initialized `.safeops/config.json` keeps schema 1:
+The initialized `.safeops/config.json` keeps schema 1 by default:
 
 ```json
 {"schema": 1, "checks": ["compile", "unit-tests"]}
@@ -25,8 +25,14 @@ Stored JSON objects are read as UTF-8 (an optional UTF-8 BOM is accepted), with
 a 256,000-byte limit. Duplicate object keys, non-finite numbers including
 overflow, non-UTF-8 encoding and non-object top-level values are rejected.
 Excessive nesting reported by the JSON decoder produces a controlled error.
-Configuration does not support plugins, arbitrary commands or a filesystem
-allowlist. Plan scope paths are advisory, not enforced isolation boundaries.
+Optional schema 2 adds explicit [check directory targets](TARGETS.md), while
+schema 1 remains supported. Configuration does not support plugins, arbitrary
+commands or OS-enforced filesystem isolation. Plan scope paths are advisory, not enforced isolation boundaries.
+
+Schema 2 accepts exactly `schema`, `checks` and `targets`. The target mapping
+names exactly the enabled checks. Selected directory trees are validated without
+imports before approval/run, with the fixed child rechecking before execution.
+See the [target guide](TARGETS.md) for the JSON example, limits and compatibility.
 
 ## Advisory path preflight
 
@@ -41,9 +47,11 @@ portable syntax, future files, link handling and residual race limitations.
 Plans remain schema 1. New approvals use schema 2 and bind:
 
 - Plan ID/fingerprint, source-tree snapshot and validated configuration hash.
-- Installed SafeOps version, runner protocol version, fixed command table and UTF-8 stream policy, through the execution-contract digest.
+- Installed SafeOps version, runner protocol version, fixed command table/target adapter and UTF-8 stream policy, through the execution-contract digest.
+- With config schema 2, an additional `targets_digest` of every selected regular file, including ordinary snapshot exclusions.
 
-`doctor` reports the current version, approval schema and contract digest. Its
+`doctor` reports the current version, configuration schema, actual check targets,
+approval schema and contract digest. Its
 recursive filename count is diagnostic only; it does not import test code or
 prove that a runnable suite exists.
 
@@ -62,6 +70,11 @@ the version-bound contract. Configuration/plan schema 1 and approval schema 2
 remain unchanged. Earlier unsupported path forms now fail before provider access;
 old records can still be reviewed without rewriting them.
 
+Upgrading to 0.3.0a4 requires a fresh plan/approval (runner protocol 2). Schema-1
+configuration is retained; opting into schema 2 requires `targets_digest` in the
+approval. Plan schema 1 and approval schema 2 remain supported. Generated caches
+in selected trees can invalidate later runs; inspect and reapprove with a new plan.
+
 Changes to the package version or fixed command contract invalidate an existing
 approval even if workspace files and configuration are unchanged. Maintainers
 must bump the package/runner protocol when behavior changes. These are local
@@ -69,10 +82,10 @@ integrity records, not signatures or protection against a malicious local actor.
 
 ## Fixed checks and results
 
-| Check | Implemented behavior |
-|---|---|
-| `compile` | Fixed Python `compileall -q src tests`; requires both directories |
-| `unit-tests` | Fixed internal Python module using unittest discovery under `tests/`, pattern `test*.py` |
+| Check | Config schema 1 | Config schema 2 |
+|---|---|---|
+| `compile` | Fixed `compileall -q src tests`; requires both directories | Fixed internal adapter compiles selected `.py` sources in memory, without imports/bytecode writes |
+| `unit-tests` | Internal unittest runner under `tests/`, pattern `test*.py` | Same runner under one explicitly selected directory |
 
 Discovery happens only inside the approved child process. Importable nested test
 packages with `__init__.py` are supported. Empty discovery, zero executed cases

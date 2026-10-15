@@ -67,9 +67,13 @@ def main(argv: list[str] | None = None) -> int:
             return 0
         if args.command == "doctor":
             cfg = get_config(root)
+            targets = cfg.get("targets", {"compile": ["src", "tests"], "unit-tests": ["tests"]})
+            targets = {name: targets[name] for name in cfg["checks"]}
+            test_root = root / targets["unit-tests"][0] if "unit-tests" in targets else None
             print(json.dumps({"version": __version__, "root": str(root), "checks": cfg["checks"],
+                              "config_schema": cfg["schema"], "targets": targets,
                               "source_files_digest": tree_digest(root),
-                              "test_files": len(list((root / "tests").rglob("test*.py"))),
+                              "test_files": len(list(test_root.rglob("test*.py"))) if test_root else 0,
                               "approval_schema": APPROVAL_SCHEMA_VERSION,
                               "execution_contract": execution_contract_digest()}, indent=2))
             return 0
