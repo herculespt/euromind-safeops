@@ -4,9 +4,11 @@ The format follows Keep a Changelog conventions; versions follow Semantic Versio
 
 ## [Unreleased]
 
+Documentation-only follow-up for source 0.3.0a2: verified a live Anthropic `claude-haiku-5-5` advisory request, saved plan and integrity review on 2026-10-15. Added dated EN/PT-PT evidence and synchronized current status, roadmap and provider guides. Compatible/local-model inference and broader account/model compatibility remain pending; runtime code, schemas and version are unchanged.
+
 Clarified the standalone project scope and used generic confidentiality rules throughout public documentation. Added the corresponding PT-PT project-scope guide; source version remains 0.3.0a2.
 
-Documentation-only follow-up for source 0.3.0a2: verified a live OpenAI `gpt-4.1-mini` advisory request, saved plan and integrity review on 2026-10-15. Updated EN/PT-PT status, roadmap and evidence without changing runtime code, schemas or version. Anthropic/compatible-model validation remains pending; no release was published.
+Documentation-only follow-up for source 0.3.0a2: verified a live OpenAI `gpt-4.1-mini` advisory request, saved plan and integrity review on 2026-10-15. Updated EN/PT-PT status, roadmap and evidence without changing runtime code, schemas or version. The subsequent Anthropic validation is recorded above; compatible/local-model validation remains pending. No release was published.
 
 ## [0.3.0a2] — 2026-10-15 (source prerelease; not a published release)
 
@@ -21,7 +23,7 @@ Documentation-only follow-up for source 0.3.0a2: verified a live OpenAI `gpt-4.1
 ### Compatibility
 - Configuration/plan schema 1 and approval schema 2 are unchanged. The package-version change invalidates earlier execution approvals: retain records and create a fresh plan and explicit approval.
 - Previously accepted ambiguous/non-UTF-8 provider responses now fail with controlled errors. Valid UTF-8 JSON objects remain supported, with optional UTF-8 BOM.
-- The initial transport-hardening milestone used no real API credentials or local model endpoint. A subsequent live OpenAI smoke test is recorded above; Anthropic, compatible-model inference and broader account/model compatibility remain unverified. No release or package was published.
+- The initial transport-hardening milestone used no real API credentials or local model endpoint. Subsequent live OpenAI and Anthropic smoke tests are recorded above; compatible/local-model inference and broader account/model compatibility remain unverified. No release or package was published.
 
 ## [0.3.0a1] — 2026-10-15 (source prerelease; not a published release)
 

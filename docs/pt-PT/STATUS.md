@@ -20,7 +20,7 @@ está configurada nem verificada.
 | Aprovações schema 2 ligadas ao contrato de execução | Alterar versão/comandos exige novo plano e aprovação expressa |
 | Verificações fixas de compilação e unittest | Suites vazias ou totalmente ignoradas falham; sem isolamento ou garantia de cobertura |
 | Saída UTF-8, bloqueio e timeout | Mantêm-se as limitações de crashes, concorrência e código de confiança |
-| Adaptadores de aconselhamento OpenAI, Anthropic e compatíveis | Consentimento expresso, envio apenas da tarefa e respostas UTF-8 estritas; contratos offline e HTTP em loopback; um pedido real OpenAI `gpt-4.1-mini` e revisão do plano verificados em 15 de outubro de 2026 |
+| Adaptadores de aconselhamento OpenAI, Anthropic e compatíveis | Consentimento expresso, envio apenas da tarefa e respostas UTF-8 estritas; contratos offline e HTTP em loopback; pedidos reais separados OpenAI `gpt-4.1-mini` e Anthropic `claude-haiku-5-5`, com revisão dos planos, verificados em 15 de outubro de 2026 |
 | Main protegida e comunicação privada de vulnerabilidades | Definições verificadas como observações operacionais datadas |
 | CI e validação de distribuição | Nove ambientes, dois jobs de construção e gate agregado obrigatório |
 | Guias atuais EN/PT-PT e verificação da versão | Testes comparam metadados, ajuda da CLI e marcadores da documentação |
@@ -36,7 +36,7 @@ está configurada nem verificada.
 | Isolamento por contentor/sistema operativo e execução de código hostil | Não implementados |
 | Aprovações assinadas, auditoria inviolável ou atestação remota | Não implementadas |
 | Deploy de produção ou publicação automática de releases | Não implementados |
-| Inferência real Anthropic/compatível e compatibilidade alargada de contas/modelos | Pendente; um teste OpenAI bem-sucedido não demonstra estas capacidades |
+| Inferência real de modelos compatíveis/locais e compatibilidade alargada de contas/modelos | Pendente; os testes separados OpenAI e Anthropic não demonstram estas capacidades |
 | Lockfiles de workflows, builds integralmente reproduzíveis e auditoria independente de segredos em todo o histórico | Trabalho separado pendente |
 
 O [roadmap](../../ROADMAP.md) regista o trabalho futuro sem prometer datas ou
@@ -57,7 +57,8 @@ Consulta a [compatibilidade de execução](EXECUTION.md), o
 [modelo de confiança](../TRUST_MODEL.md), o [CI](CI.md) e o
 [procedimento de releases](../RELEASING.md).
 
-A [validação dos fornecedores](PROVIDER_TESTING.md) distingue respostas fixas do
-pedido real OpenAI no [registo datado](audits/2026-10-15-openai-smoke.md). Esta
+A [validação dos fornecedores](PROVIDER_TESTING.md) distingue respostas fixas dos
+pedidos reais separados nos registos [OpenAI](audits/2026-10-15-openai-smoke.md) e
+[Anthropic](audits/2026-10-15-anthropic-smoke.md). Esta
 atualização de documentação mantém a versão 0.3.0a2: não altera comportamento,
 schemas ou contrato de execução e não publica uma release.

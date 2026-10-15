@@ -4,7 +4,7 @@
 
 [Português (Portugal)](pt-PT/PROVIDERS.md)
 
-Native adapters were introduced in source version 0.2.0. Source 0.3.0a2 adds strict response JSON validation without changing their advisory-only request protocols. See [test evidence and live-test procedure](PROVIDER_TESTING.md); one live OpenAI `gpt-4.1-mini` request passed on 2026-10-15. Anthropic and compatible/local-model inference remain unverified; this does not establish compatibility with all models or accounts.
+Native adapters were introduced in source version 0.2.0. Source 0.3.0a2 adds strict response JSON validation without changing their advisory-only request protocols. See [test evidence and live-test procedure](PROVIDER_TESTING.md); separate live OpenAI `gpt-4.1-mini` and Anthropic `claude-haiku-5-5` requests passed on 2026-10-15. Compatible/local-model inference remains unverified; these smokes do not establish compatibility with all models or accounts.
 
 EuroMind SafeOps supports four advisory backends. **All provider outputs are untrusted text, not executable actions.** Native integrations use fixed official HTTPS API endpoints with no endpoint override.
 
@@ -43,6 +43,10 @@ export ANTHROPIC_API_KEY="<api-key>"
 safeops --root examples/demo_project plan "Review the testing strategy" \
   --provider anthropic --model YOUR_CLAUDE_MODEL_ID --allow-remote
 ```
+
+Use an Anthropic key scoped to one workspace. The current adapter does not send
+`anthropic-workspace-id`; multi-workspace keys are not validated. The tested
+model ID is evidence, not a new default. See the [dated Anthropic record](audits/2026-10-15-anthropic-smoke.md).
 
 ### Local OpenAI-compatible service
 

@@ -60,3 +60,9 @@ publicados tags, releases ou pacotes como parte desta validação.
 Consultar a [validação dos fornecedores](../PROVIDER_TESTING.md), o
 [estado de implementação](../STATUS.md) e a
 [issue #12](https://github.com/herculespt/euromind-safeops/issues/12).
+
+## Evidência posterior de outro fornecedor nativo
+
+Um [registo Anthropic separado](2026-10-15-anthropic-smoke.md) documenta um
+pedido nativo Anthropic posterior. Não altera o commit, o resultado nem as
+limitações originais deste teste OpenAI.

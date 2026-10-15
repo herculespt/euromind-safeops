@@ -19,7 +19,7 @@ separate approval, and package-registry publication is not configured or verifie
 | Approval schema 2 and execution-contract binding | Package/command changes require new plan and explicit approval |
 | Fixed compile and unittest checks | Empty/all-skipped test execution fails; no isolation or coverage guarantee |
 | UTF-8 check streams, lock and timeout | Existing crash/race and trusted-code limits remain |
-| OpenAI, Anthropic and compatible advisory adapters | Explicit consent, task-only request, strict UTF-8 response objects; offline contracts/loopback fixtures; one live OpenAI `gpt-4.1-mini` request and saved-plan review verified on 2026-10-15 |
+| OpenAI, Anthropic and compatible advisory adapters | Explicit consent, task-only request, strict UTF-8 response objects; offline contracts/loopback fixtures; separate live OpenAI `gpt-4.1-mini` and Anthropic `claude-haiku-5-5` requests and saved-plan reviews verified on 2026-10-15 |
 | Protected main and security-reporting workflow | Verified settings are dated operational observations |
 | CI and distribution validation | Nine test environments, minimum/latest backend jobs and required aggregate gate |
 | English/PT-PT current guides and version checks | Metadata, CLI help and versioned-document markers are tested |
@@ -35,7 +35,7 @@ separate approval, and package-registry publication is not configured or verifie
 | Container/OS sandboxing and hostile-code isolation | Not implemented |
 | Signed approvals, tamper-proof audit, remote attestation | Not implemented |
 | Production deployment or automatic release publication | Not implemented |
-| Live Anthropic/compatible-model inference and broader account/model compatibility | Pending; one successful OpenAI smoke test does not establish these |
+| Live compatible/local-model inference and broader account/model compatibility | Pending; separate successful OpenAI and Anthropic smokes do not establish these |
 | Workflow dependency lockfiles, complete reproducible builds, independent history-wide secret audit | Pending separate work |
 
 The [roadmap](../ROADMAP.md) records future work without assigning delivery dates
@@ -54,7 +54,8 @@ version does not create a tag, GitHub Release, store upload or package publicati
 See [execution compatibility](EXECUTION.md), [trust model](TRUST_MODEL.md),
 [CI contract](CI.md) and [release procedure](RELEASING.md).
 
-Provider evidence distinguishes fixtures from the verified live OpenAI request in
-[provider testing](PROVIDER_TESTING.md) and the [dated smoke record](audits/2026-10-15-openai-smoke.md).
+Provider evidence distinguishes fixtures from the separate verified live requests in
+[provider testing](PROVIDER_TESTING.md), the [OpenAI record](audits/2026-10-15-openai-smoke.md)
+and the [Anthropic record](audits/2026-10-15-anthropic-smoke.md).
 This documentation-only validation update retains source version 0.3.0a2; it changes
 no runtime behavior, schema or execution contract. No release is published.

@@ -37,11 +37,12 @@ No tagged release or package publication is implied by this source version.
 - [x] Real loopback HTTP integration, including CLI plan creation and blocked redirects; no model inference is claimed.
 - [x] EN/PT-PT provider setup, test evidence and live-test procedure.
 - [x] Separate live OpenAI `gpt-4.1-mini` smoke test on 2026-10-15: one saved advisory plan, successful integrity review and no execution approval; see [evidence](docs/audits/2026-10-15-openai-smoke.md).
+- [x] Separate live Anthropic `claude-haiku-5-5` smoke test on 2026-10-15: one saved advisory plan, successful integrity review and no execution approval; see [evidence](docs/audits/2026-10-15-anthropic-smoke.md).
 
 ## Next — Policy and integration hardening (planned)
 - [ ] Explicit workspace filesystem allowlists.
 - [ ] Structured JSON output options and improved CI test reporting.
-- [ ] Live Anthropic/compatible-model checks and broader account/model validation; one OpenAI smoke test does not establish universal compatibility.
+- [ ] Live compatible/local-model checks and broader account/model validation; the separate OpenAI and Anthropic smokes do not establish universal compatibility.
 - [ ] Broader test adapters without permitting AI-generated commands.
 - [ ] Cross-platform locking and clearer interrupted-run recovery.
 - [ ] Expand the PT-PT documentation alongside English documentation.
