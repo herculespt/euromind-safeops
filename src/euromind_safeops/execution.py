@@ -10,6 +10,7 @@ from pathlib import Path
 
 from . import __version__
 from .core import SafeOpsError, atomic_json_write, audit, file_in_workspace, read_json, sha256, tree_digest, utc_now, workspace
+from .locking import LOCK_PROTOCOL_VERSION, execution_lock
 from .planning import load_plan
 from .scope import validate_scope_paths
 from .target_runner import TARGET_COMMAND, validate_targets
@@ -20,13 +21,14 @@ CHECKS = {
 }
 CONFIG_SCHEMA_VERSION = 1
 APPROVAL_SCHEMA_VERSION = 2
-RUNNER_PROTOCOL_VERSION = 2
+RUNNER_PROTOCOL_VERSION = 3
 
 
 def execution_contract_digest() -> str:
     """Invalidate approvals when the installed version or fixed runner contract changes."""
     return sha256({"safeops_version": __version__, "runner_protocol": RUNNER_PROTOCOL_VERSION,
-                   "checks": CHECKS, "target_command": TARGET_COMMAND, "python_io_encoding": "utf-8"})
+                   "checks": CHECKS, "target_command": TARGET_COMMAND,
+                   "lock_protocol": LOCK_PROTOCOL_VERSION, "python_io_encoding": "utf-8"})
 
 
 def get_config(root: Path) -> dict:
@@ -103,28 +105,21 @@ def run(root: Path, plan_id: str, *, timeout: int = 60) -> dict:
     if plan["risk"] == "critical":
         raise SafeOpsError("Critical-risk plans are blocked")
     validate_scope_paths(root, plan.get("paths"))
-    approved = read_json(file_in_workspace(root, "approvals", plan_id))
-    cfg = get_config(root)
-    if (approved.get("schema") != APPROVAL_SCHEMA_VERSION or
-            approved.get("execution_contract") != execution_contract_digest() or
-            approved.get("plan_id") != plan_id or
-            approved.get("fingerprint") != plan["fingerprint"] or
-            approved.get("workspace_digest") != plan["workspace_digest"] or
-            approved.get("config_digest") != sha256(cfg)):
-        raise SafeOpsError("Missing or stale approval; create a new plan and approve it under this version")
-    if tree_digest(root) != plan["workspace_digest"]:
-        raise SafeOpsError("Workspace changed since planning; approval is stale")
-    if cfg["schema"] == 2 and approved.get("targets_digest") != targets_digest(root, cfg):
-        raise SafeOpsError("Selected targets changed; approval is stale")
-    lock = workspace(root) / "run.lock"
-    try:
-        fd = os.open(lock, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
-    except FileExistsError as exc:
-        raise SafeOpsError("Another run may be active; inspect .safeops/run.lock") from exc
-    results = []
-    try:
-        with os.fdopen(fd, "w", encoding="utf-8") as handle:
-            handle.write(str(os.getpid()))
+    with execution_lock(root, plan_id):
+        approved = read_json(file_in_workspace(root, "approvals", plan_id))
+        cfg = get_config(root)
+        if (approved.get("schema") != APPROVAL_SCHEMA_VERSION or
+                approved.get("execution_contract") != execution_contract_digest() or
+                approved.get("plan_id") != plan_id or
+                approved.get("fingerprint") != plan["fingerprint"] or
+                approved.get("workspace_digest") != plan["workspace_digest"] or
+                approved.get("config_digest") != sha256(cfg)):
+            raise SafeOpsError("Missing or stale approval; create a new plan and approve it under this version")
+        if tree_digest(root) != plan["workspace_digest"]:
+            raise SafeOpsError("Workspace changed since planning; approval is stale")
+        if cfg["schema"] == 2 and approved.get("targets_digest") != targets_digest(root, cfg):
+            raise SafeOpsError("Selected targets changed; approval is stale")
+        results = []
         # Keep Python check streams and their decoding independent of the OS locale.
         check_env = {**os.environ, "PYTHONIOENCODING": "utf-8"}
         for check in cfg["checks"]:
@@ -148,7 +143,5 @@ def run(root: Path, plan_id: str, *, timeout: int = 60) -> dict:
             if result["exit_code"] != 0:
                 break
         status = "passed" if len(results) == len(cfg["checks"]) and all(r["exit_code"] == 0 for r in results) else "failed"
-        audit(root, "run", plan_id, status)
-        return {"plan_id": plan_id, "status": status, "checks": results}
-    finally:
-        lock.unlink(missing_ok=True)
+    audit(root, "run", plan_id, status)
+    return {"plan_id": plan_id, "status": status, "checks": results}

@@ -1,10 +1,10 @@
 # Execution policy and upgrade compatibility
 
-<!-- safeops-version: 0.3.0a5 -->
+<!-- safeops-version: 0.3.0a6 -->
 
 [Português (Portugal)](pt-PT/EXECUTION.md)
 
-Current source version: **0.3.0a5**, alpha prerelease. This document describes
+Current source version: **0.3.0a6**, alpha prerelease. This document describes
 implemented behavior; see [status](STATUS.md) for exclusions and publication state.
 
 ## Configuration
@@ -36,11 +36,11 @@ See the [target guide](TARGETS.md) for the JSON example, limits and compatibilit
 
 ## Output and CI reporting
 
-Source 0.3.0a5 adds optional global `--json` envelopes and aggregate CI summaries;
+Source 0.3.0a5 introduced optional global `--json` envelopes and aggregate CI summaries;
 see the [output contract](OUTPUT.md). Presentation does not change approval
-authority. Config schemas 1/2, plan schema 1, approval schema 2 and runner protocol
-2 are retained. The package-version change requires a fresh plan/approval while
-preserving history. Invalid CLI arguments now return 2 from Python `main`; the
+authority. Config schemas 1/2, plan schema 1 and approval schema 2 are retained;
+current source uses runner protocol 3 and lock protocol 1. The package-version
+change requires a fresh plan/approval while preserving history. Invalid CLI arguments now return 2 from Python `main`; the
 subprocess status remains 2. Help/version remain text actions.
 
 ## Advisory path preflight
@@ -56,7 +56,7 @@ portable syntax, future files, link handling and residual race limitations.
 Plans remain schema 1. New approvals use schema 2 and bind:
 
 - Plan ID/fingerprint, source-tree snapshot and validated configuration hash.
-- Installed SafeOps version, runner protocol version, fixed command table/target adapter and UTF-8 stream policy, through the execution-contract digest.
+- Installed SafeOps version, runner protocol version, native-lock protocol, fixed command table/target adapter and UTF-8 stream policy, through the execution-contract digest.
 - With config schema 2, an additional `targets_digest` of every selected regular file, including ordinary snapshot exclusions.
 
 `doctor` reports the current version, configuration schema, actual check targets,
@@ -84,6 +84,11 @@ configuration is retained; opting into schema 2 requires `targets_digest` in the
 approval. Plan schema 1 and approval schema 2 remain supported. Generated caches
 in selected trees can invalidate later runs; inspect and reapprove with a new plan.
 
+Upgrading to 0.3.0a6 requires a fresh plan/approval: runner protocol 3 adds native
+local locking and lock protocol 1. Existing PID/unknown run markers stay blocking;
+use [diagnostics and explicit archival recovery](LOCKING.md) only after verifying
+parent and child checks stopped. Never remove the persistent guard.
+
 Changes to the package version or fixed command contract invalidate an existing
 approval even if workspace files and configuration are unchanged. Maintainers
 must bump the package/runner protocol when behavior changes. These are local
@@ -107,9 +112,11 @@ The internal runner returns 0 on successful non-skipped execution, 1 for test
 failure and 2 for unusable discovery/execution. `safeops run` reports a failed
 check with CLI exit 1; invalid configuration or stale approval uses CLI exit 2.
 Timeouts retain the result exit code -1 and the 1–300-second per-check limit.
-The exclusive run lock is released on controlled completion or error; a process
-crash may still require manual recovery. Check failure is recorded in the local
-audit log. UTF-8 stdout/stderr capture remains bounded in the returned result.
+A persistent native guard covers approval/config/snapshot validation and checks.
+Normal completion/error removes only the unchanged owned marker; abrupt parent
+death releases the native lock but retains the blocking marker. The [lock guide](LOCKING.md)
+describes diagnostics, explicit archival recovery, legacy state and filesystem
+limits. Check failure is recorded in the local audit log. UTF-8 stdout/stderr capture remains bounded in the returned result.
 
 Tests and discovery hooks execute trusted Python and may mutate files, terminate
 the interpreter with lower-level APIs, or manipulate results. This adapter does

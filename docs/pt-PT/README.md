@@ -1,10 +1,10 @@
 # EuroMind SafeOps — Português (Portugal)
 
-<!-- safeops-version: 0.3.0a5 -->
+<!-- safeops-version: 0.3.0a6 -->
 
 **Ferramenta open source de orquestração de engenharia com aprovação humana e execução controlada de verificações.**
 
-## O que já funciona na versão 0.3.0a5 (pré-versão alfa do código)
+## O que já funciona na versão 0.3.0a6 (pré-versão alfa do código)
 
 - CLI Python 3.11+ sem dependências externas obrigatórias em tempo de execução.
 - `--json` global opcional com envelope comum de resultados/erros/avisos; [contrato](OUTPUT.md).
@@ -16,6 +16,7 @@
 - Validação estrita da configuração e de JSON UTF-8; aprovações ligadas à versão e ao contrato de execução.
 - Rejeição de suites vazias ou totalmente ignoradas; suporte a subdiretórios de testes com `__init__.py`.
 - Registo de auditoria local e pesquisa limitada de padrões típicos de credenciais.
+- [Bloqueio nativo e recuperação explícita](LOCKING.md): guarda persistente, marcador próprio, diagnóstico no doctor e arquivo com confirmação humana; sem deduzir que os processos filhos terminaram.
 - Validação prévia dos caminhos declarados antes do fornecedor, gravação, aprovação e execução; [política de âmbito](SCOPE.md). Os caminhos continuam consultivos e não restringem os alvos das verificações.
 - Aconselhamento opcional através de OpenAI Responses API, Anthropic Messages API (Claude) ou modelos locais compatíveis com Chat Completions.
 - Comando `safeops providers`, que informa se existem chaves configuradas sem mostrar o seu valor.
@@ -49,7 +50,7 @@ a [política de execução e compatibilidade](EXECUTION.md) e o
 [estado do que está implementado e planeado](STATUS.md). A versão do código não
 significa que exista uma release ou publicação de pacote.
 
-Atualizar para 0.3.0a5 exige novo plano/aprovação pela ligação à versão.
+Atualizar para 0.3.0a6 exige novo plano/aprovação pela ligação à versão.
 Mantém-se o schema 1 predefinido; o schema 2 opcional seleciona diretórios e
 exige digest dos ficheiros selecionados. Mantêm-se os schemas 1 de plano e 2 de aprovação.
 

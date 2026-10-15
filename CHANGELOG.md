@@ -4,7 +4,22 @@ The format follows Keep a Changelog conventions; versions follow Semantic Versio
 
 ## [Unreleased]
 
-Current source milestone: **0.3.0a5**. No tag or public release is implied.
+Current source milestone: **0.3.0a6**. No tag or public release is implied.
+
+## [0.3.0a6] — 2026-10-15 (source prerelease; not a published release)
+
+### Added
+- Persistent nonblocking native run guard: POSIX flock / Windows byte-region locking, noninheritable descriptor and no unprotected fallback. The guard covers approval/config/snapshot validation and fixed checks.
+- Exclusive schema-1 owned run marker with PID/plan/token/time; cleanup verifies file identity and exact content. Changed/missing markers cannot produce a successful run audit entry; legacy/abandoned markers remain blocking.
+- Point-in-time `doctor.run_lock` diagnostics, bounded marker fingerprint/format and explicit `recover-lock` with exact fingerprint, reason and acknowledgement that parent/child checks stopped independently.
+- Original-marker archival, recovery receipt and audit event without changing plans/approvals or executing checks. Unsafe/link/reparse/hard-link state is rejected.
+- Real-process contention, normal/abrupt release, recovery/cleanup/IO regression cases; EN/PT-PT locking/output/compatibility/status and maintainer documentation, plus archive checks.
+
+### Compatibility and limits
+- Source 0.3.0a6 uses runner protocol 3 and lock protocol 1 in the execution contract; previous approvals require a fresh reviewed plan/approval. Config schemas 1/2, plan schema 1, approval schema 2 and output schema 1 are retained.
+- `run.guard` persists and must not be removed. Native release after parent death never establishes child liveness; existing markers require independent verification and explicit archival recovery.
+- Local cooperative locking is not distributed locking, process-tree supervision or a sandbox. Recovery receipt/archive/audit writes are not one transaction; post-archive failures may return an error with evidence retained.
+- No provider request, runtime dependency addition, tag, release, package publication or real-project lock recovery.
 
 ## [0.3.0a5] — 2026-10-15 (source prerelease; not a published release)
 

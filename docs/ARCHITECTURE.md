@@ -1,6 +1,6 @@
-# Architecture — 0.3.0a5
+# Architecture — 0.3.0a6
 
-<!-- safeops-version: 0.3.0a5 -->
+<!-- safeops-version: 0.3.0a6 -->
 
 ## Data flow
 
@@ -30,6 +30,7 @@ flowchart TD
 | `planning.py` | Rule-based risk and role suggestions, plan fingerprinting |
 | `providers.py` | Offline, native OpenAI Responses, Anthropic Messages and compatible non-executable advice |
 | `execution.py` | Config validation, approval and strict fixed check commands |
+| `locking.py` | Persistent native guard, owned-marker cleanup, doctor status and explicit archival recovery |
 | `check_runner.py` | Child-process unittest discovery, fail-closed execution and aggregate statistics |
 | `ci_runner.py` | Maintainer CI adapter appending numeric UTF-8 job summaries; not a new approved check |
 | `target_runner.py` | Recursive directory-target preflight, selected in-memory compilation and selected unittest discovery |
@@ -45,10 +46,13 @@ All generated files live in a project-local `.safeops/` directory, which should 
   plans/<12hex>.json
   approvals/<12hex>.json
   audit.jsonl
-  run.lock  # only while checks run, absent otherwise
+  run.guard  # persistent empty native-lock file; never unlink
+  run.lock   # owned run marker; retained after abrupt death/initialization failure
+  recovered-locks/<id>/receipt.json
+  recovered-locks/<id>/run.lock
 ```
 
-Plans retain schema 1. Configuration defaults to schema 1; optional schema 2 selects [check directories](TARGETS.md). Approval schema 2 binds the plan fingerprint, source-tree digest, validated configuration digest and execution contract. The contract hashes the installed package version, runner protocol version, fixed command table and UTF-8 stream policy. Schema-2 config additionally binds all selected regular files in `targets_digest`, including generated descendants. Legacy approvals remain stored but cannot execute; new review, planning and approval are required.
+Plans retain schema 1. Configuration defaults to schema 1; optional schema 2 selects [check directories](TARGETS.md). Approval schema 2 binds the plan fingerprint, source-tree digest, validated configuration digest and execution contract. The contract hashes the installed package version, runner protocol version, native-lock protocol, fixed command table and UTF-8 stream policy. Schema-2 config additionally binds all selected regular files in `targets_digest`, including generated descendants. Legacy approvals remain stored but cannot execute; new review, planning and approval are required.
 
 `plan.fingerprint` hashes all plan fields except the fingerprint itself. File snapshots are content hashes over regular files below the workspace root, excluding known generated directories and symlinks, with limits of 5,000 files and 12 MB per file. Limits make incomplete snapshots fail rather than silently sampling large trees.
 
@@ -70,6 +74,12 @@ Plans retain schema 1. Configuration defaults to schema 1; optional schema 2 sel
 controlled errors and warnings. The CI adapter reuses the same unittest function
 and writes only aggregate counts to the job summary. Existing logs remain trusted
 code output; no new command authority, provider protocol or isolation is added.
+
+[Native local locking](LOCKING.md) holds a noninheritable guard descriptor across
+approval/snapshot validation and checks. Owned-marker cleanup happens before a
+successful run audit. Diagnostics do not infer child liveness; recovery archives
+retained markers only after explicit fingerprint/acknowledgement/reason checks.
+It never runs checks or changes plan/approval history.
 
 ## Design tradeoffs
 

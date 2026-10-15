@@ -1,6 +1,6 @@
-# Structured CLI output — 0.3.0a5
+# Structured CLI output — 0.3.0a6
 
-<!-- safeops-version: 0.3.0a5 -->
+<!-- safeops-version: 0.3.0a6 -->
 
 [Português (Portugal)](pt-PT/OUTPUT.md)
 
@@ -21,13 +21,14 @@ contain `--json` without enabling the global mode.
 
 ## Envelope schema 1
 
-All eight commands (`init`, `providers`, `doctor`, `scan`, `plan`, `review`,
-`approve`, `run`) emit one UTF-8 JSON object for handled outcomes in this mode:
+All nine commands (`init`, `providers`, `doctor`, `scan`, `plan`, `review`,
+`approve`, `run`, `recover-lock`) emit one UTF-8 JSON object for handled outcomes
+in this mode:
 
 ```json
 {
   "schema": 1,
-  "safeops_version": "0.3.0a5",
+  "safeops_version": "0.3.0a6",
   "command": "scan",
   "ok": true,
   "exit_code": 0,
@@ -79,10 +80,15 @@ checks. Treat saved JSON as potentially sensitive. This is not a new redaction
 service, signature, machine authorization or sandbox. No provider request is
 needed for the output feature or its offline tests.
 
-Source 0.3.0a5 preserves config schemas 1/2, plan schema 1, approval schema 2 and
-runner protocol 2. The package-version binding still invalidates old execution
-approvals: preserve history and create a fresh reviewed plan and approval.
+Source 0.3.0a6 preserves config schemas 1/2, plan schema 1 and approval schema 2;
+runner protocol 3 now includes native-lock protocol 1. The package-version
+binding still invalidates old execution approvals: preserve history and create a fresh reviewed plan and approval.
 No automatic migration, release or package publication occurs.
+
+`doctor.data.run_lock` adds point-in-time native guard/marker diagnostics.
+`recover-lock` uses the same envelope and requires explicit [recovery confirmations](LOCKING.md).
+Recovery can fail after archival; inspect the archive/receipt and doctor status
+before retrying. It never grants execution approval.
 
 ## CI summaries
 

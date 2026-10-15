@@ -99,6 +99,22 @@ class JsonOutputTests(unittest.TestCase):
         self.assertEqual(code, 2)
         self.assertIsNone(payload["data"])
 
+    def test_recovery_command_uses_same_envelope_and_explicit_confirmation(self):
+        self.invoke("init")
+        marker = self.root / ".safeops" / "run.lock"
+        marker.write_bytes(b"123")
+        status = self.invoke("doctor")[1]["data"]["run_lock"]
+        code, rejected = self.invoke("recover-lock", "--confirm", status["marker_fingerprint"],
+                                     "--reason", "Reviewed fixture")
+        self.assertEqual(code, 2)
+        self.assertEqual(rejected["error"]["code"], "policy_error")
+        code, result = self.invoke("recover-lock", "--confirm", status["marker_fingerprint"],
+                                   "--reason", "Verificação dos processos concluída", "--confirm-no-running-checks")
+        self.assertEqual(code, 0)
+        self.assertEqual(result["command"], "recover-lock")
+        self.assertEqual(result["data"]["status"], "recovered")
+        self.assertFalse(marker.exists())
+
     def test_argument_errors_never_echo_values(self):
         sensitive = "private-argument-value-do-not-echo"
         for arguments in ((), ("unknown-command",), ("run", "id", "--timeout", sensitive),
