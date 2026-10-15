@@ -1,6 +1,6 @@
-# Structured CLI output — 0.3.0a6
+# Structured CLI output — 0.3.0a7
 
-<!-- safeops-version: 0.3.0a6 -->
+<!-- safeops-version: 0.3.0a7 -->
 
 [Português (Portugal)](pt-PT/OUTPUT.md)
 
@@ -28,7 +28,7 @@ in this mode:
 ```json
 {
   "schema": 1,
-  "safeops_version": "0.3.0a6",
+  "safeops_version": "0.3.0a7",
   "command": "scan",
   "ok": true,
   "exit_code": 0,
@@ -80,8 +80,8 @@ checks. Treat saved JSON as potentially sensitive. This is not a new redaction
 service, signature, machine authorization or sandbox. No provider request is
 needed for the output feature or its offline tests.
 
-Source 0.3.0a6 preserves config schemas 1/2, plan schema 1 and approval schema 2;
-runner protocol 3 now includes native-lock protocol 1. The package-version
+Source 0.3.0a7 preserves config schemas 1/2, plan schema 1 and approval schema 2;
+runner protocol 3 retains native-lock protocol 1. The package-version
 binding still invalidates old execution approvals: preserve history and create a fresh reviewed plan and approval.
 No automatic migration, release or package publication occurs.
 
@@ -104,7 +104,10 @@ exception, phase identifies the incomplete result; counts may be incomplete.
 Only aggregate counts and fixed metadata enter the summary; test names,
 messages and captured content remain in ordinary CI logs. This does not sanitize
 those logs or prove coverage, assertions or hostile-code isolation. Process kills
-may prevent a summary. JUnit, coverage and uploaded report artifacts remain planned.
+may prevent a summary. Optional `--junit PATH` writes a local XML report with
+synthetic outcome cases; see the [JUnit contract](REPORTING.md). Reporting-write
+errors exit 2; report metadata describes check status, which can differ from the
+adapter status. Coverage and uploaded report artifacts remain planned.
 
 Both the nine-environment matrix and the two installed-wheel jobs use this
 adapter. The stable required `quality-gate` and existing permissions remain.

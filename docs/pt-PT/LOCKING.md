@@ -1,11 +1,11 @@
-# Bloqueio local e recuperação — 0.3.0a6
+# Bloqueio local e recuperação — 0.3.0a7
 
-<!-- safeops-version: 0.3.0a6 -->
+<!-- safeops-version: 0.3.0a7 -->
 
 [English](../LOCKING.md)
 
 A execução combina uma guarda nativa persistente e um marcador com proprietário.
-Não constitui isolamento nem bloqueio distribuído. A versão 0.3.0a6 usa protocolo
+Não constitui isolamento nem bloqueio distribuído. A versão 0.3.0a7 usa protocolo
 3 do runner e protocolo 1 do bloqueio no contrato ligado à versão. Mantêm-se os
 schemas 1/2 de configuração, 1 de plano, 2 de aprovação e 1 da saída. Atualizar
 exige plano/aprovação novos e revistos; não há migração dos registos.

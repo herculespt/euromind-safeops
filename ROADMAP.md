@@ -2,7 +2,7 @@
 
 This roadmap is directional, not a promise of dates or delivered features.
 
-Current source version: **0.3.0a6** (alpha prerelease). See [status](docs/STATUS.md)
+Current source version: **0.3.0a7** (alpha prerelease). See [status](docs/STATUS.md)
 and [PT-PT](docs/pt-PT/STATUS.md). Source milestones are not published releases.
 
 ## v0.1.0 — Initial open-source foundation (implemented)
@@ -65,9 +65,15 @@ No tagged release or package publication is implied by this source version.
 - [x] Explicit recovery confirmation/acknowledgement/reason, busy-guard rejection, original-marker archive, receipt and audit without granting approval.
 - [x] Real subprocess contention/abrupt-death regressions and EN/PT-PT lock/compatibility/status/maintainer guides.
 
+## 0.3.0a7 — Local JUnit reporting (implemented in source)
+- [x] Optional atomic UTF-8 JUnit export from maintainer CI; synthetic case identifiers and fixed outcome categories without test-supplied text.
+- [x] Subtest/fixture outcomes, expected failures, unexpected successes and visible runner errors for unusable/incomplete checks.
+- [x] Generate and validate XML in nine matrix and two installed-wheel jobs; no upload or coverage claim.
+- [x] Offline reporting regressions and synchronized EN/PT-PT contract, compatibility, version and implemented/planned status.
+
 ## Next — Policy and integration hardening (planned)
 - [ ] OS-enforced workspace filesystem allowlists that restrict arbitrary reads; 0.3.0a4 check target selection does not implement this isolation boundary.
-- [ ] JUnit/coverage reports and reviewed report-artifact publication; aggregate summaries are implemented, not coverage proof.
+- [ ] Coverage measurement and reviewed report-artifact publication; local JUnit and aggregate summaries are implemented, not coverage proof.
 - [ ] Live compatible/local-model checks and broader account/model validation; the separate OpenAI and Anthropic smokes do not establish universal compatibility.
 - [ ] Broader test adapters without permitting AI-generated commands.
 - [ ] Process-tree supervision/termination, independently verified automatic recovery and distributed/network-filesystem leases; current recovery remains explicitly human-confirmed and local.

@@ -29,7 +29,10 @@ jobs:
       - name: Install project
         run: python -m pip install -e .
       - name: Unit tests
-        run: python -m euromind_safeops.ci_runner --tests tests
+        run: python -m euromind_safeops.ci_runner --tests tests --junit "${{ runner.temp }}/safeops-junit.xml"
+      - name: Verify local JUnit report
+        run: >-
+          python -c "import os, pathlib, xml.etree.ElementTree as E; from euromind_safeops import __version__; r = E.parse(pathlib.Path(os.environ['RUNNER_TEMP']) / 'safeops-junit.xml').getroot(); s = r.find('testsuite'); p = {v.get('name'): v.get('value') for v in s.find('properties')}; assert r.tag == 'testsuites' and int(r.get('tests')) > 0; assert all(r.get(k) == s.get(k) for k in r.attrib); assert r.get('failures') == r.get('errors') == '0'; assert int(r.get('tests')) == len(s.findall('testcase')); assert p == {'safeops_version': __version__, 'report_schema': '1', 'phase': 'completed', 'check_exit_code': '0'}; print('Local JUnit report verified')"
       - name: Compile check
         run: python -m compileall -q src tests
       - name: Built-in credential scan
@@ -87,11 +90,12 @@ jobs:
               assert 'euromind_safeops/scope.py' in names
               assert 'euromind_safeops/target_runner.py' in names
               assert 'euromind_safeops/ci_runner.py' in names
+              assert 'euromind_safeops/junit.py' in names
               assert 'euromind_safeops/locking.py' in names
           with tarfile.open(sources[0]) as archive:
               source_names = [PurePosixPath(n).parts[1:] for n in archive.getnames()]
           source_paths = {'/'.join(parts) for parts in source_names}
-          for required in ('LICENSE', 'README.md', 'SECURITY.md', 'docs/QUICKSTART.md', 'docs/STATUS.md', 'docs/EXECUTION.md', 'docs/pt-PT/README.md', 'docs/pt-PT/SECURITY.md', 'docs/pt-PT/STATUS.md', 'docs/pt-PT/EXECUTION.md', '.github/CODEOWNERS', '.github/workflows/ci.yml', 'tests/test_execution.py', 'src/euromind_safeops/check_runner.py', 'tests/test_provider_transport.py', 'docs/PROVIDER_TESTING.md', 'docs/pt-PT/PROVIDER_TESTING.md', 'docs/pt-PT/PROVIDERS.md', 'docs/SCOPE.md', 'docs/pt-PT/SCOPE.md', 'src/euromind_safeops/scope.py', 'tests/test_scope.py', 'docs/TARGETS.md', 'docs/pt-PT/TARGETS.md', 'src/euromind_safeops/target_runner.py', 'tests/test_targets.py', 'docs/OUTPUT.md', 'docs/pt-PT/OUTPUT.md', 'src/euromind_safeops/ci_runner.py', 'tests/test_json_output.py', 'tests/test_ci_reporting.py', 'docs/LOCKING.md', 'docs/pt-PT/LOCKING.md', 'src/euromind_safeops/locking.py', 'tests/test_locking.py'):
+          for required in ('LICENSE', 'README.md', 'SECURITY.md', 'docs/QUICKSTART.md', 'docs/STATUS.md', 'docs/EXECUTION.md', 'docs/pt-PT/README.md', 'docs/pt-PT/SECURITY.md', 'docs/pt-PT/STATUS.md', 'docs/pt-PT/EXECUTION.md', '.github/CODEOWNERS', '.github/workflows/ci.yml', 'tests/test_execution.py', 'src/euromind_safeops/check_runner.py', 'tests/test_provider_transport.py', 'docs/PROVIDER_TESTING.md', 'docs/pt-PT/PROVIDER_TESTING.md', 'docs/pt-PT/PROVIDERS.md', 'docs/SCOPE.md', 'docs/pt-PT/SCOPE.md', 'src/euromind_safeops/scope.py', 'tests/test_scope.py', 'docs/TARGETS.md', 'docs/pt-PT/TARGETS.md', 'src/euromind_safeops/target_runner.py', 'tests/test_targets.py', 'docs/OUTPUT.md', 'docs/pt-PT/OUTPUT.md', 'src/euromind_safeops/ci_runner.py', 'tests/test_json_output.py', 'tests/test_ci_reporting.py', 'docs/LOCKING.md', 'docs/pt-PT/LOCKING.md', 'src/euromind_safeops/locking.py', 'tests/test_locking.py', 'src/euromind_safeops/junit.py', 'docs/REPORTING.md', 'docs/pt-PT/REPORTING.md'):
               assert required in source_paths, f'Missing source documentation: {required}'
           for name in [*names, *source_paths]:
               parts = PurePosixPath(name).parts
@@ -105,7 +109,11 @@ jobs:
           cd "$RUNNER_TEMP"
           "$RUNNER_TEMP/safeops-wheel/bin/python" -I -m euromind_safeops --version
           "$RUNNER_TEMP/safeops-wheel/bin/safeops" --version
-          "$RUNNER_TEMP/safeops-wheel/bin/python" -I -m euromind_safeops.ci_runner --tests "$GITHUB_WORKSPACE/tests"
+          "$RUNNER_TEMP/safeops-wheel/bin/python" -I -m euromind_safeops.ci_runner --tests "$GITHUB_WORKSPACE/tests" --junit "$RUNNER_TEMP/safeops-junit.xml"
+      - name: Verify installed-wheel JUnit report
+        run: |
+          cd "$RUNNER_TEMP"
+          "$RUNNER_TEMP/safeops-wheel/bin/python" -I -c "import os, pathlib, xml.etree.ElementTree as E; from euromind_safeops import __version__; r = E.parse(pathlib.Path(os.environ['RUNNER_TEMP']) / 'safeops-junit.xml').getroot(); s = r.find('testsuite'); p = {v.get('name'): v.get('value') for v in s.find('properties')}; assert r.tag == 'testsuites' and int(r.get('tests')) > 0; assert all(r.get(k) == s.get(k) for k in r.attrib); assert r.get('failures') == r.get('errors') == '0'; assert int(r.get('tests')) == len(s.findall('testcase')); assert p == {'safeops_version': __version__, 'report_schema': '1', 'phase': 'completed', 'check_exit_code': '0'}; print('Installed-wheel JUnit report verified')"
 
   quality-gate:
     name: quality-gate

@@ -39,9 +39,15 @@ Empty/all-skipped suites and summary-write errors do not pass. It reuses the fix
 runner implementation; no test names/messages or captured output enter the summary.
 Existing logs still contain ordinary test output.
 
-See the EN/PT-PT [output contract](OUTPUT.md). Summaries are not JUnit, coverage
-or uploaded artifacts. No Action, permission or required-check name changes.
-The archive checks require the CI module, both output guides and regression tests.
+See the EN/PT-PT [output contract](OUTPUT.md) and [JUnit contract](REPORTING.md).
+All eleven test jobs also pass `--junit` with a path under `runner.temp`, then
+parse the resulting XML and verify counts, version, completed phase and check
+exit code 0. The distribution verification uses isolated installed-wheel Python.
+JUnit exports synthetic identifiers and fixed categories, including subtest and
+fixture outcomes; XML totals can differ from unittest run counts. Reports stay
+on the runner, with no upload or coverage measurement. A failed test/report step
+blocks the gate. No Action, permission or required-check name changes. Archive
+checks require `junit.py`, both reporting/output guides and regression tests.
 
 Native-lock regressions launch real competing processes and an approved run,
 verify busy recovery refusal and abrupt-death marker retention, and check safe

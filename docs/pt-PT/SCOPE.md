@@ -1,6 +1,6 @@
-# Caminhos de âmbito consultivo — 0.3.0a6
+# Caminhos de âmbito consultivo — 0.3.0a7
 
-<!-- safeops-version: 0.3.0a6 -->
+<!-- safeops-version: 0.3.0a7 -->
 
 [English](../SCOPE.md)
 

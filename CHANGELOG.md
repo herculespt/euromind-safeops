@@ -4,7 +4,20 @@ The format follows Keep a Changelog conventions; versions follow Semantic Versio
 
 ## [Unreleased]
 
-Current source milestone: **0.3.0a6**. No tag or public release is implied.
+Current source milestone: **0.3.0a7**. No tag or public release is implied.
+
+## [0.3.0a7] — 2026-10-15 (source prerelease; not a published release)
+
+### Added / Adicionado
+- Optional `ci_runner --junit PATH`: atomically replaced UTF-8 XML with synthetic case identifiers and fixed outcome categories. Test names, parameters, messages, traces, captured streams and environment data are excluded from XML; ordinary logs remain unchanged.
+- Explicit mapping for failed subtests, fixture errors/skips, expected failures and unexpected successes. Code-2 unusable/incomplete checks add a synthetic runner error. XML counts describe emitted outcomes, not unittest methods.
+- Report generation and XML validation in all nine matrix and two installed-wheel jobs; offline subprocess, privacy and write-failure regressions.
+- Guia JUnit EN/PT-PT, CI/manutenção/compatibilidade/README/estado/roadmap atualizados; cobertura e publicação de relatórios permanecem planeadas.
+
+### Compatibility and limits / Compatibilidade e limites
+- Schemas and runner/lock protocols remain unchanged; the 0.3.0a7 version binding requires a fresh reviewed plan/approval. Approved fixed checks do not create reports.
+- Report failures exit 2; XML metadata records check status, not later reporting errors. No process-kill reporting guarantee, coverage measurement or general hostile-test isolation.
+- No new dependency, provider request, artifact upload, tag, release or package publication.
 
 ## [0.3.0a6] — 2026-10-15 (source prerelease; not a published release)
 

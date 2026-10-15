@@ -34,6 +34,7 @@ class RepositoryHygieneTests(unittest.TestCase):
             "docs/TARGETS.md", "docs/pt-PT/TARGETS.md",
             "docs/OUTPUT.md", "docs/pt-PT/OUTPUT.md",
             "docs/LOCKING.md", "docs/pt-PT/LOCKING.md",
+            "docs/REPORTING.md", "docs/pt-PT/REPORTING.md",
         ):
             with self.subTest(path=name):
                 text = (ROOT / name).read_text(encoding="utf-8")
@@ -74,6 +75,7 @@ class RepositoryHygieneTests(unittest.TestCase):
             "src/euromind_safeops/target_runner.py", "tests/test_targets.py",
             "src/euromind_safeops/ci_runner.py", "tests/test_json_output.py", "tests/test_ci_reporting.py",
             "src/euromind_safeops/locking.py", "tests/test_locking.py",
+            "src/euromind_safeops/junit.py", "docs/REPORTING.md", "docs/pt-PT/REPORTING.md",
             ".github/workflows/ci.yml", ".github/CODEOWNERS",
         ):
             with self.subTest(path=name):
