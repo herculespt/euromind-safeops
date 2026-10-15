@@ -2,7 +2,9 @@
 
 <!-- safeops-version: 0.3.0a2 -->
 
-EuroMind SafeOps 0.3.0a2 is an original, independent, generic command-line policy and verification tool for development workflows. It is not a repackaging of the private SEND application. The [status](STATUS.md) distinguishes implemented capabilities from future work and public releases.
+[Português (Portugal)](pt-PT/PROJECT_SCOPE.md)
+
+EuroMind SafeOps 0.3.0a2 is an original, independent, generic command-line policy and verification tool for development workflows. The [status](STATUS.md) distinguishes implemented capabilities from future work and public releases.
 
 ## Public components
 
@@ -14,7 +16,7 @@ EuroMind SafeOps 0.3.0a2 is an original, independent, generic command-line polic
 
 ## Strict exclusions
 
-- SEND client, messaging protocol implementation, cryptographic keys, production infrastructure and deployment secrets.
+- Cryptographic keys, private infrastructure configuration and deployment secrets.
 - Any proprietary source code, customer data or vendor credentials.
 - Claims of certification, security guarantees, package downloads, installed user base, community adoption or OSS eligibility that cannot be verified.
 

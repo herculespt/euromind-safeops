@@ -22,7 +22,7 @@ change. Recheck the active ruleset before relying on it. See the
 - Public source: `herculespt/euromind-safeops`; primary branch `main`.
 - Current maintainer: `@herculespt`; project is currently single-maintainer.
 - Accept contributions via reviewable pull requests only. No model output or bot account can bypass security decisions.
-- Never introduce private SEND code, credentials, device-specific state or unpublished infrastructure to this repository.
+- Never introduce private application code, credentials, device-specific state or unpublished infrastructure to this repository.
 - GitHub Actions is the current test gate; it is not a sandbox, security audit or supply-chain attestation.
 
 ## Protect `main` in GitHub settings

@@ -50,7 +50,7 @@ A ligação à versão também exige nova aprovação de execução ao atualizar
 
 Para utilizar OpenAI ou Claude, configura `OPENAI_API_KEY` ou `ANTHROPIC_API_KEY` no ambiente e fornece o modelo pretendido e `--allow-remote`. Vê [as instruções completas dos fornecedores](PROVIDERS.md) e a [evidência dos testes](PROVIDER_TESTING.md). Uma subscrição de chat não inclui necessariamente créditos de API.
 
-Consulta a [documentação principal](../../README.md), [arquitetura](../ARCHITECTURE.md), [modelo de confiança](../TRUST_MODEL.md) e [regras de segurança](SECURITY.md).
+Consulta a [documentação principal](../../README.md), [âmbito e origem do projeto](PROJECT_SCOPE.md), [arquitetura](../ARCHITECTURE.md), [modelo de confiança](../TRUST_MODEL.md) e [regras de segurança](SECURITY.md).
 
 ## Manutenção e validação
 
@@ -69,4 +69,4 @@ o ambiente herdado pede ASCII. Esta correção está incluída no marco de códi
 O [guia de CI e construção do pacote](CI.md) descreve as Actions fixadas por SHA,
 a versão mínima de construção e a validação dos artefactos fora do checkout.
 
-Licença: Apache 2.0. Projeto independente, sem código privado do SEND.
+Licença: Apache 2.0. Projeto open source autónomo.

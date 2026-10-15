@@ -4,6 +4,8 @@ The format follows Keep a Changelog conventions; versions follow Semantic Versio
 
 ## [Unreleased]
 
+Clarified the standalone project scope and used generic confidentiality rules throughout public documentation. Added the corresponding PT-PT project-scope guide; source version remains 0.3.0a2.
+
 Documentation-only follow-up for source 0.3.0a2: verified a live OpenAI `gpt-4.1-mini` advisory request, saved plan and integrity review on 2026-10-15. Updated EN/PT-PT status, roadmap and evidence without changing runtime code, schemas or version. Anthropic/compatible-model validation remains pending; no release was published.
 
 ## [0.3.0a2] — 2026-10-15 (source prerelease; not a published release)

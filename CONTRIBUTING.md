@@ -22,7 +22,7 @@ safeops --root . scan
 
 ## Project rules
 
-- Never introduce credentials, tokens, PII, SEND source code or third-party proprietary assets.
+- Never introduce credentials, tokens, PII, private source code or unlicensed assets.
 - AI-generated patches must be reviewed and tested by a human contributor.
 - New external network calls must be explicitly opt-in and must not transmit workspace files by default.
 - Do not silently broaden check allowlists or bypass human approval gates.

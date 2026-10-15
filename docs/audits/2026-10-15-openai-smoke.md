@@ -21,7 +21,7 @@ Public task sent:
 > Suggest one documentation check for a public Python CLI. Reply in one short sentence.
 
 The native adapter sent this task, its fixed system instruction and request
-metadata. No repository files or private SEND content were sent. The credential
+metadata. No repository files or private data were sent. The credential
 was provisioned with explicit authorization, kept out of tool output, Git and
 public artifacts, and supplied through the process environment. No credential or
 private account identifier is included in this record.
