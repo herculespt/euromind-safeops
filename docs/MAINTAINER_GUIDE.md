@@ -57,3 +57,10 @@ These steps describe how to reproduce or review the baseline. The required check
 - Keep the changelog, roadmap, and implemented-versus-planned features in sync.
 - Apply source and documentation changes as UTF-8; preserve PT-PT diacritics.
 - Treat all tests as executable Python and run them only in a trusted development environment.
+
+For execution-policy changes, update the source version, EN/PT-PT guides,
+implemented/planned status and upgrade notes together. With schema-2 check
+targets, review both the whole-workspace and selected-file approval boundary;
+[generated caches](TARGETS.md) can invalidate a later run. Before closing the
+Issue, update its checklist and the PR body with actual PR/main CI evidence,
+remaining limits and publication status.

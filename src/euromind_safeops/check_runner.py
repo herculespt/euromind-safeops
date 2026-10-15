@@ -9,9 +9,9 @@ import sys
 import unittest
 
 
-def main() -> int:
+def main(start_directory: str = "tests") -> int:
     try:
-        suite = unittest.TestLoader().discover("tests", pattern="test*.py")
+        suite = unittest.TestLoader().discover(start_directory, pattern="test*.py")
         count = suite.countTestCases()
     except (Exception, SystemExit) as exc:
         print(f"SafeOps: test discovery failed ({type(exc).__name__})", file=sys.stderr)

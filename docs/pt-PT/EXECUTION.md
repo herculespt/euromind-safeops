@@ -1,15 +1,15 @@
 # Política de execução e compatibilidade
 
-<!-- safeops-version: 0.3.0a3 -->
+<!-- safeops-version: 0.3.0a4 -->
 
 [English](../EXECUTION.md)
 
-Versão atual do código: **0.3.0a3**, pré-versão alfa. Este guia descreve o que está
+Versão atual do código: **0.3.0a4**, pré-versão alfa. Este guia descreve o que está
 implementado; consulta o [estado](STATUS.md) para limitações e publicações.
 
 ## Configuração
 
-O ficheiro `.safeops/config.json` mantém o schema 1:
+O `init` mantém por predefinição o schema 1 em `.safeops/config.json`:
 
 ```json
 {"schema": 1, "checks": ["compile", "unit-tests"]}
@@ -25,8 +25,14 @@ Os objetos JSON guardados são lidos em UTF-8, com BOM UTF-8 opcional e limite d
 256 000 bytes. São rejeitadas chaves repetidas, números não finitos, incluindo
 overflow, outras codificações e valores de topo que não sejam objetos. Uma
 profundidade excessiva detetada pelo descodificador produz um erro controlado. A
-configuração não permite plugins, comandos arbitrários ou uma lista de caminhos
-autorizados. Os caminhos do plano são informação de âmbito, sem isolamento.
+configuração opcional de schema 2 acrescenta [diretórios das verificações](TARGETS.md),
+preservando o schema 1. Não permite plugins, comandos arbitrários ou isolamento
+imposto pelo sistema operativo. Os caminhos do plano são informação de âmbito, sem isolamento.
+
+O schema 2 aceita exatamente `schema`, `checks` e `targets`; o mapa de alvos
+contém exatamente as verificações ativas. As árvores são validadas sem imports
+antes da aprovação/execução e novamente no processo filho. O [guia dos alvos](TARGETS.md)
+inclui exemplo JSON, limites e compatibilidade.
 
 ## Validação prévia dos caminhos
 
@@ -42,9 +48,11 @@ ligações e limitações de concorrência.
 Os planos mantêm o schema 1. As novas aprovações usam o schema 2 e ligam:
 
 - ID e fingerprint do plano, snapshot do código e hash da configuração validada.
-- Versão carregada do SafeOps, versão do protocolo, tabela fixa de comandos e política UTF-8, através do digest do contrato de execução.
+- Versão carregada do SafeOps, protocolo, tabela fixa de comandos/adaptador de alvos e política UTF-8, através do digest do contrato de execução.
+- Na configuração de schema 2, um `targets_digest` adicional de todos os ficheiros regulares selecionados, incluindo exclusões do snapshot normal.
 
-O `doctor` apresenta a versão, o schema de aprovação e o digest atual. A contagem
+O `doctor` apresenta a versão, o schema de configuração, os diretórios efetivos,
+o schema de aprovação e o digest atual. A contagem
 recursiva de nomes de ficheiros serve apenas de diagnóstico: não importa código
 dos testes nem demonstra a existência de uma suite executável.
 
@@ -64,6 +72,12 @@ ligação à versão. Mantêm-se os schemas 1 de configuração/planos e 2 de ap
 As formas de caminho agora não suportadas falham antes do fornecedor; os
 registos antigos continuam disponíveis para revisão, sem serem reescritos.
 
+Atualizar para 0.3.0a4 exige novo plano/aprovação (protocolo do runner 2).
+Mantém-se a configuração de schema 1; optar pelo schema 2 exige `targets_digest`
+na aprovação. Mantêm-se os schemas 1 de plano e 2 de aprovação. Caches geradas
+nas árvores selecionadas podem invalidar execuções posteriores; rever e criar
+novo plano/aprovação.
+
 Alterar a versão do pacote ou o contrato dos comandos invalida uma aprovação,
 mesmo sem alterações ao projeto ou à configuração. Uma mudança de comportamento
 exige atualizar a versão do pacote/protocolo. Estes registos são verificações
@@ -72,10 +86,10 @@ malicioso.
 
 ## Verificações e resultados
 
-| Verificação | Comportamento implementado |
-|---|---|
-| `compile` | Comando fixo Python `compileall -q src tests`; exige os dois diretórios |
-| `unit-tests` | Módulo Python interno com descoberta unittest em `tests/`, padrão `test*.py` |
+| Verificação | Configuração schema 1 | Configuração schema 2 |
+|---|---|---|
+| `compile` | `compileall -q src tests`; exige os dois diretórios | Adaptador fixo compila os `.py` selecionados em memória, sem imports ou escrita de bytecode |
+| `unit-tests` | Runner interno em `tests/`, padrão `test*.py` | Mesmo runner sob um único diretório expressamente selecionado |
 
 A descoberta só ocorre no processo filho aprovado. São suportados pacotes de
 testes aninhados, importáveis e com `__init__.py`. Uma descoberta vazia, zero

@@ -1,6 +1,6 @@
-# Advisory scope paths — 0.3.0a3
+# Advisory scope paths — 0.3.0a4
 
-<!-- safeops-version: 0.3.0a3 -->
+<!-- safeops-version: 0.3.0a4 -->
 
 [Português (Portugal)](pt-PT/SCOPE.md)
 
@@ -46,18 +46,19 @@ the lifecycle boundaries; they are not atomic with later provider access or exec
 
 ## Compatibility and limits
 
-Configuration and plan schema 1 and approval schema 2 remain unchanged. Updating
-to 0.3.0a3 invalidates old execution approvals through the version-bound contract;
+Schema-1 configuration remains the default; optional schema 2 selects
+[check directories](TARGETS.md). Plan schema 1 and approval schema 2 remain supported.
+Updating to 0.3.0a4 invalidates old execution approvals through the version-bound contract;
 keep history and create a fresh reviewed plan and explicit approval. Existing
 plans remain available through read-only `review`, including records whose
 paths no longer satisfy the current approval/run policy.
 
 This is not a filesystem allowlist or sandbox. Snapshots remain workspace-wide;
-fixed checks still operate on `src` and `tests`, regardless of `--path`. The
+schema-1 checks operate on `src` and `tests`, while optional config schema 2
+selects [fixed-check directories](TARGETS.md), independently of `--path`. The
 validator does not recursively police every descendant of a declared directory.
 Existing snapshot exclusions remain, filesystem races are possible and trusted
-test code can access other files or the network. Restricting check
-reads/execution to an explicit allowlist remains [planned](../ROADMAP.md).
+test code can access other files or the network. An OS-enforced boundary on arbitrary reads/execution remains [planned](../ROADMAP.md).
 
 Regression tests in `tests/test_scope.py` replace remote advice with offline
 fixtures. Windows CI exercises a real junction; POSIX CI exercises a named pipe.

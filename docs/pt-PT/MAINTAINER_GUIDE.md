@@ -40,3 +40,10 @@ Os passos de reprodução das regras e de publicação constam do
 [guia em inglês](../MAINTAINER_GUIDE.md) e do
 [procedimento de releases](../RELEASING.md). Consulta também a
 [auditoria](audits/2026-10-15.md).
+
+Nas alterações da política de execução, atualizar em conjunto a versão, os
+guias EN/PT-PT, o estado implementado/planeado e as notas de atualização. Com
+alvos de schema 2, rever a integridade do workspace e dos ficheiros selecionados;
+[as caches geradas](TARGETS.md) podem invalidar uma execução posterior. Antes de
+fechar a issue, atualizar a lista de critérios e o texto da PR com evidência real
+do CI da PR/main, limites restantes e estado de publicação.

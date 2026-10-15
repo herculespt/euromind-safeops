@@ -1,6 +1,6 @@
-# Architecture — 0.3.0a3
+# Architecture — 0.3.0a4
 
-<!-- safeops-version: 0.3.0a3 -->
+<!-- safeops-version: 0.3.0a4 -->
 
 ## Data flow
 
@@ -31,6 +31,7 @@ flowchart TD
 | `providers.py` | Offline, native OpenAI Responses, Anthropic Messages and compatible non-executable advice |
 | `execution.py` | Config validation, approval and strict fixed check commands |
 | `check_runner.py` | Child-process unittest discovery, execution and rejection of empty/all-skipped results |
+| `target_runner.py` | Recursive directory-target preflight, selected in-memory compilation and selected unittest discovery |
 | `scanning.py` | Credential pattern heuristics without disclosing matched values |
 
 ## Storage
@@ -46,7 +47,7 @@ All generated files live in a project-local `.safeops/` directory, which should 
   run.lock  # only while checks run, absent otherwise
 ```
 
-Plans and configuration retain schema 1. Approval schema 2 binds the plan fingerprint, source-tree digest, validated configuration digest and execution contract. The contract hashes the installed package version, runner protocol version, fixed command table and UTF-8 stream policy. Legacy approvals remain stored but cannot execute; new review, planning and approval are required.
+Plans retain schema 1. Configuration defaults to schema 1; optional schema 2 selects [check directories](TARGETS.md). Approval schema 2 binds the plan fingerprint, source-tree digest, validated configuration digest and execution contract. The contract hashes the installed package version, runner protocol version, fixed command table and UTF-8 stream policy. Schema-2 config additionally binds all selected regular files in `targets_digest`, including generated descendants. Legacy approvals remain stored but cannot execute; new review, planning and approval are required.
 
 `plan.fingerprint` hashes all plan fields except the fingerprint itself. File snapshots are content hashes over regular files below the workspace root, excluding known generated directories and symlinks, with limits of 5,000 files and 12 MB per file. Limits make incomplete snapshots fail rather than silently sampling large trees.
 
@@ -56,7 +57,7 @@ Plans and configuration retain schema 1. Approval schema 2 binds the plan finger
 - [Scope preflight](SCOPE.md) precedes remote advice/persistence and runs again at approval/run. Declared paths remain advisory; snapshots and fixed check targets are not narrowed.
 - The optional HTTP adapters send only supplied task text; native endpoints are pinned, and AI output is always untrusted advice.
 - Provider responses share strict UTF-8 object decoding with stored JSON and reject duplicate keys/non-finite numbers. Transport doubles and real loopback fixture requests cover the HTTP path; separate live OpenAI and Anthropic smoke tests have passed, while compatible/local-model and broader account/model validation remain [pending](PROVIDER_TESTING.md).
-- Allowed checks are hard-coded as Python `compileall` and the internal `euromind_safeops.check_runner` module, which uses stdlib `unittest`.
+- Schema-1 checks are hard-coded as Python `compileall` and `euromind_safeops.check_runner` (stdlib unittest). Schema 2 uses the fixed `target_runner` adapter: recursive metadata preflight, in-memory Python compilation and one selected unittest root. The child repeats validation; target selection is not access isolation.
 - Discovery and `load_tests` hooks run inside that approved child process. Empty discovery, zero executed cases and all-skipped suites fail. Nested regular packages with `__init__.py` are supported.
 - The tool passes subprocess arguments directly, not through a shell.
 - Fixed Python checks use UTF-8 streams and explicit UTF-8 capture, independent of the inherited locale.

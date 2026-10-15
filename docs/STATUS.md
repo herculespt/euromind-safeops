@@ -1,10 +1,10 @@
 # Implementation and publication status
 
-<!-- safeops-version: 0.3.0a3 -->
+<!-- safeops-version: 0.3.0a4 -->
 
 [Português (Portugal)](pt-PT/STATUS.md)
 
-**Current source version: 0.3.0a3 — alpha prerelease.** Python 3.11–3.13 is
+**Current source version: 0.3.0a4 — alpha prerelease.** Python 3.11–3.13 is
 covered by CI on Linux, Windows and macOS. No third-party runtime dependencies.
 This source milestone is not a published release: GitHub Releases/tags require
 separate approval, and package-registry publication is not configured or verified.
@@ -15,12 +15,13 @@ separate approval, and package-registry publication is not configured or verifie
 |---|---|
 | CLI, offline plans, risk and specialist suggestions | Heuristic classification, advisory task scope |
 | Source/plan integrity and local audit | SHA-256 linkage; mutable local records, not signatures |
-| Strict configuration and stored JSON | Exact schema-1 config, unique fixed checks, UTF-8/finite/unique-key JSON |
+| Strict configuration and stored JSON | Schema-1 defaults and opt-in schema-2 targets, unique fixed checks, UTF-8/finite/unique-key JSON |
 | Approval schema 2 and execution-contract binding | Package/command changes require new plan and explicit approval |
 | Fixed compile and unittest checks | Empty/all-skipped test execution fails; no isolation or coverage guarantee |
 | UTF-8 check streams, lock and timeout | Existing crash/race and trusted-code limits remain |
 | OpenAI, Anthropic and compatible advisory adapters | Explicit consent, task-only request, strict UTF-8 response objects; offline contracts/loopback fixtures; separate live OpenAI `gpt-4.1-mini` and Anthropic `claude-haiku-5-5` requests and saved-plan reviews verified on 2026-10-15 |
 | Portable advisory scope preflight | Validated before remote advice/persistence and rechecked at approval/run; paths do not restrict fixed checks |
+| Explicit fixed-check directory targets | Optional schema 2; recursive link checks and selected-file approval digest; not an OS access boundary |
 | Protected main and security-reporting workflow | Verified settings are dated operational observations |
 | CI and distribution validation | Nine test environments, minimum/latest backend jobs and required aggregate gate |
 | English/PT-PT current guides and version checks | Metadata, CLI help and versioned-document markers are tested |
@@ -29,7 +30,7 @@ separate approval, and package-registry publication is not configured or verifie
 
 | Capability | State |
 |---|---|
-| Explicit workspace filesystem allowlists | Planned |
+| OS-enforced workspace filesystem allowlists | Planned; selecting check inputs does not restrict arbitrary reads |
 | Autonomous multi-agent editing or patch application | Not implemented |
 | SafeOps-generated Git commits or pull requests | Not implemented; repository maintenance is performed externally |
 | General-purpose/plugin command execution | Not implemented |
@@ -58,7 +59,8 @@ See [execution compatibility](EXECUTION.md), [trust model](TRUST_MODEL.md),
 Provider evidence distinguishes fixtures from the separate verified live requests in
 [provider testing](PROVIDER_TESTING.md), the [OpenAI record](audits/2026-10-15-openai-smoke.md)
 and the [Anthropic record](audits/2026-10-15-anthropic-smoke.md).
-The live requests above were tested on source 0.3.0a2. Current source 0.3.0a3
-adds [advisory scope preflight](SCOPE.md), preserves the JSON schemas and
-invalidates earlier execution approvals through the version-bound contract.
+The live requests above were tested on source 0.3.0a2. Current source 0.3.0a4
+adds optional [check directory targets](TARGETS.md) while preserving advisory
+[scope preflight](SCOPE.md) and schema-1 defaults. The version-bound contract
+invalidates earlier execution approvals; schema-2 config also binds selected files.
 A complete filesystem allowlist remains planned. No release is published.

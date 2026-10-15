@@ -1,6 +1,6 @@
-# Caminhos de âmbito consultivo — 0.3.0a3
+# Caminhos de âmbito consultivo — 0.3.0a4
 
-<!-- safeops-version: 0.3.0a3 -->
+<!-- safeops-version: 0.3.0a4 -->
 
 [English](../SCOPE.md)
 
@@ -48,19 +48,21 @@ ao fornecedor nem com a execução.
 
 ## Compatibilidade e limites
 
-Mantêm-se os schemas 1 de configuração e planos e 2 de aprovação. A atualização
-para 0.3.0a3 invalida as aprovações anteriores pela ligação à versão: preservar
+A configuração de schema 1 continua predefinida; o schema 2 opcional seleciona
+[diretórios das verificações](TARGETS.md). Mantêm-se os schemas 1 de plano e 2
+de aprovação. A atualização para 0.3.0a4 invalida as aprovações anteriores pela ligação à versão: preservar
 o histórico e criar um plano revisto e uma nova aprovação expressa. O comando
 `review` continua a permitir consultar planos antigos, incluindo aqueles cujos
 caminhos já não cumprem a política atual de aprovação/execução.
 
 Esta validação não implementa uma lista de caminhos autorizados nem isolamento
 seguro. Os snapshots continuam a abranger o workspace; as verificações fixas
-continuam a operar em `src` e `tests`, independentemente de `--path`. Não são
+do schema 1 operam em `src` e `tests`; o schema 2 opcional seleciona
+[diretórios das verificações](TARGETS.md), independentemente de `--path`. Não são
 inspecionados recursivamente todos os descendentes de um diretório declarado.
 Mantêm-se as exclusões dos snapshots e os riscos de concorrência; os testes de
-confiança podem aceder a outros ficheiros ou à rede. A restrição
-das leituras/verificações a uma lista explícita continua [planeada](../../ROADMAP.md).
+confiança podem aceder a outros ficheiros ou à rede. A restrição de leituras arbitrárias imposta pelo sistema operativo
+continua [planeada](../../ROADMAP.md).
 
 Os testes de regressão em `tests/test_scope.py` usam fornecedores simulados.
 O CI Windows testa uma junction real; o CI POSIX testa um pipe com nome. Os

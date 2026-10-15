@@ -4,7 +4,22 @@ The format follows Keep a Changelog conventions; versions follow Semantic Versio
 
 ## [Unreleased]
 
-Current source milestone: **0.3.0a3**. No tag or public release is implied.
+Current source milestone: **0.3.0a4**. No tag or public release is implied.
+
+## [0.3.0a4] — 2026-10-15 (source prerelease; not a published release)
+
+### Added
+- Opt-in configuration schema 2 with explicit directory targets for fixed compile/unittest adapters; schema 1 remains the initialization default.
+- Recursive metadata preflight before approval/run and inside the fixed child; links, junctions/reparse points, nonregular objects, inspection errors and excessive selections fail closed.
+- Selected Python compilation in memory without imports/bytecode writes, and unittest discovery under one explicit root. Empty compilation selections and empty/all-skipped test suites fail.
+- `doctor` reports configuration schema, effective targets and a test-file count under the selected unittest root.
+- Additional approval digest for every selected regular file, including generated descendants excluded by the ordinary workspace snapshot. The workspace-wide snapshot remains required.
+- Offline regression tests and EN/PT-PT target-selection, compatibility, status and distribution documentation.
+
+### Compatibility and limits
+- Source version 0.3.0a4 and runner protocol 2 invalidate earlier approvals; preserve records and create a new reviewed plan and explicit approval. Plan schema 1 and approval schema 2 remain supported; schema-2 configuration requires the additional selected-target digest.
+- `plan --path` remains advisory. Target selection is not an OS filesystem allowlist or sandbox; imports/hooks remain trusted code, races are possible and generated cache changes can invalidate a later run.
+- No live provider request, dependency addition, tag, release or package publication.
 
 ## [0.3.0a3] — 2026-10-15 (source prerelease; not a published release)
 

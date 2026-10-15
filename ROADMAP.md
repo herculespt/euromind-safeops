@@ -2,7 +2,7 @@
 
 This roadmap is directional, not a promise of dates or delivered features.
 
-Current source version: **0.3.0a3** (alpha prerelease). See [status](docs/STATUS.md)
+Current source version: **0.3.0a4** (alpha prerelease). See [status](docs/STATUS.md)
 and [PT-PT](docs/pt-PT/STATUS.md). Source milestones are not published releases.
 
 ## v0.1.0 — Initial open-source foundation (implemented)
@@ -45,8 +45,15 @@ No tagged release or package publication is implied by this source version.
 - [x] Canonical advisory path records, future-path support and regression tests without real provider access.
 - [x] EN/PT-PT scope policy and upgrade documentation; existing configuration/plan/approval schemas retained.
 
+## 0.3.0a4 — Explicit check directory targets (implemented in source)
+- [x] Opt-in config schema 2 selects compile directories and one unittest discovery root; schema 1 defaults and advisory `--path` remain unchanged.
+- [x] Recursive metadata preflight in the parent and fixed child rejects links, reparse points, nonregular objects and inspection failures.
+- [x] Compile selected Python sources in memory; keep empty/all-skipped test checks failing.
+- [x] Bind selected regular files, including generated descendants, in the approval; preserve the workspace-wide snapshot.
+- [x] EN/PT-PT targeting, compatibility and status guides, plus installed-wheel regression coverage.
+
 ## Next — Policy and integration hardening (planned)
-- [ ] Explicit workspace filesystem allowlists that restrict checks/reads; 0.3.0a3 advisory path preflight does not implement this boundary.
+- [ ] OS-enforced workspace filesystem allowlists that restrict arbitrary reads; 0.3.0a4 check target selection does not implement this isolation boundary.
 - [ ] Structured JSON output options and improved CI test reporting.
 - [ ] Live compatible/local-model checks and broader account/model validation; the separate OpenAI and Anthropic smokes do not establish universal compatibility.
 - [ ] Broader test adapters without permitting AI-generated commands.
