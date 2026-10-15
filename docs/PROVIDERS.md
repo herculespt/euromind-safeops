@@ -1,10 +1,10 @@
-# AI advisory providers — 0.3.0a2
+# AI advisory providers — 0.3.0a3
 
-<!-- safeops-version: 0.3.0a2 -->
+<!-- safeops-version: 0.3.0a3 -->
 
 [Português (Portugal)](pt-PT/PROVIDERS.md)
 
-Native adapters were introduced in source version 0.2.0. Source 0.3.0a2 adds strict response JSON validation without changing their advisory-only request protocols. See [test evidence and live-test procedure](PROVIDER_TESTING.md); separate live OpenAI `gpt-4.1-mini` and Anthropic `claude-haiku-5-5` requests passed on 2026-10-15. Compatible/local-model inference remains unverified; these smokes do not establish compatibility with all models or accounts.
+Native adapters were introduced in source version 0.2.0. Source 0.3.0a2 introduced strict response JSON validation; 0.3.0a3 adds [scope preflight](SCOPE.md) before provider access, with unchanged advisory-only request protocols. See [test evidence and live-test procedure](PROVIDER_TESTING.md); separate live OpenAI `gpt-4.1-mini` and Anthropic `claude-haiku-5-5` requests passed on source 0.3.0a2 on 2026-10-15. Compatible/local-model inference remains unverified; these smokes do not establish compatibility with all models or accounts.
 
 EuroMind SafeOps supports four advisory backends. **All provider outputs are untrusted text, not executable actions.** Native integrations use fixed official HTTPS API endpoints with no endpoint override.
 

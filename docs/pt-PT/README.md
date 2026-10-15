@@ -1,10 +1,10 @@
 # EuroMind SafeOps — Português (Portugal)
 
-<!-- safeops-version: 0.3.0a2 -->
+<!-- safeops-version: 0.3.0a3 -->
 
 **Ferramenta open source de orquestração de engenharia com aprovação humana e execução controlada de verificações.**
 
-## O que já funciona na versão 0.3.0a2 (pré-versão alfa do código)
+## O que já funciona na versão 0.3.0a3 (pré-versão alfa do código)
 
 - CLI Python 3.11+ sem dependências externas obrigatórias em tempo de execução.
 - Planeamento local de tarefas com classificação de risco e especialidade sugerida.
@@ -13,9 +13,10 @@
 - Validação estrita da configuração e de JSON UTF-8; aprovações ligadas à versão e ao contrato de execução.
 - Rejeição de suites vazias ou totalmente ignoradas; suporte a subdiretórios de testes com `__init__.py`.
 - Registo de auditoria local e pesquisa limitada de padrões típicos de credenciais.
+- Validação prévia dos caminhos declarados antes do fornecedor, gravação, aprovação e execução; [política de âmbito](SCOPE.md). Os caminhos continuam consultivos e não restringem os alvos das verificações.
 - Aconselhamento opcional através de OpenAI Responses API, Anthropic Messages API (Claude) ou modelos locais compatíveis com Chat Completions.
 - Comando `safeops providers`, que informa se existem chaves configuradas sem mostrar o seu valor.
-- Respostas de fornecedores com validação JSON UTF-8 estrita, testes de falhas de transporte e integração HTTP real com respostas locais fixas; pedidos reais separados OpenAI `gpt-4.1-mini` e Anthropic `claude-haiku-5-5` verificados; modelos compatíveis/locais e compatibilidade alargada ainda por validar.
+- Respostas de fornecedores com validação JSON UTF-8 estrita, testes de falhas de transporte e integração HTTP real com respostas locais fixas; pedidos reais separados OpenAI `gpt-4.1-mini` e Anthropic `claude-haiku-5-5` verificados na versão 0.3.0a2; modelos compatíveis/locais e compatibilidade alargada ainda por validar.
 
 **Não implementa** agentes autónomos que editem código, isolamento seguro, execução arbitrária, pipelines de produção, proteção garantida contra ataques. O código dos testes executa com os privilégios do utilizador: não utilizes repositórios não confiáveis.
 
@@ -46,7 +47,7 @@ a [política de execução e compatibilidade](EXECUTION.md) e o
 significa que exista uma release ou publicação de pacote.
 
 A ligação à versão também exige nova aprovação de execução ao atualizar de
-0.3.0a1 para 0.3.0a2, sem alterar os schemas de configuração, planos ou aprovações.
+0.3.0a2 para 0.3.0a3, sem alterar os schemas de configuração, planos ou aprovações.
 
 Para utilizar OpenAI ou Claude, configura `OPENAI_API_KEY` ou `ANTHROPIC_API_KEY` no ambiente e fornece o modelo pretendido e `--allow-remote`. Vê [as instruções completas dos fornecedores](PROVIDERS.md) e a [evidência dos testes](PROVIDER_TESTING.md). Uma subscrição de chat não inclui necessariamente créditos de API.
 

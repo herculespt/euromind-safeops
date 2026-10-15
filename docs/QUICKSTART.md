@@ -1,8 +1,8 @@
 # Quickstart
 
-<!-- safeops-version: 0.3.0a2 -->
+<!-- safeops-version: 0.3.0a3 -->
 
-Current source version: **0.3.0a2**, alpha prerelease. Requires Python 3.11+, Git optional, and a trusted source tree with `src/` and a nonempty unittest suite under `tests/`. Nested test directories need `__init__.py`.
+Current source version: **0.3.0a3**, alpha prerelease. Requires Python 3.11+, Git optional, and a trusted source tree with `src/` and a nonempty unittest suite under `tests/`. Nested test directories need `__init__.py`.
 
 ```bash
 git clone https://github.com/herculespt/euromind-safeops.git
@@ -36,6 +36,10 @@ safeops --root . scan
 ## Windows notes
 
 Open PowerShell in the project directory. Replace `python` with `py -3` if required, and use the exact 12-character plan ID shown on screen. Python module execution and the built-in file paths are cross-platform. On Windows, use `\` or `/` in `--root` as appropriate.
+
+`--path` uses portable forward-slash relative names, even in PowerShell, such as
+`--path src/demo/calc.py`. It describes advisory scope and does not restrict the
+fixed checks. See the [scope policy](SCOPE.md).
 
 ## Troubleshooting
 

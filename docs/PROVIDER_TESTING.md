@@ -1,23 +1,27 @@
 # Provider validation and live-test procedure
 
-<!-- safeops-version: 0.3.0a2 -->
+<!-- safeops-version: 0.3.0a3 -->
 
 [Português (Portugal)](pt-PT/PROVIDER_TESTING.md)
 
-Current source: **0.3.0a2**, alpha prerelease. This is a validation record and
+Current source: **0.3.0a3**, alpha prerelease. This is a validation record and
 procedure, including separate verified live OpenAI and Anthropic requests. It does not imply a published release or universal provider/model validation.
+
+The live records below remain tied to source 0.3.0a2. The current 0.3.0a3
+path-admission change is verified offline, without another paid vendor request.
 
 ## Evidence — 2026-10-15
 
 | Layer | Exercised | Boundary |
 |---|---|---|
+| Scope admission (0.3.0a3) | Invalid paths never invoke the provider; valid/future paths persist; changed links fail revalidation | Offline provider replacements; not an allowlist or sandbox |
 | Native OpenAI/Anthropic contracts | Fixed origins, authentication headers, request serialization and text blocks | Transport doubles; no vendor connection |
 | Transport failures | HTTP 401/429/500, URL errors, timeout, malformed shapes and redacted errors | Deterministic offline fixtures |
 | JSON and limits | UTF-8/BOM, duplicate keys, non-finite numbers, invalid encoding, 256,000-byte limit and 6,000-character advice | Valid objects supported; strict decoder shared with stored state |
 | Compatible HTTP integration | Real POST on 127.0.0.1, CLI plan persistence, Portuguese text, no source upload or automatic approval | Local fixture server; no inference |
 | Redirect policy | Real 301/302/303/307/308 responses; destination receives no request | Local fixture servers only |
-| Live OpenAI inference | **Passed: `gpt-4.1-mini`, 2026-10-15** | One advisory plan saved and integrity-reviewed; see [dated evidence](audits/2026-10-15-openai-smoke.md) |
-| Live Anthropic inference | **Passed: `claude-haiku-5-5`, 2026-10-15** | One advisory plan saved and integrity-reviewed; see [dated evidence](audits/2026-10-15-anthropic-smoke.md) |
+| Live OpenAI inference | **Passed: `gpt-4.1-mini`, 2026-10-15** | Source 0.3.0a2; one saved/reviewed plan; see [dated evidence](audits/2026-10-15-openai-smoke.md) |
+| Live Anthropic inference | **Passed: `claude-haiku-5-5`, 2026-10-15** | Source 0.3.0a2; one saved/reviewed plan; see [dated evidence](audits/2026-10-15-anthropic-smoke.md) |
 | Live compatible/local-model inference | **Pending** | No live validation of those endpoints/models is claimed |
 
 The compatible fixture is an HTTP service returning predetermined text, not a
@@ -77,7 +81,7 @@ are not a guaranteed total request deadline; no retry/fallback is automatic.
 
 ## Compatibility and primary references
 
-Response validation is stricter in 0.3.0a2. Stored configuration/plan schema 1
+Response validation became stricter in 0.3.0a2; 0.3.0a3 adds [scope preflight](SCOPE.md). Stored configuration/plan schema 1
 and approval schema 2 remain unchanged; upgrading the package invalidates older
 execution approvals through the existing version binding. Preserve history and
 create a new plan and explicit approval before later executing checks. The live

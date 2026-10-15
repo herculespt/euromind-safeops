@@ -1,10 +1,10 @@
 # Execution policy and upgrade compatibility
 
-<!-- safeops-version: 0.3.0a2 -->
+<!-- safeops-version: 0.3.0a3 -->
 
 [Português (Portugal)](pt-PT/EXECUTION.md)
 
-Current source version: **0.3.0a2**, alpha prerelease. This document describes
+Current source version: **0.3.0a3**, alpha prerelease. This document describes
 implemented behavior; see [status](STATUS.md) for exclusions and publication state.
 
 ## Configuration
@@ -28,6 +28,14 @@ Excessive nesting reported by the JSON decoder produces a controlled error.
 Configuration does not support plugins, arbitrary commands or a filesystem
 allowlist. Plan scope paths are advisory, not enforced isolation boundaries.
 
+## Advisory path preflight
+
+Source 0.3.0a3 validates and normalizes declared paths before provider access and
+plan persistence, and rechecks them before approval/run. Historical plans remain
+reviewable; unsafe scopes cannot authorize checks. `--path` does not narrow the
+workspace digest or the fixed check targets. See the [scope policy](SCOPE.md) for
+portable syntax, future files, link handling and residual race limitations.
+
 ## Approval contract
 
 Plans remain schema 1. New approvals use schema 2 and bind:
@@ -48,6 +56,11 @@ converted. Do not edit an old record to bypass this requirement.
 Upgrading from 0.3.0a1 to 0.3.0a2 also requires a new plan and approval because
 the existing execution contract binds the package version. Configuration/plan
 schema 1 and approval schema 2 do not change in this provider-validation update.
+
+Upgrading from 0.3.0a2 to 0.3.0a3 also requires a fresh plan and approval under
+the version-bound contract. Configuration/plan schema 1 and approval schema 2
+remain unchanged. Earlier unsupported path forms now fail before provider access;
+old records can still be reviewed without rewriting them.
 
 Changes to the package version or fixed command contract invalidate an existing
 approval even if workspace files and configuration are unchanged. Maintainers

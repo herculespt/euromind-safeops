@@ -4,13 +4,34 @@ The format follows Keep a Changelog conventions; versions follow Semantic Versio
 
 ## [Unreleased]
 
+Current source milestone: **0.3.0a3**. No tag or public release is implied.
+
+## [0.3.0a3] — 2026-10-15 (source prerelease; not a published release)
+
+### Fixed
+- Reject invalid advisory scope paths before contacting a provider, rather than making an unnecessary request and failing only when saving the plan.
+- Validate declared path components again before persistence, approval and run, including links/reparse points added without changing the existing regular-file snapshot.
+
+### Added
+- Shared portable scope preflight: relative forward-slash paths, normalized records, future files and controlled filesystem errors; reject traversal, absolute/drive/UNC paths, reserved or ambiguous names, internal/generated components, duplicate normalized paths and nonregular files.
+- Twenty regression cases covering offline/remote admission, unchanged whole-workspace checks, read-only historical review, symbolic links, Windows junctions and POSIX named pipes.
+- English/PT-PT scope and compatibility guides, packaged source documentation and installed-wheel coverage.
+
+### Compatibility
+- Source version changes to 0.3.0a3. Existing execution approvals become stale through the version-bound contract; retain history and create a fresh plan and explicit approval. Configuration/plan schema 1 and approval schema 2 remain unchanged.
+- Existing plans remain reviewable; approval/run reject scopes that violate the current policy. New records normalize `./` and repeated/trailing separators. Ordinary names such as `.safeops-guide.md` are supported; the former overbroad prefix rejection is removed.
+- `--path` remains advisory. Snapshots stay workspace-wide; fixed checks still target `src`/`tests`. Filesystem allowlists, sandboxing and race-free filesystem isolation remain unimplemented.
+- Native provider protocols are unchanged. Live OpenAI and Anthropic evidence remains tied to the separately recorded 0.3.0a2 source; no new billable request was used for this fix.
+
+## [0.3.0a2] — 2026-10-15 (source prerelease; not a published release)
+
+### Documentation follow-ups before 0.3.0a3
+
 Documentation-only follow-up for source 0.3.0a2: verified a live Anthropic `claude-haiku-5-5` advisory request, saved plan and integrity review on 2026-10-15. Added dated EN/PT-PT evidence and synchronized current status, roadmap and provider guides. Compatible/local-model inference and broader account/model compatibility remain pending; runtime code, schemas and version are unchanged.
 
 Clarified the standalone project scope and used generic confidentiality rules throughout public documentation. Added the corresponding PT-PT project-scope guide; source version remains 0.3.0a2.
 
 Documentation-only follow-up for source 0.3.0a2: verified a live OpenAI `gpt-4.1-mini` advisory request, saved plan and integrity review on 2026-10-15. Updated EN/PT-PT status, roadmap and evidence without changing runtime code, schemas or version. The subsequent Anthropic validation is recorded above; compatible/local-model validation remains pending. No release was published.
-
-## [0.3.0a2] — 2026-10-15 (source prerelease; not a published release)
 
 ### Fixed
 - Reject ambiguous or non-UTF-8 provider JSON using the same strict decoder as stored state: duplicate keys, non-finite numbers, overflow and UTF-16 are not accepted.

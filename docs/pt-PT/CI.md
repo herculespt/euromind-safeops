@@ -20,6 +20,11 @@ Não exigem chaves de API nem acesso externo a modelos e também correm contra
 as wheels instaladas. A [validação dos fornecedores](PROVIDER_TESTING.md)
 regista separadamente os testes reais OpenAI e Anthropic já aprovados e as restantes lacunas. Os pedidos reais não são acrescentados ao CI.
 
+Os testes de âmbito confirmam que declarações inválidas nem invocam o fornecedor
+simulado e que ligações alteradas não chegam aos subprocessos aprovados. Os jobs
+Windows testam junctions; os POSIX testam pipes com nome. Os jobs de distribuição
+verificam os dois guias de âmbito e o módulo `scope.py` empacotados.
+
 ## Actions revistas em 15 de outubro de 2026
 
 | Action | Versão | Commit oficial |

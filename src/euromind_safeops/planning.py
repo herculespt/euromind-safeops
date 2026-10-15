@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any
 
 from .core import SafeOpsError, file_in_workspace, read_json, sha256, tree_digest, utc_now, atomic_json_write
+from .scope import validate_scope_paths
 
 CRITICAL = (r"\bproduction\b", r"\bdeploy\b", r"\bpublish\b", r"\bdelete\b", r"\bdestroy\b", r"\bcredential", r"\bsecret", r"\bpassword", r"\bprivate.key", r"\.env\b", r"\bpayment", r"\btoken\b")
 HIGH = (r"\bauth", r"\bcrypt", r"\bsecurity\b", r"\bmigrat", r"\bpermissions?\b", r"\brelease\b", r"\bfirewall\b")
@@ -43,12 +44,7 @@ def validate_task(task: str) -> str:
 
 def create_plan(root: Path, task: str, files: list[str], advice: str, provider: str) -> dict[str, Any]:
     task = validate_task(task)
-    if len(files) > 20:
-        raise SafeOpsError("At most 20 scope paths")
-    for name in files:
-        path = Path(name)
-        if not name or path.is_absolute() or ".." in path.parts or path.as_posix().startswith(".safeops"):
-            raise SafeOpsError(f"Invalid or internal scope path: {name}")
+    files = validate_scope_paths(root, files)
     plan = {
         "schema": 1,
         "id": secrets.token_hex(6),
