@@ -31,7 +31,7 @@ def approve(root: Path, plan_id: str, reason: str, confirmation: str) -> dict:
         raise SafeOpsError("Approval reason must contain 1–500 characters")
     plan = load_plan(root, plan_id)
     if plan["risk"] == "critical":
-        raise SafeOpsError("Critical-risk plans cannot be approved in v0.1.0")
+        raise SafeOpsError("Critical-risk plans cannot be approved under the current policy")
     if tree_digest(root) != plan["workspace_digest"]:
         raise SafeOpsError("Workspace changed since planning; create a new plan")
     cfg = get_config(root)

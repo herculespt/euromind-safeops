@@ -10,25 +10,27 @@ from pathlib import Path
 from . import __version__
 from .core import SafeOpsError, atomic_json_write, audit, read_json, secure_dir, tree_digest, workspace
 from .execution import approve, get_config, run
-from .planning import create_plan, load_plan, specialization
-from .providers import offline_advice, remote_advice
+from .planning import create_plan, load_plan, specialization, validate_task
+from .providers import offline_advice, remote_advice, provider_status
 from .scanning import scan
 
 
 def make_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(prog="safeops", description="Safety-focused engineering orchestration (v0.1.0 alpha)")
+    parser = argparse.ArgumentParser(prog="safeops", description="Safety-focused engineering orchestration (v0.2.0 alpha)")
     parser.add_argument("--root", type=Path, default=Path.cwd(), help="Project directory (default: current directory)")
     parser.add_argument("--version", action="version", version=__version__)
     commands = parser.add_subparsers(dest="command", required=True)
     commands.add_parser("init", help="Initialize local, git-ignored SafeOps workspace")
     commands.add_parser("doctor", help="Check local installation and workspace")
+    commands.add_parser("providers", help="List advisory backends and credential availability")
     p = commands.add_parser("plan", help="Create a hashed, advisory-only task plan")
     p.add_argument("task", help="Short task description; never paste secrets")
     p.add_argument("--path", action="append", default=[], help="Relative scope path (repeatable)")
-    p.add_argument("--provider", choices=["offline", "openai-compatible"], default="offline")
+    p.add_argument("--provider", choices=["offline", "openai", "anthropic", "openai-compatible"], default="offline")
     p.add_argument("--endpoint", default="")
     p.add_argument("--model", default="")
-    p.add_argument("--allow-remote", action="store_true", help="Consent to send task text to endpoint")
+    p.add_argument("--allow-remote", action="store_true", help="Consent to send task text to provider")
+    p.add_argument("--provider-timeout", type=int, default=15, help="Network timeout, 1-60 seconds")
     r = commands.add_parser("review", help="Show and integrity-check a stored plan")
     r.add_argument("plan_id")
     a = commands.add_parser("approve", help="Record human approval tied to fingerprint")
@@ -59,6 +61,9 @@ def main(argv: list[str] | None = None) -> int:
             print(f"Initialized: {directory}")
             print("Local state is excluded from Git by the recommended .gitignore")
             return 0
+        if args.command == "providers":
+            print(json.dumps({"providers": provider_status(), "notice": "API keys are never displayed"}, indent=2))
+            return 0
         if args.command == "doctor":
             cfg = get_config(root)
             print(json.dumps({"version": __version__, "root": str(root), "checks": cfg["checks"],
@@ -71,13 +76,16 @@ def main(argv: list[str] | None = None) -> int:
             return 1 if findings else 0
         workspace(root)
         if args.command == "plan":
-            if args.provider == "openai-compatible":
-                if not args.endpoint or not args.model:
-                    raise SafeOpsError("Remote provider needs --endpoint and --model")
-                advice = remote_advice(args.task, endpoint=args.endpoint, model=args.model, allow_remote=args.allow_remote)
+            validate_task(args.task)
+            if args.provider != "offline":
+                if args.provider == "openai-compatible" and not args.endpoint:
+                    raise SafeOpsError("Custom provider needs --endpoint")
+                advice = remote_advice(args.task, provider=args.provider, endpoint=args.endpoint,
+                                       model=args.model, allow_remote=args.allow_remote,
+                                       timeout=args.provider_timeout)
             else:
-                if args.allow_remote or args.endpoint or args.model:
-                    raise SafeOpsError("Remote flags only apply to --provider openai-compatible")
+                if args.allow_remote or args.endpoint or args.model or args.provider_timeout != 15:
+                    raise SafeOpsError("Remote flags only apply to remote providers")
                 advice = offline_advice(args.task, specialization(args.task))
             plan = create_plan(root, args.task, args.path, advice, args.provider)
             audit(root, "plan", plan["id"], plan["risk"])
