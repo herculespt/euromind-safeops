@@ -1,7 +1,9 @@
 import json
+import os
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from euromind_safeops.core import SafeOpsError
 from euromind_safeops.execution import approve, run
@@ -44,6 +46,26 @@ class ExecutionTests(unittest.TestCase):
         response = run(self.root, plan["id"])
         self.assertEqual(response["status"], "passed")
         self.assertEqual(len(response["checks"]), 2)
+
+    def test_check_output_preserves_portuguese_under_inherited_ascii(self):
+        text = "Aprovação, execução e revisão — Português (Portugal)"
+        (self.root / "tests" / "test_smoke.py").write_text(
+            "import sys\nimport unittest\n"
+            "class TestSmoke(unittest.TestCase):\n"
+            " def test_smoke(self):\n"
+            f"  print({text!r})\n"
+            f"  print({text!r}, file=sys.stderr)\n",
+            encoding="utf-8",
+        )
+        plan = self.plan()
+        approve(self.root, plan["id"], "reviewed", plan["id"])
+        with patch.dict(os.environ, {"PYTHONIOENCODING": "ascii"}):
+            response = run(self.root, plan["id"])
+            self.assertEqual(os.environ["PYTHONIOENCODING"], "ascii")
+        self.assertEqual(response["status"], "passed")
+        unit_result = response["checks"][-1]
+        self.assertIn(text, unit_result["stdout"])
+        self.assertIn(text, unit_result["stderr"])
 
     def test_changed_source_invalidates_approval(self):
         plan = self.plan()

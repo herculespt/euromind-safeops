@@ -1,6 +1,21 @@
 # Maintainer guide — repository governance
 
-This guide documents a **recommended policy**, not an assertion that branch protection has already been enabled.
+## Verified protection baseline — 2026-10-15
+
+After explicit maintainer authorization, the **Protect main** branch ruleset
+([ID 25151466](https://github.com/herculespt/euromind-safeops/rules/25151466)) was
+created and verified as **active**, targeting exactly `refs/heads/main`.
+
+- Pull requests are required, with **zero required approving reviews** while the project has one maintainer.
+- `quality-gate` is required from **GitHub Actions**; the branch must be up to date.
+- Review conversations must be resolved.
+- Deletion and non-fast-forward updates are blocked.
+- The bypass list is empty; the authenticated maintainer's reported bypass permission was `never`.
+- The branch API reported `protected: true`; source history was unchanged by this administrative action.
+
+This is a dated observation, not a guarantee that repository settings cannot
+change. Recheck the active ruleset before relying on it. See the
+[audit](audits/2026-10-15.md) and [Português (Portugal)](pt-PT/MAINTAINER_GUIDE.md).
 
 ## Repository authority and trust
 
@@ -12,7 +27,9 @@ This guide documents a **recommended policy**, not an assertion that branch prot
 
 ## Protect `main` in GitHub settings
 
-> Repository owner action required. The ChatGPT GitHub connector cannot change repository branch protection, because GitHub application access excludes repository administration.
+> Changes require repository administration access. The GitHub connector used
+> for source changes does not expose administrative writes; the baseline above
+> was applied through the authenticated GitHub settings UI after authorization.
 
 1. Go to **Settings → Branches → Add branch protection rule** (or **Settings → Rules → Rulesets → New branch ruleset**) and target `main`.
 2. Enable **Require a pull request before merging**. Maintain a PR-only workflow, even for documentation and CI changes.
@@ -22,7 +39,7 @@ This guide documents a **recommended policy**, not an assertion that branch prot
 6. **Do not require an approving reviewer until a second trusted maintainer exists**: GitHub does not permit authors to approve their own PRs, so requiring one approval now can block legitimate maintenance. Continue human self-review with a written checklist until an independent reviewer is available.
 7. Save changes, then reload **Settings → Branches** (or the ruleset view) and check that `main` is protected. Validate that an intentionally failing PR cannot merge.
 
-This is a suggested minimal baseline, not a claim that GitHub settings have been changed. The required check name is deliberately stable across CI changes. Do not require individual matrix checks unless necessary: the aggregate check covers all of them.
+These steps describe how to reproduce or review the baseline. The required check name is deliberately stable across CI changes. Do not require individual matrix checks unless necessary: the aggregate check covers all of them.
 
 ## Change-control procedure
 

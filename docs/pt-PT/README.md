@@ -37,4 +37,18 @@ Para utilizar OpenAI ou Claude, configura `OPENAI_API_KEY` ou `ANTHROPIC_API_KEY
 
 Consulta a [documentação principal](../../README.md), [arquitetura](../ARCHITECTURE.md), [modelo de confiança](../TRUST_MODEL.md) e [regras de segurança](../../SECURITY.md).
 
+## Manutenção e validação
+
+A proteção da `main` foi ativada e verificada em 15 de outubro de 2026: exige
+pull request, `quality-gate` de GitHub Actions, branch atualizada e conversas
+resolvidas. Não permite force pushes, eliminação ou exceções de bypass. São
+exigidas zero aprovações enquanto existir apenas um maintainer.
+
+Consulta o [guia de manutenção](MAINTAINER_GUIDE.md) e a
+[auditoria de 15 de outubro de 2026](audits/2026-10-15.md), incluindo as limitações
+e os próximos trabalhos. A saída das verificações Python passa a utilizar UTF-8
+explicitamente para preservar os acentos em `stdout` e `stderr`, mesmo quando
+o ambiente herdado pede ASCII. Esta correção está descrita em `Unreleased` até
+ser publicada uma versão autorizada.
+
 Licença: Apache 2.0. Projeto independente, sem código privado do SEND.

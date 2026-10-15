@@ -10,7 +10,7 @@ flowchart TD
   R --> D[Immutable-by-convention plan JSON + SHA-256]
   A -. Untrusted advisory text only .-> D
   D --> H[Human review & approval]
-  H --> G{Critical? Integrity unchanged?}
+  H --> G{Non-critical and integrity unchanged?}
   G -->|No| X[Fail closed]
   G -->|Yes| E[Fixed compile / unit test checks]
   E --> L[Local JSONL audit]
@@ -48,6 +48,7 @@ All generated files live in a project-local `.safeops/` directory, which should 
 - The optional HTTP adapters send only supplied task text; native endpoints are pinned, and AI output is always untrusted advice.
 - Allowed checks are hard-coded as Python `compileall` and `unittest` modules.
 - The tool passes subprocess arguments directly, not through a shell.
+- Fixed Python checks use UTF-8 streams and explicit UTF-8 capture, independent of the inherited locale.
 - **Test code itself is executable and NOT sandboxed.**
 - Critical plans cannot be approved or run.
 - Any source-tree or approval-policy change invalidates an existing approval.
