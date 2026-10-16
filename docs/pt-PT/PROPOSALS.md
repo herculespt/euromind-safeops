@@ -1,6 +1,6 @@
-# Propostas locais ligadas ao plano — 0.3.0a18
+# Propostas locais ligadas ao plano — 0.3.0a19
 
-<!-- safeops-version: 0.3.0a18 -->
+<!-- safeops-version: 0.3.0a19 -->
 
 [English](../PROPOSALS.md)
 
@@ -99,7 +99,7 @@ não são assinaturas, prova autenticada de autoria ou auditoria inviolável.
 
 Mantêm-se configuração 1/2, plano 1, aprovação 2, envelope 1 e protocolos runner 5/
 bloqueio 3. O schema separado da proposta não concede aprovação de execução.
-Atualizar para 0.3.0a18 exige plano novo revisto e aprovação expressa segundo o
+Atualizar para 0.3.0a19 exige plano novo revisto e aprovação expressa segundo o
 contrato ligado à versão. `approve` e `run` não recebem propostas; continuam
 limitados às verificações fixas existentes.
 
@@ -109,3 +109,7 @@ continuam planeados. A versão do código não publica uma release; consulta o
 [estado atual](STATUS.md).
 
 Uma proposta revista pode agora ser materializada com [stage-proposal](STAGING.md): exige o fingerprint exato e escreve substituições apenas numa cópia local separada. [Aplicação explícita ao original e rollback conservador](APPLICATION.md) estão implementados separadamente; worktrees Git continuam planeadas.
+
+## Compatibilidade das propostas com origem IA
+
+`propose` manual mantém schema 1. A [geração revista](GENERATION.md) grava schema 2 com `origin` estrito adicional (kind=ai, fornecedor, modelo, request_sha256), ligado ao fingerprint local. Ambos os formatos continuam não aprovados e seguem revisão/staging/checks/aplicação explícitos. `review-proposal` devolve também origem para schema 2. Metadados locais sem chave não autenticam proveniência; registos/histórico schema 1 são preservados.

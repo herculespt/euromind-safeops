@@ -1,6 +1,6 @@
-# Local candidate previews — 0.3.0a18
+# Local candidate previews — 0.3.0a19
 
-<!-- safeops-version: 0.3.0a18 -->
+<!-- safeops-version: 0.3.0a19 -->
 
 [Português (Portugal)](pt-PT/PREVIEW.md)
 
@@ -90,3 +90,5 @@ and sandboxing remain planned. [Reviewed application/rollback](APPLICATION.md) a
 upgrading to this version still needs a fresh reviewed plan and explicit approval.
 
 Persisted [plan-bound local proposals](PROPOSALS.md) are now available separately. `preview` itself remains stateless and does not initialize or write `.safeops`.
+
+[Reviewed AI generation](GENERATION.md) is a separate source-sharing operation: offline full-request review, exact fingerprint plus source-upload consent, then an unapproved schema-2 proposal. Manual schema 1 remains supported; existing explicit review/staging/check/application gates still apply. Local request reviews contain source text and must not be published blindly. Ordinary `plan` calls remain task-only.

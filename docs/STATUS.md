@@ -1,10 +1,10 @@
 # Implementation and publication status
 
-<!-- safeops-version: 0.3.0a18 -->
+<!-- safeops-version: 0.3.0a19 -->
 
 [Português (Portugal)](pt-PT/STATUS.md)
 
-**Current source version: 0.3.0a18 — alpha prerelease.** Python 3.11–3.13 is
+**Current source version: 0.3.0a19 — alpha prerelease.** Python 3.11–3.13 is
 covered by CI on Linux, Windows and macOS. No third-party runtime dependencies.
 The first [GitHub alpha v0.3.0a8](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8)
 was published on 2026-10-16 at `035c36b1b646a6c75178d5db6c19d8c55d624dcf`,
@@ -22,12 +22,13 @@ administrator bypass. Attestations identify the publishing workflow commit
 0.3.0a8 release commit above. This is publishing provenance, not reproducible-build
 proof or signed SafeOps approvals.
 
-Source 0.3.0a18 adds reviewed maintainer tooling locks and hash-checked installation; native supervision, bounded output and retained incomplete evidence remain. It has not been published as a new release.
+Source 0.3.0a19 adds bounded AI-generated candidates with exact source-upload consent and unapproved origin-labelled proposals; manual workflows, reviewed tooling and native supervision remain. It has not been published as a new release.
 
 ## Implemented
 
 | Capability | Practical boundary |
 |---|---|
+| Reviewed AI candidate generation | Offline exact-upload review, separate fingerprint/source consent, strict bounded provider output and schema-2 unapproved proposals; [contract](GENERATION.md) |
 | Reviewed maintainer tooling locks | Two Linux/CPython 3.12 profiles with complete wheel hashes, restricted installation and explicit compatibility-job exceptions; [policy](TOOLING.md) |
 | Owned fixed-check process supervision | Gated launcher, native POSIX group/Windows job, bounded output tails and confirmed cleanup before normal result; uncertain cleanup retains marker/intent; [contract](SUPERVISION.md) |
 | Explicit reviewed original replacements and rollback | Current original review, passed unchanged staged compile/tests, exact fingerprint, private bounded backups/journal and conservative restoration; no multi-file atomicity or isolation; [contract](APPLICATION.md) |
@@ -90,7 +91,7 @@ See [execution compatibility](EXECUTION.md), [trust model](TRUST_MODEL.md),
 Provider evidence distinguishes fixtures from the separate verified live requests in
 [provider testing](PROVIDER_TESTING.md), the [OpenAI record](audits/2026-10-15-openai-smoke.md)
 and the [Anthropic record](audits/2026-10-15-anthropic-smoke.md).
-The live requests above were tested on source 0.3.0a2. Current source 0.3.0a18
+The live requests above were tested on source 0.3.0a2. Current source 0.3.0a19
 adds [owned process supervision](SUPERVISION.md), retaining [reviewed application and rollback](APPLICATION.md), retaining [approved-check receipts](RUN_RECEIPTS.md), retaining [current original-context review](STAGE_REVIEW.md), retaining [historical stage inspection](STAGING.md), retaining separate copies, [plan-bound proposals](PROPOSALS.md), [local candidate previews](PREVIEW.md), [measured coverage](COVERAGE.md), [local JUnit reporting](REPORTING.md),
 [native locking and explicit recovery](LOCKING.md),
 [structured output and summaries](OUTPUT.md), optional
@@ -98,3 +99,5 @@ adds [owned process supervision](SUPERVISION.md), retaining [reviewed applicatio
 schema-1 defaults. The version-bound contract
 invalidates earlier execution approvals; schema-2 config also binds selected files.
 A complete filesystem allowlist remains planned. See the publication status above.
+
+Separate source-0.3.0a19 OpenAI candidate-generation smoke: one reviewed synthetic file, one request, 316 observed tokens, valid unapproved schema-2 proposal/review and unchanged source/credentials; [evidence](audits/2026-10-17-openai-generation-smoke.md). Anthropic generation remains offline-validated; earlier live advisory evidence is still specific to source 0.3.0a2.

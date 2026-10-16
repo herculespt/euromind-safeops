@@ -1,6 +1,6 @@
-# Cobertura medida no CI — 0.3.0a18
+# Cobertura medida no CI — 0.3.0a19
 
-<!-- safeops-version: 0.3.0a18 -->
+<!-- safeops-version: 0.3.0a19 -->
 
 [English](../COVERAGE.md)
 

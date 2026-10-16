@@ -1,6 +1,6 @@
-# Revisão do contexto original atual — 0.3.0a18
+# Revisão do contexto original atual — 0.3.0a19
 
-<!-- safeops-version: 0.3.0a18 -->
+<!-- safeops-version: 0.3.0a19 -->
 
 [English](../STAGE_REVIEW.md)
 
@@ -100,3 +100,5 @@ continua a exigir inicialização, plano novo e aprovação explícita nessa có
 em 0.3.0a8.
 
 Os [recibos dos checks aprovados](RUN_RECEIPTS.md) estão implementados separadamente. Este comando de compatibilidade não executa testes nem interpreta recibo aprovado como autorização de aplicação. [Aplicação ao original/rollback](APPLICATION.md) exigem confirmação atual própria; evidência histórica de execução não substitui revisão do contexto atual.
+
+A [geração IA revista](GENERATION.md) é uma operação separada de partilha de código: revisão offline do pedido completo, fingerprint e consentimento de upload, depois proposta schema 2 não aprovada. Schema 1 manual e gates explícitos de revisão/staging/checks/aplicação mantêm-se. A revisão contém código e não deve ser publicada sem inspeção; `plan` continua a enviar só a tarefa.

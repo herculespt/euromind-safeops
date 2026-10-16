@@ -1,6 +1,6 @@
-# Current original-context review — 0.3.0a18
+# Current original-context review — 0.3.0a19
 
-<!-- safeops-version: 0.3.0a18 -->
+<!-- safeops-version: 0.3.0a19 -->
 
 [Português (Portugal)](pt-PT/STAGE_REVIEW.md)
 
@@ -95,3 +95,5 @@ initialization, a fresh plan and explicit execution approval in that copy.
 [Explicit original application and rollback](APPLICATION.md) are implemented separately. Git worktrees, OS isolation and authenticated SafeOps provenance remain planned. Public GitHub/PyPI alpha remains 0.3.0a8.
 
 [Approved-check receipts](RUN_RECEIPTS.md) are now implemented separately. This compatibility command neither runs tests nor consumes a passed receipt as application authority. [Original application/rollback](APPLICATION.md) require their own exact current confirmation; historical run evidence does not replace current context review.
+
+[Reviewed AI generation](GENERATION.md) is a separate source-sharing operation: offline full-request review, exact fingerprint plus source-upload consent, then an unapproved schema-2 proposal. Manual schema 1 remains supported; existing explicit review/staging/check/application gates still apply. Local request reviews contain source text and must not be published blindly. Ordinary `plan` calls remain task-only.

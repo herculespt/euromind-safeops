@@ -1,10 +1,10 @@
-# Supervisão dos processos das verificações — 0.3.0a18
+# Supervisão dos processos das verificações — 0.3.0a19
 
-<!-- safeops-version: 0.3.0a18 -->
+<!-- safeops-version: 0.3.0a19 -->
 
 [English](../SUPERVISION.md)
 
-Implementado no código 0.3.0a18. A alfa pública GitHub/PyPI 0.3.0a8 é anterior a esta capacidade.
+Implementado no código 0.3.0a19. A alfa pública GitHub/PyPI 0.3.0a8 é anterior a esta capacidade.
 
 Cada check aprovado usa um launcher Python interno bloqueado à entrada. Não inicia código do projeto antes de o processo principal estabelecer identidade nativa e enviar um byte de arranque. Mantêm-se argumentos fixos, streams UTF-8, imports sem bytecode automático e alvos schema 1/2. O worker recebe stdin vazio/fechado. Sem fornecedor, shell, opção de comando arbitrário, pesquisa de PIDs, taskkill externo ou dependência de runtime.
 

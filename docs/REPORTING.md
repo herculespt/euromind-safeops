@@ -1,6 +1,6 @@
-# Local JUnit reporting — 0.3.0a18
+# Local JUnit reporting — 0.3.0a19
 
-<!-- safeops-version: 0.3.0a18 -->
+<!-- safeops-version: 0.3.0a19 -->
 
 [Português (Portugal)](pt-PT/REPORTING.md)
 

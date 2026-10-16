@@ -1,10 +1,10 @@
 # Estado de implementação e publicação
 
-<!-- safeops-version: 0.3.0a18 -->
+<!-- safeops-version: 0.3.0a19 -->
 
 [English](../STATUS.md)
 
-**Versão atual do código: 0.3.0a18 — pré-versão alfa.** O CI cobre Python
+**Versão atual do código: 0.3.0a19 — pré-versão alfa.** O CI cobre Python
 3.11–3.13 em Linux, Windows e macOS. Não existem dependências externas em
 execução. A primeira [release GitHub v0.3.0a8](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8)
 foi publicada em 16 de outubro de 2026 no commit
@@ -24,12 +24,13 @@ o código do pacote mantém o commit imutável 0.3.0a8 indicado acima. Esta evid
 é de proveniência da publicação; não demonstra builds reproduzíveis nem
 aprovações SafeOps assinadas.
 
-O código 0.3.0a18 acrescenta dependências de manutenção e hashes revistos com instalação restrita, mantendo supervisão nativa, caudas limitadas e estado retido na incerteza; ainda não foi publicada uma nova release.
+O código 0.3.0a19 acrescenta candidatos IA limitados com consentimento exato para partilha de código e propostas não aprovadas, mantendo fluxos manuais, ferramentas revistas e supervisão nativa; ainda não foi publicada uma nova release.
 
 ## Implementado
 
 | Capacidade | Limite prático |
 |---|---|
+| Geração de candidatos IA com revisão | Revisão offline do pedido, consentimento exato separado, resposta limitada/validada e proposta schema 2 não aprovada; [contrato](GENERATION.md) |
 | Ferramentas de manutenção com hashes revistos | Dois perfis Linux/CPython 3.12 com dependências transitivas e instalação restrita; [política](TOOLING.md) |
 | Recibos dos checks aprovados e inspeção histórica | Metadados/hashes/resultados limitados, revalidação antes/depois e estados explícitos de timeout/alteração/incompleto; sem output guardado, renovação de aprovação ou aplicação; [contrato](RUN_RECEIPTS.md) |
 | Revisão do contexto original atual | Exige cópia correspondente e duas observações limitadas do original/plano/bases/configuração/alvos/versão/contrato; current/stale/incompatible, sem escrita nem aprovação; [contrato](STAGE_REVIEW.md) |
@@ -94,7 +95,7 @@ Consulta a [compatibilidade de execução](EXECUTION.md), o
 A [validação dos fornecedores](PROVIDER_TESTING.md) distingue respostas fixas dos
 pedidos reais separados nos registos [OpenAI](audits/2026-10-15-openai-smoke.md) e
 [Anthropic](audits/2026-10-15-anthropic-smoke.md), testados na versão 0.3.0a2.
-A versão atual 0.3.0a18 acrescenta [supervisão dos processos próprios](SUPERVISION.md), mantendo [aplicação revista e rollback](APPLICATION.md), mantendo [recibos dos checks aprovados](RUN_RECEIPTS.md), mantendo [revisão do original atual](STAGE_REVIEW.md), mantendo [inspeção histórica das cópias](STAGING.md), cópias separadas, [propostas ligadas ao plano](PROPOSALS.md), [previews locais](PREVIEW.md), [cobertura medida](COVERAGE.md), [JUnit local](REPORTING.md),
+A versão atual 0.3.0a19 acrescenta [supervisão dos processos próprios](SUPERVISION.md), mantendo [aplicação revista e rollback](APPLICATION.md), mantendo [recibos dos checks aprovados](RUN_RECEIPTS.md), mantendo [revisão do original atual](STAGE_REVIEW.md), mantendo [inspeção histórica das cópias](STAGING.md), cópias separadas, [propostas ligadas ao plano](PROPOSALS.md), [previews locais](PREVIEW.md), [cobertura medida](COVERAGE.md), [JUnit local](REPORTING.md),
 [bloqueio nativo e recuperação explícita](LOCKING.md),
 [saída estruturada/resumos CI](OUTPUT.md), [diretórios opcionais](TARGETS.md),
 a [validação do âmbito](SCOPE.md) e o schema 1 predefinido.
@@ -102,3 +103,5 @@ A ligação à versão invalida aprovações anteriores; a configuração de sch
 liga também os ficheiros selecionados. A restrição
 completa do sistema de ficheiros continua planeada. A release GitHub e o pacote
 PyPI publicados são 0.3.0a8; a main contém código posterior, conforme o estado acima.
+
+Teste real separado OpenAI de geração no código 0.3.0a19: um ficheiro sintético revisto, um pedido, 316 tokens observados, proposta schema 2 não aprovada/revista e original/credenciais inalterados; [evidência](audits/2026-10-17-openai-generation-smoke.md). Geração Anthropic mantém validação offline; os testes consultivos reais antigos continuam específicos de 0.3.0a2.

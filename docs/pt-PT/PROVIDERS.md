@@ -1,6 +1,6 @@
-# Fornecedores de aconselhamento — 0.3.0a18
+# Fornecedores de aconselhamento — 0.3.0a19
 
-<!-- safeops-version: 0.3.0a18 -->
+<!-- safeops-version: 0.3.0a19 -->
 
 [English](../PROVIDERS.md)
 
@@ -100,3 +100,9 @@ num checkout limpo sem credenciais locais, sem enfraquecer as regras de pesquisa
 
 Consulta as [referências de protocolo](../PROVIDER_TESTING.md#compatibility-and-primary-references),
 o [estado de implementação](STATUS.md) e a [segurança](SECURITY.md).
+
+## Geração separada com revisão explícita
+
+Os flags/protocolo de aconselhamento acima aplicam-se a `plan`. A [geração de candidatos IA](GENERATION.md) usa revisão offline e consentimento exato separados para ficheiros: `review-generation` / `generate-proposal`, `--allow-source-upload` e fingerprint. JSON limitado, conclusão validada e proposta schema 2 não aprovada não alteram o envio apenas da tarefa no planeamento.
+
+Teste real separado OpenAI de geração no código 0.3.0a19: um ficheiro sintético revisto, um pedido, 316 tokens observados, proposta schema 2 não aprovada/revista e original/credenciais inalterados; [evidência](audits/2026-10-17-openai-generation-smoke.md). Geração Anthropic mantém validação offline; os testes consultivos reais antigos continuam específicos de 0.3.0a2.

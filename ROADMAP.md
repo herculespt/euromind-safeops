@@ -2,8 +2,8 @@
 
 This roadmap is directional, not a promise of dates or delivered features.
 
-Current source version: **0.3.0a18** (alpha prerelease). See [status](docs/STATUS.md)
-and [PT-PT](docs/pt-PT/STATUS.md). The first [GitHub alpha](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8) and [PyPI 0.3.0a8](https://pypi.org/project/euromind-safeops/0.3.0a8/) were published on 2026-10-16. Registry hashes, clean installation and PyPI-verified publishing attestations were checked. See [delivery evidence](docs/audits/2026-10-16-first-alpha.md). Current source 0.3.0a18 remains unpublished.
+Current source version: **0.3.0a19** (alpha prerelease). See [status](docs/STATUS.md)
+and [PT-PT](docs/pt-PT/STATUS.md). The first [GitHub alpha](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8) and [PyPI 0.3.0a8](https://pypi.org/project/euromind-safeops/0.3.0a8/) were published on 2026-10-16. Registry hashes, clean installation and PyPI-verified publishing attestations were checked. See [delivery evidence](docs/audits/2026-10-16-first-alpha.md). Current source 0.3.0a19 remains unpublished.
 
 ## v0.1.0 — Initial open-source foundation (implemented)
 - [x] Packageable CLI, offline plans and specialist suggestions.
@@ -152,11 +152,17 @@ No tagged release or package publication is implied by this source version.
 - [x] EN/PT-PT tooling/CI/release/security/status contracts and archive inclusion; minimum/latest backend compatibility remains a documented deliberate exception.
 - [ ] Complete build reproducibility and independent history-wide secret audit remain separate work.
 
+## 0.3.0a19 — Explicitly reviewed AI candidates (implemented in source)
+- [x] Offline exact-source/request review and separate fingerprint-bound upload consent for bounded provider candidates; [issue #56](https://github.com/herculespt/euromind-safeops/issues/56), [contract](docs/GENERATION.md).
+- [x] Strict response/path/base/size/completion validation, context reobservation and schema-2 unapproved origin-labelled proposals; manual schema 1 and explicit staged-check/application/rollback gates retained.
+- [x] Offline/loopback refusal and real installed-check workflow regressions, current EN/PT-PT privacy/provider/proposal/security/CLI documentation and archive inclusion.
+
 ## Future — Controlled agent workflows (planned; no version or date committed)
 - [ ] Specialist plugin protocol and capability manifests.
 - [x] Persisted manually authored candidate proposals without source mutation (0.3.0a10).
 - [x] Read-only diffs and content-hash records for manually supplied existing-text replacements (0.3.0a9).
-- [ ] AI-generated candidates, richer patch operations and authenticated provenance.
+- [x] Bounded AI-generated replacement candidates with exact reviewed source consent (0.3.0a19); [issue #56](https://github.com/herculespt/euromind-safeops/issues/56).
+- [ ] Richer patch operations and authenticated provenance.
 - [x] Explicit human-reviewed original existing-text replacements with recoverable journals and conservative rollback (0.3.0a15); [issue #49](https://github.com/herculespt/euromind-safeops/issues/49).
 - [x] Separate local staging copies for reviewed candidates, with no source mutation (0.3.0a11).
 - [x] Verify staging receipts and detect later staged-file changes (0.3.0a12); [issue #42](https://github.com/herculespt/euromind-safeops/issues/42), without granting source-application or execution authority.

@@ -1,6 +1,6 @@
-# Advisory scope paths — 0.3.0a18
+# Advisory scope paths — 0.3.0a19
 
-<!-- safeops-version: 0.3.0a18 -->
+<!-- safeops-version: 0.3.0a19 -->
 
 [Português (Portugal)](pt-PT/SCOPE.md)
 
@@ -72,3 +72,5 @@ See [execution compatibility](EXECUTION.md), [status](STATUS.md),
 [Local proposals](PROPOSALS.md) require each proposed file to exactly match an explicit plan `--path`; directory entries do not cover descendants. This proposal-only rule does not change the advisory scope or fixed-check targets described above.
 
 [Staging copies](STAGING.md) copy the supported ordinary project snapshot with documented omissions. Exact proposal plan paths restrict replacement targets, not all files read/copied. Copies do not enforce an OS filesystem allowlist.
+
+[Reviewed AI generation](GENERATION.md) is a separate source-sharing operation: offline full-request review, exact fingerprint plus source-upload consent, then an unapproved schema-2 proposal. Manual schema 1 remains supported; existing explicit review/staging/check/application gates still apply. Local request reviews contain source text and must not be published blindly. Ordinary `plan` calls remain task-only.

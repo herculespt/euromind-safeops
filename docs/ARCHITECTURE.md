@@ -1,6 +1,6 @@
-# Architecture — 0.3.0a18
+# Architecture — 0.3.0a19
 
-<!-- safeops-version: 0.3.0a18 -->
+<!-- safeops-version: 0.3.0a19 -->
 
 ## Data flow
 
@@ -32,6 +32,7 @@ flowchart TD
 | `core.py` | Workspace path hygiene, shared strict UTF-8 JSON decoder, storage, file snapshotting, audit |
 | `scope.py` | Portable advisory path syntax, link/reparse checks and lifecycle preflight |
 | `preview.py` | Read-only local text replacement validation, exact base hashes and unified diffs; no persisted state or execution authority |
+| `generation.py` / `candidate_transport.py` | Exact source/request review and separate upload confirmation; strict bounded completed provider output, unapproved schema-2 proposals; no downstream execution |
 | `staging.py` | Exact-fingerprint confirmation, bounded separate local copy and manifest/receipt; no source application or check execution |
 | `stage_review.py` | Bounded current original/plan/base/configuration/target/version/contract review after matching stage; no writes or approval |
 | `stage_inspection.py` | Strict historical stage/proposal linkage and bounded double content scan; observations without writes, current-source revalidation or approval |
@@ -91,7 +92,7 @@ Plans retain schema 1. Configuration defaults to schema 1; optional schema 2 sel
 
 - The offline planner gives **advice**, not edits.
 - [Scope preflight](SCOPE.md) precedes remote advice/persistence and runs again at approval/run. Declared paths remain advisory; snapshots and fixed check targets are not narrowed.
-- The optional HTTP adapters send only supplied task text; native endpoints are pinned, and AI output is always untrusted advice.
+- Advisory `plan` HTTP adapters send only task text. Separate candidate generation sends exact reviewed source/task JSON with explicit fingerprint consent. Native endpoints are pinned; generated text remains untrusted and all downstream gates are explicit.
 - Provider responses share strict UTF-8 object decoding with stored JSON and reject duplicate keys/non-finite numbers. Transport doubles and real loopback fixture requests cover the HTTP path; separate live OpenAI and Anthropic smoke tests have passed, while compatible/local-model and broader account/model validation remain [pending](PROVIDER_TESTING.md).
 - Schema-1 checks are hard-coded as Python `compileall` and `euromind_safeops.check_runner` (stdlib unittest). Schema 2 uses the fixed `target_runner` adapter: recursive metadata preflight, in-memory Python compilation and one selected unittest root. The child repeats validation; target selection is not access isolation.
 - Discovery and `load_tests` hooks run inside that approved child process. Empty discovery, zero executed cases and all-skipped suites fail. Nested regular packages with `__init__.py` are supported.

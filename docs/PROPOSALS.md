@@ -1,6 +1,6 @@
-# Local plan-bound proposals — 0.3.0a18
+# Local plan-bound proposals — 0.3.0a19
 
-<!-- safeops-version: 0.3.0a18 -->
+<!-- safeops-version: 0.3.0a19 -->
 
 [Português (Portugal)](pt-PT/PROPOSALS.md)
 
@@ -97,12 +97,16 @@ signatures, authenticated provenance or a tamper-proof audit.
 
 Config schemas 1/2, plan schema 1, approval schema 2, output schema 1 and runner
 5/lock 3 protocols remain supported. This separate proposal schema grants no
-execution approval. Upgrading to 0.3.0a18 requires a fresh reviewed plan and
+execution approval. Upgrading to 0.3.0a19 requires a fresh reviewed plan and
 explicit execution approval under the version-bound contract. A proposal is not
 an input to `approve` or `run`, which still perform only the existing fixed checks.
 
-AI-generated candidates, new/deleted/renamed files,
+New/deleted/renamed files,
 CRLF/binary edits, isolated worktrees and signed provenance remain planned.
 Source versioning does not create a release; see [current status](STATUS.md).
 
 A reviewed proposal can now be materialized using [stage-proposal](STAGING.md), which requires its exact fingerprint and writes replacements only to a separate local copy. [Explicit original application and conservative rollback](APPLICATION.md) are implemented separately; Git worktrees remain planned.
+
+## AI-origin proposal compatibility
+
+Manual `propose` remains schema 1. [Reviewed generation](GENERATION.md) records schema 2 with an additional strict `origin` object (kind=ai, provider, model, request_sha256), covered by the local fingerprint. Both remain unapproved and use the same explicit review/staging/check/application workflow. `review-proposal` also returns origin metadata for schema 2. It is unkeyed local metadata, not authenticated provenance; legacy schema-1 records/history are preserved.

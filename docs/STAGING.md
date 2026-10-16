@@ -1,6 +1,6 @@
-# Separate local staging copies — 0.3.0a18
+# Separate local staging copies — 0.3.0a19
 
-<!-- safeops-version: 0.3.0a18 -->
+<!-- safeops-version: 0.3.0a19 -->
 
 [Português (Portugal)](pt-PT/STAGING.md)
 
@@ -109,7 +109,7 @@ it. `inspect-stage` provides the bounded comparison below; authenticated
 provenance, write isolation and transactional filesystem guarantees remain absent.
 
 Config 1/2, plan 1, approval 2, envelope 1 and runner 5/lock 3 remain supported.
-Upgrading to 0.3.0a18 requires fresh version-bound proposals and execution
+Upgrading to 0.3.0a19 requires fresh version-bound proposals and execution
 approval; history is retained without migration. [Applying reviewed original replacements and conservative rollback](APPLICATION.md) are implemented separately. Isolated Git worktrees and OS sandboxing remain planned.
 See [status](STATUS.md) and [roadmap](../ROADMAP.md).
 
@@ -165,3 +165,5 @@ Mutable, unkeyed evidence can be rewritten by a hostile local writer.
 Source 0.3.0a13 adds `review-stage STAGE_ID` at the original root. It requires a matching historical copy, then compares current original, candidate bases, plan, configuration, selected targets, installed version and execution contract. See [results, bounds and compatibility](STAGE_REVIEW.md). It never applies changes or renews approval; `inspect-stage` remains historical only.
 
 Approved checks in a staged copy now create independent [run receipts](RUN_RECEIPTS.md), bound to that copy’s observed inputs and its own fresh approval. Historical receipt inspection does not certify current original compatibility or authorize applying the staged candidate.
+
+[Reviewed AI generation](GENERATION.md) is a separate source-sharing operation: offline full-request review, exact fingerprint plus source-upload consent, then an unapproved schema-2 proposal. Manual schema 1 remains supported; existing explicit review/staging/check/application gates still apply. Local request reviews contain source text and must not be published blindly. Ordinary `plan` calls remain task-only.

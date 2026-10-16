@@ -1,6 +1,6 @@
-# AI advisory providers — 0.3.0a18
+# AI advisory providers — 0.3.0a19
 
-<!-- safeops-version: 0.3.0a18 -->
+<!-- safeops-version: 0.3.0a19 -->
 
 [Português (Portugal)](pt-PT/PROVIDERS.md)
 
@@ -90,3 +90,9 @@ local credentials instead of weakening scanner rules.
 - Risk classification, workspace integrity, and execution gates remain deterministic, unaffected by the text returned by any provider.
 - CI uses transport doubles and a real HTTP server on literal loopback with deterministic fixture responses. Native request/response contracts are tested without contacting vendors. These tests do not prove live API authentication, model inference or compatibility with every individual model. See the [testing guide](PROVIDER_TESTING.md).
 - Official API protocol references: [OpenAI Responses API](https://platform.openai.com/docs/api-reference/responses), [Anthropic Messages API](https://docs.anthropic.com/en/api/messages).
+
+## Separate reviewed candidate generation
+
+The advisory flags/protocol above apply to `plan`. [AI candidate generation](GENERATION.md) additionally supports exact reviewed source uploads through `review-generation` / `generate-proposal`, with separate `--allow-source-upload` and fingerprint confirmation. Its bounded JSON candidate, completion checks and unapproved schema-2 proposal do not change task-only advisory behavior.
+
+Separate source-0.3.0a19 OpenAI candidate-generation smoke: one reviewed synthetic file, one request, 316 observed tokens, valid unapproved schema-2 proposal/review and unchanged source/credentials; [evidence](audits/2026-10-17-openai-generation-smoke.md). Anthropic generation remains offline-validated; earlier live advisory evidence is still specific to source 0.3.0a2.

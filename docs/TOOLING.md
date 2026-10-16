@@ -1,10 +1,10 @@
-# Reviewed maintainer tooling — 0.3.0a18
+# Reviewed maintainer tooling — 0.3.0a19
 
-<!-- safeops-version: 0.3.0a18 -->
+<!-- safeops-version: 0.3.0a19 -->
 
 [Português (Portugal)](pt-PT/TOOLING.md)
 
-The source 0.3.0a18 tooling policy covers dedicated **CPython 3.12, Linux x86_64,
+The source 0.3.0a19 tooling policy covers dedicated **CPython 3.12, Linux x86_64,
 glibc >=2.34** environments. It does not change the dependency-free runtime or
 its Linux/Windows/macOS Python 3.11–3.13 compatibility matrix.
 
