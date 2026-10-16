@@ -80,7 +80,7 @@ class RepositoryHygieneTests(unittest.TestCase):
             "src/euromind_safeops/junit.py", "docs/REPORTING.md", "docs/pt-PT/REPORTING.md",
             "docs/COVERAGE.md", "docs/pt-PT/COVERAGE.md",
             "requirements-ci.txt", ".github/workflows/ci.yml", ".github/CODEOWNERS",
-            "requirements-release.txt", ".github/workflows/publish.yml", ".secrets.baseline", "scripts/release_secrets.py",
+            "requirements-release.txt", ".github/workflows/publish.yml", ".secrets.baseline", "scripts/release_secrets.py", "tests/test_release_gate.py",
         ):
             with self.subTest(path=name):
                 self.assertTrue((ROOT / name).is_file(), name)

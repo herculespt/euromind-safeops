@@ -33,7 +33,9 @@ pacotes construídos para o registo.
 
 O scanner independente usa uma baseline de hashes revista para sete fixtures
 sintéticas em três ficheiros de testes (revisão em 16 de outubro de 2026). Não
-contém valores de credenciais nem exclui ficheiros inteiros. Um valor alterado
+contém valores de credenciais nem exclui ficheiros de testes. O ficheiro de
+controlo passa por um schema estrito antes de excluir os próprios hashes; a cópia
+no pacote tem de corresponder aos bytes revistos do código. Um valor alterado
 ou novo exige revisão; nunca regenerar a baseline apenas para aprovar a
 publicação. Código seguido pelo Git e pacotes expandidos usam a mesma baseline,
 com verificação de credenciais pela rede desativada.

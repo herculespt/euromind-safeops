@@ -17,7 +17,8 @@ def main() -> int:
     args = parser.parse_args()
     raw = args.baseline.resolve().read_bytes()
     baseline = json.loads(raw.decode("utf-8"))
-    if set(baseline) != {"schema", "results"} or baseline["schema"] != 1:
+    if (set(baseline) != {"schema", "results"}
+            or type(baseline["schema"]) is not int or baseline["schema"] != 1):
         raise ValueError("Invalid reviewed-fixture baseline structure")
     for name, hits in baseline["results"].items():
         if not re.fullmatch(r"tests/test_[A-Za-z0-9_]+\.py", name) or not isinstance(hits, list):

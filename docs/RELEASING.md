@@ -33,7 +33,9 @@ GitHub's generated source ZIP/tar are distinct from built registry distributions
 
 The independent scanner uses a reviewed hash baseline for seven synthetic test
 fixtures across three test files (reviewed 2026-10-16). It contains no credential
-values and does not exclude entire files. A changed or newly detected value must
+values and does not exclude test source files. The control file is validated
+against a strict hash-only schema before excluding its own hashes, and a packaged
+copy must match the reviewed source bytes. A changed or newly detected value must
 be reviewed; never regenerate the baseline merely to make publication pass. Both
 tracked source and expanded distributions use the same baseline with network
 verification disabled.
