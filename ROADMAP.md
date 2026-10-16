@@ -3,7 +3,7 @@
 This roadmap is directional, not a promise of dates or delivered features.
 
 Current source version: **0.3.0a11** (alpha prerelease). See [status](docs/STATUS.md)
-and [PT-PT](docs/pt-PT/STATUS.md). The first [GitHub alpha](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8) was published on 2026-10-16; PyPI remains pending. See [delivery evidence](docs/audits/2026-10-16-first-alpha.md).
+and [PT-PT](docs/pt-PT/STATUS.md). The first [GitHub alpha](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8) and [PyPI 0.3.0a8](https://pypi.org/project/euromind-safeops/0.3.0a8/) were published on 2026-10-16. Registry hashes, clean installation and PyPI-verified publishing attestations were checked. See [delivery evidence](docs/audits/2026-10-16-first-alpha.md). Current source 0.3.0a11 remains unpublished.
 
 ## v0.1.0 — Initial open-source foundation (implemented)
 - [x] Packageable CLI, offline plans and specialist suggestions.
@@ -101,7 +101,7 @@ No tagged release or package publication is implied by this source version.
 - [ ] Broader OS/Python coverage profiles and reviewed report-artifact publication; Linux/Python 3.12 measurement and local JUnit/summaries are implemented.
 - [x] Manual alpha package validation/publishing workflow, pinned Actions, registry-ready bilingual metadata and exact source/CI/hash checks.
 - [x] First authorized GitHub alpha v0.3.0a8, exact tested commit, verified wheel/sdist/checksums and bilingual delivery evidence (2026-10-16).
-- [ ] Actual PyPI publisher registration/publication and registry installation/attestations; blocked on secure account authentication and precise trust-grant review.
+- [x] Authorized PyPI Trusted Publisher, main-only environment without administrator bypass, original v0.3.0a8 distributions, matching registry hashes, clean installation and PyPI-verified publishing attestations (2026-10-16).
 - [ ] Live compatible/local-model checks and broader account/model validation; the separate OpenAI and Anthropic smokes do not establish universal compatibility.
 - [ ] Broader test adapters without permitting AI-generated commands.
 - [ ] Process-tree supervision/termination, independently verified automatic recovery and distributed/network-filesystem leases; current recovery remains explicitly human-confirmed and local.
@@ -113,6 +113,7 @@ No tagged release or package publication is implied by this source version.
 - [x] Read-only diffs and content-hash records for manually supplied existing-text replacements (0.3.0a9).
 - [ ] AI-generated candidates, richer patch operations, authenticated provenance and human-reviewed original-workspace application.
 - [x] Separate local staging copies for reviewed candidates, with no source mutation (0.3.0a11).
+- [ ] Verify staging receipts and detect later staged-file changes; [issue #42](https://github.com/herculespt/euromind-safeops/issues/42), without a committed version/date.
 - [ ] Isolated Git worktrees and OS-enforced filesystem scopes; local copies do not implement these boundaries.
 
 ## Long-term research directions

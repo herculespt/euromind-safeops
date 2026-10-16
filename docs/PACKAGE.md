@@ -13,17 +13,21 @@ a sandbox, signatures or protection against a malicious local actor. Empty or
 wholly skipped test suites fail. Changing code, configuration or package version
 requires a fresh reviewed plan and explicit approval.
 
-For a published PyPI alpha, select the exact version:
+Current source is 0.3.0a11. The published registry alpha is
+[0.3.0a8](https://pypi.org/project/euromind-safeops/0.3.0a8/), verified on
+2026-10-16 with original wheel/sdist hashes, clean installation and PyPI-verified
+publishing attestations. It predates previews, proposals and staging copies.
+Install that exact published version:
 
 ~~~bash
-python -m pip install euromind-safeops==0.3.0a11
+python -m pip install euromind-safeops==0.3.0a8
 safeops --version
 ~~~
 
 Source installation remains available from the
 [GitHub repository](https://github.com/herculespt/euromind-safeops).
 See [publication status](https://github.com/herculespt/euromind-safeops/blob/main/docs/STATUS.md)
-before assuming a registry delivery exists.
+for the distinction between current source and published distributions.
 
 - [Quick start](https://github.com/herculespt/euromind-safeops/blob/main/docs/QUICKSTART.md)
 - [Execution and approvals](https://github.com/herculespt/euromind-safeops/blob/main/docs/EXECUTION.md)
@@ -40,8 +44,10 @@ concedem aprovação.
 
 **Versão alfa:** utilizar apenas código e testes de confiança. Não implementa
 isolamento seguro nem alterações autónomas de código. A instalação acima escolhe
-uma versão exata quando publicada no PyPI. Atualizações exigem plano e aprovação
-novos, preservando o histórico.
+a versão PyPI publicada 0.3.0a8, anterior aos previews, propostas e cópias de
+preparação do código atual 0.3.0a11. Hashes, instalação e atestações de publicação
+verificadas pelo PyPI foram confirmados em 16 de outubro de 2026. Atualizações
+exigem plano e aprovação novos, preservando o histórico.
 
 - [Guia PT-PT](https://github.com/herculespt/euromind-safeops/blob/main/docs/pt-PT/README.md)
 - [Estado e publicação](https://github.com/herculespt/euromind-safeops/blob/main/docs/pt-PT/STATUS.md)

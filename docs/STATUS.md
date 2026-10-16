@@ -11,9 +11,16 @@ was published on 2026-10-16 at `035c36b1b646a6c75178d5db6c19d8c55d624dcf`,
 with verified wheel, sdist and SHA256SUMS. All twelve main CI jobs and candidate
 validation passed; the installed release wheel passed 209 tests (3 platform skips,
 zero failures/errors). See [dated evidence](audits/2026-10-16-first-alpha.md).
-The workflow is prepared for PyPI, but account authentication, publisher registration
-and actual registry publication remain pending. The sign-in request was interrupted;
-no account grant, registry installation or attestation was verified.
+[PyPI 0.3.0a8](https://pypi.org/project/euromind-safeops/0.3.0a8/) was published
+on 2026-10-16 through the authorized Trusted Publisher. Publication workflow
+[38874124869](https://github.com/herculespt/euromind-safeops/actions/runs/38874124869)
+passed all three jobs: exact release-byte validation, OIDC upload and registry
+hash/clean-install verification. Both files show PyPI-verified publishing
+attestations. The `pypi` environment allows only branch `main`, zero tags and no
+administrator bypass. Attestations identify the publishing workflow commit
+`95a8bd51b2eb657233a9100f85c87be1b6548649`; package source remains the immutable
+0.3.0a8 release commit above. This is publishing provenance, not reproducible-build
+proof or signed SafeOps approvals.
 
 Source 0.3.0a11 adds separate local staging copies of reviewed proposals; it has not been published as a new release.
 

@@ -29,6 +29,11 @@
 
 ## Instalar e testar
 
+Para instalar a alfa publicada num ambiente virtual:
+`python -m pip install euromind-safeops==0.3.0a8`.
+Essa versão ainda não inclui previews, propostas persistentes nem cópias locais
+de preparação. Os comandos abaixo instalam o código atual 0.3.0a11 do checkout.
+
 ```powershell
 python -m pip install -e .
 python -m unittest discover -s tests -v
@@ -52,7 +57,10 @@ reutilizadas: revê o código, cria um plano novo e aprova-o expressamente. Cons
 a [política de execução e compatibilidade](EXECUTION.md) e o
 [estado do que está implementado e planeado](STATUS.md). A versão do código não
 cria uma publicação automaticamente. A [primeira alpha GitHub](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8)
-foi publicada em 16 de outubro de 2026; o PyPI mantém-se pendente. Consulta a
+e o [pacote PyPI 0.3.0a8](https://pypi.org/project/euromind-safeops/0.3.0a8/)
+foram publicados em 16 de outubro de 2026. Hashes originais, instalação pelo
+registo e atestações de publicação verificadas pelo PyPI foram confirmados.
+O código 0.3.0a11 ainda não foi publicado como pacote. Consulta a
 [evidência de entrega](audits/2026-10-16-first-alpha.md).
 
 Atualizar para 0.3.0a11 exige novo plano/aprovação pela ligação à versão.
