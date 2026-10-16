@@ -1,6 +1,6 @@
-# Preview local de candidatos — 0.3.0a16
+# Preview local de candidatos — 0.3.0a17
 
-<!-- safeops-version: 0.3.0a16 -->
+<!-- safeops-version: 0.3.0a17 -->
 
 [English](../PREVIEW.md)
 

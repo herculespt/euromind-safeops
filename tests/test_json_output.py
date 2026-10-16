@@ -81,7 +81,7 @@ class JsonOutputTests(unittest.TestCase):
         plan_id = self.invoke("plan", "Review documentation")[1]["data"]["id"]
         self.invoke("approve", plan_id, "--confirm", plan_id, "--reason", "reviewed")
         code, payload = self.invoke("run", plan_id)
-        self.assertEqual(code, 1)
+        self.assertEqual(code, 1, payload)
         self.assertIsNone(payload["error"])
         self.assertEqual(payload["data"]["status"], "failed")
 

@@ -1,10 +1,10 @@
 # Implementation and publication status
 
-<!-- safeops-version: 0.3.0a16 -->
+<!-- safeops-version: 0.3.0a17 -->
 
 [Português (Portugal)](pt-PT/STATUS.md)
 
-**Current source version: 0.3.0a16 — alpha prerelease.** Python 3.11–3.13 is
+**Current source version: 0.3.0a17 — alpha prerelease.** Python 3.11–3.13 is
 covered by CI on Linux, Windows and macOS. No third-party runtime dependencies.
 The first [GitHub alpha v0.3.0a8](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8)
 was published on 2026-10-16 at `035c36b1b646a6c75178d5db6c19d8c55d624dcf`,
@@ -22,7 +22,7 @@ administrator bypass. Attestations identify the publishing workflow commit
 0.3.0a8 release commit above. This is publishing provenance, not reproducible-build
 proof or signed SafeOps approvals.
 
-Source 0.3.0a16 adds native supervision of owned fixed-check groups/jobs, bounded output tails and retained incomplete evidence/marker on unconfirmed cleanup. It has not been published as a new release.
+Source 0.3.0a17 refines final Windows job accounting and a shared cleanup budget, retaining native supervision, bounded output tails and incomplete evidence/marker on unconfirmed cleanup. It has not been published as a new release.
 
 ## Implemented
 
@@ -89,7 +89,7 @@ See [execution compatibility](EXECUTION.md), [trust model](TRUST_MODEL.md),
 Provider evidence distinguishes fixtures from the separate verified live requests in
 [provider testing](PROVIDER_TESTING.md), the [OpenAI record](audits/2026-10-15-openai-smoke.md)
 and the [Anthropic record](audits/2026-10-15-anthropic-smoke.md).
-The live requests above were tested on source 0.3.0a2. Current source 0.3.0a16
+The live requests above were tested on source 0.3.0a2. Current source 0.3.0a17
 adds [owned process supervision](SUPERVISION.md), retaining [reviewed application and rollback](APPLICATION.md), retaining [approved-check receipts](RUN_RECEIPTS.md), retaining [current original-context review](STAGE_REVIEW.md), retaining [historical stage inspection](STAGING.md), retaining separate copies, [plan-bound proposals](PROPOSALS.md), [local candidate previews](PREVIEW.md), [measured coverage](COVERAGE.md), [local JUnit reporting](REPORTING.md),
 [native locking and explicit recovery](LOCKING.md),
 [structured output and summaries](OUTPUT.md), optional

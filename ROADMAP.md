@@ -2,8 +2,8 @@
 
 This roadmap is directional, not a promise of dates or delivered features.
 
-Current source version: **0.3.0a16** (alpha prerelease). See [status](docs/STATUS.md)
-and [PT-PT](docs/pt-PT/STATUS.md). The first [GitHub alpha](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8) and [PyPI 0.3.0a8](https://pypi.org/project/euromind-safeops/0.3.0a8/) were published on 2026-10-16. Registry hashes, clean installation and PyPI-verified publishing attestations were checked. See [delivery evidence](docs/audits/2026-10-16-first-alpha.md). Current source 0.3.0a16 remains unpublished.
+Current source version: **0.3.0a17** (alpha prerelease). See [status](docs/STATUS.md)
+and [PT-PT](docs/pt-PT/STATUS.md). The first [GitHub alpha](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8) and [PyPI 0.3.0a8](https://pypi.org/project/euromind-safeops/0.3.0a8/) were published on 2026-10-16. Registry hashes, clean installation and PyPI-verified publishing attestations were checked. See [delivery evidence](docs/audits/2026-10-16-first-alpha.md). Current source 0.3.0a17 remains unpublished.
 
 ## v0.1.0 — Initial open-source foundation (implemented)
 - [x] Packageable CLI, offline plans and specialist suggestions.
@@ -128,6 +128,11 @@ No tagged release or package publication is implied by this source version.
 - [x] Wait for owned descendants, bounded timeout/termination and EOF, with private bounded stream tails instead of complete in-memory capture.
 - [x] Retain run marker/intent without final receipt when owned cleanup cannot be confirmed; preserve independent explicit recovery and application-pending blocks.
 - [x] Real child/grandchild, parent death, unrelated-child preservation, cancellation, output and fail-closed regressions; EN/PT-PT contracts, metadata and distribution synchronized.
+
+## 0.3.0a17 — Final job-accounting verification (implemented in source)
+- [x] Recheck final zero Windows job membership within one shared cleanup budget; preserve failed-check results across transitional positive accounting.
+- [x] Keep persistent/unavailable accounting fail-closed with retained marker/intent, and fixed-phase diagnostics without native error text.
+- [x] Native delayed/persistent-accounting regressions and current EN/PT-PT metadata/contracts synchronized; [issue #51](https://github.com/herculespt/euromind-safeops/issues/51) tracks final validation.
 
 ## Next — Policy and integration hardening (planned)
 - [ ] OS-enforced workspace filesystem allowlists that restrict arbitrary reads; 0.3.0a4 check target selection does not implement this isolation boundary.

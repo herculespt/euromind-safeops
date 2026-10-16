@@ -1,10 +1,10 @@
 # Estado de implementação e publicação
 
-<!-- safeops-version: 0.3.0a16 -->
+<!-- safeops-version: 0.3.0a17 -->
 
 [English](../STATUS.md)
 
-**Versão atual do código: 0.3.0a16 — pré-versão alfa.** O CI cobre Python
+**Versão atual do código: 0.3.0a17 — pré-versão alfa.** O CI cobre Python
 3.11–3.13 em Linux, Windows e macOS. Não existem dependências externas em
 execução. A primeira [release GitHub v0.3.0a8](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8)
 foi publicada em 16 de outubro de 2026 no commit
@@ -24,7 +24,7 @@ o código do pacote mantém o commit imutável 0.3.0a8 indicado acima. Esta evid
 é de proveniência da publicação; não demonstra builds reproduzíveis nem
 aprovações SafeOps assinadas.
 
-O código 0.3.0a16 acrescenta supervisão nativa dos grupos/jobs das verificações, caudas de output limitadas e evidência/marcador retidos quando a limpeza é incerta; ainda não foi publicada uma nova release.
+O código 0.3.0a17 afina a contagem final do job Windows e o orçamento partilhado de limpeza, mantendo supervisão nativa, caudas limitadas e estado retido na incerteza; ainda não foi publicada uma nova release.
 
 ## Implementado
 
@@ -93,7 +93,7 @@ Consulta a [compatibilidade de execução](EXECUTION.md), o
 A [validação dos fornecedores](PROVIDER_TESTING.md) distingue respostas fixas dos
 pedidos reais separados nos registos [OpenAI](audits/2026-10-15-openai-smoke.md) e
 [Anthropic](audits/2026-10-15-anthropic-smoke.md), testados na versão 0.3.0a2.
-A versão atual 0.3.0a16 acrescenta [supervisão dos processos próprios](SUPERVISION.md), mantendo [aplicação revista e rollback](APPLICATION.md), mantendo [recibos dos checks aprovados](RUN_RECEIPTS.md), mantendo [revisão do original atual](STAGE_REVIEW.md), mantendo [inspeção histórica das cópias](STAGING.md), cópias separadas, [propostas ligadas ao plano](PROPOSALS.md), [previews locais](PREVIEW.md), [cobertura medida](COVERAGE.md), [JUnit local](REPORTING.md),
+A versão atual 0.3.0a17 acrescenta [supervisão dos processos próprios](SUPERVISION.md), mantendo [aplicação revista e rollback](APPLICATION.md), mantendo [recibos dos checks aprovados](RUN_RECEIPTS.md), mantendo [revisão do original atual](STAGE_REVIEW.md), mantendo [inspeção histórica das cópias](STAGING.md), cópias separadas, [propostas ligadas ao plano](PROPOSALS.md), [previews locais](PREVIEW.md), [cobertura medida](COVERAGE.md), [JUnit local](REPORTING.md),
 [bloqueio nativo e recuperação explícita](LOCKING.md),
 [saída estruturada/resumos CI](OUTPUT.md), [diretórios opcionais](TARGETS.md),
 a [validação do âmbito](SCOPE.md) e o schema 1 predefinido.

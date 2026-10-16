@@ -1,6 +1,6 @@
-# Architecture — 0.3.0a16
+# Architecture — 0.3.0a17
 
-<!-- safeops-version: 0.3.0a16 -->
+<!-- safeops-version: 0.3.0a17 -->
 
 ## Data flow
 

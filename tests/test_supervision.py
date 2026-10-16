@@ -334,6 +334,44 @@ class SupervisionTests(unittest.TestCase):
         self.assertTrue((self.state / "run.lock").exists())
         self.assertEqual(inspect_run(self.root, self.only_run())["status"], "incomplete")
 
+    @unittest.skipUnless(os.name == "nt", "Windows final job accounting")
+    def test_delayed_zero_job_count_preserves_failed_check_result(self):
+        self.source.write_text("import unittest\nclass T(unittest.TestCase):\n def test_failure(self): self.fail('fixture')\n")
+        original = supervision.Job.active
+        delayed = False
+        def accounting(job):
+            nonlocal delayed
+            count = original(job)
+            if count == 0 and not delayed:
+                delayed = True
+                return 1
+            return count
+        with patch.object(supervision.Job, "active", accounting):
+            result = run(self.root, self.approved())
+        self.assertTrue(delayed)
+        self.assertEqual(result["status"], "failed")
+        self.assertEqual(inspect_run(self.root, result["run_id"])["status"], "failed")
+        self.assertFalse((self.state / "run.lock").exists())
+
+    @unittest.skipUnless(os.name == "nt", "Windows shared cleanup budget")
+    def test_unconfirmed_final_job_count_retains_marker_without_resetting_budget(self):
+        original = supervision.Job.active
+        entered = None
+        def accounting(job):
+            nonlocal entered
+            count = original(job)
+            if count == 0:
+                if entered is None:
+                    entered = time.monotonic()
+                return 1
+            return count
+        with patch.object(supervision.Job, "active", accounting), self.assertRaises(SafeOpsError):
+            run(self.root, self.approved())
+        self.assertIsNotNone(entered)
+        self.assertLess(time.monotonic() - entered, supervision.CLEANUP_SECONDS + 1.5)
+        self.assertTrue((self.state / "run.lock").exists())
+        self.assertEqual(inspect_run(self.root, self.only_run())["status"], "incomplete")
+
 
 if __name__ == "__main__":
     unittest.main()
