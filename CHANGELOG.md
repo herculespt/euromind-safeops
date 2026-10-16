@@ -11,6 +11,7 @@ Current source milestone: **0.3.0a9**. First GitHub alpha published on 2026-10-1
 - Add read-only `preview` for strict local schema-1 replacement candidates: exact base SHA-256, UTF-8 unified diffs and canonical-candidate/result hashes. No files, approvals, audit state or Git history are changed; no provider or checks run.
 - Reject unknown fields, stale/nonregular/linked paths, duplicate/case-colliding names, malformed JSON/text and byte/line limits. Current support is existing BOM-free LF text with final newlines; creation/deletion/renames/binaries/application remain planned.
 - Preview e documentação EN/PT-PT, tabelas de capacidades, estado, arquitetura, compatibilidade e roadmap atualizados. Versão ligada ao contrato exige novo plano/revisão/aprovação para execução; schemas anteriores mantidos.
+- Separate CI report basenames from the parallel coverage data prefix, avoiding report-as-database warnings without changing the coverage threshold or measured scope.
 - Published v0.3.0a8 and its distributions stay immutable; PyPI remains pending. No new release or live provider request is implied by this source milestone.
 
 ## [0.3.0a8] — 2026-10-15 (alpha source; publication tracked in docs/STATUS.md)

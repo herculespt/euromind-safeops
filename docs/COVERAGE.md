@@ -84,3 +84,7 @@ configured here. Broader profiles and reviewed report uploads remain planned.
 - [Upstream process measurement](https://coverage.readthedocs.io/en/7.16.2/subprocess.html)
 - [Coverage.py package/version](https://pypi.org/project/coverage/7.16.2/)
 - [CI contract](CI.md) and [execution approvals](EXECUTION.md)
+
+Report basenames are `package-coverage.json` and `package-coverage.xml` in CI,
+separate from the `safeops-coverage` data prefix. This prevents subprocess patch
+automatic combination from treating reports as parallel coverage databases.
