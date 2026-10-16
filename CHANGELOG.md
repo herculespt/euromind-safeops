@@ -16,6 +16,7 @@ Current source milestone: **0.3.0a8**. No tag or public release is implied.
 ### Publication preparation / Preparação da publicação
 - Bilingual registry README with absolute links, metadata consistency check, pinned release tools and manual candidate-validation/PyPI OIDC workflow. Package-only artifact transfer; no test-report upload.
 - Exact protected-main ancestry/latest successful CI, published alpha tag/version checks, isolated installed-wheel tests, SHA-256 transfer verification and post-upload registry/install checks.
+- Independent secret scanning uses a reviewed hash-only baseline for seven synthetic fixture findings; changed/new values remain blocked in tracked source and expanded distributions. Nine offline regression cases cover path/type/hash boundaries, strict control metadata and standalone archives.
 - GitHub release publication is authorized; actual delivery is recorded in status. PyPI account sign-in/publisher registration remains pending.
 
 ### Compatibility and limits / Compatibilidade e limites
