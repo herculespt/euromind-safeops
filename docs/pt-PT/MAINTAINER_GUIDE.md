@@ -69,7 +69,7 @@ aprovação de execução. Rever diffs localmente: podem conter texto ou segredo
 sem upload automático com relatórios. Não implementa geração por IA ou aplicação
 revista de patches.
 
-Nas [propostas persistentes](PROPOSALS.md), revê caminhos exatos explícitos, ligações, privacidade do armazenamento e rejeição de registos alterados/desatualizados. Não publiques texto, registos ou diffs automaticamente. A auditoria pode falhar depois da gravação da proposta: inspeciona o estado antes de repetir. Aplicação e geração com IA continuam planeadas.
+Nas [propostas persistentes](PROPOSALS.md), revê caminhos exatos explícitos, ligações, privacidade do armazenamento e rejeição de registos alterados/desatualizados. Não publiques texto, registos ou diffs automaticamente. A auditoria pode falhar depois da gravação da proposta: inspeciona o estado antes de repetir. Aplicação explícita tem [contrato separado](APPLICATION.md); geração com IA continua planeada.
 
 Nas [cópias locais](STAGING.md), revê exclusões, escrita independente, confirmação do fingerprint e estado retido nas falhas. O recibo não é sandbox nem aprovação de aplicação ao original. Não elimines cópias parciais nem publiques conteúdo automaticamente. As verificações exigem aprovação nova; ambiente/dependências podem precisar de preparação separada.
 
@@ -91,3 +91,5 @@ cópia filtrada separadamente do original atual e dos testes. Código 1 com dado
 indica alteração/cópia incompleta; evidência inválida ou insegura devolve 2.
 Preservar todos os registos. Validar exclusões, limites/caminhos, ausência de
 texto dos ficheiros e de escrita em auditoria/aprovações, incluindo na wheel.
+
+O código 0.3.0a15 acrescenta [aplicação revista e rollback conservador](APPLICATION.md). Ambos os checks fixos da cópia têm de passar com ligações atuais inalteradas e configuração igual à do original; confirmação humana exata e guards nativos precedem backups/journal privados e escrita. Marcador pendente bloqueia checks aprovados/aplicações novos. Inspeção sem escrita e rollback confirmado separadamente preservam evidência e recusam edições humanas observadas. Sem transação de vários ficheiros, garantia de energia/armazenamento, operações Git, pedidos a fornecedores ou isolamento pelo SO. Runner 4/lock 2; aprovação de execução nova ligada à versão obrigatória.

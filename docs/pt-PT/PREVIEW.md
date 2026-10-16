@@ -1,6 +1,6 @@
-# Preview local de candidatos — 0.3.0a14
+# Preview local de candidatos — 0.3.0a15
 
-<!-- safeops-version: 0.3.0a14 -->
+<!-- safeops-version: 0.3.0a15 -->
 
 [English](../PREVIEW.md)
 
@@ -85,9 +85,8 @@ execução ou autorização para aplicar alterações.
 Trata-se de uma verificação local pontual, sem snapshot atómico ou isolamento
 pelo SO. Não impede alterações posteriores, hard links ou corridas hostis no
 sistema de ficheiros. Importação de patches genéricos, criação/eliminação,
-renomeação, binários/CRLF/ausência de newline final, geração automática por IA,
-aplicação revista/rollback e sandboxing
-continuam planeados. As [aprovações de execução](EXECUTION.md) são independentes;
+renomeação, binários/CRLF/ausência de newline final, geração automática por IA e
+sandboxing continuam planeados. [Aplicação revista/rollback](APPLICATION.md) estão implementados separadamente. As [aprovações de execução](EXECUTION.md) são independentes;
 a atualização de versão continua a exigir plano novo revisto e aprovação explícita.
 
 As [propostas locais ligadas ao plano](PROPOSALS.md) já estão disponíveis num fluxo separado. O comando `preview` continua sem estado e não inicializa nem escreve `.safeops`.

@@ -1,6 +1,6 @@
-# Structured CLI output — 0.3.0a14
+# Structured CLI output — 0.3.0a15
 
-<!-- safeops-version: 0.3.0a14 -->
+<!-- safeops-version: 0.3.0a15 -->
 
 [Português (Portugal)](pt-PT/OUTPUT.md)
 
@@ -21,14 +21,14 @@ contain `--json` without enabling the global mode.
 
 ## Envelope schema 1
 
-All sixteen commands (`init`, `providers`, `doctor`, `scan`, `plan`, `review`,
-`approve`, `run`, `recover-lock`, `preview`, `propose`, `review-proposal`, `stage-proposal`, `inspect-stage`, `review-stage`, `inspect-run`) emit one UTF-8 JSON object for handled outcomes
+All twenty commands (`init`, `providers`, `doctor`, `scan`, `plan`, `review`,
+`approve`, `run`, `recover-lock`, `preview`, `propose`, `review-proposal`, `stage-proposal`, `inspect-stage`, `review-stage`, `inspect-run`, `review-application`, `apply-stage`, `inspect-application`, `rollback-application`) emit one UTF-8 JSON object for handled outcomes
 in this mode:
 
 ```json
 {
   "schema": 1,
-  "safeops_version": "0.3.0a14",
+  "safeops_version": "0.3.0a15",
   "command": "scan",
   "ok": true,
   "exit_code": 0,
@@ -80,8 +80,8 @@ checks. Treat saved JSON as potentially sensitive. This is not a new redaction
 service, signature, machine authorization or sandbox. No provider request is
 needed for the output feature or its offline tests.
 
-Source 0.3.0a14 preserves config schemas 1/2, plan schema 1 and approval schema 2;
-runner protocol 4 retains native-lock protocol 1. The package-version
+Source 0.3.0a15 preserves config schemas 1/2, plan schema 1 and approval schema 2;
+runner protocol 4 uses native-lock protocol 2. The package-version
 binding still invalidates old execution approvals: preserve history and create a fresh reviewed plan and approval.
 No automatic migration, release or package publication occurs.
 
@@ -128,3 +128,5 @@ Invalid/unsafe/oversized/unreadable/changing evidence returns a generic policy e
 `review-stage` uses the same envelope: `current` (0), `stale` (1) or `incompatible` (1), without file text/writes/approval. Invalid or unsafe evidence returns sanitized policy error (2). See [original-context review](STAGE_REVIEW.md) for boolean checks, fixed reason codes and limits.
 
 `run` now adds `run_id`, `receipt_fingerprint` and fixed `reasons`. `run`/`inspect-run` use passed (0), failed/timed-out/changed-inputs/incomplete (1); operational/integrity errors use 2. Historical inspection returns no captured text or current-source revalidation and never renews approval. See [run receipts](RUN_RECEIPTS.md), including partial persistence and audit failure semantics.
+
+`review-application` returns metadata and an exact current `fingerprint` without writes. `apply-stage` and `rollback-application` return journal inspection after a normal completion (0); handled failures use 2 and can retain partially changed source, an owned pending marker or a completion record. Always inspect retained state. `inspect-application` uses `applied`/`rolled-back` (0), `pending`/`conflicted` (1), unsafe/malformed/changing evidence (2); returns per-file metadata/states and a fresh `rollback_fingerprint`, never text. See [application state and limits](APPLICATION.md).

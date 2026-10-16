@@ -96,6 +96,11 @@ def _source_snapshot(root: Path) -> tuple[dict, str]:
 
 
 def _targets(root: Path, config: dict) -> str | None:
+    manifest = _target_manifest(root, config)
+    return None if manifest is None else sha256(manifest)
+
+
+def _target_manifest(root: Path, config: dict) -> list | None:
     if config["schema"] == 1:
         return None
 
@@ -116,7 +121,7 @@ def _targets(root: Path, config: dict) -> str | None:
         manifest.append([path.relative_to(root).as_posix(), hashlib.sha256(raw).hexdigest()])
     if select() != selected:
         raise ValueError("Selected paths changed")
-    return sha256(manifest)
+    return manifest
 
 
 def _observe(root: Path, stage_id: str, inspection: dict) -> dict:

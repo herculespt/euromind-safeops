@@ -1,11 +1,12 @@
 # EuroMind SafeOps — Português (Portugal)
 
-<!-- safeops-version: 0.3.0a14 -->
+<!-- safeops-version: 0.3.0a15 -->
 
 **Ferramenta open source de orquestração de engenharia com aprovação humana e execução controlada de verificações.**
 
-## O que já funciona na versão 0.3.0a14 (pré-versão alfa do código)
+## O que já funciona na versão 0.3.0a15 (pré-versão alfa do código)
 
+- [Aplicação explícita ao original e rollback](APPLICATION.md): revisão atual, ambos os checks aprovados na cópia, confirmação exata, backups privados e journal retido; recusa sobrepor alterações humanas observadas.
 - CLI Python 3.11+ sem dependências externas obrigatórias em tempo de execução.
 - `inspect-run ID_DA_EXECUCAO`: [recibos dos checks aprovados](RUN_RECEIPTS.md), ligados aos inputs antes/depois; resultados passed/failed/timed-out/changed-inputs/incomplete sem guardar output dos testes nem renovar aprovação.
 - `review-stage ID_DA_COPIA`: [revisão do original atual](STAGE_REVIEW.md), exige cópia correspondente e verifica plano, original, bases, configuração, alvos, versão e contrato sem escrita nem aprovação.
@@ -35,7 +36,7 @@
 Para instalar a alfa publicada num ambiente virtual:
 `python -m pip install euromind-safeops==0.3.0a8`.
 Essa versão ainda não inclui previews, propostas persistentes, cópias locais
-de preparação nem inspeção de recibos. Os comandos abaixo instalam o código atual 0.3.0a14 do checkout.
+de preparação nem inspeção de recibos. Os comandos abaixo instalam o código atual 0.3.0a15 do checkout.
 
 ```powershell
 python -m pip install -e .
@@ -63,10 +64,10 @@ cria uma publicação automaticamente. A [primeira alpha GitHub](https://github.
 e o [pacote PyPI 0.3.0a8](https://pypi.org/project/euromind-safeops/0.3.0a8/)
 foram publicados em 16 de outubro de 2026. Hashes originais, instalação pelo
 registo e atestações de publicação verificadas pelo PyPI foram confirmados.
-O código 0.3.0a14 ainda não foi publicado como pacote. Consulta a
+O código 0.3.0a15 ainda não foi publicado como pacote. Consulta a
 [evidência de entrega](audits/2026-10-16-first-alpha.md).
 
-Atualizar para 0.3.0a14 exige novo plano/aprovação pela ligação à versão.
+Atualizar para 0.3.0a15 exige novo plano/aprovação pela ligação à versão.
 Mantém-se o schema 1 predefinido; o schema 2 opcional seleciona diretórios e
 exige digest dos ficheiros selecionados. Mantêm-se os schemas 1 de plano e 2 de aprovação.
 

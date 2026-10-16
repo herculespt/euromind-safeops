@@ -1,12 +1,12 @@
-# Bloqueio local e recuperação — 0.3.0a14
+# Bloqueio local e recuperação — 0.3.0a15
 
-<!-- safeops-version: 0.3.0a14 -->
+<!-- safeops-version: 0.3.0a15 -->
 
 [English](../LOCKING.md)
 
 A execução combina uma guarda nativa persistente e um marcador com proprietário.
-Não constitui isolamento nem bloqueio distribuído. A versão 0.3.0a14 usa protocolo
-4 do runner e protocolo 1 do bloqueio no contrato ligado à versão. Mantêm-se os
+Não constitui isolamento nem bloqueio distribuído. A versão 0.3.0a15 usa protocolo
+4 do runner e protocolo 2 do bloqueio no contrato ligado à versão. Mantêm-se os
 schemas 1/2 de configuração, 1 de plano, 2 de aprovação e 1 da saída. Atualizar
 exige plano/aprovação novos e revistos; não há migração dos registos.
 
@@ -102,4 +102,8 @@ temporários; não recuperam bloqueios reais do projeto nem contactam fornecedor
 Consultar [execução](EXECUTION.md), [saída](OUTPUT.md), [estado](STATUS.md),
 [CI](CI.md) e as [referências primárias](../LOCKING.md#limits-and-validation).
 
-O protocolo 4 do runner mantém protocolo nativo do lock 1. O guard cobre também observações limitadas dos inputs antes/depois e atribuição da intenção de execução. O [recibo final](RUN_RECEIPTS.md) só é escrito após limpeza do marcador/libertação do guard e auditoria; falha de limpeza deixa intenção sem recibo final. A finalização fora do guard não congela o original observado nem bloqueia execução posterior. A recuperação existente nunca finaliza recibos interrompidos nem concede aprovação.
+O protocolo 4 do runner usa protocolo nativo do lock 2. O guard cobre também observações limitadas dos inputs antes/depois e atribuição da intenção de execução. O [recibo final](RUN_RECEIPTS.md) só é escrito após limpeza do marcador/libertação do guard e auditoria; falha de limpeza deixa intenção sem recibo final. A finalização fora do guard não congela o original observado nem bloqueia execução posterior. A recuperação existente nunca finaliza recibos interrompidos nem concede aprovação.
+
+O código 0.3.0a15 acrescenta [aplicação revista e rollback conservador](APPLICATION.md). Ambos os checks fixos da cópia têm de passar com ligações atuais inalteradas e configuração igual à do original; confirmação humana exata e guards nativos precedem backups/journal privados e escrita. Marcador pendente bloqueia checks aprovados/aplicações novos. Inspeção sem escrita e rollback confirmado separadamente preservam evidência e recusam edições humanas observadas. Sem transação de vários ficheiros, garantia de energia/armazenamento, operações Git, pedidos a fornecedores ou isolamento pelo SO. Runner 4/lock 2; aprovação de execução nova ligada à versão obrigatória.
+
+`doctor.data.run_lock.application_pending` indica qualquer entrada de marcador de aplicação, sem a ler/remover. Protocolo 2 recusa execuções antes de criar `run.lock` se existir essa entrada. Aplicação mantém guards do original/cópia; rollback mantém o do original. Marcadores run retidos bloqueiam ambos os escritores. `recover-lock` nunca limpa evidência de aplicação. Consulta [libertação/recuperação](APPLICATION.md).

@@ -1,10 +1,10 @@
 # Execution policy and upgrade compatibility
 
-<!-- safeops-version: 0.3.0a14 -->
+<!-- safeops-version: 0.3.0a15 -->
 
 [Português (Portugal)](pt-PT/EXECUTION.md)
 
-Current source version: **0.3.0a14**, alpha prerelease. This document describes
+Current source version: **0.3.0a15**, alpha prerelease. This document describes
 implemented behavior; see [status](STATUS.md) for exclusions and publication state.
 
 ## Configuration
@@ -39,7 +39,7 @@ See the [target guide](TARGETS.md) for the JSON example, limits and compatibilit
 Source 0.3.0a5 introduced optional global `--json` envelopes and aggregate CI summaries;
 see the [output contract](OUTPUT.md). Presentation does not change approval
 authority. Config schemas 1/2, plan schema 1 and approval schema 2 are retained;
-current source uses runner protocol 4 and lock protocol 1. The package-version
+current source uses runner protocol 4 and lock protocol 2. The package-version
 change requires a fresh plan/approval while preserving history. Invalid CLI arguments now return 2 from Python `main`; the
 subprocess status remains 2. Help/version remain text actions.
 
@@ -147,7 +147,7 @@ Source 0.3.0a10 introduced [persisted local proposals](PROPOSALS.md). Proposal s
 
 ## Checking a staged copy
 
-Source 0.3.0a11 adds [local staging copies](STAGING.md), requiring exact proposal-fingerprint confirmation. No approval or original SafeOps state is inherited. Inspect copied code and initialize/plan/review/approve separately before running fixed checks in that copy. Copies and receipts do not grant execution permission or OS isolation. Original-workspace application remains planned.
+Source 0.3.0a11 adds [local staging copies](STAGING.md), requiring exact proposal-fingerprint confirmation. No approval or original SafeOps state is inherited. Inspect copied code and initialize/plan/review/approve separately before running fixed checks in that copy. Copies and receipts do not grant execution permission or OS isolation. [Explicit original application](APPLICATION.md) is now implemented separately.
 
 Source 0.3.0a12 adds read-only `inspect-stage` for retained schema-1 copies.
 Matching/changed/incomplete observations never renew approval, import project
@@ -158,3 +158,5 @@ reviewed plan and version-bound approval; see [staging inspection](STAGING.md).
 Source 0.3.0a13 adds read-only [current original-context review](STAGE_REVIEW.md). `review-stage` requires a matching stage and revalidates original/plan/base/configuration/target/version/contract bindings. `current` is a point-in-time observation, never execution/application approval. No approval is created or renewed. Existing version binding requires a fresh plan and explicit approval after upgrading.
 
 Source 0.3.0a14 adds [approved-check receipts](RUN_RECEIPTS.md). Runner protocol 4 binds receipt schema 1 and suppresses automatic import bytecode in fixed children. Bounded context observations run before execution and after each completed check; changes/unavailable context stop subsequent checks and prevent passed status. Final receipt follows guard cleanup and audit; operational failures retain incomplete evidence. `run` adds run ID/fingerprint/reasons; `inspect-run` reads historical metadata without current-source revalidation or approval. Compile-only receipts make no unit-test claim. Fresh plan/approval is required after upgrade.
+
+Source 0.3.0a15 adds [explicit reviewed application and conservative rollback](APPLICATION.md). Both staged fixed checks must pass with unchanged current bindings and the same configuration as the original; exact fresh human confirmation and native guards precede private backup/journal preparation and source writes. Any retained application marker blocks new approved runs/applications. Read-only inspection and separately confirmed rollback preserve evidence and refuse observed human edits. No multi-file transaction, power-loss guarantee, Git operation, provider request or OS isolation is added. Runner remains 4; lock protocol is 2. Fresh version-bound execution approval is required.

@@ -1,6 +1,6 @@
-# Recibos dos checks aprovados — 0.3.0a14
+# Recibos dos checks aprovados — 0.3.0a15
 
-<!-- safeops-version: 0.3.0a14 -->
+<!-- safeops-version: 0.3.0a15 -->
 
 [English](../RUN_RECEIPTS.md)
 
@@ -131,7 +131,7 @@ automático dos imports, permitindo que testes normais de schema 2 preservem
 os inputs selecionados. `compileall` explícito do schema 1 continua a escrever
 bytecode gerado; testes também podem escrever ficheiros explicitamente.
 Mantêm-se streams UTF-8, configuração 1/2, plano 1, aprovação 2, envelope 1 e
-protocolo nativo do lock 1. Atualizar para 0.3.0a14 exige plano/aprovação novos e
+protocolo nativo do lock 2. Atualizar para 0.3.0a15 exige plano/aprovação novos e
 revistos; o histórico é preservado.
 
 Snapshots e observações duplas são evidência pontual: não detetam todas as
@@ -139,6 +139,5 @@ alterações transitórias/ABA, provam asserções, supervisionam descendentes o
 restringem acesso ao sistema de ficheiros pelo Python de confiança. Um autor
 local malicioso pode reescrever todos os registos. `passed` só indica que os checks
 ativados passaram com inputs observados iguais; configuração só com compile não
-prova testes unitários. Aplicação ao original, operações Git, proveniência
-autenticada e sandbox pelo SO não estão implementadas. A alfa pública
+prova testes unitários. Este comando de recibos não aplica ao original. [Aplicação explícita/rollback](APPLICATION.md) estão implementados separadamente; operações Git, proveniência autenticada e sandbox pelo SO continuam por implementar. A alfa pública
 GitHub/PyPI mantém-se em 0.3.0a8.

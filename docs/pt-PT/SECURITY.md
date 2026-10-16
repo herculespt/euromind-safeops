@@ -1,12 +1,12 @@
 # Política de segurança
 
-<!-- safeops-version: 0.3.0a14 -->
+<!-- safeops-version: 0.3.0a15 -->
 
 [English](../../SECURITY.md)
 
 ## Âmbito e maturidade
 
-O EuroMind SafeOps 0.3.0a14 é uma **ferramenta de desenvolvimento em versão alfa**.
+O EuroMind SafeOps 0.3.0a15 é uma **ferramenta de desenvolvimento em versão alfa**.
 Não implementa isolamento seguro, não garante a segurança do código testado e
 não deve ser utilizado para autorizar operações de produção. A classificação
 de risco e a pesquisa por padrões são heurísticas com limitações.
@@ -55,3 +55,5 @@ não demonstra testes aprovados nem concede aprovação de execução/aplicaçã
 `review-stage` revalida separadamente o contexto original atual com observações limitadas sem escrita, exigindo cópia correspondente. Pode ler bytes de ambiente/alvos selecionados para hash local, sem os devolver. `current` não concede aprovação, autenticação ou autoridade de aplicação. Consulta [âmbito e limites de concorrência](STAGE_REVIEW.md).
 
 Intenções/recibos de execução só guardam metadados limitados, hashes e resultados fixos, sem output/tarefa/conselho/motivos de aprovação. `inspect-run` é apenas histórico e nunca autentica proveniência nem renova aprovação. Observações posteriores param sequências com inputs alterados/indisponíveis; a auditoria rejeita hardlinks/reparse/ficheiros não regulares sem bloquear em FIFOs. Testes de confiança mantêm acesso ao sistema de ficheiros/processos e registos sem chave são mutáveis. Consulta [os limites](RUN_RECEIPTS.md).
+
+O código 0.3.0a15 acrescenta [aplicação revista e rollback conservador](APPLICATION.md). Ambos os checks fixos da cópia têm de passar com ligações atuais inalteradas e configuração igual à do original; confirmação humana exata e guards nativos precedem backups/journal privados e escrita. Marcador pendente bloqueia checks aprovados/aplicações novos. Inspeção sem escrita e rollback confirmado separadamente preservam evidência e recusam edições humanas observadas. Sem transação de vários ficheiros, garantia de energia/armazenamento, operações Git, pedidos a fornecedores ou isolamento pelo SO. Runner 4/lock 2; aprovação de execução nova ligada à versão obrigatória. Backups e propostas contêm texto local: manter `.safeops` privado e fora de artefactos públicos. Hashes/identidades locais não impedem proprietário malicioso nem todas as corridas entre verificar/substituir.

@@ -1,6 +1,6 @@
-# Current original-context review — 0.3.0a14
+# Current original-context review — 0.3.0a15
 
-<!-- safeops-version: 0.3.0a14 -->
+<!-- safeops-version: 0.3.0a15 -->
 
 [Português (Portugal)](pt-PT/STAGE_REVIEW.md)
 
@@ -92,7 +92,6 @@ and/or execution-contract bindings when its other evidence is still valid.
 Preserve that history; create a fresh reviewed plan/proposal and separate staged
 copy if current bindings are needed. Running trusted staged checks still requires
 initialization, a fresh plan and explicit execution approval in that copy.
-Original application, rollback, Git worktrees, OS isolation and authenticated
-SafeOps provenance remain planned. Public GitHub/PyPI alpha remains 0.3.0a8.
+[Explicit original application and rollback](APPLICATION.md) are implemented separately. Git worktrees, OS isolation and authenticated SafeOps provenance remain planned. Public GitHub/PyPI alpha remains 0.3.0a8.
 
-[Approved-check receipts](RUN_RECEIPTS.md) are now implemented separately. This compatibility command neither runs tests nor consumes a passed receipt as application authority. Original application/rollback remain planned; historical run evidence does not replace current context review.
+[Approved-check receipts](RUN_RECEIPTS.md) are now implemented separately. This compatibility command neither runs tests nor consumes a passed receipt as application authority. [Original application/rollback](APPLICATION.md) require their own exact current confirmation; historical run evidence does not replace current context review.

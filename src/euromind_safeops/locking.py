@@ -13,7 +13,7 @@ from pathlib import Path
 
 from .core import SafeOpsError, atomic_json_write, audit, decode_json_object, json_bytes, utc_now, workspace
 
-LOCK_PROTOCOL_VERSION = 1
+LOCK_PROTOCOL_VERSION = 2
 MAX_MARKER_BYTES = 4096
 
 
@@ -36,6 +36,15 @@ def _state(root: Path) -> Path:
     directory = workspace(root)
     _directory(directory)
     return directory
+
+
+def application_pending(directory: Path) -> bool:
+    """Any pending-application entry blocks runs; never follow or remove it."""
+    try:
+        (directory / "application.pending").lstat()
+    except FileNotFoundError:
+        return False
+    return True
 
 
 def _identity(info: os.stat_result) -> tuple[int, int]:
@@ -158,6 +167,7 @@ def lock_status(root: Path) -> dict:
         finally:
             os.close(fd)
     return {"guard": guard, "marker_present": marker is not None,
+            "application_pending": application_pending(directory),
             "marker_fingerprint": marker["fingerprint"] if marker else None,
             "marker_format": marker["format"] if marker else None,
             "owner_pid": marker["owner_pid"] if marker else None,
@@ -169,6 +179,8 @@ def lock_status(root: Path) -> dict:
 def execution_lock(root: Path, plan_id: str):
     directory = _state(root)
     with _guard(directory):
+        if application_pending(directory):
+            raise SafeOpsError("Application journal pending; inspect and explicitly recover it before running checks")
         raw = json_bytes({"schema": 1, "pid": os.getpid(), "plan_id": plan_id,
                           "token": uuid.uuid4().hex, "created_at": utc_now()}) + b"\n"
         try:

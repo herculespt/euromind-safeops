@@ -2,8 +2,8 @@
 
 This roadmap is directional, not a promise of dates or delivered features.
 
-Current source version: **0.3.0a14** (alpha prerelease). See [status](docs/STATUS.md)
-and [PT-PT](docs/pt-PT/STATUS.md). The first [GitHub alpha](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8) and [PyPI 0.3.0a8](https://pypi.org/project/euromind-safeops/0.3.0a8/) were published on 2026-10-16. Registry hashes, clean installation and PyPI-verified publishing attestations were checked. See [delivery evidence](docs/audits/2026-10-16-first-alpha.md). Current source 0.3.0a14 remains unpublished.
+Current source version: **0.3.0a15** (alpha prerelease). See [status](docs/STATUS.md)
+and [PT-PT](docs/pt-PT/STATUS.md). The first [GitHub alpha](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8) and [PyPI 0.3.0a8](https://pypi.org/project/euromind-safeops/0.3.0a8/) were published on 2026-10-16. Registry hashes, clean installation and PyPI-verified publishing attestations were checked. See [delivery evidence](docs/audits/2026-10-16-first-alpha.md). Current source 0.3.0a15 remains unpublished.
 
 ## v0.1.0 — Initial open-source foundation (implemented)
 - [x] Packageable CLI, offline plans and specialist suggestions.
@@ -116,6 +116,13 @@ No tagged release or package publication is implied by this source version.
 - [x] Runner protocol 4 disables automatic import bytecode and binds receipt schema 1; config/plan/approval/lock schemas remain 1/2, 1, 2, 1.
 - [x] Offline/installed-wheel regressions, required CI and synchronized EN/PT-PT contracts, version and distribution validation.
 
+## 0.3.0a15 — Reviewed original application and recovery (implemented in source)
+- [x] Read-only application review binds current original/proposal/stage and a current unchanged passed staged run containing both fixed checks.
+- [x] Exact fresh human confirmation, original/stage native guards, lock protocol 2 and retained pending marker that blocks new runs/applications.
+- [x] Private bounded backups and prepared files, immutable intent before source writes, per-file checks and terminal metadata; no Git operations or multi-file atomicity.
+- [x] Read-only journal inspection and fresh-confirmed conservative rollback, with retained partial state and refusal of observed human edits/unsafe evidence.
+- [x] Offline and installed-wheel regression validation, real interruption recovery and synchronized EN/PT-PT documentation/distribution checks.
+
 ## Next — Policy and integration hardening (planned)
 - [ ] OS-enforced workspace filesystem allowlists that restrict arbitrary reads; 0.3.0a4 check target selection does not implement this isolation boundary.
 - [ ] Broader OS/Python coverage profiles and reviewed report-artifact publication; Linux/Python 3.12 measurement and local JUnit/summaries are implemented.
@@ -131,7 +138,8 @@ No tagged release or package publication is implied by this source version.
 - [ ] Specialist plugin protocol and capability manifests.
 - [x] Persisted manually authored candidate proposals without source mutation (0.3.0a10).
 - [x] Read-only diffs and content-hash records for manually supplied existing-text replacements (0.3.0a9).
-- [ ] AI-generated candidates, richer patch operations, authenticated provenance and human-reviewed original-workspace application.
+- [ ] AI-generated candidates, richer patch operations and authenticated provenance.
+- [x] Explicit human-reviewed original existing-text replacements with recoverable journals and conservative rollback (0.3.0a15); [issue #49](https://github.com/herculespt/euromind-safeops/issues/49).
 - [x] Separate local staging copies for reviewed candidates, with no source mutation (0.3.0a11).
 - [x] Verify staging receipts and detect later staged-file changes (0.3.0a12); [issue #42](https://github.com/herculespt/euromind-safeops/issues/42), without granting source-application or execution authority.
 - [x] Review current original-source compatibility before any application (0.3.0a13); [issue #45](https://github.com/herculespt/euromind-safeops/issues/45), without granting application or execution authority.

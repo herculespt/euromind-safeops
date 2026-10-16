@@ -1,6 +1,6 @@
 # EuroMind SafeOps
 
-<!-- safeops-version: 0.3.0a14 -->
+<!-- safeops-version: 0.3.0a15 -->
 
 **A safety-focused, provider-agnostic engineering orchestration CLI.**
 
@@ -8,7 +8,7 @@
 ![Status](https://img.shields.io/badge/status-alpha-orange)
 ![License](https://img.shields.io/badge/license-Apache--2.0-blue)
 
-> **Source version: 0.3.0a14 (alpha prerelease).** See [current implementation and publication status](docs/STATUS.md) and [Implemented vs. planned](#implemented-vs-planned). The first [GitHub alpha v0.3.0a8](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8) and [PyPI 0.3.0a8](https://pypi.org/project/euromind-safeops/0.3.0a8/) were published on 2026-10-16. Original wheel/sdist hashes, registry installation and PyPI-verified publishing attestations were checked; see [delivery evidence](docs/audits/2026-10-16-first-alpha.md). Source 0.3.0a14 adds approved-check receipts and historical result inspection; it is not a published package.
+> **Source version: 0.3.0a15 (alpha prerelease).** See [current implementation and publication status](docs/STATUS.md) and [Implemented vs. planned](#implemented-vs-planned). The first [GitHub alpha v0.3.0a8](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8) and [PyPI 0.3.0a8](https://pypi.org/project/euromind-safeops/0.3.0a8/) were published on 2026-10-16. Original wheel/sdist hashes, registry installation and PyPI-verified publishing attestations were checked; see [delivery evidence](docs/audits/2026-10-16-first-alpha.md). Source 0.3.0a15 adds explicitly reviewed original replacements, private recovery journals and conservative rollback; it is not a published package.
 >
 
 EuroMind SafeOps helps software maintainers plan engineering tasks, classify risk, obtain an explicit human approval, and run a small set of deterministic checks while maintaining a locally stored integrity and audit trail. Optional OpenAI, Anthropic Claude, and OpenAI-compatible providers can provide **advice only**; their text cannot be executed as code or shell commands by SafeOps.
@@ -25,6 +25,7 @@ EuroMind SafeOps is developed independently as a general-purpose open-source too
 - Strict UTF-8 JSON policy validation and approvals bound to the installed version and fixed execution contract.
 - Unit-test checks require discovery and execution of at least one non-skipped case; nested regular test packages are supported.
 - Portable advisory path preflight before provider access, persistence, approval and run; see [scope policy](docs/SCOPE.md).
+- Explicit application of reviewed existing-text replacements after passed staged checks, with private backups, pending-run blocking and conservative human-confirmed rollback; [contract](docs/APPLICATION.md).
 - Bounded run receipts bind approved-check outcomes to observed before/after inputs; read-only historical inspection, with no captured output persisted.
 - Human confirmation before running any check; every check is a fixed Python command (no shell interpolation).
 - Offline audit events (`.safeops/audit.jsonl`) and basic credential-pattern scanner.
@@ -35,7 +36,7 @@ EuroMind SafeOps is developed independently as a general-purpose open-source too
 Install the published alpha in a virtual environment with
 `python -m pip install euromind-safeops==0.3.0a8`.
 That release predates candidate previews, persisted proposals, staging copies and receipt inspection.
-Use the source checkout below for the current 0.3.0a14 capabilities.
+Use the source checkout below for the current 0.3.0a15 capabilities.
 
 In a shell at the root of this repository:
 
@@ -67,7 +68,7 @@ safeops --root examples/demo_project run YOUR_PLAN_ID
 **Upgrading from 0.2.0:** keep the workspace and its history. Valid schema-1 configuration remains supported, but old approvals are rejected. Review the current source, create a new plan and approve it explicitly. See [execution policy and compatibility](docs/EXECUTION.md).
 
 The existing version binding also requires new execution approval when upgrading
-to 0.3.0a14. Schema-1 defaults remain supported; optional schema 2 selects
+to 0.3.0a15. Schema-1 defaults remain supported; optional schema 2 selects
 [fixed-check directories](docs/TARGETS.md). Plan schema 1 and approval schema 2
 remain supported, with an additional target digest required for schema-2 config.
 
@@ -120,9 +121,11 @@ Approved runs now return a `run_id`. Inspect historical result metadata with
 `safeops --root PROJECT --json inspect-run RUN_ID`; see [run receipts and limits](docs/RUN_RECEIPTS.md).
 A passed receipt does not authorize original application or renew approval.
 
+Review application prerequisites with `review-application STAGE_ID --run RUN_ID`; apply only after reviewing the exact fingerprint. `inspect-application APPLICATION_ID` supplies a fresh confirmation for conservative rollback. Follow the complete [application and recovery guide](docs/APPLICATION.md); a passed run alone grants no consent.
+
 ## Implemented vs. planned
 
-| Capability | 0.3.0a14 |
+| Capability | 0.3.0a15 |
 |---|---|
 | Approved-check receipts and historical result inspection | Implemented; before/after input binding, explicit failure/timeout/change/incomplete results and read-only `inspect-run`; [contract](docs/RUN_RECEIPTS.md) |
 | Current original-context review | Implemented; `review-stage` requires a matching copy and revalidates original/proposal/plan/config/target/version bindings without writes or approval; [contract](docs/STAGE_REVIEW.md) |
@@ -149,7 +152,8 @@ A passed receipt does not authorize original application or renew approval.
 | Explicit fixed-check directory targets | Implemented in optional config schema 2; recursive link checks and selected-file approval digest; [limits](docs/TARGETS.md) |
 | OS-enforced filesystem allowlist / check isolation | **Not implemented**; trusted Python retains filesystem access |
 | Container or OS sandboxing / isolation | **Not implemented** |
-| Original-workspace patch application, Git writes, PR generation | **Not implemented**; reviewed replacements can be materialized only in a separate local copy |
+| Explicit reviewed original replacements and rollback | Implemented for existing writable text files; current original review, passed unchanged staged checks, exact confirmation and retained private journal; [contract](docs/APPLICATION.md) |
+| Git writes and PR generation by SafeOps | **Not implemented** |
 | Multi-agent autonomous orchestration | **Not implemented** |
 | Policy signing / remote attestation | **Not implemented** |
 
