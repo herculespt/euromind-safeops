@@ -4,7 +4,13 @@ The format follows Keep a Changelog conventions; versions follow Semantic Versio
 
 ## [Unreleased]
 
-Current source milestone: **0.3.0a11**. First GitHub alpha published on 2026-10-16; PyPI remains pending. See [delivery evidence](docs/audits/2026-10-16-first-alpha.md).
+Current source milestone: **0.3.0a11**. First GitHub alpha and [PyPI 0.3.0a8](https://pypi.org/project/euromind-safeops/0.3.0a8/) published on 2026-10-16. Source 0.3.0a11 remains unpublished. See [delivery evidence](docs/audits/2026-10-16-first-alpha.md).
+
+### Registry delivery follow-up / Conclusão da entrega no registo — 2026-10-16
+
+- Registered the explicitly authorized Trusted Publisher for `herculespt/euromind-safeops`, workflow `publish.yml`, environment `pypi`; exact `main` deployment branch only, zero tags and administrator bypass disabled.
+- Published original v0.3.0a8 wheel/sdist without rebuilding or changing the tag. Workflow 38874124869 passed all three jobs, including registry filename/hash equality and fresh installation/CLI version verification. Both registry files show publishing attestations verified by PyPI.
+- Atualizados README, estado, roadmap, guias de publicação/manutenção, descrição do pacote, evidência EN/PT-PT e textos GitHub. O commit do publisher é 95a8bd5; o código distribuído mantém o commit 035c36b. Sem nova versão, alteração de comportamento ou pedido a fornecedores; a descrição incorporada nos pacotes já publicados mantém os bytes originais.
 
 ## [0.3.0a11] — 2026-10-16 (source alpha; no new published release)
 
@@ -13,7 +19,7 @@ Current source milestone: **0.3.0a11**. First GitHub alpha published on 2026-10-
 - Retain incomplete stage directories on failure; no automatic deletion or rollback. Ready receipt and audit are separate writes, so audit failure can return an error with the ready copy retained.
 - 21 offline lifecycle/failure regressions, including separate fresh approval and real fixed checks on staged code. Document-link hygiene now scopes exclusions relative to the package root so staged copies under `.safeops` are checked.
 - Cópias locais, versão, guias EN/PT-PT, README, capacidades, roadmap, changelog e registos GitHub sincronizados. Sem novas dependências, pedidos a fornecedores ou aplicação ao projeto original.
-- Config/plan/approval/output schemas and runner/lock protocols retained; version binding requires fresh reviewed execution approval and proposals under this version. Git worktrees, original-source application/rollback, OS isolation and signed provenance remain planned. Public v0.3.0a8 remains unchanged; PyPI pending.
+- Config/plan/approval/output schemas and runner/lock protocols retained; version binding requires fresh reviewed execution approval and proposals under this version. Git worktrees, original-source application/rollback, OS isolation and signed SafeOps provenance remain planned. Public v0.3.0a8 remains unchanged; PyPI was pending at this milestone and is delivered in the follow-up above.
 
 ## [0.3.0a10] — 2026-10-16 (source alpha; no new published release)
 
@@ -21,7 +27,7 @@ Current source milestone: **0.3.0a11**. First GitHub alpha published on 2026-10-
 - Require explicit exact plan file paths and a non-critical unchanged plan. Recheck context around validation; reject stale/tampered records, unsafe storage, invalid schemas and bounded-input violations.
 - Store proposals with private file permissions where supported and a content-free creation audit event. Source, approvals and Git state are untouched; reviewing grants no application or execution authority. Local records remain mutable and unsigned.
 - Propostas locais e guias EN/PT-PT, README, estado, arquitetura, compatibilidade, roadmap e versão sincronizados. Atualizações continuam a exigir novo plano/revisão/aprovação de execução; sem migração automática.
-- Config/plan/approval/output schemas and runner/lock protocols retained. No runtime dependency or provider request added. Application/rollback, AI generation and later source publication remain planned; public v0.3.0a8 assets stay unchanged and PyPI remains pending.
+- Config/plan/approval/output schemas and runner/lock protocols retained. No runtime dependency or provider request added. Application/rollback, AI generation and later source publication remain planned; public v0.3.0a8 assets stay unchanged. PyPI was pending at this milestone; see the delivery follow-up above.
 
 ## [0.3.0a9] — 2026-10-16 (source alpha; no new published release)
 
@@ -29,20 +35,20 @@ Current source milestone: **0.3.0a11**. First GitHub alpha published on 2026-10-
 - Reject unknown fields, stale/nonregular/linked paths, duplicate/case-colliding names, malformed JSON/text and byte/line limits. Current support is existing BOM-free LF text with final newlines; creation/deletion/renames/binaries/application remain planned.
 - Preview e documentação EN/PT-PT, tabelas de capacidades, estado, arquitetura, compatibilidade e roadmap atualizados. Versão ligada ao contrato exige novo plano/revisão/aprovação para execução; schemas anteriores mantidos.
 - Separate CI report basenames from the parallel coverage data prefix, avoiding report-as-database warnings without changing the coverage threshold or measured scope.
-- Published v0.3.0a8 and its distributions stay immutable; PyPI remains pending. No new release or live provider request is implied by this source milestone.
+- Published v0.3.0a8 and its distributions stay immutable; PyPI was pending at this milestone and is delivered in the follow-up above. No new release or live provider request is implied by this source milestone.
 
 ## [0.3.0a8] — 2026-10-15 (alpha source; publication tracked in docs/STATUS.md)
 
 ### Added / Adicionado
 - Pinned development-only coverage.py 7.16.2, statements/branches and supported Python subprocess measurement in the existing Linux/Python 3.12 CI job. No new runtime dependency.
 - Separate real subprocess probe, data reset before the full suite, combined minimum 90%, local JSON/Cobertura XML validation and numeric job summary. All package modules and zero excluded lines are required; the twelve-job layout and stable quality-gate remain.
-- Guias EN/PT-PT de cobertura, CI, manutenção, versão/estado/roadmap e aprovação de execução atualizados. A versão do código, release GitHub e pacote PyPI são entregas distintas; primeira alpha GitHub publicada em 2026-10-16, com evidência datada; PyPI pendente.
+- Guias EN/PT-PT de cobertura, CI, manutenção, versão/estado/roadmap e aprovação de execução atualizados. A versão do código, release GitHub e pacote PyPI são entregas distintas; primeira alpha GitHub publicada em 2026-10-16, com evidência datada. O PyPI ficou inicialmente pendente e foi concluído no seguimento acima.
 
 ### Publication preparation / Preparação da publicação
 - Bilingual registry README with absolute links, metadata consistency check, pinned release tools and manual candidate-validation/PyPI OIDC workflow. Package-only artifact transfer; no test-report upload.
 - Exact protected-main ancestry/latest successful CI, published alpha tag/version checks, isolated installed-wheel tests, SHA-256 transfer verification and post-upload registry/install checks.
 - Independent secret scanning uses a reviewed hash-only baseline for seven synthetic fixture findings; changed/new values remain blocked in tracked source and expanded distributions. Nine offline regression cases cover path/type/hash boundaries, strict control metadata and standalone archives.
-- Published GitHub prerelease v0.3.0a8 on 2026-10-16 at `035c36b1b646a6c75178d5db6c19d8c55d624dcf`; attached wheel/sdist/checksums match verified bytes. Twelve main CI jobs and candidate workflow passed; 209 installed-wheel tests, zero failures/errors, three platform skips. PyPI sign-in/publisher registration remains pending. This documentation follow-up does not move the public tag or rebuild assets.
+- Published GitHub prerelease v0.3.0a8 on 2026-10-16 at `035c36b1b646a6c75178d5db6c19d8c55d624dcf`; attached wheel/sdist/checksums match verified bytes. Twelve main CI jobs and candidate workflow passed; 209 installed-wheel tests, zero failures/errors, three platform skips. PyPI sign-in/publisher registration was initially pending; completion is recorded above. This documentation follow-up does not move the public tag or rebuild assets.
 
 ### Compatibility and limits / Compatibilidade e limites
 - Existing schemas and runner 3/lock 1 protocols retained. Version binding still requires a new reviewed plan and explicit approval; no approval migration.

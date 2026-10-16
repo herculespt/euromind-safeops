@@ -9,7 +9,7 @@ releases require their own authorization. See [status](STATUS.md) and
 [issue #31](https://github.com/herculespt/euromind-safeops/issues/31) for actual
 publication evidence. A successful candidate validation does not publish to PyPI.
 
-First alpha delivery (2026-10-16): GitHub prerelease and distributions published; PyPI remains pending. See [verified evidence](audits/2026-10-16-first-alpha.md).
+First alpha delivery (2026-10-16): GitHub prerelease and [PyPI 0.3.0a8](https://pypi.org/project/euromind-safeops/0.3.0a8/) published with identical original distribution hashes, clean registry installation and PyPI-verified publishing attestations. Current source remains 0.3.0a11. See [verified evidence](audits/2026-10-16-first-alpha.md).
 
 ## Review and GitHub release
 
@@ -91,6 +91,13 @@ For a new project, register the following exact pending Trusted Publisher:
 | Repository | euromind-safeops |
 | Workflow filename | publish.yml |
 | GitHub environment | pypi |
+
+Verified on 2026-10-16: this publisher was registered and used successfully.
+The GitHub environment `pypi` permits selected branch `main` only (one branch,
+zero tags); administrator bypass is disabled. No environment secret or variable
+is configured. Required reviewers are zero while there is one maintainer.
+Changing this trust relationship or weakening protections requires an explicit
+review and the applicable administrative confirmation.
 
 Confirm ownership/name availability and review the precise trust grant before
 saving it. Pending registration does not reserve the project name. Committing

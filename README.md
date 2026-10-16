@@ -8,7 +8,7 @@
 ![Status](https://img.shields.io/badge/status-alpha-orange)
 ![License](https://img.shields.io/badge/license-Apache--2.0-blue)
 
-> **Source version: 0.3.0a11 (alpha prerelease).** See [current implementation and publication status](docs/STATUS.md) and [Implemented vs. planned](#implemented-vs-planned). [First GitHub alpha v0.3.0a8](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8) was published on 2026-10-16 with verified wheel/sdist/checksums. PyPI authentication and publisher registration remain pending; see [delivery evidence](docs/audits/2026-10-16-first-alpha.md).
+> **Source version: 0.3.0a11 (alpha prerelease).** See [current implementation and publication status](docs/STATUS.md) and [Implemented vs. planned](#implemented-vs-planned). The first [GitHub alpha v0.3.0a8](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8) and [PyPI 0.3.0a8](https://pypi.org/project/euromind-safeops/0.3.0a8/) were published on 2026-10-16. Original wheel/sdist hashes, registry installation and PyPI-verified publishing attestations were checked; see [delivery evidence](docs/audits/2026-10-16-first-alpha.md). Source 0.3.0a11 has additional features and is not a published package.
 >
 
 EuroMind SafeOps helps software maintainers plan engineering tasks, classify risk, obtain an explicit human approval, and run a small set of deterministic checks while maintaining a locally stored integrity and audit trail. Optional OpenAI, Anthropic Claude, and OpenAI-compatible providers can provide **advice only**; their text cannot be executed as code or shell commands by SafeOps.
@@ -30,6 +30,11 @@ EuroMind SafeOps is developed independently as a general-purpose open-source too
 - Portable CLI and `unittest`-based CI for Linux/macOS/Windows.
 
 ## Quick start
+
+Install the published alpha in a virtual environment with
+`python -m pip install euromind-safeops==0.3.0a8`.
+That release predates candidate previews, persisted proposals and staging copies.
+Use the source checkout below for the current 0.3.0a11 capabilities.
 
 In a shell at the root of this repository:
 

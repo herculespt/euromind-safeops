@@ -9,7 +9,7 @@ Releases futuras exigem autorização própria. O [estado](STATUS.md) e a
 [issue #31](https://github.com/herculespt/euromind-safeops/issues/31) registam a
 publicação efetiva. Aprovar uma validação de candidato não publica no PyPI.
 
-Primeira entrega alfa (16 de outubro de 2026): release GitHub e pacotes publicados; PyPI pendente. Consulta a [evidência verificada](audits/2026-10-16-first-alpha.md).
+Primeira entrega alfa (16 de outubro de 2026): release GitHub e [PyPI 0.3.0a8](https://pypi.org/project/euromind-safeops/0.3.0a8/) publicados, com hashes dos ficheiros originais iguais, instalação limpa pelo registo e atestações de publicação verificadas pelo PyPI. O código atual mantém a versão 0.3.0a11. Consulta a [evidência verificada](audits/2026-10-16-first-alpha.md).
 
 ## Revisão e pré-release GitHub
 
@@ -85,6 +85,13 @@ Configurar um publisher pendente para um projeto novo com estes campos exatos:
 | Repositório | euromind-safeops |
 | Nome do workflow | publish.yml |
 | Ambiente GitHub | pypi |
+
+Verificado em 16 de outubro de 2026: este publisher foi registado e utilizado
+com sucesso. O ambiente GitHub `pypi` permite apenas a branch selecionada `main`
+(uma branch, zero tags), sem bypass administrativo. Não tem segredos nem
+variáveis configurados. Não exige revisores enquanto existir um maintainer.
+Alterar esta relação de confiança ou reduzir proteções exige revisão expressa
+e a confirmação administrativa aplicável.
 
 Confirmar propriedade/disponibilidade do nome e rever a concessão exata antes
 de gravar. Um publisher pendente não reserva o nome. Guardar o workflow no GitHub

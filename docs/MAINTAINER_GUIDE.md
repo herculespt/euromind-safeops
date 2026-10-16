@@ -89,3 +89,16 @@ AI-generated patches or reviewed application.
 For [persisted proposals](PROPOSALS.md), review exact explicit plan paths, bindings, storage privacy and stale/tampered record failures. Keep candidate text/records/diffs out of public artifacts. Creation audit can fail after the record is saved; inspect local state before retrying. Application and AI generation remain planned.
 
 For [staging copies](STAGING.md), inspect exclusions, independent file writes, fingerprint confirmation and retained failure state. Never treat the receipt as a sandbox or original-source application approval. Do not delete partial stages automatically or publish their contents. Trusted staged checks require their own fresh approval; environment files/dependencies may need separate preparation.
+
+## Registry delivery observation — 2026-10-16
+
+The first [PyPI alpha 0.3.0a8](https://pypi.org/project/euromind-safeops/0.3.0a8/)
+is published; main source remains 0.3.0a11. The exact Trusted Publisher is
+`herculespt/euromind-safeops`, `publish.yml`, environment `pypi`. That environment
+allows only branch `main`, zero tags and no administrator bypass; there are no
+environment secrets/variables or required reviewers. Publication still requires
+manual dispatch with an explicit existing alpha release tag and `publish=true`.
+Keep these environment rules alongside main protection, inspect any trust change,
+and preserve immutable package bytes. Record distribution hashes, clean registry
+installation and actual publishing attestations separately from source/version
+and SafeOps execution approval. See [delivery evidence](audits/2026-10-16-first-alpha.md).

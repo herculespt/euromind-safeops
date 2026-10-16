@@ -12,9 +12,17 @@ foi publicada em 16 de outubro de 2026 no commit
 verificados. Os 12 jobs da main e a validação do candidato passaram; o wheel
 instalado passou 209 testes (3 ignorados por plataforma, zero falhas/erros).
 Consulta a [evidência datada](audits/2026-10-16-first-alpha.md).
-O workflow está preparado para PyPI, mas autenticação, registo do publisher e
-publicação efetiva continuam pendentes: o pedido de login foi interrompido.
-Não foram verificadas concessões na conta, instalação pelo registo ou atestações.
+O [PyPI 0.3.0a8](https://pypi.org/project/euromind-safeops/0.3.0a8/) foi publicado
+em 16 de outubro de 2026 através do Trusted Publisher autorizado. O workflow
+[38874124869](https://github.com/herculespt/euromind-safeops/actions/runs/38874124869)
+passou os três jobs: validação dos ficheiros originais, upload OIDC e verificação
+dos hashes/instalação limpa pelo registo. Ambos os ficheiros mostram atestações
+de publicação verificadas pelo PyPI. O ambiente `pypi` permite apenas a branch
+`main`, zero tags e nenhum bypass administrativo. As atestações identificam o
+commit do workflow de publicação `95a8bd51b2eb657233a9100f85c87be1b6548649`;
+o código do pacote mantém o commit imutável 0.3.0a8 indicado acima. Esta evidência
+é de proveniência da publicação; não demonstra builds reproduzíveis nem
+aprovações SafeOps assinadas.
 
 O código 0.3.0a11 acrescenta cópias locais separadas de propostas revistas; ainda não foi publicada uma nova release.
 
@@ -86,5 +94,5 @@ A versão atual 0.3.0a11 acrescenta [cópias locais separadas](STAGING.md), mant
 a [validação do âmbito](SCOPE.md) e o schema 1 predefinido.
 A ligação à versão invalida aprovações anteriores; a configuração de schema 2
 liga também os ficheiros selecionados. A restrição
-completa do sistema de ficheiros continua planeada. A release GitHub foi publicada;
-o PyPI mantém-se pendente, conforme o estado acima.
+completa do sistema de ficheiros continua planeada. A release GitHub e o pacote
+PyPI publicados são 0.3.0a8; a main contém código posterior, conforme o estado acima.
