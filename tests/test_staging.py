@@ -107,6 +107,7 @@ class StagingTests(unittest.TestCase):
     def test_environment_generated_git_and_original_state_omitted(self):
         (self.root / ".env").write_bytes(b"LOCAL_VALUE=example\n")
         (self.root / "src/.env.sample").write_bytes(b"VALUE=example\n")
+        (self.root / "src/.ENV.sample").write_bytes(b"VALUE=example\n")
         (self.root / ".git").write_bytes(b"gitdir: local-metadata\n")
         (self.root / "build").mkdir()
         (self.root / "build/output").write_bytes(b"generated")
@@ -114,7 +115,7 @@ class StagingTests(unittest.TestCase):
         (self.root / ".venv/tool").write_bytes(b"environment")
         self.prepare()
         copied = Path(self.stage()["workspace"])
-        for name in (".env", "src/.env.sample", ".git", "build", ".venv", ".safeops"):
+        for name in (".env", "src/.env.sample", "src/.ENV.sample", ".git", "build", ".venv", ".safeops"):
             self.assertFalse((copied / name).exists(), name)
 
     def test_existing_stage_collision_preserves_contents(self):

@@ -57,7 +57,8 @@ os caminhos dos candidatos continuam a rejeitar ligações. Cada caminho copiado
 passa a validação portátil e o descritor aberto tem de ser regular e corresponder
 à identidade inspecionada. Caminhos não suportados ou antecessores inseguros falham.
 
-Omite todos os componentes `.env` e `.env.*`, incluindo `.env.example`.
+Omite todos os componentes `.env` e `.env.*`, incluindo `.env.example`, sem
+distinguir maiúsculas/minúsculas em qualquer plataforma (inclui `.ENV.sample`).
 Não prepara candidatos dirigidos a esses ficheiros. Outros ficheiros podem conter
 credenciais ou texto sensível: estas exclusões não garantem ausência de segredos.
 Não contacta fornecedores nem faz upload. Qualquer partilha posterior exige

@@ -56,7 +56,8 @@ candidate paths still reject links. Every copied path undergoes portable scope
 preflight and each opened source descriptor must be regular and match its
 inspected identity. Unsupported paths or unsafe ancestors fail.
 
-All `.env` and `.env.*` components, including `.env.example`, are omitted.
+All `.env` and `.env.*` components, including `.env.example`, are omitted without
+case sensitivity on every platform (for example, `.ENV.sample` is omitted too).
 Candidates targeting them cannot be staged. Other files can contain credentials
 or sensitive text: these exclusions are not a secret-free guarantee. No provider
 request or upload is made. The operator must inspect any later sharing.

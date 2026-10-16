@@ -43,7 +43,8 @@ def _write_new(root: Path, relative: str, raw: bytes) -> None:
 
 
 def _environment_path(relative: str) -> bool:
-    return any(part == ".env" or part.startswith(".env.") for part in Path(relative).parts)
+    return any(part.casefold() == ".env" or part.casefold().startswith(".env.")
+               for part in Path(relative).parts)
 
 
 def stage_proposal(root: Path, proposal_id: str, confirmation: str) -> dict:
