@@ -1,10 +1,10 @@
 # Execution policy and upgrade compatibility
 
-<!-- safeops-version: 0.3.0a13 -->
+<!-- safeops-version: 0.3.0a14 -->
 
 [Português (Portugal)](pt-PT/EXECUTION.md)
 
-Current source version: **0.3.0a13**, alpha prerelease. This document describes
+Current source version: **0.3.0a14**, alpha prerelease. This document describes
 implemented behavior; see [status](STATUS.md) for exclusions and publication state.
 
 ## Configuration
@@ -39,7 +39,7 @@ See the [target guide](TARGETS.md) for the JSON example, limits and compatibilit
 Source 0.3.0a5 introduced optional global `--json` envelopes and aggregate CI summaries;
 see the [output contract](OUTPUT.md). Presentation does not change approval
 authority. Config schemas 1/2, plan schema 1 and approval schema 2 are retained;
-current source uses runner protocol 3 and lock protocol 1. The package-version
+current source uses runner protocol 4 and lock protocol 1. The package-version
 change requires a fresh plan/approval while preserving history. Invalid CLI arguments now return 2 from Python `main`; the
 subprocess status remains 2. Help/version remain text actions.
 
@@ -126,7 +126,7 @@ A persistent native guard covers approval/config/snapshot validation and checks.
 Normal completion/error removes only the unchanged owned marker; abrupt parent
 death releases the native lock but retains the blocking marker. The [lock guide](LOCKING.md)
 describes diagnostics, explicit archival recovery, legacy state and filesystem
-limits. Check failure is recorded in the local audit log. UTF-8 stdout/stderr capture remains bounded in the returned result.
+limits. Check failure is recorded in the local audit log. Returned UTF-8 stdout/stderr are truncated to their last 12,000 characters each; subprocess capture itself still buffers complete output in memory. Receipts exclude that output.
 
 Tests and discovery hooks execute trusted Python and may mutate files, terminate
 the interpreter with lower-level APIs, or manipulate results. This adapter does
@@ -156,3 +156,5 @@ changes with explicit historical-only context. Execution still requires a fresh
 reviewed plan and version-bound approval; see [staging inspection](STAGING.md).
 
 Source 0.3.0a13 adds read-only [current original-context review](STAGE_REVIEW.md). `review-stage` requires a matching stage and revalidates original/plan/base/configuration/target/version/contract bindings. `current` is a point-in-time observation, never execution/application approval. No approval is created or renewed. Existing version binding requires a fresh plan and explicit approval after upgrading.
+
+Source 0.3.0a14 adds [approved-check receipts](RUN_RECEIPTS.md). Runner protocol 4 binds receipt schema 1 and suppresses automatic import bytecode in fixed children. Bounded context observations run before execution and after each completed check; changes/unavailable context stop subsequent checks and prevent passed status. Final receipt follows guard cleanup and audit; operational failures retain incomplete evidence. `run` adds run ID/fingerprint/reasons; `inspect-run` reads historical metadata without current-source revalidation or approval. Compile-only receipts make no unit-test claim. Fresh plan/approval is required after upgrade.

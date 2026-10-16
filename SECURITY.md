@@ -1,12 +1,12 @@
 # Security Policy
 
-<!-- safeops-version: 0.3.0a13 -->
+<!-- safeops-version: 0.3.0a14 -->
 
 [Português (Portugal)](docs/pt-PT/SECURITY.md)
 
 ## Scope and maturity
 
-EuroMind SafeOps 0.3.0a13 is an **alpha developer tool**. It is not a sandbox, cannot ensure the safety of source code being tested, and must not be used to authorize production operations. The risk classifier and pattern scanner are best-effort heuristics.
+EuroMind SafeOps 0.3.0a14 is an **alpha developer tool**. It is not a sandbox, cannot ensure the safety of source code being tested, and must not be used to authorize production operations. The risk classifier and pattern scanner are best-effort heuristics.
 
 ## Reporting vulnerabilities
 
@@ -40,3 +40,5 @@ Matching unkeyed evidence is not authentication, current-original revalidation,
 passing tests, an execution approval or authorization to apply changes.
 
 `review-stage` separately revalidates current original-context bindings with bounded read-only observations and a matching copy prerequisite. Environment/selected-target bytes may be hashed locally but are never returned. Its `current` observation grants no approval, authentication or application authority. See [scope and race limits](docs/STAGE_REVIEW.md).
+
+Run intents/final receipts persist only bounded metadata, hashes and fixed outcomes, excluding captured output/task/advice/approval reasons. `inspect-run` is historical-only and never authenticates provenance or renews approval. Post-check observations stop changed/unavailable input sequences; audit opens reject hardlinks/reparse/nonregular files without FIFO blocking. Trusted tests retain filesystem/process access and unkeyed records remain mutable. See [run receipt limits](docs/RUN_RECEIPTS.md).

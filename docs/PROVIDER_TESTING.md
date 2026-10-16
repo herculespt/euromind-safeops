@@ -1,14 +1,14 @@
 # Provider validation and live-test procedure
 
-<!-- safeops-version: 0.3.0a13 -->
+<!-- safeops-version: 0.3.0a14 -->
 
 [Português (Portugal)](pt-PT/PROVIDER_TESTING.md)
 
-Current source: **0.3.0a13**, alpha prerelease. This is a validation record and
+Current source: **0.3.0a14**, alpha prerelease. This is a validation record and
 procedure, including separate verified live OpenAI and Anthropic requests. It does not imply a published release or universal provider/model validation.
 
-The live records below remain tied to source 0.3.0a2. Current 0.3.0a13
-original-context review, stage inspection, staging/proposals, locking/recovery, output/reporting, check-directory selection and path admission
+The live records below remain tied to source 0.3.0a2. Current 0.3.0a14
+approved-run receipts/inspection, original-context review, stage inspection, staging/proposals, locking/recovery, output/reporting, check-directory selection and path admission
 are verified offline, without another paid vendor request.
 
 ## Evidence — 2026-10-15

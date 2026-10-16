@@ -123,7 +123,7 @@ class TargetTests(unittest.TestCase):
     def test_generated_test_cache_requires_fresh_approval(self):
         plan_id = self.approved()
         self.assertEqual(run(self.root, plan_id)["status"], "passed")
-        # Test imports normally write bytecode. This is intentionally fingerprinted.
+        # Import bytecode is suppressed; explicitly generated selected files still bind approval.
         cache = self.root / "checks" / "__pycache__"
         cache.mkdir(exist_ok=True)
         (cache / "extra.bin").write_bytes(b"generated")
@@ -162,7 +162,7 @@ class TargetTests(unittest.TestCase):
             "class T(unittest.TestCase):\n def test_it(self): pass\n", encoding="utf-8")
         plan_id = self.approved()
         self.assertFalse(marker.exists())
-        self.assertEqual(run(self.root, plan_id)["status"], "passed")
+        self.assertEqual(run(self.root, plan_id)["status"], "changed-inputs")
         self.assertTrue(marker.exists())
 
     def test_outside_change_still_invalidates_approval(self):

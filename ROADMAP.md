@@ -2,8 +2,8 @@
 
 This roadmap is directional, not a promise of dates or delivered features.
 
-Current source version: **0.3.0a13** (alpha prerelease). See [status](docs/STATUS.md)
-and [PT-PT](docs/pt-PT/STATUS.md). The first [GitHub alpha](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8) and [PyPI 0.3.0a8](https://pypi.org/project/euromind-safeops/0.3.0a8/) were published on 2026-10-16. Registry hashes, clean installation and PyPI-verified publishing attestations were checked. See [delivery evidence](docs/audits/2026-10-16-first-alpha.md). Current source 0.3.0a13 remains unpublished.
+Current source version: **0.3.0a14** (alpha prerelease). See [status](docs/STATUS.md)
+and [PT-PT](docs/pt-PT/STATUS.md). The first [GitHub alpha](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8) and [PyPI 0.3.0a8](https://pypi.org/project/euromind-safeops/0.3.0a8/) were published on 2026-10-16. Registry hashes, clean installation and PyPI-verified publishing attestations were checked. See [delivery evidence](docs/audits/2026-10-16-first-alpha.md). Current source 0.3.0a14 remains unpublished.
 
 ## v0.1.0 — Initial open-source foundation (implemented)
 - [x] Packageable CLI, offline plans and specialist suggestions.
@@ -108,6 +108,14 @@ No tagged release or package publication is implied by this source version.
 - [x] Explicit current/stale/incompatible observations with sanitized errors; no file text, writes, execution, provider calls, approval renewal or original application.
 - [x] Offline and installed-wheel regressions, EN/PT-PT contracts, version/capability updates and required PR/main CI.
 
+## 0.3.0a14 — Approved-check receipts (implemented in source)
+- [x] Exclusive bounded run intent and schema-1 result receipt, linked to before/after plan/approval/configuration/source/selected-target/execution-contract hashes.
+- [x] Revalidate inputs after every completed check; distinguish passed, failed, timed-out, changed-inputs and incomplete, and stop before the next check on change/unavailable context.
+- [x] Finalize only after native-marker cleanup and audit append; retain incomplete evidence without automatic retry or deletion. Reject unsafe audit files with nonblocking regular-file opens.
+- [x] Read-only historical `inspect-run`, strict schema/fingerprint/outcome validation, no captured output or free-form private text in persisted receipts.
+- [x] Runner protocol 4 disables automatic import bytecode and binds receipt schema 1; config/plan/approval/lock schemas remain 1/2, 1, 2, 1.
+- [x] Offline/installed-wheel regressions, required CI and synchronized EN/PT-PT contracts, version and distribution validation.
+
 ## Next — Policy and integration hardening (planned)
 - [ ] OS-enforced workspace filesystem allowlists that restrict arbitrary reads; 0.3.0a4 check target selection does not implement this isolation boundary.
 - [ ] Broader OS/Python coverage profiles and reviewed report-artifact publication; Linux/Python 3.12 measurement and local JUnit/summaries are implemented.
@@ -127,6 +135,7 @@ No tagged release or package publication is implied by this source version.
 - [x] Separate local staging copies for reviewed candidates, with no source mutation (0.3.0a11).
 - [x] Verify staging receipts and detect later staged-file changes (0.3.0a12); [issue #42](https://github.com/herculespt/euromind-safeops/issues/42), without granting source-application or execution authority.
 - [x] Review current original-source compatibility before any application (0.3.0a13); [issue #45](https://github.com/herculespt/euromind-safeops/issues/45), without granting application or execution authority.
+- [x] Integrity-bound local results for approved checks (0.3.0a14); [issue #47](https://github.com/herculespt/euromind-safeops/issues/47), without granting application authority.
 - [ ] Isolated Git worktrees and OS-enforced filesystem scopes; local copies do not implement these boundaries.
 
 ## Long-term research directions

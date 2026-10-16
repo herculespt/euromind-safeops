@@ -1,10 +1,10 @@
 # Política de execução e compatibilidade
 
-<!-- safeops-version: 0.3.0a13 -->
+<!-- safeops-version: 0.3.0a14 -->
 
 [English](../EXECUTION.md)
 
-Versão atual do código: **0.3.0a13**, pré-versão alfa. Este guia descreve o que está
+Versão atual do código: **0.3.0a14**, pré-versão alfa. Este guia descreve o que está
 implementado; consulta o [estado](STATUS.md) para limitações e publicações.
 
 ## Configuração
@@ -39,7 +39,7 @@ inclui exemplo JSON, limites e compatibilidade.
 A versão 0.3.0a5 introduziu envelopes `--json` opcionais e resumos agregados do
 CI; consultar o [contrato da saída](OUTPUT.md). A apresentação não altera a
 autoridade de aprovação. Mantêm-se os schemas 1/2 de configuração, 1 de plano,
-2 de aprovação; a versão atual usa protocolo 3 do runner e 1 do bloqueio.
+2 de aprovação; a versão atual usa protocolo 4 do runner e 1 do bloqueio.
 A mudança de versão exige plano/aprovação novos, preservando o histórico. Argumentos inválidos devolvem agora 2 de `main` em
 Python; o código do processo mantém-se 2. Ajuda/versão continuam textuais.
 
@@ -161,3 +161,5 @@ Executar continua a exigir plano novo revisto e aprovação ligada à versão;
 consulta a [inspeção das cópias](STAGING.md).
 
 O código 0.3.0a13 acrescenta [revisão sem escrita do original atual](STAGE_REVIEW.md). `review-stage` exige cópia correspondente e revalida ligações do original/plano/bases/configuração/alvos/versão/contrato. `current` é uma observação pontual, nunca aprovação de execução/aplicação. Não cria nem renova aprovação. A ligação existente à versão exige plano novo e aprovação explícita após atualização.
+
+O código 0.3.0a14 acrescenta [recibos dos checks aprovados](RUN_RECEIPTS.md). O protocolo 4 do runner liga schema 1 dos recibos e suprime bytecode automático dos imports nos filhos fixos. Observações limitadas do contexto ocorrem antes da execução e após cada check concluído; alteração/contexto indisponível impede checks seguintes e estado passed. O recibo final exige limpeza do guard e auditoria concluídas; falhas operacionais preservam evidência incompleta. `run` acrescenta ID/fingerprint/motivos; `inspect-run` lê metadados históricos sem revalidar o original nem aprovar execução. Compile isolado não prova testes unitários. Atualizar exige plano/aprovação novos. O resultado devolve os últimos 12 000 caracteres de stdout/stderr por check, mas a captura do subprocesso continua integral em memória; os recibos não guardam esse output.

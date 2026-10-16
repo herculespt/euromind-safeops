@@ -1,6 +1,6 @@
-# Separate local staging copies — 0.3.0a13
+# Separate local staging copies — 0.3.0a14
 
-<!-- safeops-version: 0.3.0a13 -->
+<!-- safeops-version: 0.3.0a14 -->
 
 [Português (Portugal)](pt-PT/STAGING.md)
 
@@ -108,8 +108,8 @@ A receipt records point-in-time content; later editing/check execution can chang
 it. `inspect-stage` provides the bounded comparison below; authenticated
 provenance, write isolation and transactional filesystem guarantees remain absent.
 
-Config 1/2, plan 1, approval 2, envelope 1 and runner 3/lock 1 remain supported.
-Upgrading to 0.3.0a13 requires fresh version-bound proposals and execution
+Config 1/2, plan 1, approval 2, envelope 1 and runner 4/lock 1 remain supported.
+Upgrading to 0.3.0a14 requires fresh version-bound proposals and execution
 approval; history is retained without migration. Applying changes to the original
 workspace, rollback, isolated Git worktrees and OS sandboxing remain planned.
 See [status](STATUS.md) and [roadmap](../ROADMAP.md).
@@ -164,3 +164,5 @@ Mutable, unkeyed evidence can be rewritten by a hostile local writer.
 ## Current original-context review
 
 Source 0.3.0a13 adds `review-stage STAGE_ID` at the original root. It requires a matching historical copy, then compares current original, candidate bases, plan, configuration, selected targets, installed version and execution contract. See [results, bounds and compatibility](STAGE_REVIEW.md). It never applies changes or renews approval; `inspect-stage` remains historical only.
+
+Approved checks in a staged copy now create independent [run receipts](RUN_RECEIPTS.md), bound to that copy’s observed inputs and its own fresh approval. Historical receipt inspection does not certify current original compatibility or authorize applying the staged candidate.

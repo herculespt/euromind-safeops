@@ -1,6 +1,6 @@
-# Relatórios JUnit locais — 0.3.0a13
+# Relatórios JUnit locais — 0.3.0a14
 
-<!-- safeops-version: 0.3.0a13 -->
+<!-- safeops-version: 0.3.0a14 -->
 
 [English](../REPORTING.md)
 
