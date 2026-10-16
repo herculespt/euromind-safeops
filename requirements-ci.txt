@@ -1,3 +1,5 @@
-# Development/CI only; reviewed against upstream documentation on 2026-10-15.
-# Keep the runtime package dependency-free.
-coverage==7.16.2
+# Reviewed wheel closure: CPython 3.12 / Linux x86_64 / glibc >=2.34.
+# Install with scripts/locked_tools.py; refresh policy: docs/TOOLING.md.
+# Other platforms/Python versions are unsupported by this tooling lock.
+coverage==7.16.2 --hash=sha256:5375ebd99038021b35e99dc88255022912c06565d316212f4a576e4b08d30f5d
+setuptools==83.0.0 --hash=sha256:29b23c360f22f414dc7336bb39178cc7bcbf6021ed2733cde173f09dba19abb3

@@ -1,6 +1,6 @@
-# Cobertura medida no CI — 0.3.0a17
+# Cobertura medida no CI — 0.3.0a18
 
-<!-- safeops-version: 0.3.0a17 -->
+<!-- safeops-version: 0.3.0a18 -->
 
 [English](../COVERAGE.md)
 
@@ -45,18 +45,16 @@ o mínimo; não o reduzir para esconder uma regressão.
 
 ## Repetir localmente — ambiente de confiança
 
-Instalar o projeto editável e `python -m pip install -r requirements-ci.txt`.
-Escolher um diretório temporário existente **fora do checkout**. Em PowerShell,
-depois de definir `$SafeOpsReportDir` com esse diretório:
+Preparar o ambiente suportado pela [política de ferramentas](TOOLING.md) e instalar o projeto editável com `python -m pip --isolated install --no-index --no-deps --no-build-isolation -e .`. Não usar o lock Linux noutras plataformas. Escolher diretório temporário existente **fora do checkout** e definir `SAFEOPS_REPORT_DIR`. Em Bash:
 
-```powershell
-$env:COVERAGE_FILE = Join-Path $SafeOpsReportDir "safeops-coverage"
-$env:COVERAGE_RCFILE = Join-Path (Get-Location) "pyproject.toml"
+```bash
+export COVERAGE_FILE="$SAFEOPS_REPORT_DIR/safeops-coverage"
+export COVERAGE_RCFILE="$PWD/pyproject.toml"
 python -m coverage erase
-python -m coverage run -m euromind_safeops.ci_runner --tests tests --summary "$SafeOpsReportDir/summary.md" --junit "$SafeOpsReportDir/junit.xml"
+python -m coverage run -m euromind_safeops.ci_runner --tests tests --summary "$SAFEOPS_REPORT_DIR/summary.md" --junit "$SAFEOPS_REPORT_DIR/junit.xml"
 python -m coverage combine --quiet
-python -m coverage json -o "$SafeOpsReportDir/coverage.json"
-python -m coverage xml -o "$SafeOpsReportDir/coverage.xml"
+python -m coverage json -o "$SAFEOPS_REPORT_DIR/coverage.json"
+python -m coverage xml -o "$SAFEOPS_REPORT_DIR/coverage.xml"
 python -m coverage report
 ```
 

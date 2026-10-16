@@ -2,6 +2,14 @@
 
 The format follows Keep a Changelog conventions; versions follow Semantic Versioning where practicable.
 
+## 0.3.0a18 — 2026-10-16
+
+- Lock direct/transitive coverage and release tooling to reviewed PyPI wheel SHA-256 identities for CPython 3.12/Linux x86_64/glibc >=2.34. Preserve empty runtime dependencies.
+- Install in dedicated tool environments with mandatory hash checking, binary-only packages, disabled external pip configuration/cache and exact post-install inventory/dependency validation; unsupported profiles or missing/changed dependencies fail without unrestricted fallback.
+- Keep the nine OS/Python tests and deliberate minimum/latest backend compatibility matrix; prepare release tools from workflow source before historical tag checkout, retaining original published bytes and authority.
+- Add offline real pip hash/transitive refusal regressions, registry-verified controlled refresh and EN/PT-PT policy/status/CI/release documentation. Source version changes require fresh approval; no new release publication.
+- PT-PT: ferramentas de manutenção com dependências transitivas e hashes revistos, instalação restrita e testes reais de recusa; documentação, versão e acompanhamento atualizados.
+
 ## 0.3.0a17 — 2026-10-16
 
 - Recheck final Windows job accounting until zero within the existing cleanup budget; preserve normal failed-check results across transitional positive counts.

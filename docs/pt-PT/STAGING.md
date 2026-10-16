@@ -1,6 +1,6 @@
-# Cópias locais de preparação — 0.3.0a17
+# Cópias locais de preparação — 0.3.0a18
 
-<!-- safeops-version: 0.3.0a17 -->
+<!-- safeops-version: 0.3.0a18 -->
 
 [English](../STAGING.md)
 
@@ -112,7 +112,7 @@ descrita abaixo; não há prova autenticada de autoria, isolamento de escrita ou
 transação garantida.
 
 Mantêm-se configuração 1/2, plano 1, aprovação 2, envelope 1 e protocolos runner
-5/bloqueio 3. Atualizar para 0.3.0a17 exige propostas e aprovação de execução
+5/bloqueio 3. Atualizar para 0.3.0a18 exige propostas e aprovação de execução
 novas ligadas à versão. Preserva o histórico sem migração. [Aplicação revista ao original e rollback conservador](APPLICATION.md) estão implementados separadamente. Worktrees Git isoladas e sandboxing continuam planeados.
 Consulta o [estado](STATUS.md) e o [roadmap](../../ROADMAP.md).
 

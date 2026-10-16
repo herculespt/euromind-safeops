@@ -1,6 +1,6 @@
-# Reviewed original application — 0.3.0a17
+# Reviewed original application — 0.3.0a18
 
-<!-- safeops-version: 0.3.0a17 -->
+<!-- safeops-version: 0.3.0a18 -->
 
 [Português (Portugal)](pt-PT/APPLICATION.md)
 

@@ -2,8 +2,8 @@
 
 This roadmap is directional, not a promise of dates or delivered features.
 
-Current source version: **0.3.0a17** (alpha prerelease). See [status](docs/STATUS.md)
-and [PT-PT](docs/pt-PT/STATUS.md). The first [GitHub alpha](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8) and [PyPI 0.3.0a8](https://pypi.org/project/euromind-safeops/0.3.0a8/) were published on 2026-10-16. Registry hashes, clean installation and PyPI-verified publishing attestations were checked. See [delivery evidence](docs/audits/2026-10-16-first-alpha.md). Current source 0.3.0a17 remains unpublished.
+Current source version: **0.3.0a18** (alpha prerelease). See [status](docs/STATUS.md)
+and [PT-PT](docs/pt-PT/STATUS.md). The first [GitHub alpha](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8) and [PyPI 0.3.0a8](https://pypi.org/project/euromind-safeops/0.3.0a8/) were published on 2026-10-16. Registry hashes, clean installation and PyPI-verified publishing attestations were checked. See [delivery evidence](docs/audits/2026-10-16-first-alpha.md). Current source 0.3.0a18 remains unpublished.
 
 ## v0.1.0 — Initial open-source foundation (implemented)
 - [x] Packageable CLI, offline plans and specialist suggestions.
@@ -145,6 +145,12 @@ No tagged release or package publication is implied by this source version.
 - [x] Cooperative owned process-group/Job Object supervision and termination with bounded streams/cleanup (0.3.0a16, [issue #51](https://github.com/herculespt/euromind-safeops/issues/51)); deliberate POSIX escapes and hostile-code containment are outside that boundary.
 - [ ] Independently verified automatic recovery, hostile/escaped-process containment and distributed/network-filesystem leases; current recovery remains explicitly human-confirmed and local.
 - [ ] Expand the PT-PT documentation alongside English documentation.
+
+## 0.3.0a18 — Reviewed maintainer tooling locks (implemented in source)
+- [x] Complete direct/transitive wheel identities for two CPython 3.12/Linux x86_64/glibc profiles, mandatory hashes and exact inventory/dependency validation; [issue #53](https://github.com/herculespt/euromind-safeops/issues/53).
+- [x] Dedicated coverage/release tool environments, unsupported-profile refusal, real offline hash/missing-dependency tests and controlled registry-verified refresh; [policy](docs/TOOLING.md).
+- [x] EN/PT-PT tooling/CI/release/security/status contracts and archive inclusion; minimum/latest backend compatibility remains a documented deliberate exception.
+- [ ] Complete build reproducibility and independent history-wide secret audit remain separate work.
 
 ## Future — Controlled agent workflows (planned; no version or date committed)
 - [ ] Specialist plugin protocol and capability manifests.
