@@ -1,10 +1,10 @@
 # Política de execução e compatibilidade
 
-<!-- safeops-version: 0.3.0a9 -->
+<!-- safeops-version: 0.3.0a10 -->
 
 [English](../EXECUTION.md)
 
-Versão atual do código: **0.3.0a9**, pré-versão alfa. Este guia descreve o que está
+Versão atual do código: **0.3.0a10**, pré-versão alfa. Este guia descreve o que está
 implementado; consulta o [estado](STATUS.md) para limitações e publicações.
 
 ## Configuração
@@ -143,4 +143,8 @@ cobertura ou código hostil e não implementa isolamento seguro.
 Consulta a [ADR 0002](adr/0002-versioned-check-contract.md), o
 [guia de CI](CI.md) e as [referências primárias](../EXECUTION.md#design-and-references).
 
-A versão 0.3.0a9 acrescenta [previews locais](PREVIEW.md). Não exige workspace inicializado nem aprova/aplica/executa candidatos. A execução continua a exigir plano novo revisto e aprovação explícita ligada à versão instalada; sem migração ou renovação automática.
+A versão 0.3.0a9 introduziu [previews locais](PREVIEW.md). Não exige workspace inicializado nem aprova/aplica/executa candidatos. A execução continua a exigir plano novo revisto e aprovação explícita ligada à versão instalada; sem migração ou renovação automática.
+
+## Propostas locais e compatibilidade da versão
+
+A versão 0.3.0a10 acrescenta [propostas locais persistentes](PROPOSALS.md). O schema 1 da proposta é separado da aprovação de execução. `propose` exige caminhos de ficheiros explícitos exatos no plano; isto não restringe as verificações fixas. `review-proposal` valida novamente as ligações e devolve diffs sem aplicação, aprovação ou verificações. Preserva os registos antigos; esta versão continua a exigir plano novo revisto e aprovação expressa. Os registos de propostas têm limite de leitura próprio de 260 096 bytes; plano/configuração/aprovação mantêm 256 000 bytes.

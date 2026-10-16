@@ -1,6 +1,6 @@
-# Advisory scope paths — 0.3.0a9
+# Advisory scope paths — 0.3.0a10
 
-<!-- safeops-version: 0.3.0a9 -->
+<!-- safeops-version: 0.3.0a10 -->
 
 [Português (Portugal)](pt-PT/SCOPE.md)
 
@@ -68,3 +68,5 @@ this change makes no additional billable request.
 See [execution compatibility](EXECUTION.md), [status](STATUS.md),
 [Python pathlib](https://docs.python.org/3.11/library/pathlib.html) and
 [Microsoft path naming](https://learn.microsoft.com/en-us/windows/win32/fileio/naming-a-file).
+
+[Local proposals](PROPOSALS.md) require each proposed file to exactly match an explicit plan `--path`; directory entries do not cover descendants. This proposal-only rule does not change the advisory scope or fixed-check targets described above.

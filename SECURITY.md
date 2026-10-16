@@ -1,12 +1,12 @@
 # Security Policy
 
-<!-- safeops-version: 0.3.0a9 -->
+<!-- safeops-version: 0.3.0a10 -->
 
 [Português (Portugal)](docs/pt-PT/SECURITY.md)
 
 ## Scope and maturity
 
-EuroMind SafeOps 0.3.0a9 is an **alpha developer tool**. It is not a sandbox, cannot ensure the safety of source code being tested, and must not be used to authorize production operations. The risk classifier and pattern scanner are best-effort heuristics.
+EuroMind SafeOps 0.3.0a10 is an **alpha developer tool**. It is not a sandbox, cannot ensure the safety of source code being tested, and must not be used to authorize production operations. The risk classifier and pattern scanner are best-effort heuristics.
 
 ## Reporting vulnerabilities
 
@@ -29,3 +29,5 @@ There is no guaranteed response-time SLA. No bug bounty is offered.
 - Configuration schema 1 remains supported; approval schema 2 binds the version and fixed execution contract. Existing approvals are not silently migrated. See [execution policy](docs/EXECUTION.md).
 
 [Preview output](docs/PREVIEW.md) contains local file text; do not publish it blindly. Candidate hashes are integrity records, not signatures or approval.
+
+[Local proposal records](docs/PROPOSALS.md) contain full proposed text. Keep them private and out of Git. Recomputed local hashes cannot authenticate a malicious writer; successful review does not grant application or execution authority.

@@ -1,6 +1,6 @@
-# Architecture — 0.3.0a9
+# Architecture — 0.3.0a10
 
-<!-- safeops-version: 0.3.0a9 -->
+<!-- safeops-version: 0.3.0a10 -->
 
 ## Data flow
 
@@ -28,6 +28,7 @@ flowchart TD
 | `core.py` | Workspace path hygiene, shared strict UTF-8 JSON decoder, storage, file snapshotting, audit |
 | `scope.py` | Portable advisory path syntax, link/reparse checks and lifecycle preflight |
 | `preview.py` | Read-only local text replacement validation, exact base hashes and unified diffs; no persisted state or execution authority |
+| `proposals.py` | Local candidate persistence, plan/context bindings and read-only stale/integrity review; no execution authority |
 | `planning.py` | Rule-based risk and role suggestions, plan fingerprinting |
 | `providers.py` | Offline, native OpenAI Responses, Anthropic Messages and compatible non-executable advice |
 | `execution.py` | Config validation, approval and strict fixed check commands |
@@ -50,6 +51,7 @@ See [reporting](REPORTING.md).
   config.json
   plans/<12hex>.json
   approvals/<12hex>.json
+  proposals/<12hex>.json
   audit.jsonl
   run.guard  # persistent empty native-lock file; never unlink
   run.lock   # owned run marker; retained after abrupt death/initialization failure
@@ -91,3 +93,5 @@ It never runs checks or changes plan/approval history.
 The project favors transparency, no third-party runtime dependencies and deterministic gates over autonomy. See [ADR 0001](adr/0001-approval-first.md), [ADR 0002](adr/0002-versioned-check-contract.md), [execution policy](EXECUTION.md) and [current status](STATUS.md). Autonomous patch workflows remain planned.
 
 [Candidate preview](PREVIEW.md) is a separate read-only path from local JSON to validated diffs. It does not enter the plan/approval/run data flow, call providers or write audit/workspace files.
+
+[Local proposals](PROPOSALS.md) extend candidate inspection with a stored copy and plan/workspace/configuration/selected-target/contract bindings. Creation writes only the proposal and a content-free audit event. Review recomputes context and diffs without writes. No edge to patch application or check approval is implemented.

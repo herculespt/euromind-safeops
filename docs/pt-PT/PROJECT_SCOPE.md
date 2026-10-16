@@ -1,10 +1,10 @@
 # Âmbito e origem do projeto
 
-<!-- safeops-version: 0.3.0a9 -->
+<!-- safeops-version: 0.3.0a10 -->
 
 [English](../PROJECT_SCOPE.md)
 
-O EuroMind SafeOps 0.3.0a9 é um projeto open source original e autónomo: uma
+O EuroMind SafeOps 0.3.0a10 é um projeto open source original e autónomo: uma
 ferramenta genérica de linha de comandos para políticas e verificações em fluxos
 de desenvolvimento. O [estado de implementação](STATUS.md) distingue as
 capacidades existentes, o trabalho futuro e as publicações efetivas.
@@ -31,3 +31,5 @@ verificar eventuais obrigações contratuais perante empregadores ou terceiros.
 Código, exemplos, artefactos gerados e licenciamento devem ser revistos antes
 da publicação. O caráter público do repositório não autoriza a divulgação de
 software proprietário nem de informação confidencial.
+
+As [propostas locais persistentes](PROPOSALS.md) ligam substituições escritas manualmente a um plano explícito inalterado e permitem revisão sem escrita. Aplicação ao código e geração com IA continuam planeadas.

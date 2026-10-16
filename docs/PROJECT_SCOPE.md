@@ -1,10 +1,10 @@
 # Project scope and provenance
 
-<!-- safeops-version: 0.3.0a9 -->
+<!-- safeops-version: 0.3.0a10 -->
 
 [Português (Portugal)](pt-PT/PROJECT_SCOPE.md)
 
-EuroMind SafeOps 0.3.0a9 is an original, independent, generic command-line policy and verification tool for development workflows. The [status](STATUS.md) distinguishes implemented capabilities from future work and public releases.
+EuroMind SafeOps 0.3.0a10 is an original, independent, generic command-line policy and verification tool for development workflows. The [status](STATUS.md) distinguishes implemented capabilities from future work and public releases.
 
 ## Public components
 
@@ -23,3 +23,5 @@ EuroMind SafeOps 0.3.0a9 is an original, independent, generic command-line polic
 ## IP review before publication
 
 The project founder should confirm ownership of every contribution and verify no employer or third-party contractual rights are affected. Review all code, examples, generated artifacts and licensing before publication. The project repository can be public while proprietary applications remain private.
+
+[Persisted local proposals](PROPOSALS.md) bind manually authored candidate replacements to an unchanged explicit plan and support read-only review. Code application and AI-generated candidates remain planned.

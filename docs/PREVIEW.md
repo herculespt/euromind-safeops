@@ -1,6 +1,6 @@
-# Local candidate previews — 0.3.0a9
+# Local candidate previews — 0.3.0a10
 
-<!-- safeops-version: 0.3.0a9 -->
+<!-- safeops-version: 0.3.0a10 -->
 
 [Português (Portugal)](pt-PT/PREVIEW.md)
 
@@ -86,6 +86,8 @@ This is a point-in-time local check, not an atomic filesystem snapshot or OS
 isolation. Concurrent changes after preview, hard links and hostile filesystem
 races are not prevented. General unified-patch imports, new/deleted files,
 renames, binary/CRLF/no-final-newline edits, automatic AI candidate generation,
-persisted proposal lifecycle, reviewed application/rollback and sandboxing
+reviewed application/rollback and sandboxing
 remain planned. [Existing execution approvals](EXECUTION.md) are independent;
 upgrading to this version still needs a fresh reviewed plan and explicit approval.
+
+Persisted [plan-bound local proposals](PROPOSALS.md) are now available separately. `preview` itself remains stateless and does not initialize or write `.safeops`.

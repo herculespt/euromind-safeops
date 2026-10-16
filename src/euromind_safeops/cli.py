@@ -13,6 +13,7 @@ from .execution import APPROVAL_SCHEMA_VERSION, CONFIG_SCHEMA_VERSION, approve, 
 from .locking import lock_status, recover_lock
 from .planning import create_plan, load_plan, specialization, validate_task
 from .preview import preview_candidate
+from .proposals import create_proposal, review_proposal
 from .providers import offline_advice, remote_advice, provider_status
 from .scope import validate_scope_paths
 from .scanning import scan
@@ -59,6 +60,11 @@ def make_parser() -> argparse.ArgumentParser:
     commands.add_parser("scan", help="Best-effort secret pattern scan, file/line only")
     preview = commands.add_parser("preview", help="Validate local candidate replacements and show read-only diffs")
     preview.add_argument("candidate", type=Path, help="Local schema-1 candidate JSON file; never sent to providers")
+    proposal = commands.add_parser("propose", help="Record a local candidate bound to an unchanged plan")
+    proposal.add_argument("plan_id")
+    proposal.add_argument("candidate", type=Path, help="Local candidate JSON; exact explicit plan paths required")
+    proposal_review = commands.add_parser("review-proposal", help="Revalidate a stored proposal and show diffs")
+    proposal_review.add_argument("proposal_id")
     recovery = commands.add_parser("recover-lock", help="Archive a retained marker after verifying no checks are running")
     recovery.add_argument("--confirm", required=True, help="Repeat the exact doctor marker fingerprint")
     recovery.add_argument("--reason", required=True)
@@ -119,6 +125,10 @@ def _execute(args: argparse.Namespace) -> tuple[dict, int, list[str]]:
     if args.command == "preview":
         return preview_candidate(root, args.candidate), 0, []
     workspace(root)
+    if args.command == "propose":
+        return create_proposal(root, args.plan_id, args.candidate), 0, []
+    if args.command == "review-proposal":
+        return review_proposal(root, args.proposal_id), 0, []
     if args.command == "recover-lock":
         return recover_lock(root, args.confirm, args.reason, args.confirm_no_running_checks), 0, []
     if args.command == "plan":

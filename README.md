@@ -1,6 +1,6 @@
 # EuroMind SafeOps
 
-<!-- safeops-version: 0.3.0a9 -->
+<!-- safeops-version: 0.3.0a10 -->
 
 **A safety-focused, provider-agnostic engineering orchestration CLI.**
 
@@ -8,7 +8,7 @@
 ![Status](https://img.shields.io/badge/status-alpha-orange)
 ![License](https://img.shields.io/badge/license-Apache--2.0-blue)
 
-> **Source version: 0.3.0a9 (alpha prerelease).** See [current implementation and publication status](docs/STATUS.md) and [Implemented vs. planned](#implemented-vs-planned). [First GitHub alpha v0.3.0a8](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8) was published on 2026-10-16 with verified wheel/sdist/checksums. PyPI authentication and publisher registration remain pending; see [delivery evidence](docs/audits/2026-10-16-first-alpha.md).
+> **Source version: 0.3.0a10 (alpha prerelease).** See [current implementation and publication status](docs/STATUS.md) and [Implemented vs. planned](#implemented-vs-planned). [First GitHub alpha v0.3.0a8](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8) was published on 2026-10-16 with verified wheel/sdist/checksums. PyPI authentication and publisher registration remain pending; see [delivery evidence](docs/audits/2026-10-16-first-alpha.md).
 >
 
 EuroMind SafeOps helps software maintainers plan engineering tasks, classify risk, obtain an explicit human approval, and run a small set of deterministic checks while maintaining a locally stored integrity and audit trail. Optional OpenAI, Anthropic Claude, and OpenAI-compatible providers can provide **advice only**; their text cannot be executed as code or shell commands by SafeOps.
@@ -61,7 +61,7 @@ safeops --root examples/demo_project run YOUR_PLAN_ID
 **Upgrading from 0.2.0:** keep the workspace and its history. Valid schema-1 configuration remains supported, but old approvals are rejected. Review the current source, create a new plan and approve it explicitly. See [execution policy and compatibility](docs/EXECUTION.md).
 
 The existing version binding also requires new execution approval when upgrading
-to 0.3.0a9. Schema-1 defaults remain supported; optional schema 2 selects
+to 0.3.0a10. Schema-1 defaults remain supported; optional schema 2 selects
 [fixed-check directories](docs/TARGETS.md). Plan schema 1 and approval schema 2
 remain supported, with an additional target digest required for schema-2 config.
 
@@ -96,11 +96,15 @@ safeops --root examples/demo_project plan "Review the design" \
 Read-only candidate inspection: `safeops --root PROJECT --json preview CANDIDATE.json`.
 See the [candidate format and limits](docs/PREVIEW.md); no initialization, model request or execution approval is involved.
 
+Local proposal lifecycle: `propose PLAN_ID CANDIDATE.json` and `review-proposal PROPOSAL_ID`.
+Requires an initialized workspace and exact explicit plan file paths; see [proposal bindings and limits](docs/PROPOSALS.md).
+
 ## Implemented vs. planned
 
-| Capability | 0.3.0a9 |
+| Capability | 0.3.0a10 |
 |---|---|
 | CLI + offline task planning | Implemented |
+| Persisted plan-bound local proposals | Implemented; exact explicit plan paths, stale-context rejection and read-only review; [contract](docs/PROPOSALS.md) |
 | Local candidate diff previews | Implemented; exact per-file hashes, existing UTF-8 text replacements, no writes or approval; [contract](docs/PREVIEW.md) |
 | Optional structured CLI output | Implemented; global `--json`, schema-1 envelope, handled errors/warnings and stable exit codes; [contract](docs/OUTPUT.md) |
 | Aggregate CI summaries and local JUnit XML | Implemented and validated across nine matrix and two installed-wheel jobs; synthetic identifiers, fixed outcomes; [contract](docs/REPORTING.md). [Coverage gate](docs/COVERAGE.md) implemented on Linux/Python 3.12; report uploads remain planned |

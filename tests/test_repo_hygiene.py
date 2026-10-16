@@ -37,6 +37,7 @@ class RepositoryHygieneTests(unittest.TestCase):
             "docs/REPORTING.md", "docs/pt-PT/REPORTING.md",
             "docs/COVERAGE.md", "docs/pt-PT/COVERAGE.md",
             "docs/PREVIEW.md", "docs/pt-PT/PREVIEW.md",
+            "docs/PROPOSALS.md", "docs/pt-PT/PROPOSALS.md",
             "docs/PACKAGE.md", "docs/RELEASING.md", "docs/pt-PT/RELEASING.md",
         ):
             with self.subTest(path=name):
@@ -81,6 +82,8 @@ class RepositoryHygieneTests(unittest.TestCase):
             "src/euromind_safeops/junit.py", "docs/REPORTING.md", "docs/pt-PT/REPORTING.md",
             "docs/COVERAGE.md", "docs/pt-PT/COVERAGE.md",
             "docs/PREVIEW.md", "docs/pt-PT/PREVIEW.md",
+            "docs/PROPOSALS.md", "docs/pt-PT/PROPOSALS.md",
+            "src/euromind_safeops/proposals.py", "tests/test_proposals.py",
             "requirements-ci.txt", ".github/workflows/ci.yml", ".github/CODEOWNERS",
             "requirements-release.txt", ".github/workflows/publish.yml", ".secrets.baseline", "scripts/release_secrets.py", "tests/test_release_gate.py",
         ):
