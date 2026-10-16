@@ -1,0 +1,259 @@
+name: Alpha package publication
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Published alpha tag; leave empty for candidate validation'
+        required: false
+        type: string
+        default: ''
+      publish:
+        description: 'Publish to PyPI after configuring the exact Trusted Publisher'
+        required: true
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: alpha-package-publication
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Validate alpha distributions
+    if: github.repository == 'herculespt/euromind-safeops' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      actions: read
+    outputs:
+      version: ${{ steps.release.outputs.version }}
+      sha: ${{ steps.release.outputs.sha }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.0
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12'
+      - name: Verify exact alpha source and main CI
+        id: release
+        env:
+          RELEASE_TAG: ${{ inputs.tag }}
+          PUBLISH_REQUESTED: ${{ inputs.publish }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          python - <<'PY'
+          import json, os, re, subprocess, tomllib, urllib.request
+          from pathlib import Path
+          tag = os.environ['RELEASE_TAG']
+          publish = os.environ['PUBLISH_REQUESTED'] == 'true'
+          assert not publish or tag, 'Publishing requires an existing release tag'
+          if tag:
+              assert re.fullmatch(r'v\d+\.\d+\.\d+a\d+', tag), 'Only alpha tags are supported'
+              ref = 'refs/tags/' + tag + '^{commit}'
+          else:
+              ref = os.environ['GITHUB_SHA']
+          sha = subprocess.check_output(['git', 'rev-parse', '--verify', ref], text=True).strip()
+          subprocess.run(['git', 'merge-base', '--is-ancestor', sha, 'origin/main'], check=True)
+          def api(path):
+              request = urllib.request.Request('https://api.github.com/repos/herculespt/euromind-safeops/' + path,
+                  headers={'Authorization': 'Bearer ' + os.environ['GITHUB_TOKEN'], 'Accept': 'application/vnd.github+json'})
+              with urllib.request.urlopen(request, timeout=30) as response:
+                  return json.load(response)
+          runs = api('actions/workflows/ci.yml/runs?event=push&head_sha=' + sha + '&per_page=100')['workflow_runs']
+          runs = [r for r in runs if r['head_sha'] == sha and r['head_branch'] == 'main']
+          assert runs, 'No main push CI for this exact commit'
+          run = max(runs, key=lambda item: item['id'])
+          assert run['status'] == 'completed' and run['conclusion'] == 'success', 'Latest main CI did not pass'
+          jobs = api('actions/runs/' + str(run['id']) + '/jobs?per_page=100')['jobs']
+          assert any(j['name'] == 'quality-gate' and j['conclusion'] == 'success' for j in jobs)
+          if tag:
+              release = api('releases/tags/' + tag)
+              assert not release['draft'] and release['prerelease'] and release['tag_name'] == tag
+          subprocess.run(['git', 'checkout', '--detach', sha], check=True)
+          version = tomllib.loads(Path('pyproject.toml').read_text(encoding='utf-8'))['project']['version']
+          assert re.fullmatch(r'\d+\.\d+\.\d+a\d+', version)
+          assert not tag or tag == 'v' + version, 'Tag/version mismatch'
+          with Path(os.environ['GITHUB_OUTPUT']).open('a', encoding='utf-8') as output:
+              output.write('version=' + version + '\nsha=' + sha + '\n')
+          print('Exact alpha source, ancestry and main CI verified: ' + sha)
+          PY
+      - name: Install pinned release tools
+        run: python -m pip install -r requirements-release.txt
+      - name: Independent source secret scan (no network verification)
+        run: |
+          python - <<'PY'
+          import json, subprocess
+          scan = subprocess.run(['detect-secrets', 'scan', '--no-verify'], capture_output=True, text=True, check=True)
+          assert not json.loads(scan.stdout)['results'], 'Independent scanner findings require review'
+          print('Independent tracked-source secret scan passed')
+          PY
+      - name: Build candidate distributions
+        if: inputs.tag == ''
+        run: python -m build --no-isolation
+      - name: Retrieve exact reviewed release distributions
+        if: inputs.tag != ''
+        env:
+          RELEASE_TAG: ${{ inputs.tag }}
+          RELEASE_VERSION: ${{ steps.release.outputs.version }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          python - <<'PY'
+          import hashlib, json, os, re, urllib.request
+          from pathlib import Path
+          tag, version = os.environ['RELEASE_TAG'], os.environ['RELEASE_VERSION']
+          request = urllib.request.Request('https://api.github.com/repos/herculespt/euromind-safeops/releases/tags/' + tag,
+              headers={'Authorization': 'Bearer ' + os.environ['GITHUB_TOKEN'], 'Accept': 'application/vnd.github+json'})
+          with urllib.request.urlopen(request, timeout=30) as response:
+              release = json.load(response)
+          expected = {'euromind_safeops-' + version + '-py3-none-any.whl', 'euromind_safeops-' + version + '.tar.gz'}
+          assets = {item['name']: item for item in release['assets']}
+          assert set(assets) == expected | {'SHA256SUMS'}, 'Unexpected release assets'
+          def download(name):
+              url = assets[name]['browser_download_url']
+              assert url.startswith('https://github.com/herculespt/euromind-safeops/releases/download/' + tag + '/')
+              with urllib.request.urlopen(url, timeout=60) as response:
+                  content = response.read(16_000_001)
+              assert len(content) <= 16_000_000, 'Asset too large'
+              return content
+          sums = {}
+          for line in download('SHA256SUMS').decode('utf-8').splitlines():
+              digest, name = line.split()
+              assert re.fullmatch(r'[0-9a-f]{64}', digest) and name.startswith('packages/')
+              name = name.removeprefix('packages/')
+              assert name in expected and name not in sums
+              sums[name] = digest
+          assert set(sums) == expected
+          Path('dist').mkdir()
+          for name in sorted(expected):
+              content = download(name)
+              assert hashlib.sha256(content).hexdigest() == sums[name], 'Release checksum mismatch'
+              (Path('dist') / name).write_bytes(content)
+          print('Exact GitHub release package bytes verified')
+          PY
+      - name: Independent scan of expanded distributions
+        run: |
+          python - <<'PY'
+          import json, os, subprocess, tarfile, zipfile
+          from pathlib import Path
+          root = Path(os.environ['RUNNER_TEMP']) / 'expanded-release'
+          root.mkdir()
+          for package in Path('dist').iterdir():
+              if package.suffix == '.whl':
+                  with zipfile.ZipFile(package) as archive:
+                      archive.extractall(root / 'wheel')
+              else:
+                  with tarfile.open(package) as archive:
+                      archive.extractall(root / 'sdist', filter='data')
+          scan = subprocess.run(['detect-secrets', 'scan', '--all-files', '--no-verify', str(root)], capture_output=True, text=True, check=True)
+          assert not json.loads(scan.stdout)['results'], 'Distribution scanner findings require review'
+          print('Independent expanded-distribution secret scan passed')
+          PY
+      - name: Validate metadata and installed wheel outside checkout
+        run: |
+          python -m twine check --strict dist/*
+          python -m venv "$RUNNER_TEMP/release-wheel"
+          "$RUNNER_TEMP/release-wheel/bin/python" -m pip install --no-index --no-deps dist/*.whl
+          cd "$RUNNER_TEMP"
+          "$RUNNER_TEMP/release-wheel/bin/python" -I -m euromind_safeops --version
+          "$RUNNER_TEMP/release-wheel/bin/python" -I -m euromind_safeops.ci_runner --tests "$GITHUB_WORKSPACE/tests" --junit "$RUNNER_TEMP/release-junit.xml"
+      - name: Verify identities and create checksums
+        env:
+          RELEASE_VERSION: ${{ steps.release.outputs.version }}
+        run: |
+          python - <<'PY'
+          import hashlib, os, shutil
+          from email.parser import BytesParser
+          from pathlib import Path
+          from zipfile import ZipFile
+          version = os.environ['RELEASE_VERSION']
+          expected = {'euromind_safeops-' + version + '-py3-none-any.whl', 'euromind_safeops-' + version + '.tar.gz'}
+          files = list(Path('dist').iterdir())
+          assert {p.name for p in files} == expected
+          with ZipFile(next(p for p in files if p.suffix == '.whl')) as archive:
+              metadata = BytesParser().parsebytes(archive.read(next(n for n in archive.namelist() if n.endswith('/METADATA'))))
+              assert metadata['Name'] == 'euromind-safeops' and metadata['Version'] == version
+              assert metadata['License-Expression'] == 'Apache-2.0' and not metadata.get_all('Requires-Dist')
+          destination = Path('release-dist/packages')
+          destination.mkdir(parents=True)
+          lines = []
+          for source in sorted(files):
+              target = destination / source.name
+              shutil.copyfile(source, target)
+              lines.append(hashlib.sha256(target.read_bytes()).hexdigest() + '  packages/' + target.name)
+          Path('release-dist/SHA256SUMS').write_text('\n'.join(lines) + '\n', encoding='utf-8')
+          print('Distribution identities and SHA-256 verified')
+          PY
+      - name: Store validated packages only
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: alpha-distributions
+          path: release-dist/
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0
+
+  publish:
+    name: Publish alpha via PyPI OIDC
+    needs: build
+    if: inputs.publish && inputs.tag != '' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment: pypi
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: alpha-distributions
+          path: release-dist/
+      - name: Verify transferred bytes
+        working-directory: release-dist
+        run: sha256sum --check SHA256SUMS
+      - name: Publish with short-lived identity and attestations
+        uses: pypa/gh-action-pypi-publish@dc37677b2e1c63e2034f94d8a5b11f265b73ba33 # v1.14.2
+        with:
+          packages-dir: release-dist/packages/
+          attestations: true
+
+  verify:
+    name: Verify published registry bytes and installation
+    needs: [build, publish]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: alpha-distributions
+          path: release-dist/
+      - name: Compare registry hashes and install the exact alpha
+        env:
+          RELEASE_VERSION: ${{ needs.build.outputs.version }}
+        run: |
+          python - <<'PY'
+          import hashlib, json, os, urllib.request
+          from pathlib import Path
+          version = os.environ['RELEASE_VERSION']
+          with urllib.request.urlopen('https://pypi.org/pypi/euromind-safeops/' + version + '/json', timeout=30) as response:
+              data = json.load(response)
+          assert data['info']['version'] == version
+          expected = {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in Path('release-dist/packages').iterdir()}
+          assert {p['filename']: p['digests']['sha256'] for p in data['urls']} == expected
+          print('Published registry filenames and SHA-256 verified')
+          PY
+          python -m venv "$RUNNER_TEMP/registry-wheel"
+          "$RUNNER_TEMP/registry-wheel/bin/python" -m pip install --no-cache-dir --no-deps --index-url https://pypi.org/simple "euromind-safeops==$RELEASE_VERSION"
+          cd "$RUNNER_TEMP"
+          "$RUNNER_TEMP/registry-wheel/bin/python" -I -c 'import importlib.metadata, os; assert importlib.metadata.version("euromind-safeops") == os.environ["RELEASE_VERSION"]'
+          "$RUNNER_TEMP/registry-wheel/bin/python" -I -m euromind_safeops --version

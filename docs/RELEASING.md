@@ -1,42 +1,105 @@
-# Release procedure
+# Alpha release and package procedure — 0.3.0a8
 
-There is **no claim that a GitHub Release or PyPI distribution already exists**. Repository commits are not release tags, and successful CI does not publish software.
+<!-- safeops-version: 0.3.0a8 -->
 
-## Preconditions
+[Português (Portugal)](pt-PT/RELEASING.md)
 
-- `main` is protected and `quality-gate` is required.
-- The intended release scope and risk are reviewed in a pull request.
-- Versions in `pyproject.toml` and `src/euromind_safeops/__init__.py` agree.
-- CLI help, current EN/PT-PT document markers, [status](STATUS.md), roadmap and changelog agree; dated audit baselines remain historical.
-- Execution-contract changes have an explicit compatibility decision; approvals are never silently migrated.
-- `CHANGELOG.md`, `README.md`, support notes, and provider docs describe what is implemented, with unresolved limitations stated clearly.
-- No private credentials, proprietary code or source-tree runtime `.safeops` data are included.
+The maintainer authorized this first alpha delivery on 2026-10-15. Future
+releases require their own authorization. See [status](STATUS.md) and
+[issue #31](https://github.com/herculespt/euromind-safeops/issues/31) for actual
+publication evidence. A successful candidate validation does not publish to PyPI.
 
-## Local checks
+## Review and GitHub release
 
-```bash
-python -m pip install -e .
-python -m unittest discover -s tests -v
-python -m compileall -q src tests
-safeops --root . scan
-python -m pip wheel --no-deps --wheel-dir dist .
-```
+Merge through a reviewed PR, with active main protection and all required
+checks passing. Verify the exact source/version, EN/PT-PT documentation,
+license, public source contents and alpha limits. Preserve dated evidence and
+Git history. Build tools are pinned in requirements-release.txt; transitive
+dependencies and runner images are not fully locked.
 
-A built-in scanner is not sufficient for secure release. Inspect `git diff`, use an independent secret scanner, and review the source distribution for unexpected assets.
+The package uses bilingual [PACKAGE.md](PACKAGE.md), with absolute links for
+registry display. Check wheel/sdist metadata with twine check --strict, run the
+full installed-wheel suite outside the checkout, and inspect source/distributions
+with the built-in and independent secret scanners. Disable network credential
+verification. Scanners do not prove that every secret format is absent.
 
-## Publish a GitHub release (human maintainer)
+Create a new matching tag, such as v0.3.0a8, on the verified exact commit with
+successful main push CI. Do not reuse/move public tags. Publish as Pre-release
+with EN/PT-PT features, test/coverage evidence, upgrade approval requirements and
+separate PyPI status. Attach the validated wheel, sdist and SHA256SUMS. Verify
+the tag/commit, pre-release flag, notes and downloadable asset names/bytes.
+GitHub's generated source ZIP/tar are distinct from built registry distributions.
 
-1. Merge the release PR after all required checks pass.
-2. In GitHub, open **Releases → Draft a new release**.
-3. Create a new version tag matching the approved package version on the verified release commit; do not reuse tags. Use an alpha suffix such as `v0.3.0a8` for the current source milestone if that prerelease is separately authorized for publication.
-4. Use the matching changelog section as release notes and explicitly label the release **Alpha** or **Pre-release** if applicable.
-5. Verify that the released tag matches the tested source commit and that license, archive and documentation are present.
-6. Publish the GitHub Release only after the maintainer has checked the tag, notes and source archives.
+## Manual package workflow
 
-## Package registry publication
+[Alpha package publication](../.github/workflows/publish.yml) is manual only
+from this repository's main. It does not run on PRs, tags or releases.
+The publish input defaults to false. An empty tag validates a candidate only.
+An explicit tag requires an existing published alpha GitHub Release.
 
-PyPI publishing, signing, attestations and trusted publishing have **not** been configured. Do not publish with a long-lived API token or automate this step until trusted-publishing permissions, package ownership, provenance and a separate release security review are implemented. Avoid describing the project as released on PyPI until the registry entry has been verified.
+The build job verifies exact source ancestry on main, the latest successful
+main push CI for that SHA, quality-gate and alpha tag/package version equality.
+Candidate validation builds from source. A tagged run retrieves the exact
+wheel/sdist/SHA256SUMS from the GitHub Release, validates filenames and hashes
+and retains those reviewed package bytes for PyPI. It checks metadata, runs the
+installed-wheel full suite, and stores only packages/checksums as a seven-day
+Actions artifact. Test, JUnit, coverage and local-state reports are not uploaded.
 
-## Rollback
+With publish=true and an explicit alpha tag, a separate job in environment
+pypi verifies transferred SHA-256 and invokes the pinned PyPA publisher.
+Only that job receives id-token: write; it has no checkout or long-lived token.
+The build has contents/actions read only. A final job compares actual PyPI
+filenames/hashes and installs the exact version from the real registry into a
+fresh environment, checking metadata and the CLI version. Upload is not undone
+by a later verification failure. Inspect existing registry state before retrying;
+never silently skip/replace an existing version.
 
-Do not rewrite a public release tag after publication. If a fault is found, open an Issue/advisory as appropriate, prepare a reviewed fix, and issue a new patch version. For security problems, follow the private disclosure process.
+### Reviewed Actions — 2026-10-15
+
+| Action | Release | Official commit |
+|---|---|---|
+| upload-artifact | v7.0.2 | cf430e030ddbb5b0abf93d22962f4752f3646cd9 |
+| download-artifact | v8.0.2 | 9000827ccba6bdab643e8b6fd33ac0654aef8333 |
+| PyPA publisher | v1.14.2 | dc37677b2e1c63e2034f94d8a5b11f265b73ba33 |
+
+Checkout/setup-python retain [CI](CI.md) pins. The publisher requests
+attestations, but do not claim verified provenance until real registry evidence
+has been examined. Reports remain separate from this package-only transfer.
+
+## PyPI account prerequisite
+
+Authenticate securely to the intended account, with email/2FA as PyPI requires.
+Never put credentials or recovery codes into chat, Git or logs.
+For a new project, register the following exact pending Trusted Publisher:
+
+| Field | Value |
+|---|---|
+| PyPI project | euromind-safeops |
+| GitHub owner | herculespt |
+| Repository | euromind-safeops |
+| Workflow filename | publish.yml |
+| GitHub environment | pypi |
+
+Confirm ownership/name availability and review the precise trust grant before
+saving it. Pending registration does not reserve the project name. Committing
+the workflow alone grants no PyPI access. No API token fallback is configured.
+Verify the publisher and applicable environment protections before dispatching
+publication. After a successful candidate dry run, publish only the authorized
+alpha and record URLs, filenames, hashes, installation and actual attestations.
+Keep PyPI pending if authentication, registration or verification is incomplete.
+
+## Later changes
+
+Never rewrite public tags or distribution bytes. Prepare a reviewed fix and a
+newly authorized version for defects; use private security reporting as needed.
+Documentation-only status updates can follow through PR without changing the
+released version. Distinguish the immutable release commit from current main.
+Source/configuration/version changes still require a new reviewed SafeOps
+plan and explicit approval; no automatic renewal or history rewriting.
+
+## Primary references
+
+- [Pending publishers](https://docs.pypi.org/trusted-publishers/creating-a-project-through-oidc/)
+- [Trusted Publishing](https://docs.pypi.org/trusted-publishers/using-a-publisher/)
+- [Trust security model](https://docs.pypi.org/trusted-publishers/security-model/)
+- [Official PyPA publisher](https://github.com/pypa/gh-action-pypi-publish)

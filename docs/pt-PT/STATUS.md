@@ -8,7 +8,9 @@
 3.11–3.13 em Linux, Windows e macOS. Não existem dependências externas em
 execução. O código já está disponível neste repositório GitHub. Nesta revisão,
 a primeira release alfa está em preparação, com autorização do maintainer.
-A publicação no PyPI ainda exige configuração, autenticação e verificação.
+O workflow manual alfa e os metadados do pacote estão preparados. Autenticação
+PyPI, registo do publisher e publicação efetiva continuam pendentes: o pedido de
+login foi interrompido e não foi feita nenhuma concessão na conta.
 A versão do código, a release GitHub e o pacote instalável pelo PyPI são
 entregas distintas. A evidência de publicação será registada aqui após validação.
 

@@ -36,6 +36,7 @@ class RepositoryHygieneTests(unittest.TestCase):
             "docs/LOCKING.md", "docs/pt-PT/LOCKING.md",
             "docs/REPORTING.md", "docs/pt-PT/REPORTING.md",
             "docs/COVERAGE.md", "docs/pt-PT/COVERAGE.md",
+            "docs/PACKAGE.md", "docs/RELEASING.md", "docs/pt-PT/RELEASING.md",
         ):
             with self.subTest(path=name):
                 text = (ROOT / name).read_text(encoding="utf-8")
@@ -79,9 +80,20 @@ class RepositoryHygieneTests(unittest.TestCase):
             "src/euromind_safeops/junit.py", "docs/REPORTING.md", "docs/pt-PT/REPORTING.md",
             "docs/COVERAGE.md", "docs/pt-PT/COVERAGE.md",
             "requirements-ci.txt", ".github/workflows/ci.yml", ".github/CODEOWNERS",
+            "requirements-release.txt", ".github/workflows/publish.yml",
         ):
             with self.subTest(path=name):
                 self.assertTrue((ROOT / name).is_file(), name)
+
+    def test_registry_readme_matches_installed_metadata_and_uses_absolute_links(self):
+        project = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))["project"]
+        contents = (ROOT / project["readme"]).read_text(encoding="utf-8")
+        metadata = importlib.metadata.metadata("euromind-safeops")
+        self.assertEqual(metadata["Description-Content-Type"], "text/markdown")
+        self.assertEqual(metadata["Description"].strip(), contents.strip())
+        links = re.findall(r"\[[^\]]+\]\(([^)]+)\)", contents)
+        self.assertTrue(links)
+        self.assertTrue(all(link.startswith("https://") for link in links), "Registry links need absolute URLs")
 
     def test_relative_document_links_and_utf8(self):
         local_links = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
