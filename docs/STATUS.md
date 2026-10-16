@@ -6,13 +6,14 @@
 
 **Current source version: 0.3.0a8 — alpha prerelease.** Python 3.11–3.13 is
 covered by CI on Linux, Windows and macOS. No third-party runtime dependencies.
-The code is available in this GitHub repository. At this milestone review, the
-first alpha GitHub Release is being prepared with maintainer authorization;
-The manual alpha workflow and registry metadata are prepared; PyPI account
-authentication, publisher registration and actual registry publication remain
-pending. The sign-in request was interrupted, and no account grant was made.
-A repository version, GitHub Release and installable PyPI package are separate
-deliveries. Publication evidence will be recorded here after verification.
+The first [GitHub alpha v0.3.0a8](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8)
+was published on 2026-10-16 at `035c36b1b646a6c75178d5db6c19d8c55d624dcf`,
+with verified wheel, sdist and SHA256SUMS. All twelve main CI jobs and candidate
+validation passed; the installed release wheel passed 209 tests (3 platform skips,
+zero failures/errors). See [dated evidence](audits/2026-10-16-first-alpha.md).
+The workflow is prepared for PyPI, but account authentication, publisher registration
+and actual registry publication remain pending. The sign-in request was interrupted;
+no account grant, registry installation or attestation was verified.
 
 ## Implemented
 

@@ -3,7 +3,7 @@
 This roadmap is directional, not a promise of dates or delivered features.
 
 Current source version: **0.3.0a8** (alpha prerelease). See [status](docs/STATUS.md)
-and [PT-PT](docs/pt-PT/STATUS.md). Source milestones are not published releases.
+and [PT-PT](docs/pt-PT/STATUS.md). The first [GitHub alpha](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8) was published on 2026-10-16; PyPI remains pending. See [delivery evidence](docs/audits/2026-10-16-first-alpha.md).
 
 ## v0.1.0 — Initial open-source foundation (implemented)
 - [x] Packageable CLI, offline plans and specialist suggestions.
@@ -81,7 +81,8 @@ No tagged release or package publication is implied by this source version.
 - [ ] OS-enforced workspace filesystem allowlists that restrict arbitrary reads; 0.3.0a4 check target selection does not implement this isolation boundary.
 - [ ] Broader OS/Python coverage profiles and reviewed report-artifact publication; Linux/Python 3.12 measurement and local JUnit/summaries are implemented.
 - [x] Manual alpha package validation/publishing workflow, pinned Actions, registry-ready bilingual metadata and exact source/CI/hash checks.
-- [ ] First authorized alpha GitHub Release and actual PyPI publisher registration/publication, with verified delivery evidence; work in progress.
+- [x] First authorized GitHub alpha v0.3.0a8, exact tested commit, verified wheel/sdist/checksums and bilingual delivery evidence (2026-10-16).
+- [ ] Actual PyPI publisher registration/publication and registry installation/attestations; blocked on secure account authentication and precise trust-grant review.
 - [ ] Live compatible/local-model checks and broader account/model validation; the separate OpenAI and Anthropic smokes do not establish universal compatibility.
 - [ ] Broader test adapters without permitting AI-generated commands.
 - [ ] Process-tree supervision/termination, independently verified automatic recovery and distributed/network-filesystem leases; current recovery remains explicitly human-confirmed and local.

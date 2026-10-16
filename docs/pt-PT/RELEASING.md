@@ -9,6 +9,8 @@ Releases futuras exigem autorização própria. O [estado](STATUS.md) e a
 [issue #31](https://github.com/herculespt/euromind-safeops/issues/31) registam a
 publicação efetiva. Aprovar uma validação de candidato não publica no PyPI.
 
+Primeira entrega alfa (16 de outubro de 2026): release GitHub e pacotes publicados; PyPI pendente. Consulta a [evidência verificada](audits/2026-10-16-first-alpha.md).
+
 ## Revisão e pré-release GitHub
 
 Integrar por PR com proteção main ativa e todos os checks aprovados. Rever

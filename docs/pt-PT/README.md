@@ -48,7 +48,9 @@ válida de schema 1 continua suportada, mas as aprovações antigas não podem s
 reutilizadas: revê o código, cria um plano novo e aprova-o expressamente. Consulta
 a [política de execução e compatibilidade](EXECUTION.md) e o
 [estado do que está implementado e planeado](STATUS.md). A versão do código não
-significa que exista uma release ou publicação de pacote.
+cria uma publicação automaticamente. A [primeira alpha GitHub](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8)
+foi publicada em 16 de outubro de 2026; o PyPI mantém-se pendente. Consulta a
+[evidência de entrega](audits/2026-10-16-first-alpha.md).
 
 Atualizar para 0.3.0a8 exige novo plano/aprovação pela ligação à versão.
 Mantém-se o schema 1 predefinido; o schema 2 opcional seleciona diretórios e
