@@ -1,10 +1,10 @@
 # Execution policy and upgrade compatibility
 
-<!-- safeops-version: 0.3.0a15 -->
+<!-- safeops-version: 0.3.0a16 -->
 
 [Português (Portugal)](pt-PT/EXECUTION.md)
 
-Current source version: **0.3.0a15**, alpha prerelease. This document describes
+Current source version: **0.3.0a16**, alpha prerelease. This document describes
 implemented behavior; see [status](STATUS.md) for exclusions and publication state.
 
 ## Configuration
@@ -39,7 +39,7 @@ See the [target guide](TARGETS.md) for the JSON example, limits and compatibilit
 Source 0.3.0a5 introduced optional global `--json` envelopes and aggregate CI summaries;
 see the [output contract](OUTPUT.md). Presentation does not change approval
 authority. Config schemas 1/2, plan schema 1 and approval schema 2 are retained;
-current source uses runner protocol 4 and lock protocol 2. The package-version
+current source uses runner protocol 5 and lock protocol 3. The package-version
 change requires a fresh plan/approval while preserving history. Invalid CLI arguments now return 2 from Python `main`; the
 subprocess status remains 2. Help/version remain text actions.
 
@@ -126,7 +126,7 @@ A persistent native guard covers approval/config/snapshot validation and checks.
 Normal completion/error removes only the unchanged owned marker; abrupt parent
 death releases the native lock but retains the blocking marker. The [lock guide](LOCKING.md)
 describes diagnostics, explicit archival recovery, legacy state and filesystem
-limits. Check failure is recorded in the local audit log. Returned UTF-8 stdout/stderr are truncated to their last 12,000 characters each; subprocess capture itself still buffers complete output in memory. Receipts exclude that output.
+limits. Check failure is recorded in the local audit log. Returned UTF-8 stdout/stderr are truncated to their last 12,000 characters each; capture now drains bounded 65,536-byte tails in private readers rather than retaining complete output in memory. Receipts exclude that output.
 
 Tests and discovery hooks execute trusted Python and may mutate files, terminate
 the interpreter with lower-level APIs, or manipulate results. This adapter does
@@ -159,4 +159,6 @@ Source 0.3.0a13 adds read-only [current original-context review](STAGE_REVIEW.md
 
 Source 0.3.0a14 adds [approved-check receipts](RUN_RECEIPTS.md). Runner protocol 4 binds receipt schema 1 and suppresses automatic import bytecode in fixed children. Bounded context observations run before execution and after each completed check; changes/unavailable context stop subsequent checks and prevent passed status. Final receipt follows guard cleanup and audit; operational failures retain incomplete evidence. `run` adds run ID/fingerprint/reasons; `inspect-run` reads historical metadata without current-source revalidation or approval. Compile-only receipts make no unit-test claim. Fresh plan/approval is required after upgrade.
 
-Source 0.3.0a15 adds [explicit reviewed application and conservative rollback](APPLICATION.md). Both staged fixed checks must pass with unchanged current bindings and the same configuration as the original; exact fresh human confirmation and native guards precede private backup/journal preparation and source writes. Any retained application marker blocks new approved runs/applications. Read-only inspection and separately confirmed rollback preserve evidence and refuse observed human edits. No multi-file transaction, power-loss guarantee, Git operation, provider request or OS isolation is added. Runner remains 4; lock protocol is 2. Fresh version-bound execution approval is required.
+Source 0.3.0a15 adds [explicit reviewed application and conservative rollback](APPLICATION.md). Both staged fixed checks must pass with unchanged current bindings and the same configuration as the original; exact fresh human confirmation and native guards precede private backup/journal preparation and source writes. Any retained application marker blocks new approved runs/applications. Read-only inspection and separately confirmed rollback preserve evidence and refuse observed human edits. No multi-file transaction, power-loss guarantee, Git operation, provider request or OS isolation is added. That milestone used runner 4/lock 2. Fresh version-bound execution approval is required.
+
+Source 0.3.0a16 adds [owned fixed-check supervision](SUPERVISION.md): a gated launcher, POSIX group/PID anchor or Windows kill-on-close job, native completion/termination checks and continuously drained bounded stream tails. Timeout includes ordinary owned descendants and pipe retention; uncertain cleanup retains run.lock and incomplete intent without a final receipt. Runner 5/lock 3 require fresh version-bound approval. This covers cooperating same-group POSIX descendants/job members, not deliberate group/session escapes, hostile-code isolation or automatic stale recovery. The guide defines normal, timeout, cancellation and abrupt-parent-death limits.

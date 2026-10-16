@@ -42,7 +42,7 @@ class RunReceiptTests(unittest.TestCase):
         return plan['id']
 
     def execute(self, effect=None):
-        with patch('euromind_safeops.execution.subprocess.run', side_effect=effect, return_value=subprocess.CompletedProcess([], 0, 'private stdout fixture', 'private stderr fixture')):
+        with patch('euromind_safeops.execution.run_check', side_effect=effect, return_value=subprocess.CompletedProcess([], 0, 'private stdout fixture', 'private stderr fixture')):
             return run(self.root, self.plan_id)
 
     def owned(self, run_id):
@@ -446,7 +446,7 @@ class RunReceiptTests(unittest.TestCase):
 
     def test_run_cli_operational_error_never_returns_success(self):
         output = io.StringIO()
-        with patch('euromind_safeops.execution.subprocess.run', side_effect=OSError('private process error')), contextlib.redirect_stdout(output):
+        with patch('euromind_safeops.execution.run_check', side_effect=OSError('private process error')), contextlib.redirect_stdout(output):
             code = main(['--json', '--root', str(self.root), 'run', self.plan_id])
         payload = json.loads(output.getvalue())
         self.assertEqual(code, 2)
@@ -478,7 +478,7 @@ class RunReceiptTests(unittest.TestCase):
         for path in (plan, self.config):
             before = path.read_bytes()
             path.write_bytes(b' ' * 256001)
-            with patch('euromind_safeops.execution.subprocess.run') as child, self.assertRaises(SafeOpsError):
+            with patch('euromind_safeops.execution.run_check') as child, self.assertRaises(SafeOpsError):
                 run(self.root, self.plan_id)
             child.assert_not_called()
             path.write_bytes(before)
@@ -507,7 +507,7 @@ class RunReceiptTests(unittest.TestCase):
             (self.state / 'runs').symlink_to(outside, target_is_directory=True)
         except OSError:
             self.skipTest('Symlinks unavailable')
-        with patch('euromind_safeops.execution.subprocess.run') as child, self.assertRaises(SafeOpsError):
+        with patch('euromind_safeops.execution.run_check') as child, self.assertRaises(SafeOpsError):
             run(self.root, self.plan_id)
         child.assert_not_called()
         self.assertEqual(list(outside.iterdir()), [])

@@ -1,10 +1,10 @@
 # Política de execução e compatibilidade
 
-<!-- safeops-version: 0.3.0a15 -->
+<!-- safeops-version: 0.3.0a16 -->
 
 [English](../EXECUTION.md)
 
-Versão atual do código: **0.3.0a15**, pré-versão alfa. Este guia descreve o que está
+Versão atual do código: **0.3.0a16**, pré-versão alfa. Este guia descreve o que está
 implementado; consulta o [estado](STATUS.md) para limitações e publicações.
 
 ## Configuração
@@ -39,7 +39,7 @@ inclui exemplo JSON, limites e compatibilidade.
 A versão 0.3.0a5 introduziu envelopes `--json` opcionais e resumos agregados do
 CI; consultar o [contrato da saída](OUTPUT.md). A apresentação não altera a
 autoridade de aprovação. Mantêm-se os schemas 1/2 de configuração, 1 de plano,
-2 de aprovação; a versão atual usa protocolo 4 do runner e 2 do bloqueio.
+2 de aprovação; a versão atual usa protocolo 5 do runner e 3 do bloqueio.
 A mudança de versão exige plano/aprovação novos, preservando o histórico. Argumentos inválidos devolvem agora 2 de `main` em
 Python; o código do processo mantém-se 2. Ajuda/versão continuam textuais.
 
@@ -162,6 +162,8 @@ consulta a [inspeção das cópias](STAGING.md).
 
 O código 0.3.0a13 acrescenta [revisão sem escrita do original atual](STAGE_REVIEW.md). `review-stage` exige cópia correspondente e revalida ligações do original/plano/bases/configuração/alvos/versão/contrato. `current` é uma observação pontual, nunca aprovação de execução/aplicação. Não cria nem renova aprovação. A ligação existente à versão exige plano novo e aprovação explícita após atualização.
 
-O código 0.3.0a14 acrescenta [recibos dos checks aprovados](RUN_RECEIPTS.md). O protocolo 4 do runner liga schema 1 dos recibos e suprime bytecode automático dos imports nos filhos fixos. Observações limitadas do contexto ocorrem antes da execução e após cada check concluído; alteração/contexto indisponível impede checks seguintes e estado passed. O recibo final exige limpeza do guard e auditoria concluídas; falhas operacionais preservam evidência incompleta. `run` acrescenta ID/fingerprint/motivos; `inspect-run` lê metadados históricos sem revalidar o original nem aprovar execução. Compile isolado não prova testes unitários. Atualizar exige plano/aprovação novos. O resultado devolve os últimos 12 000 caracteres de stdout/stderr por check, mas a captura do subprocesso continua integral em memória; os recibos não guardam esse output.
+O código 0.3.0a14 acrescenta [recibos dos checks aprovados](RUN_RECEIPTS.md). O protocolo 4 do runner liga schema 1 dos recibos e suprime bytecode automático dos imports nos filhos fixos. Observações limitadas do contexto ocorrem antes da execução e após cada check concluído; alteração/contexto indisponível impede checks seguintes e estado passed. O recibo final exige limpeza do guard e auditoria concluídas; falhas operacionais preservam evidência incompleta. `run` acrescenta ID/fingerprint/motivos; `inspect-run` lê metadados históricos sem revalidar o original nem aprovar execução. Compile isolado não prova testes unitários. Atualizar exige plano/aprovação novos. Nessa versão, o resultado devolvia os últimos 12 000 caracteres de stdout/stderr por check, com captura integral em memória; os recibos não guardavam esse output. A supervisão abaixo substitui essa captura por caudas limitadas.
 
-O código 0.3.0a15 acrescenta [aplicação revista e rollback conservador](APPLICATION.md). Ambos os checks fixos da cópia têm de passar com ligações atuais inalteradas e configuração igual à do original; confirmação humana exata e guards nativos precedem backups/journal privados e escrita. Marcador pendente bloqueia checks aprovados/aplicações novos. Inspeção sem escrita e rollback confirmado separadamente preservam evidência e recusam edições humanas observadas. Sem transação de vários ficheiros, garantia de energia/armazenamento, operações Git, pedidos a fornecedores ou isolamento pelo SO. Runner 4/lock 2; aprovação de execução nova ligada à versão obrigatória.
+O código 0.3.0a15 acrescenta [aplicação revista e rollback conservador](APPLICATION.md). Ambos os checks fixos da cópia têm de passar com ligações atuais inalteradas e configuração igual à do original; confirmação humana exata e guards nativos precedem backups/journal privados e escrita. Marcador pendente bloqueia checks aprovados/aplicações novos. Inspeção sem escrita e rollback confirmado separadamente preservam evidência e recusam edições humanas observadas. Sem transação de vários ficheiros, garantia de energia/armazenamento, operações Git, pedidos a fornecedores ou isolamento pelo SO. Nesse marco, runner 4/lock 2; aprovação de execução nova ligada à versão obrigatória.
+
+O código 0.3.0a16 acrescenta [supervisão dos processos próprios](SUPERVISION.md): launcher bloqueado à entrada, grupo/âncora PID POSIX ou job Windows com kill-on-close, confirmação nativa e caudas de output drenadas continuamente com limite. Timeout inclui descendentes normais próprios e pipes retidos; limpeza incerta mantém run.lock e intent incompleto sem recibo final. Runner 5/lock 3 exigem aprovação nova ligada à versão. Abrange descendentes cooperantes no grupo POSIX/membros do job, sem conter escapes deliberados de grupo/sessão, isolar código hostil ou decidir recuperação automática. O guia define conclusão, timeout, cancelamento e morte abrupta do principal.

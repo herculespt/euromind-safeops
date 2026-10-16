@@ -131,7 +131,7 @@ class LockingTests(unittest.TestCase):
     def test_existing_legacy_marker_blocks_without_mutation(self):
         plan_id = self.approved()
         self.marker.write_bytes(b"123\n")
-        with patch("euromind_safeops.execution.subprocess.run") as child:
+        with patch("euromind_safeops.execution.run_check") as child:
             with self.assertRaisesRegex(SafeOpsError, "marker exists"):
                 run(self.root, plan_id)
             child.assert_not_called()
@@ -296,7 +296,7 @@ class LockingTests(unittest.TestCase):
     def test_native_failure_never_falls_back_to_unprotected_execution(self):
         plan_id = self.approved()
         with patch("euromind_safeops.locking._native_lock", side_effect=SafeOpsError("unavailable")), \
-                patch("euromind_safeops.execution.subprocess.run") as child:
+                patch("euromind_safeops.execution.run_check") as child:
             with self.assertRaises(SafeOpsError):
                 run(self.root, plan_id)
             child.assert_not_called()

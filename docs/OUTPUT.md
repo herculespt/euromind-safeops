@@ -1,6 +1,6 @@
-# Structured CLI output — 0.3.0a15
+# Structured CLI output — 0.3.0a16
 
-<!-- safeops-version: 0.3.0a15 -->
+<!-- safeops-version: 0.3.0a16 -->
 
 [Português (Portugal)](pt-PT/OUTPUT.md)
 
@@ -28,7 +28,7 @@ in this mode:
 ```json
 {
   "schema": 1,
-  "safeops_version": "0.3.0a15",
+  "safeops_version": "0.3.0a16",
   "command": "scan",
   "ok": true,
   "exit_code": 0,
@@ -80,8 +80,8 @@ checks. Treat saved JSON as potentially sensitive. This is not a new redaction
 service, signature, machine authorization or sandbox. No provider request is
 needed for the output feature or its offline tests.
 
-Source 0.3.0a15 preserves config schemas 1/2, plan schema 1 and approval schema 2;
-runner protocol 4 uses native-lock protocol 2. The package-version
+Source 0.3.0a16 preserves config schemas 1/2, plan schema 1 and approval schema 2;
+runner protocol 5 uses native-lock protocol 3. The package-version
 binding still invalidates old execution approvals: preserve history and create a fresh reviewed plan and approval.
 No automatic migration, release or package publication occurs.
 
@@ -130,3 +130,5 @@ Invalid/unsafe/oversized/unreadable/changing evidence returns a generic policy e
 `run` now adds `run_id`, `receipt_fingerprint` and fixed `reasons`. `run`/`inspect-run` use passed (0), failed/timed-out/changed-inputs/incomplete (1); operational/integrity errors use 2. Historical inspection returns no captured text or current-source revalidation and never renews approval. See [run receipts](RUN_RECEIPTS.md), including partial persistence and audit failure semantics.
 
 `review-application` returns metadata and an exact current `fingerprint` without writes. `apply-stage` and `rollback-application` return journal inspection after a normal completion (0); handled failures use 2 and can retain partially changed source, an owned pending marker or a completion record. Always inspect retained state. `inspect-application` uses `applied`/`rolled-back` (0), `pending`/`conflicted` (1), unsafe/malformed/changing evidence (2); returns per-file metadata/states and a fresh `rollback_fingerprint`, never text. See [application state and limits](APPLICATION.md).
+
+Source 0.3.0a16 adds [owned fixed-check supervision](SUPERVISION.md): a gated launcher, POSIX group/PID anchor or Windows kill-on-close job, native completion/termination checks and continuously drained bounded stream tails. Timeout includes ordinary owned descendants and pipe retention; uncertain cleanup retains run.lock and incomplete intent without a final receipt. Runner 5/lock 3 require fresh version-bound approval. This covers cooperating same-group POSIX descendants/job members, not deliberate group/session escapes, hostile-code isolation or automatic stale recovery. The guide defines normal, timeout, cancellation and abrupt-parent-death limits.

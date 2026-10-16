@@ -2,6 +2,15 @@
 
 The format follows Keep a Changelog conventions; versions follow Semantic Versioning where practicable.
 
+## 0.3.0a16 — 2026-10-16
+
+- Supervise each fixed check through a gated launcher and owned POSIX process group or native Windows Job Object; wait for ordinary owned descendants and preserve a PID anchor before group signaling. No arbitrary command, shell, PID scan or runtime dependency.
+- Bound the worker/owned-descendant timeout and additional cleanup; verify termination and output EOF before normal completion. Retain run marker and incomplete intent when cleanup cannot be confirmed; no passed receipt or automatic unblock.
+- Drain bounded stdout/stderr tails continuously, returning up to 12,000 UTF-8 characters per stream without storing captured output in receipts/files.
+- Add real descendant/retained-pipe, abrupt-parent-death, unrelated-process, interruption, native ownership, strict completion and output regressions; update EN/PT-PT execution/security/locking/receipt/application contracts, capabilities and distribution validation.
+- Runner protocol 5 and native-lock protocol 3 require fresh version-bound approvals/proposals; schemas and all history preserved. Cooperative supervision does not contain deliberate POSIX group/session escapes or hostile code; parent-death/unsupported-platform limits are explicit.
+- PT-PT: supervisão dos processos próprios com launcher bloqueado à entrada, grupos POSIX/jobs Windows, timeout/limpeza e caudas de output limitados; limpeza incerta mantém marcador e intent incompleto. Documentação e versão sincronizadas; alfa pública GitHub/PyPI 0.3.0a8 preservada.
+
 ## 0.3.0a15 — 2026-10-16
 
 - Add `review-application`, `apply-stage`, `inspect-application` and `rollback-application` for explicitly reviewed existing writable UTF-8 replacements after unchanged staged compile and unit tests pass.

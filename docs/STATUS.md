@@ -1,10 +1,10 @@
 # Implementation and publication status
 
-<!-- safeops-version: 0.3.0a15 -->
+<!-- safeops-version: 0.3.0a16 -->
 
 [Português (Portugal)](pt-PT/STATUS.md)
 
-**Current source version: 0.3.0a15 — alpha prerelease.** Python 3.11–3.13 is
+**Current source version: 0.3.0a16 — alpha prerelease.** Python 3.11–3.13 is
 covered by CI on Linux, Windows and macOS. No third-party runtime dependencies.
 The first [GitHub alpha v0.3.0a8](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8)
 was published on 2026-10-16 at `035c36b1b646a6c75178d5db6c19d8c55d624dcf`,
@@ -22,12 +22,13 @@ administrator bypass. Attestations identify the publishing workflow commit
 0.3.0a8 release commit above. This is publishing provenance, not reproducible-build
 proof or signed SafeOps approvals.
 
-Source 0.3.0a15 adds explicitly reviewed original replacements after passed staged checks, private recovery journals, pending-run blocking and conservative human-confirmed rollback. It has not been published as a new release.
+Source 0.3.0a16 adds native supervision of owned fixed-check groups/jobs, bounded output tails and retained incomplete evidence/marker on unconfirmed cleanup. It has not been published as a new release.
 
 ## Implemented
 
 | Capability | Practical boundary |
 |---|---|
+| Owned fixed-check process supervision | Gated launcher, native POSIX group/Windows job, bounded output tails and confirmed cleanup before normal result; uncertain cleanup retains marker/intent; [contract](SUPERVISION.md) |
 | Explicit reviewed original replacements and rollback | Current original review, passed unchanged staged compile/tests, exact fingerprint, private bounded backups/journal and conservative restoration; no multi-file atomicity or isolation; [contract](APPLICATION.md) |
 | Approved-check receipts and historical inspection | Bounded metadata/hash/outcome records, before/after revalidation and explicit timeout/change/incomplete outcomes; no captured output, approval renewal or application; [contract](RUN_RECEIPTS.md) |
 | Current original-context review | Matching staged copy plus bounded double observations of original/plan/base/config/targets/version/contract; current/stale/incompatible, no writes or approval; [contract](STAGE_REVIEW.md) |
@@ -40,7 +41,7 @@ Source 0.3.0a15 adds explicitly reviewed original replacements after passed stag
 | Strict configuration and stored JSON | Schema-1 defaults and opt-in schema-2 targets, unique fixed checks, UTF-8/finite/unique-key JSON |
 | Approval schema 2 and execution-contract binding | Package/command changes require new plan and explicit approval |
 | Fixed compile and unittest checks | Empty/all-skipped test execution fails; no isolation or coverage guarantee |
-| UTF-8 check streams and timeout | Direct-child timeout; process-tree supervision not implemented |
+| UTF-8 check streams and timeout | Owned group/job lifecycle timeout; bounded cleanup and tails, no deliberate-escape/hostile isolation guarantee; [contract](SUPERVISION.md) |
 | Native local run guard and owned marker | Cooperative POSIX/Windows locking; guard persists, abandoned/legacy markers block |
 | Lock diagnostics and explicit archival recovery | Doctor fingerprint/status, human process verification, receipt/audit; no automatic stale inference or approval grant |
 | OpenAI, Anthropic and compatible advisory adapters | Explicit consent, task-only request, strict UTF-8 response objects; offline contracts/loopback fixtures; separate live OpenAI `gpt-4.1-mini` and Anthropic `claude-haiku-5-5` requests and saved-plan reviews verified on 2026-10-15 |
@@ -65,7 +66,7 @@ Source 0.3.0a15 adds explicitly reviewed original replacements after passed stag
 | Signed approvals, tamper-proof audit, remote attestation | Not implemented |
 | Production deployment or automatic release publication | Not implemented |
 | Live compatible/local-model inference and broader account/model compatibility | Pending; separate successful OpenAI and Anthropic smokes do not establish these |
-| Distributed/network-filesystem locks, process-tree supervision and automatic recovery decisions | Planned; current locking is cooperative/local and recovery explicitly human-confirmed |
+| Distributed/network-filesystem locks, hostile/escaped-process containment and automatic recovery decisions | Planned; current locking is cooperative/local and recovery explicitly human-confirmed |
 | Broader coverage profiles and report-artifact uploads | Planned; measured Linux/Python 3.12 coverage, local JUnit and summaries are implemented |
 | Workflow dependency lockfiles, complete reproducible builds, independent history-wide secret audit | Pending separate work |
 
@@ -88,8 +89,8 @@ See [execution compatibility](EXECUTION.md), [trust model](TRUST_MODEL.md),
 Provider evidence distinguishes fixtures from the separate verified live requests in
 [provider testing](PROVIDER_TESTING.md), the [OpenAI record](audits/2026-10-15-openai-smoke.md)
 and the [Anthropic record](audits/2026-10-15-anthropic-smoke.md).
-The live requests above were tested on source 0.3.0a2. Current source 0.3.0a15
-adds [reviewed application and rollback](APPLICATION.md), retaining [approved-check receipts](RUN_RECEIPTS.md), retaining [current original-context review](STAGE_REVIEW.md), retaining [historical stage inspection](STAGING.md), retaining separate copies, [plan-bound proposals](PROPOSALS.md), [local candidate previews](PREVIEW.md), [measured coverage](COVERAGE.md), [local JUnit reporting](REPORTING.md),
+The live requests above were tested on source 0.3.0a2. Current source 0.3.0a16
+adds [owned process supervision](SUPERVISION.md), retaining [reviewed application and rollback](APPLICATION.md), retaining [approved-check receipts](RUN_RECEIPTS.md), retaining [current original-context review](STAGE_REVIEW.md), retaining [historical stage inspection](STAGING.md), retaining separate copies, [plan-bound proposals](PROPOSALS.md), [local candidate previews](PREVIEW.md), [measured coverage](COVERAGE.md), [local JUnit reporting](REPORTING.md),
 [native locking and explicit recovery](LOCKING.md),
 [structured output and summaries](OUTPUT.md), optional
 [check directory targets](TARGETS.md), advisory [scope preflight](SCOPE.md) and

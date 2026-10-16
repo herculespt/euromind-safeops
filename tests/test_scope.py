@@ -149,7 +149,7 @@ class ScopeTests(unittest.TestCase):
         approve(self.root, plan["id"], "Reviewed", plan["id"])
         self.link(self.root / "future.py", self.outside / "private.py")
         self.assertEqual(tree_digest(self.root), plan["workspace_digest"])
-        with patch("euromind_safeops.execution.subprocess.run") as process:
+        with patch("euromind_safeops.execution.run_check") as process:
             with self.assertRaisesRegex(SafeOpsError, "links or reparse"):
                 run(self.root, plan["id"])
         process.assert_not_called()

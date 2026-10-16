@@ -1,6 +1,6 @@
-# Separate local staging copies — 0.3.0a15
+# Separate local staging copies — 0.3.0a16
 
-<!-- safeops-version: 0.3.0a15 -->
+<!-- safeops-version: 0.3.0a16 -->
 
 [Português (Portugal)](pt-PT/STAGING.md)
 
@@ -108,8 +108,8 @@ A receipt records point-in-time content; later editing/check execution can chang
 it. `inspect-stage` provides the bounded comparison below; authenticated
 provenance, write isolation and transactional filesystem guarantees remain absent.
 
-Config 1/2, plan 1, approval 2, envelope 1 and runner 4/lock 2 remain supported.
-Upgrading to 0.3.0a15 requires fresh version-bound proposals and execution
+Config 1/2, plan 1, approval 2, envelope 1 and runner 5/lock 3 remain supported.
+Upgrading to 0.3.0a16 requires fresh version-bound proposals and execution
 approval; history is retained without migration. [Applying reviewed original replacements and conservative rollback](APPLICATION.md) are implemented separately. Isolated Git worktrees and OS sandboxing remain planned.
 See [status](STATUS.md) and [roadmap](../ROADMAP.md).
 

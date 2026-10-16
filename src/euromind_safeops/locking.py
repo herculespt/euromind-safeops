@@ -13,12 +13,16 @@ from pathlib import Path
 
 from .core import SafeOpsError, atomic_json_write, audit, decode_json_object, json_bytes, utc_now, workspace
 
-LOCK_PROTOCOL_VERSION = 2
+LOCK_PROTOCOL_VERSION = 3
 MAX_MARKER_BYTES = 4096
 
 
 class GuardBusy(SafeOpsError):
     """A native guard could not be acquired without waiting."""
+
+
+class RetainRunMarker(SafeOpsError):
+    """Owned check cleanup is unconfirmed; never automatically unblock runs."""
 
 
 def _linked(info: os.stat_result) -> bool:
@@ -193,13 +197,18 @@ def execution_lock(root: Path, plan_id: str):
             handle.flush()
             os.fsync(handle.fileno())
         # Initialization failure intentionally leaves the marker for inspection.
+        retain = False
         try:
             yield
+        except RetainRunMarker:
+            retain = True
+            raise
         finally:
-            current = _marker(directory)
-            if current is None or current["identity"] != identity or current["raw"] != raw:
-                raise SafeOpsError("Run marker missing or changed; automatic cleanup refused")
-            (directory / "run.lock").unlink()
+            if not retain:
+                current = _marker(directory)
+                if current is None or current["identity"] != identity or current["raw"] != raw:
+                    raise SafeOpsError("Run marker missing or changed; automatic cleanup refused")
+                (directory / "run.lock").unlink()
 
 
 def recover_lock(root: Path, confirmation: str, reason: str, acknowledged: bool) -> dict:
