@@ -1,10 +1,10 @@
 # Política de execução e compatibilidade
 
-<!-- safeops-version: 0.3.0a12 -->
+<!-- safeops-version: 0.3.0a13 -->
 
 [English](../EXECUTION.md)
 
-Versão atual do código: **0.3.0a12**, pré-versão alfa. Este guia descreve o que está
+Versão atual do código: **0.3.0a13**, pré-versão alfa. Este guia descreve o que está
 implementado; consulta o [estado](STATUS.md) para limitações e publicações.
 
 ## Configuração
@@ -159,3 +159,5 @@ código do projeto nem executam verificações. Registos antigos continuam
 consultáveis após alterar versão/original, com contexto expressamente histórico.
 Executar continua a exigir plano novo revisto e aprovação ligada à versão;
 consulta a [inspeção das cópias](STAGING.md).
+
+O código 0.3.0a13 acrescenta [revisão sem escrita do original atual](STAGE_REVIEW.md). `review-stage` exige cópia correspondente e revalida ligações do original/plano/bases/configuração/alvos/versão/contrato. `current` é uma observação pontual, nunca aprovação de execução/aplicação. Não cria nem renova aprovação. A ligação existente à versão exige plano novo e aprovação explícita após atualização.

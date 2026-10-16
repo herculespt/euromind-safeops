@@ -1,6 +1,6 @@
-# EuroMind SafeOps — 0.3.0a12 alpha
+# EuroMind SafeOps — 0.3.0a13 alpha
 
-<!-- safeops-version: 0.3.0a12 -->
+<!-- safeops-version: 0.3.0a13 -->
 
 A Python 3.11+ command-line tool for advisory engineering plans, explicit human
 approval and fixed compile/unittest checks. Apache-2.0; no third-party runtime
@@ -13,7 +13,7 @@ a sandbox, signatures or protection against a malicious local actor. Empty or
 wholly skipped test suites fail. Changing code, configuration or package version
 requires a fresh reviewed plan and explicit approval.
 
-Current source is 0.3.0a12. The published registry alpha is
+Current source is 0.3.0a13. The published registry alpha is
 [0.3.0a8](https://pypi.org/project/euromind-safeops/0.3.0a8/), verified on
 2026-10-16 with original wheel/sdist hashes, clean installation and PyPI-verified
 publishing attestations. It predates previews, proposals, staging copies and receipt inspection.
@@ -45,7 +45,7 @@ concedem aprovação.
 **Versão alfa:** utilizar apenas código e testes de confiança. Não implementa
 isolamento seguro nem alterações autónomas de código. A instalação acima escolhe
 a versão PyPI publicada 0.3.0a8, anterior aos previews, propostas e cópias de
-preparação e inspeção de recibos do código atual 0.3.0a12. Hashes, instalação e atestações de publicação
+preparação e inspeção de recibos do código atual 0.3.0a13. Hashes, instalação e atestações de publicação
 verificadas pelo PyPI foram confirmados em 16 de outubro de 2026. Atualizações
 exigem plano e aprovação novos, preservando o histórico.
 
@@ -55,19 +55,22 @@ exigem plano e aprovação novos, preservando o histórico.
 
 Copyright 2026 Sérgio Ribeiro. Apache License 2.0.
 
-Read-only local candidate previews are available in source 0.3.0a12: [format and limits](https://github.com/herculespt/euromind-safeops/blob/main/docs/PREVIEW.md).
-Previews locais sem escrita disponíveis no código 0.3.0a12: [formato e limites](https://github.com/herculespt/euromind-safeops/blob/main/docs/pt-PT/PREVIEW.md).
+Read-only local candidate previews are available in source 0.3.0a13: [format and limits](https://github.com/herculespt/euromind-safeops/blob/main/docs/PREVIEW.md).
+Previews locais sem escrita disponíveis no código 0.3.0a13: [formato e limites](https://github.com/herculespt/euromind-safeops/blob/main/docs/pt-PT/PREVIEW.md).
 
-Plan-bound local proposals are available in source 0.3.0a12: [workflow and limits](https://github.com/herculespt/euromind-safeops/blob/main/docs/PROPOSALS.md). They store candidate text locally without applying it or granting approval.
-Propostas locais ligadas ao plano disponíveis no código 0.3.0a12: [procedimento e limites](https://github.com/herculespt/euromind-safeops/blob/main/docs/pt-PT/PROPOSALS.md). Guardam o texto localmente sem o aplicar nem aprovar execução.
+Plan-bound local proposals are available in source 0.3.0a13: [workflow and limits](https://github.com/herculespt/euromind-safeops/blob/main/docs/PROPOSALS.md). They store candidate text locally without applying it or granting approval.
+Propostas locais ligadas ao plano disponíveis no código 0.3.0a13: [procedimento e limites](https://github.com/herculespt/euromind-safeops/blob/main/docs/pt-PT/PROPOSALS.md). Guardam o texto localmente sem o aplicar nem aprovar execução.
 
-Separate local staging copies are available in source 0.3.0a12: [workflow and limits](https://github.com/herculespt/euromind-safeops/blob/main/docs/STAGING.md). Exact-fingerprint confirmation writes replacements only to a new copy; checks require fresh approval.
-Cópias locais separadas disponíveis no código 0.3.0a12: [procedimento e limites](https://github.com/herculespt/euromind-safeops/blob/main/docs/pt-PT/STAGING.md). A confirmação do fingerprint escreve só na cópia; os testes exigem aprovação nova.
+Separate local staging copies are available in source 0.3.0a13: [workflow and limits](https://github.com/herculespt/euromind-safeops/blob/main/docs/STAGING.md). Exact-fingerprint confirmation writes replacements only to a new copy; checks require fresh approval.
+Cópias locais separadas disponíveis no código 0.3.0a13: [procedimento e limites](https://github.com/herculespt/euromind-safeops/blob/main/docs/pt-PT/STAGING.md). A confirmação do fingerprint escreve só na cópia; os testes exigem aprovação nova.
 
-Read-only historical stage inspection is available in source 0.3.0a12:
+Read-only historical stage inspection is available in source 0.3.0a13:
 [contract](https://github.com/herculespt/euromind-safeops/blob/main/docs/STAGING.md).
 `inspect-stage` reports filtered matching/changed/incomplete observations, without
 file text, writes, current-source revalidation or execution/application approval.
-Inspeção histórica sem escrita disponível no código 0.3.0a12:
+Inspeção histórica sem escrita disponível no código 0.3.0a13:
 [contrato PT-PT](https://github.com/herculespt/euromind-safeops/blob/main/docs/pt-PT/STAGING.md).
 Sem texto dos ficheiros, revalidação do original atual ou aprovação.
+
+Current original-context review is available in source 0.3.0a13: [contract and limits](https://github.com/herculespt/euromind-safeops/blob/main/docs/STAGE_REVIEW.md). `review-stage` requires a matching copy and checks current original bindings; it grants no approval or application authority.
+Revisão do original atual disponível no código 0.3.0a13: [contrato e limites](https://github.com/herculespt/euromind-safeops/blob/main/docs/pt-PT/STAGE_REVIEW.md). Exige cópia correspondente e verifica ligações atuais; não concede aprovação nem aplica alterações.

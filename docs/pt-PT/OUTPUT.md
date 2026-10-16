@@ -1,6 +1,6 @@
-# Saída estruturada da CLI — 0.3.0a12
+# Saída estruturada da CLI — 0.3.0a13
 
-<!-- safeops-version: 0.3.0a12 -->
+<!-- safeops-version: 0.3.0a13 -->
 
 [English](../OUTPUT.md)
 
@@ -21,13 +21,13 @@ conter literalmente `--json` sem ativar o modo global.
 
 ## Envelope de schema 1
 
-Os catorze comandos (`init`, `providers`, `doctor`, `scan`, `plan`, `review`,
-`approve`, `run`, `recover-lock`, `preview`, `propose`, `review-proposal`, `stage-proposal`, `inspect-stage`) devolvem um único objeto JSON UTF-8 nos resultados tratados:
+Os quinze comandos (`init`, `providers`, `doctor`, `scan`, `plan`, `review`,
+`approve`, `run`, `recover-lock`, `preview`, `propose`, `review-proposal`, `stage-proposal`, `inspect-stage`, `review-stage`) devolvem um único objeto JSON UTF-8 nos resultados tratados:
 
 ```json
 {
   "schema": 1,
-  "safeops_version": "0.3.0a12",
+  "safeops_version": "0.3.0a13",
   "command": "scan",
   "ok": true,
   "exit_code": 0,
@@ -81,7 +81,7 @@ potencialmente sensível. Não é um serviço adicional de remoção de dados, u
 assinatura, autorização automática ou isolamento. A funcionalidade e os testes
 offline não exigem pedidos a fornecedores.
 
-A versão 0.3.0a12 preserva os schemas 1/2 de configuração, 1 de plano e 2 de
+A versão 0.3.0a13 preserva os schemas 1/2 de configuração, 1 de plano e 2 de
 aprovação; o protocolo 3 do runner mantém protocolo 1 do bloqueio nativo. A ligação à versão continua a invalidar
 aprovações anteriores: preservar o histórico e criar novo plano revisto e
 aprovação. Não há migração automática nem publicação de release ou pacote.
@@ -127,3 +127,5 @@ texto/diffs, escrita ou evento de auditoria. Os caminhos em falta/novos/alterado
 são relativos e ordenados. Versão e origem históricas não renovam aprovação;
 consulta o [contrato](STAGING.md). Evidência inválida/insegura/excessiva/ilegível
 ou alterada durante a inspeção devolve erro genérico de política (2).
+
+`review-stage` usa o mesmo envelope: `current` (0), `stale` (1) ou `incompatible` (1), sem texto dos ficheiros/escrita/aprovação. Evidência inválida/insegura devolve erro de política saneado (2). Consulta [a revisão do original](STAGE_REVIEW.md) para verificações booleanas, códigos fixos e limites. A saída 1 inclui também esta revisão desatualizada/incompatível.

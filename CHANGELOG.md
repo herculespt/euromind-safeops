@@ -2,6 +2,14 @@
 
 The format follows Keep a Changelog conventions; versions follow Semantic Versioning where practicable.
 
+## 0.3.0a13 — 2026-10-16
+
+- Add read-only `review-stage`: require a matching retained stage, then compare two bounded observations of the current original snapshot, candidate bases, bound plan, configuration, selected targets, installed version and execution contract.
+- Report `current`, `stale` or `incompatible` without file text, writes, approval renewal, code execution, provider access or original-workspace application. Reject malformed/unsafe/oversized/unreadable/changing evidence with a sanitized policy error.
+- Reuse decoded configuration validation and preserve the historical `inspect-stage` contract. Original snapshots retain environment/ordinary generated-name files; selected targets include their configured snapshot exclusions.
+- Update source/distribution contracts and English/PT-PT capability, compatibility, roadmap and status documentation. Published GitHub/PyPI alpha remains 0.3.0a8.
+- PT-PT: acrescenta revisão sem escrita da compatibilidade com o original atual, com observações limitadas e testes offline; não concede aprovação nem aplica alterações ao original.
+
 ## [Unreleased]
 
 Current source milestone: **0.3.0a12**. First GitHub alpha and [PyPI 0.3.0a8](https://pypi.org/project/euromind-safeops/0.3.0a8/) published on 2026-10-16. Source 0.3.0a12 remains unpublished. See [delivery evidence](docs/audits/2026-10-16-first-alpha.md).

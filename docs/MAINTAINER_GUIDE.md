@@ -108,3 +108,5 @@ copy results separately from current-original state and test evidence. Exit 1
 with data means changed/incomplete; malformed or unsafe evidence returns 2.
 Retain all records on failure. Verify exclusions, byte/path bounds, no file-text
 disclosure and no audit/approval writes in regression and installed-wheel tests.
+
+For `review-stage` (source 0.3.0a13), review the matching-copy prerequisite, original/plan/candidate-base/configuration/target/version/contract checks, sanitized bounds/race failures and no-write/no-provider/no-approval behavior. Keep [English](STAGE_REVIEW.md) and [PT-PT](pt-PT/STAGE_REVIEW.md), source metadata, distribution inclusion, capability tables and GitHub tracking aligned. A `current` result never authorizes original application or substitutes for trusted checks.

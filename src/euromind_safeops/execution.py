@@ -32,7 +32,11 @@ def execution_contract_digest() -> str:
 
 
 def get_config(root: Path) -> dict:
-    config = read_json(workspace(root) / "config.json")
+    return validate_config(root, read_json(workspace(root) / "config.json"))
+
+
+def validate_config(root: Path, config: dict) -> dict:
+    """Validate decoded policy without reopening its backing file."""
     check_names = config.get("checks")
     schema = config.get("schema")
     if (type(schema) is not int or schema not in (1, 2) or

@@ -19,6 +19,7 @@ from .scope import validate_scope_paths
 from .scanning import scan
 from .staging import stage_proposal
 from .stage_inspection import inspect_stage
+from .stage_review import review_stage
 
 
 class ArgumentUsageError(Exception):
@@ -72,6 +73,8 @@ def make_parser() -> argparse.ArgumentParser:
     staging.add_argument("--confirm", required=True, help="Repeat the exact fingerprint from review-proposal")
     inspection = commands.add_parser("inspect-stage", help="Read-only comparison of a retained stage receipt and copy")
     inspection.add_argument("stage_id", help="Exact stage ID under the original project's .safeops/stages")
+    compatibility = commands.add_parser("review-stage", help="Read-only staged-copy and current original-context review")
+    compatibility.add_argument("stage_id", help="Exact stage ID under the original project's .safeops/stages")
     recovery = commands.add_parser("recover-lock", help="Archive a retained marker after verifying no checks are running")
     recovery.add_argument("--confirm", required=True, help="Repeat the exact doctor marker fingerprint")
     recovery.add_argument("--reason", required=True)
@@ -131,6 +134,9 @@ def _execute(args: argparse.Namespace) -> tuple[dict, int, list[str]]:
                 "note": "Pattern checks are not a full security audit"}, 1 if findings else 0, []
     if args.command == "preview":
         return preview_candidate(root, args.candidate), 0, []
+    if args.command == "review-stage":
+        result = review_stage(root, args.stage_id)
+        return result, 0 if result["status"] == "current" else 1, []
     workspace(root)
     if args.command == "propose":
         return create_proposal(root, args.plan_id, args.candidate), 0, []

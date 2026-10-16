@@ -1,10 +1,10 @@
 # Implementation and publication status
 
-<!-- safeops-version: 0.3.0a12 -->
+<!-- safeops-version: 0.3.0a13 -->
 
 [Português (Portugal)](pt-PT/STATUS.md)
 
-**Current source version: 0.3.0a12 — alpha prerelease.** Python 3.11–3.13 is
+**Current source version: 0.3.0a13 — alpha prerelease.** Python 3.11–3.13 is
 covered by CI on Linux, Windows and macOS. No third-party runtime dependencies.
 The first [GitHub alpha v0.3.0a8](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8)
 was published on 2026-10-16 at `035c36b1b646a6c75178d5db6c19d8c55d624dcf`,
@@ -22,12 +22,13 @@ administrator bypass. Attestations identify the publishing workflow commit
 0.3.0a8 release commit above. This is publishing provenance, not reproducible-build
 proof or signed SafeOps approvals.
 
-Source 0.3.0a12 adds read-only historical stage inspection, retaining separate staging copies and proposal review. It has not been published as a new release.
+Source 0.3.0a13 adds read-only current original-context review, retaining historical stage inspection, separate staging copies and proposal review. It has not been published as a new release.
 
 ## Implemented
 
 | Capability | Practical boundary |
 |---|---|
+| Current original-context review | Matching staged copy plus bounded double observations of original/plan/base/config/targets/version/contract; current/stale/incompatible, no writes or approval; [contract](STAGE_REVIEW.md) |
 | Read-only stage receipt inspection | Strict schema/linkage and bounded double scan; matching/changed/incomplete observations without file text or writes; no current-source revalidation or approval; [contract](STAGING.md) |
 | Separate local staging copies | Exact reviewed fingerprint, independent files, exclusions and manifest/receipt; no original-source application, automatic checks or OS sandbox; [contract](STAGING.md) |
 | Persisted plan-bound local proposals | Exact explicit plan paths, snapshot/config/contract binding and read-only review; no source application or approval; [contract](PROPOSALS.md) |
@@ -85,8 +86,8 @@ See [execution compatibility](EXECUTION.md), [trust model](TRUST_MODEL.md),
 Provider evidence distinguishes fixtures from the separate verified live requests in
 [provider testing](PROVIDER_TESTING.md), the [OpenAI record](audits/2026-10-15-openai-smoke.md)
 and the [Anthropic record](audits/2026-10-15-anthropic-smoke.md).
-The live requests above were tested on source 0.3.0a2. Current source 0.3.0a12
-adds [historical stage inspection](STAGING.md), retaining separate copies, [plan-bound proposals](PROPOSALS.md), [local candidate previews](PREVIEW.md), [measured coverage](COVERAGE.md), [local JUnit reporting](REPORTING.md),
+The live requests above were tested on source 0.3.0a2. Current source 0.3.0a13
+adds [current original-context review](STAGE_REVIEW.md), retaining [historical stage inspection](STAGING.md), retaining separate copies, [plan-bound proposals](PROPOSALS.md), [local candidate previews](PREVIEW.md), [measured coverage](COVERAGE.md), [local JUnit reporting](REPORTING.md),
 [native locking and explicit recovery](LOCKING.md),
 [structured output and summaries](OUTPUT.md), optional
 [check directory targets](TARGETS.md), advisory [scope preflight](SCOPE.md) and

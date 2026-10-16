@@ -56,3 +56,5 @@ Read-only `inspect-stage` checks historical integrity and current filtered copy
 bytes, not current-original equivalence or authorship. Excluded state, file
 metadata and every concurrent race are outside the comparison. A matching result
 does not establish passing tests or grant execution/application approval.
+
+`review-stage` requires a matching staged copy and independently revalidates current original/plan/base/configuration/target/version/contract bindings. This is a bounded point-in-time read of unkeyed mutable local evidence, without writes, approval renewal, application or proof of passing checks. Original environment files may be hashed locally; no contents are emitted. Double observations and final stage inspection do not eliminate every filesystem race. See [the review contract](STAGE_REVIEW.md).

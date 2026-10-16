@@ -1,6 +1,6 @@
 # EuroMind SafeOps
 
-<!-- safeops-version: 0.3.0a12 -->
+<!-- safeops-version: 0.3.0a13 -->
 
 **A safety-focused, provider-agnostic engineering orchestration CLI.**
 
@@ -8,7 +8,7 @@
 ![Status](https://img.shields.io/badge/status-alpha-orange)
 ![License](https://img.shields.io/badge/license-Apache--2.0-blue)
 
-> **Source version: 0.3.0a12 (alpha prerelease).** See [current implementation and publication status](docs/STATUS.md) and [Implemented vs. planned](#implemented-vs-planned). The first [GitHub alpha v0.3.0a8](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8) and [PyPI 0.3.0a8](https://pypi.org/project/euromind-safeops/0.3.0a8/) were published on 2026-10-16. Original wheel/sdist hashes, registry installation and PyPI-verified publishing attestations were checked; see [delivery evidence](docs/audits/2026-10-16-first-alpha.md). Source 0.3.0a12 has additional features and is not a published package.
+> **Source version: 0.3.0a13 (alpha prerelease).** See [current implementation and publication status](docs/STATUS.md) and [Implemented vs. planned](#implemented-vs-planned). The first [GitHub alpha v0.3.0a8](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8) and [PyPI 0.3.0a8](https://pypi.org/project/euromind-safeops/0.3.0a8/) were published on 2026-10-16. Original wheel/sdist hashes, registry installation and PyPI-verified publishing attestations were checked; see [delivery evidence](docs/audits/2026-10-16-first-alpha.md). Source 0.3.0a13 adds current original-context review and has additional features and is not a published package.
 >
 
 EuroMind SafeOps helps software maintainers plan engineering tasks, classify risk, obtain an explicit human approval, and run a small set of deterministic checks while maintaining a locally stored integrity and audit trail. Optional OpenAI, Anthropic Claude, and OpenAI-compatible providers can provide **advice only**; their text cannot be executed as code or shell commands by SafeOps.
@@ -34,7 +34,7 @@ EuroMind SafeOps is developed independently as a general-purpose open-source too
 Install the published alpha in a virtual environment with
 `python -m pip install euromind-safeops==0.3.0a8`.
 That release predates candidate previews, persisted proposals, staging copies and receipt inspection.
-Use the source checkout below for the current 0.3.0a12 capabilities.
+Use the source checkout below for the current 0.3.0a13 capabilities.
 
 In a shell at the root of this repository:
 
@@ -66,7 +66,7 @@ safeops --root examples/demo_project run YOUR_PLAN_ID
 **Upgrading from 0.2.0:** keep the workspace and its history. Valid schema-1 configuration remains supported, but old approvals are rejected. Review the current source, create a new plan and approve it explicitly. See [execution policy and compatibility](docs/EXECUTION.md).
 
 The existing version binding also requires new execution approval when upgrading
-to 0.3.0a12. Schema-1 defaults remain supported; optional schema 2 selects
+to 0.3.0a13. Schema-1 defaults remain supported; optional schema 2 selects
 [fixed-check directories](docs/TARGETS.md). Plan schema 1 and approval schema 2
 remain supported, with an additional target digest required for schema-2 config.
 
@@ -110,10 +110,16 @@ Recheck a retained copy with `safeops --root ORIGINAL_PROJECT --json inspect-sta
 It reports matching/changed/incomplete state without file text, writes or approval;
 see [historical inspection and limits](docs/STAGING.md).
 
+Review compatibility with the current original using
+`safeops --root ORIGINAL_PROJECT --json review-stage STAGE_ID`. It reports
+current/stale/incompatible context without applying changes or renewing approval;
+see [the review contract](docs/STAGE_REVIEW.md).
+
 ## Implemented vs. planned
 
-| Capability | 0.3.0a12 |
+| Capability | 0.3.0a13 |
 |---|---|
+| Current original-context review | Implemented; `review-stage` requires a matching copy and revalidates original/proposal/plan/config/target/version bindings without writes or approval; [contract](docs/STAGE_REVIEW.md) |
 | Read-only stage receipt inspection | Implemented; strict historical linkage, bounded double scan and missing/extra/changed paths; source context is not revalidated and no approval is granted |
 | CLI + offline task planning | Implemented |
 | Separate local staging copies | Implemented; exact proposal-fingerprint confirmation, replacements only in a new copy and manifest/receipt; [limits](docs/STAGING.md) |

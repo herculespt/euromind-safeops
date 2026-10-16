@@ -1,6 +1,6 @@
-# Advisory scope paths — 0.3.0a12
+# Advisory scope paths — 0.3.0a13
 
-<!-- safeops-version: 0.3.0a12 -->
+<!-- safeops-version: 0.3.0a13 -->
 
 [Português (Portugal)](pt-PT/SCOPE.md)
 

@@ -1,6 +1,6 @@
-# Structured CLI output — 0.3.0a12
+# Structured CLI output — 0.3.0a13
 
-<!-- safeops-version: 0.3.0a12 -->
+<!-- safeops-version: 0.3.0a13 -->
 
 [Português (Portugal)](pt-PT/OUTPUT.md)
 
@@ -21,14 +21,14 @@ contain `--json` without enabling the global mode.
 
 ## Envelope schema 1
 
-All fourteen commands (`init`, `providers`, `doctor`, `scan`, `plan`, `review`,
-`approve`, `run`, `recover-lock`, `preview`, `propose`, `review-proposal`, `stage-proposal`, `inspect-stage`) emit one UTF-8 JSON object for handled outcomes
+All fifteen commands (`init`, `providers`, `doctor`, `scan`, `plan`, `review`,
+`approve`, `run`, `recover-lock`, `preview`, `propose`, `review-proposal`, `stage-proposal`, `inspect-stage`, `review-stage`) emit one UTF-8 JSON object for handled outcomes
 in this mode:
 
 ```json
 {
   "schema": 1,
-  "safeops_version": "0.3.0a12",
+  "safeops_version": "0.3.0a13",
   "command": "scan",
   "ok": true,
   "exit_code": 0,
@@ -53,7 +53,7 @@ in this mode:
 | `error` | `null` or an object with `code` and `message` |
 | `warnings` | List of strings; critical-plan policy warning is included here |
 
-Exit 1 means scan findings, failed approved checks or changed/incomplete stage inspection. Those outcomes keep their
+Exit 1 means scan findings, failed approved checks, changed/incomplete stage inspection or stale/incompatible stage review. Those outcomes keep their
 result in `data`, with `ok: false` and `error: null`. Exit 2 represents handled
 usage/policy/filesystem errors. Error codes are `invalid_arguments`,
 `policy_error` and `filesystem_error`. Usage errors have a generic message and
@@ -80,7 +80,7 @@ checks. Treat saved JSON as potentially sensitive. This is not a new redaction
 service, signature, machine authorization or sandbox. No provider request is
 needed for the output feature or its offline tests.
 
-Source 0.3.0a12 preserves config schemas 1/2, plan schema 1 and approval schema 2;
+Source 0.3.0a13 preserves config schemas 1/2, plan schema 1 and approval schema 2;
 runner protocol 3 retains native-lock protocol 1. The package-version
 binding still invalidates old execution approvals: preserve history and create a fresh reviewed plan and approval.
 No automatic migration, release or package publication occurs.
@@ -124,3 +124,5 @@ See [CI details](CI.md), [execution](EXECUTION.md) and [status](STATUS.md).
 text/diffs, writes or audit append. Missing/extra/changed paths are relative and
 sorted. Historical version/source fields never renew approval; see [the contract](STAGING.md).
 Invalid/unsafe/oversized/unreadable/changing evidence returns a generic policy error (2).
+
+`review-stage` uses the same envelope: `current` (0), `stale` (1) or `incompatible` (1), without file text/writes/approval. Invalid or unsafe evidence returns sanitized policy error (2). See [original-context review](STAGE_REVIEW.md) for boolean checks, fixed reason codes and limits.

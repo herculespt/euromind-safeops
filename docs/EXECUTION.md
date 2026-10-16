@@ -1,10 +1,10 @@
 # Execution policy and upgrade compatibility
 
-<!-- safeops-version: 0.3.0a12 -->
+<!-- safeops-version: 0.3.0a13 -->
 
 [Português (Portugal)](pt-PT/EXECUTION.md)
 
-Current source version: **0.3.0a12**, alpha prerelease. This document describes
+Current source version: **0.3.0a13**, alpha prerelease. This document describes
 implemented behavior; see [status](STATUS.md) for exclusions and publication state.
 
 ## Configuration
@@ -154,3 +154,5 @@ Matching/changed/incomplete observations never renew approval, import project
 code or execute checks. Old records remain inspectable across version/source
 changes with explicit historical-only context. Execution still requires a fresh
 reviewed plan and version-bound approval; see [staging inspection](STAGING.md).
+
+Source 0.3.0a13 adds read-only [current original-context review](STAGE_REVIEW.md). `review-stage` requires a matching stage and revalidates original/plan/base/configuration/target/version/contract bindings. `current` is a point-in-time observation, never execution/application approval. No approval is created or renewed. Existing version binding requires a fresh plan and explicit approval after upgrading.

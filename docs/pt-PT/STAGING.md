@@ -1,6 +1,6 @@
-# Cópias locais de preparação — 0.3.0a12
+# Cópias locais de preparação — 0.3.0a13
 
-<!-- safeops-version: 0.3.0a12 -->
+<!-- safeops-version: 0.3.0a13 -->
 
 [English](../STAGING.md)
 
@@ -112,12 +112,12 @@ descrita abaixo; não há prova autenticada de autoria, isolamento de escrita ou
 transação garantida.
 
 Mantêm-se configuração 1/2, plano 1, aprovação 2, envelope 1 e protocolos runner
-3/bloqueio 1. Atualizar para 0.3.0a12 exige propostas e aprovação de execução
+3/bloqueio 1. Atualizar para 0.3.0a13 exige propostas e aprovação de execução
 novas ligadas à versão. Preserva o histórico sem migração. Aplicação ao projeto
 original, rollback, worktrees Git isoladas e sandboxing continuam planeados.
 Consulta o [estado](STATUS.md) e o [roadmap](../../ROADMAP.md).
 
-## Inspeção histórica sem escrita — código 0.3.0a12
+## Inspeção histórica sem escrita — introduzida no código 0.3.0a12
 
 Executar `safeops --json --root PROJETO_ORIGINAL inspect-stage ID_DA_COPIA`, no
 projeto original inicializado e com o ID exato de 12 caracteres hexadecimais
@@ -164,3 +164,7 @@ comparação. Dados excluídos, bits de execução, datas, proprietário e alter
 de diretórios vazios não são comparados. Não acrescenta bloqueio do sistema de
 ficheiros nem isolamento; duas leituras não eliminam todas as corridas.
 Um escritor local malicioso pode reescrever evidência e hashes sem chave.
+
+## Revisão do contexto original atual
+
+O código 0.3.0a13 acrescenta `review-stage ID_DA_COPIA` na raiz original. Exige cópia histórica correspondente e compara original atual, bases da candidata, plano, configuração, alvos, versão instalada e contrato de execução. Consulta [resultados, limites e compatibilidade](STAGE_REVIEW.md). Nunca aplica alterações nem renova aprovação; `inspect-stage` mantém apenas o significado histórico.
