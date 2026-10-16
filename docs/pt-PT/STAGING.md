@@ -1,6 +1,6 @@
-# Cópias locais de preparação — 0.3.0a18
+# Cópias locais de preparação — 0.3.0a19
 
-<!-- safeops-version: 0.3.0a18 -->
+<!-- safeops-version: 0.3.0a19 -->
 
 [English](../STAGING.md)
 
@@ -112,7 +112,7 @@ descrita abaixo; não há prova autenticada de autoria, isolamento de escrita ou
 transação garantida.
 
 Mantêm-se configuração 1/2, plano 1, aprovação 2, envelope 1 e protocolos runner
-5/bloqueio 3. Atualizar para 0.3.0a18 exige propostas e aprovação de execução
+5/bloqueio 3. Atualizar para 0.3.0a19 exige propostas e aprovação de execução
 novas ligadas à versão. Preserva o histórico sem migração. [Aplicação revista ao original e rollback conservador](APPLICATION.md) estão implementados separadamente. Worktrees Git isoladas e sandboxing continuam planeados.
 Consulta o [estado](STATUS.md) e o [roadmap](../../ROADMAP.md).
 
@@ -169,3 +169,5 @@ Um escritor local malicioso pode reescrever evidência e hashes sem chave.
 O código 0.3.0a13 acrescenta `review-stage ID_DA_COPIA` na raiz original. Exige cópia histórica correspondente e compara original atual, bases da candidata, plano, configuração, alvos, versão instalada e contrato de execução. Consulta [resultados, limites e compatibilidade](STAGE_REVIEW.md). Nunca aplica alterações nem renova aprovação; `inspect-stage` mantém apenas o significado histórico.
 
 Os checks aprovados na cópia criam agora [recibos de execução](RUN_RECEIPTS.md) independentes, ligados aos inputs observados nessa cópia e à sua aprovação nova. A inspeção histórica não certifica compatibilidade atual com o original nem autoriza aplicar a candidata.
+
+A [geração IA revista](GENERATION.md) é uma operação separada de partilha de código: revisão offline do pedido completo, fingerprint e consentimento de upload, depois proposta schema 2 não aprovada. Schema 1 manual e gates explícitos de revisão/staging/checks/aplicação mantêm-se. A revisão contém código e não deve ser publicada sem inspeção; `plan` continua a enviar só a tarefa.

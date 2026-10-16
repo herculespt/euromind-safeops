@@ -84,9 +84,9 @@ error; recovery is not one transaction and grants no execution approval.
 The [candidate preview](PREVIEW.md) command is read-only and separate from execution
 approval. Review diffs locally; they can contain source text or secrets and must
 not be automatically uploaded with reports. Candidate support does not implement
-AI-generated patches or reviewed application.
+AI generation or original application by itself; those use separate reviewed contracts.
 
-For [persisted proposals](PROPOSALS.md), review exact explicit plan paths, bindings, storage privacy and stale/tampered record failures. Keep candidate text/records/diffs out of public artifacts. Creation audit can fail after the record is saved; inspect local state before retrying. Explicit original application is covered by [its separate contract](APPLICATION.md); AI generation remains planned.
+For [persisted proposals](PROPOSALS.md), review exact explicit plan paths, bindings, storage privacy and stale/tampered record failures. Keep candidate text/records/diffs out of public artifacts. Creation audit can fail after the record is saved; inspect local state before retrying. Explicit original application is covered by [its separate contract](APPLICATION.md); bounded AI generation is covered by [its explicit source-consent contract](GENERATION.md).
 
 For [staging copies](STAGING.md), inspect exclusions, independent file writes, fingerprint confirmation and retained failure state. Never treat the receipt as a sandbox or original-source application approval. Do not delete partial stages automatically or publish their contents. Trusted staged checks require their own fresh approval; environment files/dependencies may need separate preparation.
 
@@ -120,3 +120,5 @@ Source 0.3.0a16 adds [owned fixed-check supervision](SUPERVISION.md): a gated la
 Source 0.3.0a17 waits for final zero Windows job accounting within the same three-second cleanup budget used for launcher exit, EOF and failure cleanup. A transitional positive count cannot turn a completed failed check into an immediate operational error; persistent/unavailable confirmation remains fail-closed with retained state. Fixed-phase diagnostics exclude native exception text. Runner 5/lock 3 and schemas remain; the updated version/cleanup-policy binding requires fresh reviewed plans/proposals/approvals.
 
 Maintainer coverage/release tooling uses dedicated reviewed Linux/CPython 3.12 wheel/hash closures. See [tooling policy](TOOLING.md) for exact profiles, refusal/update procedure and deliberate unlocked compatibility jobs. This does not lock runner/interpreter bootstrap or certify dependency safety.
+
+[Reviewed AI generation](GENERATION.md) is a separate source-sharing operation: offline full-request review, exact fingerprint plus source-upload consent, then an unapproved schema-2 proposal. Manual schema 1 remains supported; existing explicit review/staging/check/application gates still apply. Local request reviews contain source text and must not be published blindly. Ordinary `plan` calls remain task-only.

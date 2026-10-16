@@ -1,6 +1,6 @@
-# Structured CLI output — 0.3.0a18
+# Structured CLI output — 0.3.0a19
 
-<!-- safeops-version: 0.3.0a18 -->
+<!-- safeops-version: 0.3.0a19 -->
 
 [Português (Portugal)](pt-PT/OUTPUT.md)
 
@@ -28,7 +28,7 @@ in this mode:
 ```json
 {
   "schema": 1,
-  "safeops_version": "0.3.0a18",
+  "safeops_version": "0.3.0a19",
   "command": "scan",
   "ok": true,
   "exit_code": 0,
@@ -80,7 +80,7 @@ checks. Treat saved JSON as potentially sensitive. This is not a new redaction
 service, signature, machine authorization or sandbox. No provider request is
 needed for the output feature or its offline tests.
 
-Source 0.3.0a18 preserves config schemas 1/2, plan schema 1 and approval schema 2;
+Source 0.3.0a19 preserves config schemas 1/2, plan schema 1 and approval schema 2;
 runner protocol 5 uses native-lock protocol 3. The package-version
 binding still invalidates old execution approvals: preserve history and create a fresh reviewed plan and approval.
 No automatic migration, release or package publication occurs.
@@ -133,4 +133,6 @@ Invalid/unsafe/oversized/unreadable/changing evidence returns a generic policy e
 
 Source 0.3.0a16 adds [owned fixed-check supervision](SUPERVISION.md): a gated launcher, POSIX group/PID anchor or Windows kill-on-close job, native completion/termination checks and continuously drained bounded stream tails. Timeout includes ordinary owned descendants and pipe retention; uncertain cleanup retains run.lock and incomplete intent without a final receipt. Runner 5/lock 3 require fresh version-bound approval. This covers cooperating same-group POSIX descendants/job members, not deliberate group/session escapes, hostile-code isolation or automatic stale recovery. The guide defines normal, timeout, cancellation and abrupt-parent-death limits.
 
-Source 0.3.0a18 waits for final zero Windows job accounting within the same three-second cleanup budget used for launcher exit, EOF and failure cleanup. A transitional positive count cannot turn a completed failed check into an immediate operational error; persistent/unavailable confirmation remains fail-closed with retained state. Fixed-phase diagnostics exclude native exception text. Runner 5/lock 3 and schemas remain; the updated version/cleanup-policy binding requires fresh reviewed plans/proposals/approvals.
+Source 0.3.0a19 waits for final zero Windows job accounting within the same three-second cleanup budget used for launcher exit, EOF and failure cleanup. A transitional positive count cannot turn a completed failed check into an immediate operational error; persistent/unavailable confirmation remains fail-closed with retained state. Fixed-phase diagnostics exclude native exception text. Runner 5/lock 3 and schemas remain; the updated version/cleanup-policy binding requires fresh reviewed plans/proposals/approvals.
+
+[Reviewed AI generation](GENERATION.md) is a separate source-sharing operation: offline full-request review, exact fingerprint plus source-upload consent, then an unapproved schema-2 proposal. Manual schema 1 remains supported; existing explicit review/staging/check/application gates still apply. Local request reviews contain source text and must not be published blindly. Ordinary `plan` calls remain task-only.

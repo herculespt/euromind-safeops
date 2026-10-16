@@ -1,6 +1,6 @@
 # EuroMind SafeOps
 
-<!-- safeops-version: 0.3.0a18 -->
+<!-- safeops-version: 0.3.0a19 -->
 
 **A safety-focused, provider-agnostic engineering orchestration CLI.**
 
@@ -8,10 +8,10 @@
 ![Status](https://img.shields.io/badge/status-alpha-orange)
 ![License](https://img.shields.io/badge/license-Apache--2.0-blue)
 
-> **Source version: 0.3.0a18 (alpha prerelease).** See [current implementation and publication status](docs/STATUS.md) and [Implemented vs. planned](#implemented-vs-planned). The first [GitHub alpha v0.3.0a8](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8) and [PyPI 0.3.0a8](https://pypi.org/project/euromind-safeops/0.3.0a8/) were published on 2026-10-16. Original wheel/sdist hashes, registry installation and PyPI-verified publishing attestations were checked; see [delivery evidence](docs/audits/2026-10-16-first-alpha.md). Source 0.3.0a18 adds reviewed maintainer dependency locks and restricted tool installation, retaining owned check supervision and bounded stream tails; it is not a published package.
+> **Source version: 0.3.0a19 (alpha prerelease).** See [current implementation and publication status](docs/STATUS.md) and [Implemented vs. planned](#implemented-vs-planned). The first [GitHub alpha v0.3.0a8](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8) and [PyPI 0.3.0a8](https://pypi.org/project/euromind-safeops/0.3.0a8/) were published on 2026-10-16. Original wheel/sdist hashes, registry installation and PyPI-verified publishing attestations were checked; see [delivery evidence](docs/audits/2026-10-16-first-alpha.md). Source 0.3.0a19 adds bounded AI candidates with exact reviewed source-upload consent, retaining unapproved proposals, explicit application gates, reviewed tooling and native supervision; it is not a published package.
 >
 
-EuroMind SafeOps helps software maintainers plan engineering tasks, classify risk, obtain an explicit human approval, and run a small set of deterministic checks while maintaining a locally stored integrity and audit trail. Optional OpenAI, Anthropic Claude, and OpenAI-compatible providers can provide **advice only**; their text cannot be executed as code or shell commands by SafeOps.
+EuroMind SafeOps helps software maintainers plan engineering tasks, classify risk, obtain an explicit human approval, and run a small set of deterministic checks while maintaining a locally stored integrity and audit trail. Optional OpenAI, Anthropic Claude and compatible providers supply task-only plan advice or separately consented candidate replacements. AI candidates remain unapproved until the existing explicit review/check/application gates; model-supplied commands are never dispatched.
 
 EuroMind SafeOps is developed independently as a general-purpose open-source tool. Contributions must be original or appropriately licensed and free of credentials, private infrastructure configuration and proprietary components.
 
@@ -37,7 +37,7 @@ EuroMind SafeOps is developed independently as a general-purpose open-source too
 Install the published alpha in a virtual environment with
 `python -m pip install euromind-safeops==0.3.0a8`.
 That release predates candidate previews, persisted proposals, staging copies and receipt inspection.
-Use the source checkout below for the current 0.3.0a18 capabilities.
+Use the source checkout below for the current 0.3.0a19 capabilities.
 
 In a shell at the root of this repository:
 
@@ -69,7 +69,7 @@ safeops --root examples/demo_project run YOUR_PLAN_ID
 **Upgrading from 0.2.0:** keep the workspace and its history. Valid schema-1 configuration remains supported, but old approvals are rejected. Review the current source, create a new plan and approve it explicitly. See [execution policy and compatibility](docs/EXECUTION.md).
 
 The existing version binding also requires new execution approval when upgrading
-to 0.3.0a18. Schema-1 defaults remain supported; optional schema 2 selects
+to 0.3.0a19. Schema-1 defaults remain supported; optional schema 2 selects
 [fixed-check directories](docs/TARGETS.md). Plan schema 1 and approval schema 2
 remain supported, with an additional target digest required for schema-2 config.
 
@@ -79,7 +79,7 @@ available; see the [JSON and CI summary contract](docs/OUTPUT.md).
 
 ### Optional AI advice — OpenAI, Anthropic and local models
 
-All remote integrations require explicit consent (`--allow-remote`) and the model ID you wish to use. They send only the task description, not repository files. Official provider API access may be billed separately from chat subscriptions.
+Remote `plan` requests require `--allow-remote` and send only the task description. Separate [AI candidate generation](docs/GENERATION.md) requires exact request review, `--confirm` and `--allow-source-upload` for selected source files. Official provider API access may be billed separately from chat subscriptions.
 
 ```bash
 safeops providers
@@ -126,8 +126,9 @@ Review application prerequisites with `review-application STAGE_ID --run RUN_ID`
 
 ## Implemented vs. planned
 
-| Capability | 0.3.0a18 |
+| Capability | 0.3.0a19 |
 |---|---|
+| Reviewed AI candidates | Exact source/request consent, strict bounded responses and unapproved schema-2 proposals; explicit downstream review/check/application required; [contract](docs/GENERATION.md) |
 | Reviewed maintainer tooling locks | Two Linux/CPython 3.12 profiles with complete wheel hashes, restricted installation and explicit compatibility-job exceptions; [policy](docs/TOOLING.md) |
 | Owned fixed-check process supervision | Implemented for cooperating POSIX groups/Windows jobs; includes ordinary descendants and bounded output tails, with fail-closed cleanup; no hostile-code containment; [contract](docs/SUPERVISION.md) |
 | Approved-check receipts and historical result inspection | Implemented; before/after input binding, explicit failure/timeout/change/incomplete results and read-only `inspect-run`; [contract](docs/RUN_RECEIPTS.md) |
@@ -166,7 +167,7 @@ Review application prerequisites with `review-application STAGE_ID --run RUN_ID`
 2. Human approval requires explicitly repeating the plan ID and providing a reason. A schema-2 approval binds the plan, repository snapshot, validated configuration, package version and fixed execution contract.
 3. Execution fails if those approved inputs change; upgrading requires a new plan and approval. Tests are imported only inside an approved child process.
 4. **Critical tasks are blocked** in this alpha version, including production deployments, deletion and credentials management.
-5. `run` executes only predefined compile and unit-test commands, never task text or model output.
+5. `run` executes only predefined compile and unit-test commands. Task/advice strings never become commands; human-reviewed candidate Python can execute through those trusted checks.
 
 This is a **safety workflow, not an isolation boundary**. Workspace hashes can be recomputed by a malicious local actor; symlinks and ignored trees may need independent review. `unittest` is executable code. See [Trust model](docs/TRUST_MODEL.md), [Security policy](SECURITY.md), and [Architecture](docs/ARCHITECTURE.md).
 
@@ -191,3 +192,7 @@ No claims of user adoption, downloads or external contributors are made. Communi
 ## License
 
 Copyright 2026 Sérgio Ribeiro. Licensed under [Apache License 2.0](LICENSE).
+
+Review an AI upload locally with `safeops --root PROJECT review-generation PLAN_ID --provider openai --model MODEL`. Only `generate-proposal` with the same options, exact `--confirm FINGERPRINT` and `--allow-source-upload` contacts the provider; see the [complete workflow](docs/GENERATION.md).
+
+A separate real OpenAI candidate-generation smoke on source 0.3.0a19 passed with one 19-byte synthetic file, no approval/check/application and unchanged source/credentials; [dated evidence](docs/audits/2026-10-17-openai-generation-smoke.md).

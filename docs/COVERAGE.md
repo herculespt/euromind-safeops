@@ -1,6 +1,6 @@
-# Measured CI coverage — 0.3.0a18
+# Measured CI coverage — 0.3.0a19
 
-<!-- safeops-version: 0.3.0a18 -->
+<!-- safeops-version: 0.3.0a19 -->
 
 [Português (Portugal)](pt-PT/COVERAGE.md)
 

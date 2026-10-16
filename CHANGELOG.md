@@ -2,6 +2,14 @@
 
 The format follows Keep a Changelog conventions; versions follow Semantic Versioning where practicable.
 
+## 0.3.0a19 — 2026-10-17
+
+- Add offline `review-generation` and exact-fingerprint/source-upload-confirmed `generate-proposal` for bounded AI candidates through OpenAI, Anthropic and compatible endpoints; ordinary advisory plans remain task-only.
+- Bind the complete request/body hash, destination/model/limits and current source/plan/configuration/targets/version/contract; reobserve before/after access and persistence. Reject unsafe/sensitive inputs, incomplete/nontext output, ambiguous JSON, unselected paths, stale bases and exceeded bounds without automatic retry or execution.
+- Preserve manual schema-1 proposals and introduce strictly validated schema-2 AI origin metadata without authenticated-provenance claims. Existing explicit review/staging/approved-check/application/rollback gates remain required.
+- Add offline/loopback/native-envelope and real staged-check/application/rollback regressions; synchronize EN/PT-PT privacy/provider/proposal/security/CLI contracts, version/status, roadmap and distribution contents. Fresh reviewed version-bound approval is required; public GitHub/PyPI 0.3.0a8 remains unchanged.
+- PT-PT: candidatos IA com revisão prévia do pedido e consentimento exato para ficheiros selecionados, propostas não aprovadas e validações limitadas; sem execução nem aplicação automática.
+
 ## 0.3.0a18 — 2026-10-16
 
 - Lock direct/transitive coverage and release tooling to reviewed PyPI wheel SHA-256 identities for CPython 3.12/Linux x86_64/glibc >=2.34. Preserve empty runtime dependencies.

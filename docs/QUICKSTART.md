@@ -1,8 +1,8 @@
 # Quickstart
 
-<!-- safeops-version: 0.3.0a18 -->
+<!-- safeops-version: 0.3.0a19 -->
 
-Current source version: **0.3.0a18**, alpha prerelease. Requires Python 3.11+, Git optional, and a trusted source tree. The default schema-1 checks require `src/` and a nonempty unittest suite under `tests/`; optional [schema-2 targets](TARGETS.md) select other directories. Nested test packages need `__init__.py`.
+Current source version: **0.3.0a19**, alpha prerelease. Requires Python 3.11+, Git optional, and a trusted source tree. The default schema-1 checks require `src/` and a nonempty unittest suite under `tests/`; optional [schema-2 targets](TARGETS.md) select other directories. Nested test packages need `__init__.py`.
 
 ```bash
 git clone https://github.com/herculespt/euromind-safeops.git
@@ -24,7 +24,7 @@ safeops --root examples/demo_project approve YOUR_PLAN_ID --confirm YOUR_PLAN_ID
 safeops --root examples/demo_project run YOUR_PLAN_ID
 ```
 
-`approve` rejects critical risk plans; `run` aborts if the source, configuration or versioned execution contract has changed. To update code or upgrade SafeOps, review the current source, create a **new plan** and approval. Old approval files are preserved but are not migrated or reused. Valid configuration schema 1 remains supported; see [execution policy](EXECUTION.md). This source version does not alter project source files itself.
+`approve` rejects critical risk plans; `run` aborts if the source, configuration or versioned execution contract has changed. To update code or upgrade SafeOps, review the current source, create a **new plan** and approval. Old approval files are preserved but are not migrated or reused. Valid configuration schema 1 remains supported; see [execution policy](EXECUTION.md). The commands above do not alter source; separately reviewed original application has [its own contract](APPLICATION.md).
 
 To inspect what may be committed:
 
@@ -75,3 +75,5 @@ Use `stage-proposal PROPOSAL_ID --confirm PROPOSAL_FINGERPRINT` after inspecting
 Source 0.3.0a15 adds [explicit reviewed application and conservative rollback](APPLICATION.md). Both staged fixed checks must pass with unchanged current bindings and the same configuration as the original; exact fresh human confirmation and native guards precede private backup/journal preparation and source writes. Any retained application marker blocks new approved runs/applications. Read-only inspection and separately confirmed rollback preserve evidence and refuse observed human edits. No multi-file transaction, power-loss guarantee, Git operation, provider request or OS isolation is added. That milestone used runner 4/lock 2. Fresh version-bound execution approval is required.
 
 Source 0.3.0a16 adds [owned fixed-check supervision](SUPERVISION.md): a gated launcher, POSIX group/PID anchor or Windows kill-on-close job, native completion/termination checks and continuously drained bounded stream tails. Timeout includes ordinary owned descendants and pipe retention; uncertain cleanup retains run.lock and incomplete intent without a final receipt. Runner 5/lock 3 require fresh version-bound approval. This covers cooperating same-group POSIX descendants/job members, not deliberate group/session escapes, hostile-code isolation or automatic stale recovery. The guide defines normal, timeout, cancellation and abrupt-parent-death limits.
+
+[Reviewed AI generation](GENERATION.md) is a separate source-sharing operation: offline full-request review, exact fingerprint plus source-upload consent, then an unapproved schema-2 proposal. Manual schema 1 remains supported; existing explicit review/staging/check/application gates still apply. Local request reviews contain source text and must not be published blindly. Ordinary `plan` calls remain task-only.

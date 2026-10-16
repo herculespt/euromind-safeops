@@ -69,7 +69,7 @@ aprovação de execução. Rever diffs localmente: podem conter texto ou segredo
 sem upload automático com relatórios. Não implementa geração por IA ou aplicação
 revista de patches.
 
-Nas [propostas persistentes](PROPOSALS.md), revê caminhos exatos explícitos, ligações, privacidade do armazenamento e rejeição de registos alterados/desatualizados. Não publiques texto, registos ou diffs automaticamente. A auditoria pode falhar depois da gravação da proposta: inspeciona o estado antes de repetir. Aplicação explícita tem [contrato separado](APPLICATION.md); geração com IA continua planeada.
+Nas [propostas persistentes](PROPOSALS.md), revê caminhos exatos explícitos, ligações, privacidade do armazenamento e rejeição de registos alterados/desatualizados. Não publiques texto, registos ou diffs automaticamente. A auditoria pode falhar depois da gravação da proposta: inspeciona o estado antes de repetir. Aplicação explícita tem [contrato separado](APPLICATION.md); a geração IA limitada tem [contrato de consentimento explícito](GENERATION.md).
 
 Nas [cópias locais](STAGING.md), revê exclusões, escrita independente, confirmação do fingerprint e estado retido nas falhas. O recibo não é sandbox nem aprovação de aplicação ao original. Não elimines cópias parciais nem publiques conteúdo automaticamente. As verificações exigem aprovação nova; ambiente/dependências podem precisar de preparação separada.
 
@@ -99,3 +99,5 @@ O código 0.3.0a16 acrescenta [supervisão dos processos próprios](SUPERVISION.
 O código 0.3.0a17 aguarda contagem final zero do job Windows no mesmo orçamento de limpeza de três segundos usado para saída do launcher, EOF e limpeza de falha. Contagem positiva transitória não transforma imediatamente um check falhado concluído em erro operacional; confirmação persistente/indisponível mantém recusa e estado retido. Diagnóstico por fases fixas exclui texto nativo de exceções. Mantêm-se runner 5/lock 3 e schemas; versão/política de limpeza atualizadas exigem planos/propostas/aprovações novos e revistos.
 
 Ferramentas de cobertura/release usam conjuntos transitivos de wheels/hashes revistos em perfis Linux/CPython 3.12 dedicados. A [política](TOOLING.md) define instalação/recusa, atualização e exceções dos jobs de compatibilidade. Não fixa o bootstrap do runner/intérprete nem certifica segurança das dependências.
+
+A [geração IA revista](GENERATION.md) é uma operação separada de partilha de código: revisão offline do pedido completo, fingerprint e consentimento de upload, depois proposta schema 2 não aprovada. Schema 1 manual e gates explícitos de revisão/staging/checks/aplicação mantêm-se. A revisão contém código e não deve ser publicada sem inspeção; `plan` continua a enviar só a tarefa.

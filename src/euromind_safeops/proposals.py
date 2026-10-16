@@ -66,33 +66,56 @@ def _validate_candidate(root: Path, document: dict, paths: list[str]) -> dict:
 def create_proposal(root: Path, plan_id: str, candidate: Path) -> dict:
     bindings, paths = _context(root, plan_id)
     document = read_candidate(candidate)
+    return _record_proposal(root, plan_id, document, bindings, paths)
+
+
+def _validate_origin(origin):
+    if (not isinstance(origin, dict) or set(origin) != {"kind", "provider", "model", "request_sha256"} or
+            origin["kind"] != "ai" or origin["provider"] not in ("openai", "anthropic", "openai-compatible") or
+            not isinstance(origin["model"], str) or not 1 <= len(origin["model"]) <= 120 or
+            any(ord(c) < 32 for c in origin["model"]) or
+            not isinstance(origin["request_sha256"], str) or not re.fullmatch(r"[a-f0-9]{64}", origin["request_sha256"])):
+        raise ValueError("Invalid proposal origin metadata")
+
+
+def _record_proposal(root, plan_id, document, bindings, paths, *, origin=None):
+    if origin is not None:
+        _validate_origin(origin)
     preview = _validate_candidate(root, document, paths)
     if _context(root, plan_id) != (bindings, paths):
         raise SafeOpsError("Proposal context changed during validation")
     proposal_id = secrets.token_hex(6)
-    record = {"schema": 1, "id": proposal_id, "created_at": utc_now(),
+    record = {"schema": 2 if origin is not None else 1, "id": proposal_id, "created_at": utc_now(),
               "safeops_version": __version__, "bindings": bindings, "candidate": document,
               "candidate_sha256": preview["candidate_sha256"]}
+    if origin is not None:
+        record["origin"] = origin
     record["fingerprint"] = sha256(record)
     location = _location(root, proposal_id)
     location.parent.mkdir(mode=0o700, exist_ok=True)
     atomic_json_write(location, record)
-    audit(root, "propose", plan_id, "recorded")
-    return {"schema": 1, "status": "proposal-recorded", "proposal_id": proposal_id,
+    audit(root, "generate-proposal" if origin is not None else "propose", plan_id, "recorded")
+    result = {"schema": 1, "status": "proposal-recorded", "proposal_id": proposal_id,
             "plan_id": plan_id, "candidate_sha256": record["candidate_sha256"],
             "fingerprint": record["fingerprint"], "notice": _NOTICE}
+    if origin is not None:
+        result.update(origin=origin, notice="AI-generated unapproved proposal: no source writes, approval grant, staging or checks")
+    return result
 
 
 def _load(root: Path, proposal_id: str) -> dict:
     try:
         record = decode_json_object(_read_regular(_location(root, proposal_id), limit=MAX_RECORD_BYTES))
-        if (set(record) != _FIELDS or type(record["schema"]) is not int or record["schema"] != 1 or
+        expected = _FIELDS | ({"origin"} if record.get("schema") == 2 else set())
+        if (set(record) != expected or type(record["schema"]) is not int or record["schema"] not in (1, 2) or
                 record["id"] != proposal_id or not isinstance(record["bindings"], dict) or
                 not isinstance(record["candidate"], dict) or
                 not isinstance(record["created_at"], str) or
                 not re.fullmatch(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\+00:00", record["created_at"])):
             raise ValueError("Invalid record")
         datetime.fromisoformat(record["created_at"])
+        if record["schema"] == 2:
+            _validate_origin(record["origin"])
         fingerprint = record.pop("fingerprint")
         if (not isinstance(fingerprint, str) or sha256(record) != fingerprint or
                 record["candidate_sha256"] != sha256(record["candidate"])):
@@ -114,7 +137,10 @@ def review_proposal(root: Path, proposal_id: str) -> dict:
     preview = _validate_candidate(root, record["candidate"], paths)
     if _context(root, plan_id) != (bindings, paths):
         raise SafeOpsError("Proposal context changed during review")
-    return {"schema": 1, "status": "proposal-reviewed", "proposal_id": proposal_id,
+    result = {"schema": 1, "status": "proposal-reviewed", "proposal_id": proposal_id,
             "plan_id": plan_id, "fingerprint": record["fingerprint"],
             "candidate_sha256": preview["candidate_sha256"], "files": preview["files"],
             "notice": _NOTICE}
+    if record["schema"] == 2:
+        result["origin"] = record["origin"]
+    return result

@@ -1,6 +1,7 @@
 """Provider adapters return untrusted advisory text, never executable actions.
 
-Only the task string crosses the network. No repository contents are transmitted.
+Advisory plans send only the task string. Reviewed source generation uses the
+separate candidate transport and explicit source consent.
 The native endpoint origins are fixed; a generic compatible endpoint requires opt-in.
 """
 

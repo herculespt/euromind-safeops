@@ -1,6 +1,6 @@
-# Caminhos de âmbito consultivo — 0.3.0a18
+# Caminhos de âmbito consultivo — 0.3.0a19
 
-<!-- safeops-version: 0.3.0a18 -->
+<!-- safeops-version: 0.3.0a19 -->
 
 [English](../SCOPE.md)
 
@@ -75,3 +75,5 @@ Consulta a [compatibilidade de execução](EXECUTION.md), o [estado](STATUS.md) 
 As [propostas locais](PROPOSALS.md) exigem correspondência exata entre cada ficheiro proposto e um `--path` explícito do plano; diretórios não incluem descendentes. Esta regra das propostas não altera o âmbito consultivo nem os alvos das verificações fixas descritos acima.
 
 As [cópias locais](STAGING.md) copiam o snapshot normal suportado com as omissões documentadas. Os caminhos exatos do plano restringem as substituições, não todos os ficheiros lidos/copiados. Não impõem restrição de acesso pelo SO.
+
+A [geração IA revista](GENERATION.md) é uma operação separada de partilha de código: revisão offline do pedido completo, fingerprint e consentimento de upload, depois proposta schema 2 não aprovada. Schema 1 manual e gates explícitos de revisão/staging/checks/aplicação mantêm-se. A revisão contém código e não deve ser publicada sem inspeção; `plan` continua a enviar só a tarefa.

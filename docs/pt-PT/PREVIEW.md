@@ -1,6 +1,6 @@
-# Preview local de candidatos — 0.3.0a18
+# Preview local de candidatos — 0.3.0a19
 
-<!-- safeops-version: 0.3.0a18 -->
+<!-- safeops-version: 0.3.0a19 -->
 
 [English](../PREVIEW.md)
 
@@ -90,3 +90,5 @@ sandboxing continuam planeados. [Aplicação revista/rollback](APPLICATION.md) e
 a atualização de versão continua a exigir plano novo revisto e aprovação explícita.
 
 As [propostas locais ligadas ao plano](PROPOSALS.md) já estão disponíveis num fluxo separado. O comando `preview` continua sem estado e não inicializa nem escreve `.safeops`.
+
+A [geração IA revista](GENERATION.md) é uma operação separada de partilha de código: revisão offline do pedido completo, fingerprint e consentimento de upload, depois proposta schema 2 não aprovada. Schema 1 manual e gates explícitos de revisão/staging/checks/aplicação mantêm-se. A revisão contém código e não deve ser publicada sem inspeção; `plan` continua a enviar só a tarefa.

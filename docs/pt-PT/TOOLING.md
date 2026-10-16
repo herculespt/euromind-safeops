@@ -1,10 +1,10 @@
-# Ferramentas de manutenção revistas — 0.3.0a18
+# Ferramentas de manutenção revistas — 0.3.0a19
 
-<!-- safeops-version: 0.3.0a18 -->
+<!-- safeops-version: 0.3.0a19 -->
 
 [English](../TOOLING.md)
 
-A política do código 0.3.0a18 abrange ambientes dedicados **CPython 3.12,
+A política do código 0.3.0a19 abrange ambientes dedicados **CPython 3.12,
 Linux x86_64 e glibc >=2.34**. Mantém o runtime sem dependências externas e a
 matriz Linux/Windows/macOS com Python 3.11–3.13.
 

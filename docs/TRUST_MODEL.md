@@ -10,13 +10,13 @@ Human approval intent; source code under review; local credentials; repository i
 2. **AI advice** is untrusted text and can contain prompt injection or false claims.
 3. **Workspace source files and tests** are trusted only to the extent the operator trusts the repository. They are executable during checks.
 4. **Local `.safeops` state** is mutable by the user/other processes and is not an independent security domain.
-5. **Remote provider** is an external data processor; only opt in with non-sensitive tasks.
+5. **Remote provider** is an external data processor; only opt in with reviewed non-sensitive tasks/source context.
 
 ## Protections implemented
 
 | Threat | Current response | Residual risk |
 |---|---|---|
-| Model prompt-injection causing arbitrary commands | Model output is never passed to subprocess | Human may manually follow unsafe advice |
+| Model prompt-injection causing arbitrary commands | No model-supplied command/tool is dispatched; candidates require explicit review/staged checks/application | Approved candidate Python remains executable trusted test/source code |
 | Modified plan after approval | SHA-256 fingerprint and approval linkage | Local actor can edit and recompute hashes |
 | Edited source after approval | Full content hash snapshot before execution | Ignored directories and symlinks are outside the snapshot |
 | Check command injection | Fixed command table, `shell=False` | Python tests can execute arbitrary code |
@@ -25,7 +25,7 @@ Human approval intent; source code under review; local credentials; repository i
 | Ambiguous provider JSON or error-body disclosure | Shared strict UTF-8 object decoder, bounded read and redacted HTTP/URL/timeout CLI errors; blocked redirects | CI uses doubles/local fixtures; separate OpenAI and Anthropic live smokes passed, without establishing other accounts/models, total request deadlines or model security |
 | Invalid advisory scope causing provider access or unsafe approval | Portable path preflight before advice/persistence and revalidation at approval/run | Advisory only; whole-workspace checks and filesystem races remain, with no isolation |
 | Empty or all-skipped unit-test suite | Child runner requires discovered cases and a non-skipped execution | Trusted tests can manipulate the interpreter; assertion quality is not verified |
-| Remote data exfiltration | Opt-in provider, task-only payload, HTTPS/loopback-only | User may paste secrets into task; TLS trusts endpoint |
+| Remote data exfiltration | Task-only advisory; separate exact-source/fingerprint upload consent for generation, bounded selected files and heuristic checks | Unknown private data/secrets, residual file races and provider retention remain; TLS trusts endpoint |
 | Hidden credentials in repository | Heuristic scanner prints only file/line | Unknown secret formats will be missed |
 | Concurrent check runs/recovery | Persistent native guard, owned marker and fingerprint/acknowledgement-bound archival recovery; [policy](LOCKING.md) | Local cooperative lock; retained markers do not prove child liveness; no distributed guarantee, hostile descendant containment or protection from a state owner rewriting files |
 | Root symlink to private directory | Root resolves explicitly; `.safeops` symlink rejected | Other local filesystem races possible |

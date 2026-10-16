@@ -14,6 +14,7 @@ from .locking import lock_status, recover_lock
 from .planning import create_plan, load_plan, specialization, validate_task
 from .preview import preview_candidate
 from .proposals import create_proposal, review_proposal
+from .generation import generate_proposal, review_generation
 from .providers import offline_advice, remote_advice, provider_status
 from .scope import validate_scope_paths
 from .scanning import scan
@@ -71,6 +72,17 @@ def make_parser() -> argparse.ArgumentParser:
     proposal.add_argument("candidate", type=Path, help="Local candidate JSON; exact explicit plan paths required")
     proposal_review = commands.add_parser("review-proposal", help="Revalidate a stored proposal and show diffs")
     proposal_review.add_argument("proposal_id")
+    for command, help_text in (("review-generation", "Review exact source upload without contacting a provider"),
+                               ("generate-proposal", "Send exact reviewed source and store an unapproved AI proposal")):
+        generation = commands.add_parser(command, help=help_text)
+        generation.add_argument("plan_id")
+        generation.add_argument("--provider", required=True, choices=["openai", "anthropic", "openai-compatible"])
+        generation.add_argument("--model", required=True)
+        generation.add_argument("--endpoint", default="")
+        generation.add_argument("--provider-timeout", type=int, default=30)
+        if command == "generate-proposal":
+            generation.add_argument("--confirm", required=True, help="Exact fingerprint from review-generation")
+            generation.add_argument("--allow-source-upload", action="store_true", help="Consent to this exact task/source upload")
     staging = commands.add_parser("stage-proposal", help="Materialize a reviewed proposal in a separate local copy")
     staging.add_argument("proposal_id")
     staging.add_argument("--confirm", required=True, help="Repeat the exact fingerprint from review-proposal")
@@ -167,6 +179,13 @@ def _execute(args: argparse.Namespace) -> tuple[dict, int, list[str]]:
         result = review_stage(root, args.stage_id)
         return result, 0 if result["status"] == "current" else 1, []
     workspace(root)
+    if args.command in ("review-generation", "generate-proposal"):
+        options = {"provider": args.provider, "model": args.model, "endpoint": args.endpoint,
+                   "timeout": args.provider_timeout}
+        if args.command == "review-generation":
+            return review_generation(root, args.plan_id, **options), 0, []
+        return generate_proposal(root, args.plan_id, args.confirm,
+                                 allow_source_upload=args.allow_source_upload, **options), 0, []
     if args.command == "propose":
         return create_proposal(root, args.plan_id, args.candidate), 0, []
     if args.command == "review-proposal":
