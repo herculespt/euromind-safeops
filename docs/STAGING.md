@@ -1,6 +1,6 @@
-# Separate local staging copies — 0.3.0a12
+# Separate local staging copies — 0.3.0a13
 
-<!-- safeops-version: 0.3.0a12 -->
+<!-- safeops-version: 0.3.0a13 -->
 
 [Português (Portugal)](pt-PT/STAGING.md)
 
@@ -109,12 +109,12 @@ it. `inspect-stage` provides the bounded comparison below; authenticated
 provenance, write isolation and transactional filesystem guarantees remain absent.
 
 Config 1/2, plan 1, approval 2, envelope 1 and runner 3/lock 1 remain supported.
-Upgrading to 0.3.0a12 requires fresh version-bound proposals and execution
+Upgrading to 0.3.0a13 requires fresh version-bound proposals and execution
 approval; history is retained without migration. Applying changes to the original
 workspace, rollback, isolated Git worktrees and OS sandboxing remain planned.
 See [status](STATUS.md) and [roadmap](../ROADMAP.md).
 
-## Read-only historical inspection — source 0.3.0a12
+## Read-only historical inspection — introduced in source 0.3.0a12
 
 Run `safeops --json --root ORIGINAL_PROJECT inspect-stage STAGE_ID`, using the
 original initialized project and exact 12-character lowercase stage ID. This
@@ -160,3 +160,7 @@ stay outside the comparison. Ignored data and metadata such as executable bits,
 timestamps, ownership and empty directory changes are not compared. No filesystem
 lock or OS isolation is added; double scans do not exclude every concurrent race.
 Mutable, unkeyed evidence can be rewritten by a hostile local writer.
+
+## Current original-context review
+
+Source 0.3.0a13 adds `review-stage STAGE_ID` at the original root. It requires a matching historical copy, then compares current original, candidate bases, plan, configuration, selected targets, installed version and execution contract. See [results, bounds and compatibility](STAGE_REVIEW.md). It never applies changes or renews approval; `inspect-stage` remains historical only.

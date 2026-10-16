@@ -1,12 +1,12 @@
 # Política de segurança
 
-<!-- safeops-version: 0.3.0a12 -->
+<!-- safeops-version: 0.3.0a13 -->
 
 [English](../../SECURITY.md)
 
 ## Âmbito e maturidade
 
-O EuroMind SafeOps 0.3.0a12 é uma **ferramenta de desenvolvimento em versão alfa**.
+O EuroMind SafeOps 0.3.0a13 é uma **ferramenta de desenvolvimento em versão alfa**.
 Não implementa isolamento seguro, não garante a segurança do código testado e
 não deve ser utilizado para autorizar operações de produção. A classificação
 de risco e a pesquisa por padrões são heurísticas com limitações.
@@ -51,3 +51,5 @@ As [cópias locais](STAGING.md) omitem ficheiros convencionais de ambiente e est
 contagens e digests, sem texto dos ficheiros. Esses dados podem ser sensíveis.
 Evidência sem chave igual não autentica autoria, não revalida o original atual,
 não demonstra testes aprovados nem concede aprovação de execução/aplicação.
+
+`review-stage` revalida separadamente o contexto original atual com observações limitadas sem escrita, exigindo cópia correspondente. Pode ler bytes de ambiente/alvos selecionados para hash local, sem os devolver. `current` não concede aprovação, autenticação ou autoridade de aplicação. Consulta [âmbito e limites de concorrência](STAGE_REVIEW.md).

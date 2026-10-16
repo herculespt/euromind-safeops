@@ -132,3 +132,5 @@ rewrite history or weaken the required checks. Releases need separate approval.
 Installed-distribution checks also require the proposal module, EN/PT-PT proposal guides and lifecycle regression tests in the archives. Proposal regressions use temporary local fixtures; they do not request provider inference or upload candidate content.
 
 Distribution checks require `staging.py`, EN/PT-PT staging guides and offline staging regressions in the archives. The tests validate fresh-approval trusted checks on a temporary copy without provider requests. Document-link exclusion paths are relative to the package root so copies nested under `.safeops` remain checked.
+
+Current original-context review regressions cover current/stale/incompatible results, original/candidate/configuration/version changes, schema-2 generated target data, malformed evidence, bounds, concurrent changes and unsafe links/FIFOs. Both distribution jobs require `stage_review.py`, its tests and EN/PT-PT contract in the sdist, with the runtime module in the wheel. All tests run from the installed wheel; this review itself never launches code or providers.

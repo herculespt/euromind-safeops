@@ -1,6 +1,6 @@
-# Architecture — 0.3.0a12
+# Architecture — 0.3.0a13
 
-<!-- safeops-version: 0.3.0a12 -->
+<!-- safeops-version: 0.3.0a13 -->
 
 ## Data flow
 
@@ -29,6 +29,7 @@ flowchart TD
 | `scope.py` | Portable advisory path syntax, link/reparse checks and lifecycle preflight |
 | `preview.py` | Read-only local text replacement validation, exact base hashes and unified diffs; no persisted state or execution authority |
 | `staging.py` | Exact-fingerprint confirmation, bounded separate local copy and manifest/receipt; no source application or check execution |
+| `stage_review.py` | Bounded current original/plan/base/configuration/target/version/contract review after matching stage; no writes or approval |
 | `stage_inspection.py` | Strict historical stage/proposal linkage and bounded double content scan; observations without writes, current-source revalidation or approval |
 | `proposals.py` | Local candidate persistence, plan/context bindings and read-only stale/integrity review; no execution authority |
 | `planning.py` | Rule-based risk and role suggestions, plan fingerprinting |
@@ -107,3 +108,5 @@ The project favors transparency, no third-party runtime dependencies and determi
 copy with its historical manifest. It does not call current proposal review or
 load current configuration to establish equivalence with the original. Historical
 observations never create an edge to application or execution approval.
+
+`stage_review.py` implements `review-stage`: reuse strict historical inspection, require matching copy, observe current original/context twice, reread safe bounded controls and require unchanged final inspection. It reuses decoded configuration validation without reopening an unsafe policy file. Original snapshot scope differs from filtered staging scope; selected targets retain their own digest/budgets. Result booleans and fixed reasons contain no file text and grant no execution/application authority. See [contract](STAGE_REVIEW.md).

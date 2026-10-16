@@ -1,10 +1,10 @@
 # Estado de implementação e publicação
 
-<!-- safeops-version: 0.3.0a12 -->
+<!-- safeops-version: 0.3.0a13 -->
 
 [English](../STATUS.md)
 
-**Versão atual do código: 0.3.0a12 — pré-versão alfa.** O CI cobre Python
+**Versão atual do código: 0.3.0a13 — pré-versão alfa.** O CI cobre Python
 3.11–3.13 em Linux, Windows e macOS. Não existem dependências externas em
 execução. A primeira [release GitHub v0.3.0a8](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8)
 foi publicada em 16 de outubro de 2026 no commit
@@ -24,12 +24,13 @@ o código do pacote mantém o commit imutável 0.3.0a8 indicado acima. Esta evid
 é de proveniência da publicação; não demonstra builds reproduzíveis nem
 aprovações SafeOps assinadas.
 
-O código 0.3.0a12 acrescenta inspeção histórica das cópias/recibos sem escrita, mantendo cópias separadas e revisão de propostas; ainda não foi publicada uma nova release.
+O código 0.3.0a13 acrescenta revisão do contexto original atual sem escrita, mantendo inspeção histórica, cópias separadas e revisão de propostas; ainda não foi publicada uma nova release.
 
 ## Implementado
 
 | Capacidade | Limite prático |
 |---|---|
+| Revisão do contexto original atual | Exige cópia correspondente e duas observações limitadas do original/plano/bases/configuração/alvos/versão/contrato; current/stale/incompatible, sem escrita nem aprovação; [contrato](STAGE_REVIEW.md) |
 | Inspeção dos recibos/cópias sem escrita | Schema/ligações estritos e duas leituras limitadas; matching/changed/incomplete sem texto dos ficheiros ou escrita; sem revalidar o original atual nem conceder aprovação; [contrato](STAGING.md) |
 | Cópias locais de preparação | Fingerprint revisto exato, ficheiros independentes, exclusões e manifesto/recibo; sem aplicação ao original, testes automáticos ou sandbox; [contrato](STAGING.md) |
 | Propostas locais ligadas ao plano | Caminhos explícitos exatos, ligações ao snapshot/configuração/contrato e revisão sem aplicação nem aprovação; [contrato](PROPOSALS.md) |
@@ -89,7 +90,7 @@ Consulta a [compatibilidade de execução](EXECUTION.md), o
 A [validação dos fornecedores](PROVIDER_TESTING.md) distingue respostas fixas dos
 pedidos reais separados nos registos [OpenAI](audits/2026-10-15-openai-smoke.md) e
 [Anthropic](audits/2026-10-15-anthropic-smoke.md), testados na versão 0.3.0a2.
-A versão atual 0.3.0a12 acrescenta [inspeção histórica das cópias](STAGING.md), mantendo cópias separadas, [propostas ligadas ao plano](PROPOSALS.md), [previews locais](PREVIEW.md), [cobertura medida](COVERAGE.md), [JUnit local](REPORTING.md),
+A versão atual 0.3.0a13 acrescenta [revisão do original atual](STAGE_REVIEW.md), mantendo [inspeção histórica das cópias](STAGING.md), cópias separadas, [propostas ligadas ao plano](PROPOSALS.md), [previews locais](PREVIEW.md), [cobertura medida](COVERAGE.md), [JUnit local](REPORTING.md),
 [bloqueio nativo e recuperação explícita](LOCKING.md),
 [saída estruturada/resumos CI](OUTPUT.md), [diretórios opcionais](TARGETS.md),
 a [validação do âmbito](SCOPE.md) e o schema 1 predefinido.
