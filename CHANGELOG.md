@@ -18,6 +18,7 @@ Current source milestone: **0.3.0a12**. First GitHub alpha and [PyPI 0.3.0a8](ht
 - Compare two bounded scans of included independent regular files and report sorted missing/extra/changed paths, counts and digests without file text. Matching returns 0; changed/incomplete return 1; invalid/unsafe/unreadable/oversized/changing evidence returns sanitized error 2.
 - Inspect old versions without renewing current-original/configuration bindings, execution approvals or source-application authority. Preserve partial copies and every record; no writes, cleanup, provider requests or code execution.
 - Testes offline de integridade, ciclo de vida, caminhos, limites, concorrência e ausência de escrita; CLI, versão, documentação EN/PT-PT, capacidades, roadmap e contratos de distribuição atualizados. A release GitHub/PyPI 0.3.0a8 mantém os ficheiros originais.
+- Content-disclosure assertions use exact fixture text and an explicit `private` path component, avoiding false failures for normal macOS `/private/` workspace paths.
 - Config/plan/approval/output schemas and runner 3/lock 1 retained; new execution approvals/proposals still require a fresh reviewed plan after this version update. Original-workspace application, rollback, Git worktrees, OS isolation and signed SafeOps provenance remain planned.
 
 ## [0.3.0a11] — 2026-10-16 (source alpha; no new published release)

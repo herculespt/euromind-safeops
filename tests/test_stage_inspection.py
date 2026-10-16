@@ -23,7 +23,7 @@ class StageInspectionTests(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
-        self.root = Path(self.temp.name) / "project"
+        self.root = Path(self.temp.name) / "private" / "project"
         (self.root / "src").mkdir(parents=True)
         (self.root / "src/demo.py").write_bytes(b"value = 1\n")
         (self.root / "notes.txt").write_bytes(b"Original notes\n")
@@ -97,7 +97,10 @@ class StageInspectionTests(unittest.TestCase):
         self.assertEqual(data["missing"], ["notes.txt"])
         self.assertEqual(data["extra"], ["new.bin"])
         self.assertEqual(data["changed"], ["src/demo.py"])
-        self.assertNotIn("private", json.dumps(payload))
+        # Absolute workspace paths are part of the documented result, including
+        # macOS /private/ paths. Test the actual file contents, not one path word.
+        self.assertNotIn("private changed text", json.dumps(payload))
+        self.assertNotIn("private binary", json.dumps(payload))
         self.assertEqual(before, self.snapshot())
 
     def test_generated_environment_and_safeops_state_are_omitted(self):
