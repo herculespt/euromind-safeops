@@ -4,20 +4,20 @@ The format follows Keep a Changelog conventions; versions follow Semantic Versio
 
 ## [Unreleased]
 
-Current source milestone: **0.3.0a8**. No tag or public release is implied.
+Current source milestone: **0.3.0a8**. First GitHub alpha published on 2026-10-16; PyPI remains pending. See [delivery evidence](docs/audits/2026-10-16-first-alpha.md).
 
 ## [0.3.0a8] — 2026-10-15 (alpha source; publication tracked in docs/STATUS.md)
 
 ### Added / Adicionado
 - Pinned development-only coverage.py 7.16.2, statements/branches and supported Python subprocess measurement in the existing Linux/Python 3.12 CI job. No new runtime dependency.
 - Separate real subprocess probe, data reset before the full suite, combined minimum 90%, local JSON/Cobertura XML validation and numeric job summary. All package modules and zero excluded lines are required; the twelve-job layout and stable quality-gate remain.
-- Guias EN/PT-PT de cobertura, CI, manutenção, versão/estado/roadmap e aprovação de execução atualizados. A versão do código, release GitHub e pacote PyPI são entregas distintas; primeira publicação autorizada em preparação.
+- Guias EN/PT-PT de cobertura, CI, manutenção, versão/estado/roadmap e aprovação de execução atualizados. A versão do código, release GitHub e pacote PyPI são entregas distintas; primeira alpha GitHub publicada em 2026-10-16, com evidência datada; PyPI pendente.
 
 ### Publication preparation / Preparação da publicação
 - Bilingual registry README with absolute links, metadata consistency check, pinned release tools and manual candidate-validation/PyPI OIDC workflow. Package-only artifact transfer; no test-report upload.
 - Exact protected-main ancestry/latest successful CI, published alpha tag/version checks, isolated installed-wheel tests, SHA-256 transfer verification and post-upload registry/install checks.
 - Independent secret scanning uses a reviewed hash-only baseline for seven synthetic fixture findings; changed/new values remain blocked in tracked source and expanded distributions. Nine offline regression cases cover path/type/hash boundaries, strict control metadata and standalone archives.
-- GitHub release publication is authorized; actual delivery is recorded in status. PyPI account sign-in/publisher registration remains pending.
+- Published GitHub prerelease v0.3.0a8 on 2026-10-16 at `035c36b1b646a6c75178d5db6c19d8c55d624dcf`; attached wheel/sdist/checksums match verified bytes. Twelve main CI jobs and candidate workflow passed; 209 installed-wheel tests, zero failures/errors, three platform skips. PyPI sign-in/publisher registration remains pending. This documentation follow-up does not move the public tag or rebuild assets.
 
 ### Compatibility and limits / Compatibilidade e limites
 - Existing schemas and runner 3/lock 1 protocols retained. Version binding still requires a new reviewed plan and explicit approval; no approval migration.

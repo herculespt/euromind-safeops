@@ -6,13 +6,15 @@
 
 **Versão atual do código: 0.3.0a8 — pré-versão alfa.** O CI cobre Python
 3.11–3.13 em Linux, Windows e macOS. Não existem dependências externas em
-execução. O código já está disponível neste repositório GitHub. Nesta revisão,
-a primeira release alfa está em preparação, com autorização do maintainer.
-O workflow manual alfa e os metadados do pacote estão preparados. Autenticação
-PyPI, registo do publisher e publicação efetiva continuam pendentes: o pedido de
-login foi interrompido e não foi feita nenhuma concessão na conta.
-A versão do código, a release GitHub e o pacote instalável pelo PyPI são
-entregas distintas. A evidência de publicação será registada aqui após validação.
+execução. A primeira [release GitHub v0.3.0a8](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8)
+foi publicada em 16 de outubro de 2026 no commit
+`035c36b1b646a6c75178d5db6c19d8c55d624dcf`, com wheel, sdist e SHA256SUMS
+verificados. Os 12 jobs da main e a validação do candidato passaram; o wheel
+instalado passou 209 testes (3 ignorados por plataforma, zero falhas/erros).
+Consulta a [evidência datada](audits/2026-10-16-first-alpha.md).
+O workflow está preparado para PyPI, mas autenticação, registo do publisher e
+publicação efetiva continuam pendentes: o pedido de login foi interrompido.
+Não foram verificadas concessões na conta, instalação pelo registo ou atestações.
 
 ## Implementado
 
@@ -79,4 +81,5 @@ A versão atual 0.3.0a8 acrescenta [cobertura medida](COVERAGE.md), preservando 
 a [validação do âmbito](SCOPE.md) e o schema 1 predefinido.
 A ligação à versão invalida aprovações anteriores; a configuração de schema 2
 liga também os ficheiros selecionados. A restrição
-completa do sistema de ficheiros continua planeada. Não foi publicada uma release.
+completa do sistema de ficheiros continua planeada. A release GitHub foi publicada;
+o PyPI mantém-se pendente, conforme o estado acima.

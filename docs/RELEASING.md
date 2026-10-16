@@ -9,6 +9,8 @@ releases require their own authorization. See [status](STATUS.md) and
 [issue #31](https://github.com/herculespt/euromind-safeops/issues/31) for actual
 publication evidence. A successful candidate validation does not publish to PyPI.
 
+First alpha delivery (2026-10-16): GitHub prerelease and distributions published; PyPI remains pending. See [verified evidence](audits/2026-10-16-first-alpha.md).
+
 ## Review and GitHub release
 
 Merge through a reviewed PR, with active main protection and all required

@@ -8,7 +8,7 @@
 ![Status](https://img.shields.io/badge/status-alpha-orange)
 ![License](https://img.shields.io/badge/license-Apache--2.0-blue)
 
-> **Source version: 0.3.0a8 (alpha prerelease).** See [current implementation and publication status](docs/STATUS.md) and [Implemented vs. planned](#implemented-vs-planned). Source versions do not imply a published GitHub Release or package.
+> **Source version: 0.3.0a8 (alpha prerelease).** See [current implementation and publication status](docs/STATUS.md) and [Implemented vs. planned](#implemented-vs-planned). [First GitHub alpha v0.3.0a8](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8) was published on 2026-10-16 with verified wheel/sdist/checksums. PyPI authentication and publisher registration remain pending; see [delivery evidence](docs/audits/2026-10-16-first-alpha.md).
 >
 
 EuroMind SafeOps helps software maintainers plan engineering tasks, classify risk, obtain an explicit human approval, and run a small set of deterministic checks while maintaining a locally stored integrity and audit trail. Optional OpenAI, Anthropic Claude, and OpenAI-compatible providers can provide **advice only**; their text cannot be executed as code or shell commands by SafeOps.
