@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import os
+from dataclasses import dataclass
 from pathlib import Path
 import secrets
 import signal
@@ -100,25 +101,41 @@ def _signal_group(pid: int, sig: int) -> None:
         pass
 
 
-def _stop(process, job: Job | None, tails: list[_Tail], *, assigned: bool, released: bool) -> bool:
+@dataclass(frozen=True)
+class _Cleanup:
+    confirmed: bool
+    reason: str
+
+    def __bool__(self):
+        return self.confirmed
+
+
+def _stop(process, job: Job | None, tails: list[_Tail], *, assigned: bool, released: bool) -> _Cleanup:
     """Never reap the POSIX anchor until every group signal has been sent."""
     deadline, confirmed = time.monotonic() + CLEANUP_SECONDS, True
+    phase, reason = "native-termination", "confirmed"
     try:
         if job is not None and assigned:
             job.terminate()
         elif os.name == "posix" and not released:
+            phase = "group-term"
             _signal_group(process.pid, signal.SIGTERM)
             time.sleep(TERM_GRACE)
+            phase = "group-kill"
             _signal_group(process.pid, signal.SIGKILL)
         # Gated/unassigned child, or POSIX anchor already outside the owned group.
+        phase = "launcher-kill"
         process.kill()
+        phase = "launcher-wait"
         process.wait(timeout=max(0.01, deadline - time.monotonic()))
+        phase = "native-empty-observation"
         while not (job.active() == 0 if job is not None and assigned else _group_empty(process.pid) if os.name == "posix" else True):
             if time.monotonic() >= deadline:
-                return False
+                return _Cleanup(False, "owned-group-or-job-still-present")
             time.sleep(POLL_SECONDS)
-    except BaseException:
+    except BaseException as exc:
         confirmed = False
+        reason = phase + (f"-errno-{exc.errno}" if isinstance(exc, OSError) else "-interrupted-or-failed")
     try:
         for tail in tails:
             if tail.thread.ident is None:
@@ -126,9 +143,12 @@ def _stop(process, job: Job | None, tails: list[_Tail], *, assigned: bool, relea
             else:
                 tail.thread.join(max(0, deadline - time.monotonic()))
                 confirmed = confirmed and tail.eof.is_set() and not tail.failed
+                if not confirmed and reason == "confirmed":
+                    reason = "output-reader-incomplete"
     except BaseException:
         confirmed = False
-    return confirmed
+        reason = "output-reader-cleanup-failed"
+    return _Cleanup(confirmed, reason)
 
 
 def run_check(command: list[str], *, cwd: Path, timeout: int, env: dict) -> subprocess.CompletedProcess:
@@ -179,8 +199,12 @@ def run_check(command: list[str], *, cwd: Path, timeout: int, env: dict) -> subp
             return subprocess.CompletedProcess(command, code, tails[0].text(), tails[1].text())
     except BaseException as exc:
         if process is not None and not clean:
-            if isinstance(exc, RetainRunMarker) or not _stop(process, job, tails, assigned=assigned, released=released):
-                raise RetainRunMarker("Check supervision incomplete; retained run marker requires independent process verification") from exc
+            if isinstance(exc, RetainRunMarker):
+                raise
+            cleanup = _stop(process, job, tails, assigned=assigned, released=released)
+            if not cleanup:
+                reason = getattr(cleanup, "reason", "unconfirmed")
+                raise RetainRunMarker(f"Check supervision incomplete ({reason}); retained run marker requires independent process verification") from exc
         if isinstance(exc, (KeyboardInterrupt, SystemExit, subprocess.TimeoutExpired)):
             raise
         raise SafeOpsError("Cannot supervise the fixed check safely") from exc
