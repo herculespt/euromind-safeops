@@ -38,6 +38,7 @@ class RepositoryHygieneTests(unittest.TestCase):
             "docs/COVERAGE.md", "docs/pt-PT/COVERAGE.md",
             "docs/PREVIEW.md", "docs/pt-PT/PREVIEW.md",
             "docs/PROPOSALS.md", "docs/pt-PT/PROPOSALS.md",
+            "docs/STAGING.md", "docs/pt-PT/STAGING.md",
             "docs/PACKAGE.md", "docs/RELEASING.md", "docs/pt-PT/RELEASING.md",
         ):
             with self.subTest(path=name):
@@ -83,7 +84,9 @@ class RepositoryHygieneTests(unittest.TestCase):
             "docs/COVERAGE.md", "docs/pt-PT/COVERAGE.md",
             "docs/PREVIEW.md", "docs/pt-PT/PREVIEW.md",
             "docs/PROPOSALS.md", "docs/pt-PT/PROPOSALS.md",
+            "docs/STAGING.md", "docs/pt-PT/STAGING.md",
             "src/euromind_safeops/proposals.py", "tests/test_proposals.py",
+            "src/euromind_safeops/staging.py", "tests/test_staging.py",
             "requirements-ci.txt", ".github/workflows/ci.yml", ".github/CODEOWNERS",
             "requirements-release.txt", ".github/workflows/publish.yml", ".secrets.baseline", "scripts/release_secrets.py", "tests/test_release_gate.py",
         ):
@@ -103,7 +106,7 @@ class RepositoryHygieneTests(unittest.TestCase):
     def test_relative_document_links_and_utf8(self):
         local_links = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
         for document in ROOT.rglob("*.md"):
-            if any(x in (".safeops", ".venv", ".git", "build", "dist") for x in document.parts):
+            if any(x in (".safeops", ".venv", ".git", "build", "dist") for x in document.relative_to(ROOT).parts):
                 continue
             contents = document.read_text(encoding="utf-8", errors="strict")
             with self.subTest(document=document.relative_to(ROOT).as_posix()):

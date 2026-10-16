@@ -2,7 +2,7 @@
 
 This roadmap is directional, not a promise of dates or delivered features.
 
-Current source version: **0.3.0a10** (alpha prerelease). See [status](docs/STATUS.md)
+Current source version: **0.3.0a11** (alpha prerelease). See [status](docs/STATUS.md)
 and [PT-PT](docs/pt-PT/STATUS.md). The first [GitHub alpha](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8) was published on 2026-10-16; PyPI remains pending. See [delivery evidence](docs/audits/2026-10-16-first-alpha.md).
 
 ## v0.1.0 — Initial open-source foundation (implemented)
@@ -88,6 +88,12 @@ No tagged release or package publication is implied by this source version.
 - [x] Bind plan/workspace/configuration/selected targets/execution contract and package version; `review-proposal` revalidates bindings and exact diffs.
 - [x] Reject stale/tampered records and unsafe storage without applying source changes, granting approval or contacting a provider.
 - [x] Offline lifecycle regressions, installed-wheel checks and synchronized EN/PT-PT guides, versions and GitHub tracking.
+
+## 0.3.0a11 — Separate local staging copies (implemented in source)
+- [x] Explicit `stage-proposal` fingerprint confirmation and proposal/context revalidation before and after copying.
+- [x] Bounded regular-file copies with replacements only in a new local workspace, private requested modes and no inherited SafeOps/Git state or conventional environment files.
+- [x] Intent plus manifest/hashed receipt; incomplete copies retained for inspection without automatic deletion or execution approval.
+- [x] Offline regressions, fresh-approval trusted checks on staged code and installed-wheel/EN/PT-PT documentation validation.
 - [ ] Publication of a later source milestone; public v0.3.0a8 remains unchanged.
 
 ## Next — Policy and integration hardening (planned)
@@ -105,8 +111,9 @@ No tagged release or package publication is implied by this source version.
 - [ ] Specialist plugin protocol and capability manifests.
 - [x] Persisted manually authored candidate proposals without source mutation (0.3.0a10).
 - [x] Read-only diffs and content-hash records for manually supplied existing-text replacements (0.3.0a9).
-- [ ] AI-generated candidates, richer patch operations, authenticated provenance and human-reviewed application.
-- [ ] Isolated worktrees and safer filesystem scopes.
+- [ ] AI-generated candidates, richer patch operations, authenticated provenance and human-reviewed original-workspace application.
+- [x] Separate local staging copies for reviewed candidates, with no source mutation (0.3.0a11).
+- [ ] Isolated Git worktrees and OS-enforced filesystem scopes; local copies do not implement these boundaries.
 
 ## Long-term research directions
 - [ ] OS/container sandboxing with verifiable isolation properties.

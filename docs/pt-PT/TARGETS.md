@@ -1,6 +1,6 @@
-# Diretórios das verificações fixas — 0.3.0a10
+# Diretórios das verificações fixas — 0.3.0a11
 
-<!-- safeops-version: 0.3.0a10 -->
+<!-- safeops-version: 0.3.0a11 -->
 
 [English](../TARGETS.md)
 

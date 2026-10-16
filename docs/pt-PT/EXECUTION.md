@@ -1,10 +1,10 @@
 # Política de execução e compatibilidade
 
-<!-- safeops-version: 0.3.0a10 -->
+<!-- safeops-version: 0.3.0a11 -->
 
 [English](../EXECUTION.md)
 
-Versão atual do código: **0.3.0a10**, pré-versão alfa. Este guia descreve o que está
+Versão atual do código: **0.3.0a11**, pré-versão alfa. Este guia descreve o que está
 implementado; consulta o [estado](STATUS.md) para limitações e publicações.
 
 ## Configuração
@@ -147,4 +147,8 @@ A versão 0.3.0a9 introduziu [previews locais](PREVIEW.md). Não exige workspace
 
 ## Propostas locais e compatibilidade da versão
 
-A versão 0.3.0a10 acrescenta [propostas locais persistentes](PROPOSALS.md). O schema 1 da proposta é separado da aprovação de execução. `propose` exige caminhos de ficheiros explícitos exatos no plano; isto não restringe as verificações fixas. `review-proposal` valida novamente as ligações e devolve diffs sem aplicação, aprovação ou verificações. Preserva os registos antigos; esta versão continua a exigir plano novo revisto e aprovação expressa. Os registos de propostas têm limite de leitura próprio de 260 096 bytes; plano/configuração/aprovação mantêm 256 000 bytes.
+A versão 0.3.0a10 introduziu [propostas locais persistentes](PROPOSALS.md). O schema 1 da proposta é separado da aprovação de execução. `propose` exige caminhos de ficheiros explícitos exatos no plano; isto não restringe as verificações fixas. `review-proposal` valida novamente as ligações e devolve diffs sem aplicação, aprovação ou verificações. Preserva os registos antigos; esta versão continua a exigir plano novo revisto e aprovação expressa. Os registos de propostas têm limite de leitura próprio de 260 096 bytes; plano/configuração/aprovação mantêm 256 000 bytes.
+
+## Verificar uma cópia preparada
+
+A versão 0.3.0a11 acrescenta [cópias locais](STAGING.md), com confirmação exata do fingerprint da proposta. Não herda aprovação nem estado SafeOps original. Inspeciona a cópia e inicializa/cria plano/revê/aprova separadamente antes das verificações fixas. Cópias e recibos não concedem execução nem isolamento pelo SO. A aplicação ao original continua planeada.

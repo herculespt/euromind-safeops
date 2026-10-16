@@ -1,10 +1,10 @@
 # Execution policy and upgrade compatibility
 
-<!-- safeops-version: 0.3.0a10 -->
+<!-- safeops-version: 0.3.0a11 -->
 
 [Português (Portugal)](pt-PT/EXECUTION.md)
 
-Current source version: **0.3.0a10**, alpha prerelease. This document describes
+Current source version: **0.3.0a11**, alpha prerelease. This document describes
 implemented behavior; see [status](STATUS.md) for exclusions and publication state.
 
 ## Configuration
@@ -143,4 +143,8 @@ Source 0.3.0a9 introduced [local candidate previews](PREVIEW.md). Preview requir
 
 ## Local proposals and version compatibility
 
-Source 0.3.0a10 adds [persisted local proposals](PROPOSALS.md). Proposal schema 1 is separate from execution approval. `propose` requires exact explicit plan file paths; this does not restrict fixed-check execution. `review-proposal` rechecks bindings and returns diffs without application, approval or checks. Preserve old records; this version still requires a fresh reviewed plan and explicit execution approval. Proposal records have a separate 260,096-byte read limit; existing plan/configuration/approval reads retain 256,000 bytes.
+Source 0.3.0a10 introduced [persisted local proposals](PROPOSALS.md). Proposal schema 1 is separate from execution approval. `propose` requires exact explicit plan file paths; this does not restrict fixed-check execution. `review-proposal` rechecks bindings and returns diffs without application, approval or checks. Preserve old records; this version still requires a fresh reviewed plan and explicit execution approval. Proposal records have a separate 260,096-byte read limit; existing plan/configuration/approval reads retain 256,000 bytes.
+
+## Checking a staged copy
+
+Source 0.3.0a11 adds [local staging copies](STAGING.md), requiring exact proposal-fingerprint confirmation. No approval or original SafeOps state is inherited. Inspect copied code and initialize/plan/review/approve separately before running fixed checks in that copy. Copies and receipts do not grant execution permission or OS isolation. Original-workspace application remains planned.

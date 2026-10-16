@@ -1,8 +1,8 @@
 # Quickstart
 
-<!-- safeops-version: 0.3.0a10 -->
+<!-- safeops-version: 0.3.0a11 -->
 
-Current source version: **0.3.0a10**, alpha prerelease. Requires Python 3.11+, Git optional, and a trusted source tree. The default schema-1 checks require `src/` and a nonempty unittest suite under `tests/`; optional [schema-2 targets](TARGETS.md) select other directories. Nested test packages need `__init__.py`.
+Current source version: **0.3.0a11**, alpha prerelease. Requires Python 3.11+, Git optional, and a trusted source tree. The default schema-1 checks require `src/` and a nonempty unittest suite under `tests/`; optional [schema-2 targets](TARGETS.md) select other directories. Nested test packages need `__init__.py`.
 
 ```bash
 git clone https://github.com/herculespt/euromind-safeops.git
@@ -67,3 +67,7 @@ See [format, example and limits](PREVIEW.md); success is a preview only.
 ## Store and review a local proposal
 
 With the workspace initialized, create a non-critical plan naming every candidate file with an exact `--path`, then use `propose PLAN_ID CANDIDATE.json` and `review-proposal PROPOSAL_ID`. Keep candidate JSON outside the project snapshot and substitute actual IDs. See the [complete proposal workflow](PROPOSALS.md). This stores local state; it does not modify source or grant approval.
+
+## Prepare a copy for trusted checks
+
+Use `stage-proposal PROPOSAL_ID --confirm PROPOSAL_FINGERPRINT` after inspecting `review-proposal`. The returned workspace is a separate local copy. Review it, initialize it and create a fresh plan/approval before fixed checks; see the [complete staging workflow](STAGING.md). The original code is not updated.

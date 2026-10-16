@@ -1,6 +1,6 @@
-# Propostas locais ligadas ao plano — 0.3.0a10
+# Propostas locais ligadas ao plano — 0.3.0a11
 
-<!-- safeops-version: 0.3.0a10 -->
+<!-- safeops-version: 0.3.0a11 -->
 
 [English](../PROPOSALS.md)
 
@@ -99,7 +99,7 @@ não são assinaturas, prova autenticada de autoria ou auditoria inviolável.
 
 Mantêm-se configuração 1/2, plano 1, aprovação 2, envelope 1 e protocolos runner 3/
 bloqueio 1. O schema separado da proposta não concede aprovação de execução.
-Atualizar para 0.3.0a10 exige plano novo revisto e aprovação expressa segundo o
+Atualizar para 0.3.0a11 exige plano novo revisto e aprovação expressa segundo o
 contrato ligado à versão. `approve` e `run` não recebem propostas; continuam
 limitados às verificações fixas existentes.
 
@@ -107,3 +107,5 @@ Geração com IA, aplicação/rollback, criação/eliminação/mudança de nome 
 ficheiros, edições CRLF/binárias, worktrees isoladas e proveniência assinada
 continuam planeados. A versão do código não publica uma release; consulta o
 [estado atual](STATUS.md).
+
+Uma proposta revista pode agora ser materializada com [stage-proposal](STAGING.md): exige o fingerprint exato e escreve substituições apenas numa cópia local separada. Aplicação/rollback no original e worktrees Git continuam planeados.

@@ -1,12 +1,12 @@
 # Política de segurança
 
-<!-- safeops-version: 0.3.0a10 -->
+<!-- safeops-version: 0.3.0a11 -->
 
 [English](../../SECURITY.md)
 
 ## Âmbito e maturidade
 
-O EuroMind SafeOps 0.3.0a10 é uma **ferramenta de desenvolvimento em versão alfa**.
+O EuroMind SafeOps 0.3.0a11 é uma **ferramenta de desenvolvimento em versão alfa**.
 Não implementa isolamento seguro, não garante a segurança do código testado e
 não deve ser utilizado para autorizar operações de produção. A classificação
 de risco e a pesquisa por padrões são heurísticas com limitações.
@@ -44,3 +44,5 @@ de PR e continuam sujeitas ao `quality-gate` e às regras da `main`.
 A [saída do preview](PREVIEW.md) contém texto dos ficheiros locais; não a publiques sem revisão. Hashes de candidatos verificam integridade, sem assinatura ou aprovação.
 
 Os [registos de propostas locais](PROPOSALS.md) contêm todo o texto proposto. Mantém-nos privados e fora do Git. Hashes locais recalculáveis não autenticam um escritor malicioso; uma revisão com sucesso não concede autoridade para aplicar nem executar.
+
+As [cópias locais](STAGING.md) omitem ficheiros convencionais de ambiente e estado Git/SafeOps, mas outros ficheiros podem conter segredos. Não limpam o ambiente/rede herdados nem isolam os testes. As cópias parciais ficam retidas; não as publiques nem elimines automaticamente.
