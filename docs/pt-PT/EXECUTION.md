@@ -1,10 +1,10 @@
 # Política de execução e compatibilidade
 
-<!-- safeops-version: 0.3.0a8 -->
+<!-- safeops-version: 0.3.0a9 -->
 
 [English](../EXECUTION.md)
 
-Versão atual do código: **0.3.0a8**, pré-versão alfa. Este guia descreve o que está
+Versão atual do código: **0.3.0a9**, pré-versão alfa. Este guia descreve o que está
 implementado; consulta o [estado](STATUS.md) para limitações e publicações.
 
 ## Configuração
@@ -96,7 +96,7 @@ A versão 0.3.0a7 acrescentou [JUnit opcional de manutenção](REPORTING.md), ma
 protocolos 3 do runner e 1 do bloqueio. A ligação à versão exige novo plano e
 aprovação revistos. As verificações aprovadas não geram JUnit.
 
-A versão 0.3.0a8 acrescenta o [gate de cobertura de manutenção](COVERAGE.md),
+A versão 0.3.0a8 acrescentou o [gate de cobertura de manutenção](COVERAGE.md),
 mantendo schemas/protocolos e a ligação da aprovação à versão. Criar/integrar
 uma PR GitHub não aprova a execução no SafeOps. Para verificações autorizadas,
 criar um plano sobre a árvore final inalterada, revê-lo, aprovar expressamente
@@ -142,3 +142,5 @@ cobertura ou código hostil e não implementa isolamento seguro.
 
 Consulta a [ADR 0002](adr/0002-versioned-check-contract.md), o
 [guia de CI](CI.md) e as [referências primárias](../EXECUTION.md#design-and-references).
+
+A versão 0.3.0a9 acrescenta [previews locais](PREVIEW.md). Não exige workspace inicializado nem aprova/aplica/executa candidatos. A execução continua a exigir plano novo revisto e aprovação explícita ligada à versão instalada; sem migração ou renovação automática.

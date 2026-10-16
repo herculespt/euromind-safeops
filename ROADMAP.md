@@ -2,7 +2,7 @@
 
 This roadmap is directional, not a promise of dates or delivered features.
 
-Current source version: **0.3.0a8** (alpha prerelease). See [status](docs/STATUS.md)
+Current source version: **0.3.0a9** (alpha prerelease). See [status](docs/STATUS.md)
 and [PT-PT](docs/pt-PT/STATUS.md). The first [GitHub alpha](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8) was published on 2026-10-16; PyPI remains pending. See [delivery evidence](docs/audits/2026-10-16-first-alpha.md).
 
 ## v0.1.0 — Initial open-source foundation (implemented)
@@ -77,6 +77,13 @@ No tagged release or package publication is implied by this source version.
 - [x] Require all package modules, zero excluded lines and matching JSON/XML counts without changing the twelve-job CI layout.
 - [x] EN/PT-PT coverage/CI/status/upgrade documentation and explicit fresh-plan/review/approval/run procedure.
 
+## 0.3.0a9 — Local candidate previews (implemented in source)
+- [x] Read-only `preview` command for locally authored strict schema-1 text replacement candidates.
+- [x] Exact per-file base hashes, bounded regular-file reads, portable path checks and unified diffs with candidate/result hashes.
+- [x] Reject stale files, duplicate/case-colliding paths, links/reparse points, malformed JSON/UTF-8 and unsupported text forms; no write, provider request or approval grant.
+- [x] Offline regressions, installed-package validation and EN/PT-PT preview/compatibility/status documentation.
+- [ ] A separately authorized release of this source milestone; public v0.3.0a8 remains unchanged.
+
 ## Next — Policy and integration hardening (planned)
 - [ ] OS-enforced workspace filesystem allowlists that restrict arbitrary reads; 0.3.0a4 check target selection does not implement this isolation boundary.
 - [ ] Broader OS/Python coverage profiles and reviewed report-artifact publication; Linux/Python 3.12 measurement and local JUnit/summaries are implemented.
@@ -91,7 +98,8 @@ No tagged release or package publication is implied by this source version.
 ## Future — Controlled agent workflows (planned; no version or date committed)
 - [ ] Specialist plugin protocol and capability manifests.
 - [ ] Candidate patch proposals without direct workspace mutation.
-- [ ] Dry-run diffs, provenance records and human-reviewed application.
+- [x] Read-only diffs and content-hash records for manually supplied existing-text replacements (0.3.0a9).
+- [ ] AI-generated candidates, richer patch operations, authenticated provenance and human-reviewed application.
 - [ ] Isolated worktrees and safer filesystem scopes.
 
 ## Long-term research directions

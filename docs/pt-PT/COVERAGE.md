@@ -1,6 +1,6 @@
-# Cobertura medida no CI — 0.3.0a8
+# Cobertura medida no CI — 0.3.0a9
 
-<!-- safeops-version: 0.3.0a8 -->
+<!-- safeops-version: 0.3.0a9 -->
 
 [English](../COVERAGE.md)
 
@@ -84,3 +84,7 @@ relatórios. Outros perfis e uploads após revisão continuam planeados.
 - [Medição oficial de processos](https://coverage.readthedocs.io/en/7.16.2/subprocess.html)
 - [Pacote/versão Coverage.py](https://pypi.org/project/coverage/7.16.2/)
 - [Contrato CI](CI.md) e [aprovações de execução](EXECUTION.md)
+
+No CI, os relatórios usam `package-coverage.json` e `package-coverage.xml`,
+distintos do prefixo de dados `safeops-coverage`. Assim, a combinação automática
+do suporte a subprocessos não trata relatórios como bases de dados paralelas.

@@ -61,14 +61,14 @@ jobs:
           python -m coverage erase
           python -m coverage run -m euromind_safeops.ci_runner --tests tests --junit "$RUNNER_TEMP/safeops-junit.xml"
           python -m coverage combine --quiet
-          python -m coverage json -o "$RUNNER_TEMP/safeops-coverage.json"
-          python -m coverage xml -o "$RUNNER_TEMP/safeops-coverage.xml"
+          python -m coverage json -o "$RUNNER_TEMP/package-coverage.json"
+          python -m coverage xml -o "$RUNNER_TEMP/package-coverage.xml"
           python -m coverage report
           python - <<'PY'
           import json, os
           from pathlib import Path
           from xml.etree import ElementTree as ET
-          report = Path(os.environ['RUNNER_TEMP']) / 'safeops-coverage.json'
+          report = Path(os.environ['RUNNER_TEMP']) / 'package-coverage.json'
           data = json.loads(report.read_text())
           expected = {p.as_posix() for p in Path('src/euromind_safeops').glob('*.py')}
           assert set(data['files']) == expected, 'Incomplete package coverage report'
@@ -77,7 +77,7 @@ jobs:
           assert t['num_statements'] > 0 and t['num_branches'] > 0
           assert t['excluded_lines'] == 0, 'Unexpected excluded source lines'
           assert (t['covered_lines'] + t['covered_branches']) / (t['num_statements'] + t['num_branches']) >= .90
-          xml = ET.parse(Path(os.environ['RUNNER_TEMP']) / 'safeops-coverage.xml').getroot()
+          xml = ET.parse(Path(os.environ['RUNNER_TEMP']) / 'package-coverage.xml').getroot()
           assert xml.tag == 'coverage'
           assert int(xml.get('lines-valid')) == t['num_statements']
           assert int(xml.get('lines-covered')) == t['covered_lines']
@@ -154,10 +154,11 @@ jobs:
               assert 'euromind_safeops/ci_runner.py' in names
               assert 'euromind_safeops/junit.py' in names
               assert 'euromind_safeops/locking.py' in names
+              assert 'euromind_safeops/preview.py' in names
           with tarfile.open(sources[0]) as archive:
               source_names = [PurePosixPath(n).parts[1:] for n in archive.getnames()]
           source_paths = {'/'.join(parts) for parts in source_names}
-          for required in ('LICENSE', 'README.md', 'SECURITY.md', 'docs/QUICKSTART.md', 'docs/STATUS.md', 'docs/EXECUTION.md', 'docs/pt-PT/README.md', 'docs/pt-PT/SECURITY.md', 'docs/pt-PT/STATUS.md', 'docs/pt-PT/EXECUTION.md', '.github/CODEOWNERS', '.github/workflows/ci.yml', 'tests/test_execution.py', 'src/euromind_safeops/check_runner.py', 'tests/test_provider_transport.py', 'docs/PROVIDER_TESTING.md', 'docs/pt-PT/PROVIDER_TESTING.md', 'docs/pt-PT/PROVIDERS.md', 'docs/SCOPE.md', 'docs/pt-PT/SCOPE.md', 'src/euromind_safeops/scope.py', 'tests/test_scope.py', 'docs/TARGETS.md', 'docs/pt-PT/TARGETS.md', 'src/euromind_safeops/target_runner.py', 'tests/test_targets.py', 'docs/OUTPUT.md', 'docs/pt-PT/OUTPUT.md', 'src/euromind_safeops/ci_runner.py', 'tests/test_json_output.py', 'tests/test_ci_reporting.py', 'docs/LOCKING.md', 'docs/pt-PT/LOCKING.md', 'src/euromind_safeops/locking.py', 'tests/test_locking.py', 'src/euromind_safeops/junit.py', 'docs/REPORTING.md', 'docs/pt-PT/REPORTING.md', 'requirements-ci.txt', 'docs/COVERAGE.md', 'docs/pt-PT/COVERAGE.md', 'requirements-release.txt', '.github/workflows/publish.yml', 'docs/PACKAGE.md', 'docs/pt-PT/RELEASING.md', '.secrets.baseline', 'scripts/release_secrets.py', 'tests/test_release_gate.py'):
+          for required in ('LICENSE', 'README.md', 'SECURITY.md', 'docs/QUICKSTART.md', 'docs/STATUS.md', 'docs/EXECUTION.md', 'docs/pt-PT/README.md', 'docs/pt-PT/SECURITY.md', 'docs/pt-PT/STATUS.md', 'docs/pt-PT/EXECUTION.md', '.github/CODEOWNERS', '.github/workflows/ci.yml', 'tests/test_execution.py', 'src/euromind_safeops/check_runner.py', 'tests/test_provider_transport.py', 'docs/PROVIDER_TESTING.md', 'docs/pt-PT/PROVIDER_TESTING.md', 'docs/pt-PT/PROVIDERS.md', 'docs/SCOPE.md', 'docs/pt-PT/SCOPE.md', 'src/euromind_safeops/scope.py', 'tests/test_scope.py', 'docs/TARGETS.md', 'docs/pt-PT/TARGETS.md', 'src/euromind_safeops/target_runner.py', 'tests/test_targets.py', 'docs/OUTPUT.md', 'docs/pt-PT/OUTPUT.md', 'src/euromind_safeops/ci_runner.py', 'tests/test_json_output.py', 'tests/test_ci_reporting.py', 'docs/LOCKING.md', 'docs/pt-PT/LOCKING.md', 'src/euromind_safeops/locking.py', 'tests/test_locking.py', 'src/euromind_safeops/junit.py', 'docs/REPORTING.md', 'docs/pt-PT/REPORTING.md', 'requirements-ci.txt', 'docs/COVERAGE.md', 'docs/pt-PT/COVERAGE.md', 'requirements-release.txt', '.github/workflows/publish.yml', 'docs/PACKAGE.md', 'docs/pt-PT/RELEASING.md', '.secrets.baseline', 'scripts/release_secrets.py', 'tests/test_release_gate.py', 'src/euromind_safeops/preview.py', 'tests/test_preview.py', 'docs/PREVIEW.md', 'docs/pt-PT/PREVIEW.md'):
               assert required in source_paths, f'Missing source documentation: {required}'
           for name in [*names, *source_paths]:
               parts = PurePosixPath(name).parts
