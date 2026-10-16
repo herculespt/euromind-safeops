@@ -30,6 +30,14 @@ separate PyPI status. Attach the validated wheel, sdist and SHA256SUMS. Verify
 the tag/commit, pre-release flag, notes and downloadable asset names/bytes.
 GitHub's generated source ZIP/tar are distinct from built registry distributions.
 
+
+The independent scanner uses a reviewed hash baseline for seven synthetic test
+fixtures across three test files (reviewed 2026-10-16). It contains no credential
+values and does not exclude entire files. A changed or newly detected value must
+be reviewed; never regenerate the baseline merely to make publication pass. Both
+tracked source and expanded distributions use the same baseline with network
+verification disabled.
+
 ## Manual package workflow
 
 [Alpha package publication](../.github/workflows/publish.yml) is manual only

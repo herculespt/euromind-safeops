@@ -86,14 +86,8 @@ jobs:
           PY
       - name: Install pinned release tools
         run: python -m pip install -r requirements-release.txt
-      - name: Independent source secret scan (no network verification)
-        run: |
-          python - <<'PY'
-          import json, subprocess
-          scan = subprocess.run(['detect-secrets', 'scan', '--no-verify'], capture_output=True, text=True, check=True)
-          assert not json.loads(scan.stdout)['results'], 'Independent scanner findings require review'
-          print('Independent tracked-source secret scan passed')
-          PY
+      - name: Independent source secret scan (reviewed fixture hashes only)
+        run: python scripts/release_secrets.py --root . --baseline .secrets.baseline --tracked
       - name: Build candidate distributions
         if: inputs.tag == ''
         run: python -m build --no-isolation
@@ -151,9 +145,12 @@ jobs:
               else:
                   with tarfile.open(package) as archive:
                       archive.extractall(root / 'sdist', filter='data')
-          scan = subprocess.run(['detect-secrets', 'scan', '--all-files', '--no-verify', str(root)], capture_output=True, text=True, check=True)
-          assert not json.loads(scan.stdout)['results'], 'Distribution scanner findings require review'
-          print('Independent expanded-distribution secret scan passed')
+          baseline = Path('.secrets.baseline').resolve()
+          gate = Path('scripts/release_secrets.py').resolve()
+          source_roots = [root / 'wheel', *[p for p in (root / 'sdist').iterdir() if p.is_dir()]]
+          for source_root in source_roots:
+              subprocess.run(['python', str(gate), '--root', str(source_root), '--baseline', str(baseline)], check=True)
+          print('Independent distribution scan passed; only reviewed synthetic fixture hashes allowed')
           PY
       - name: Validate metadata and installed wheel outside checkout
         run: |

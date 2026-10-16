@@ -30,6 +30,14 @@ Anexar wheel, sdist e SHA256SUMS validados. Confirmar tag/commit, estado, notas 
 nomes/bytes dos downloads. Os arquivos automáticos GitHub são distintos dos
 pacotes construídos para o registo.
 
+
+O scanner independente usa uma baseline de hashes revista para sete fixtures
+sintéticas em três ficheiros de testes (revisão em 16 de outubro de 2026). Não
+contém valores de credenciais nem exclui ficheiros inteiros. Um valor alterado
+ou novo exige revisão; nunca regenerar a baseline apenas para aprovar a
+publicação. Código seguido pelo Git e pacotes expandidos usam a mesma baseline,
+com verificação de credenciais pela rede desativada.
+
 ## Workflow manual
 
 [Alpha package publication](../../.github/workflows/publish.yml) só arranca
