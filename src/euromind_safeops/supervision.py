@@ -116,20 +116,43 @@ def _stop(process, job: Job | None, tails: list[_Tail], *, assigned: bool, relea
     phase, reason = "native-termination", "confirmed"
     try:
         if job is not None and assigned:
-            job.terminate()
+            try:
+                job.terminate()
+            except OSError:
+                pass  # A later zero active count, not this call, is the required proof.
         elif os.name == "posix" and not released:
             phase = "group-term"
-            _signal_group(process.pid, signal.SIGTERM)
+            try:
+                _signal_group(process.pid, signal.SIGTERM)
+            except OSError:
+                pass
             time.sleep(TERM_GRACE)
             phase = "group-kill"
-            _signal_group(process.pid, signal.SIGKILL)
+            try:
+                _signal_group(process.pid, signal.SIGKILL)
+            except OSError:
+                pass  # Darwin can report EPERM after TERM already ended the group.
         # Gated/unassigned child, or POSIX anchor already outside the owned group.
         phase = "launcher-kill"
-        process.kill()
+        try:
+            process.kill()
+        except OSError:
+            pass
         phase = "launcher-wait"
         process.wait(timeout=max(0.01, deadline - time.monotonic()))
         phase = "native-empty-observation"
-        while not (job.active() == 0 if job is not None and assigned else _group_empty(process.pid) if os.name == "posix" else True):
+        while True:
+            if job is not None and assigned:
+                empty = job.active() == 0
+            elif os.name == "posix":
+                try:
+                    empty = _group_empty(process.pid)
+                except PermissionError:
+                    empty = False  # Never treat a permission error as group absence.
+            else:
+                empty = True
+            if empty:
+                break
             if time.monotonic() >= deadline:
                 return _Cleanup(False, "owned-group-or-job-still-present")
             time.sleep(POLL_SECONDS)

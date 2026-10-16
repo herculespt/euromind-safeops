@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import contextlib
+import errno
 import io
 import json
 import os
@@ -293,6 +294,29 @@ class SupervisionTests(unittest.TestCase):
             run(self.root, plan)
         child.assert_not_called()
         self.assertFalse((self.state / "run.lock").exists())
+
+    @unittest.skipUnless(os.name == "posix", "POSIX signal errors")
+    def test_signal_permission_error_is_followed_by_independent_termination_confirmation(self):
+        self.source.write_text("import time,unittest\nclass T(unittest.TestCase):\n def test_sleep(self): time.sleep(6)\n")
+        original = supervision._signal_group
+        def darwin_style(pid, sig):
+            if sig == signal.SIGKILL:
+                raise PermissionError(errno.EPERM, "synthetic post-TERM permission error")
+            return original(pid, sig)
+        with patch.object(supervision, "_signal_group", side_effect=darwin_style):
+            result = run(self.root, self.approved(), timeout=1)
+        self.assertEqual(result["status"], "timed-out")
+        self.assertFalse((self.state / "run.lock").exists())
+
+    @unittest.skipUnless(os.name == "posix", "POSIX permission observations")
+    def test_permission_error_never_substitutes_for_native_group_absence(self):
+        # Real group termination still occurs; only its subsequent observation is unavailable.
+        with patch.object(supervision, "_completion", side_effect=ValueError("fixed fixture")), \
+                patch.object(supervision, "_group_empty", side_effect=PermissionError(errno.EPERM, "private observation")), \
+                self.assertRaises(SafeOpsError):
+            run(self.root, self.approved())
+        self.assertTrue((self.state / "run.lock").exists())
+        self.assertEqual(inspect_run(self.root, self.only_run())["status"], "incomplete")
 
     @unittest.skipUnless(os.name == "nt", "Windows native jobs")
     def test_assignment_failure_never_releases_gated_project_code(self):
