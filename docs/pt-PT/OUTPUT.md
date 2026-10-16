@@ -1,6 +1,6 @@
-# Saída estruturada da CLI — 0.3.0a9
+# Saída estruturada da CLI — 0.3.0a10
 
-<!-- safeops-version: 0.3.0a9 -->
+<!-- safeops-version: 0.3.0a10 -->
 
 [English](../OUTPUT.md)
 
@@ -21,13 +21,13 @@ conter literalmente `--json` sem ativar o modo global.
 
 ## Envelope de schema 1
 
-Os dez comandos (`init`, `providers`, `doctor`, `scan`, `plan`, `review`,
-`approve`, `run`, `recover-lock`, `preview`) devolvem um único objeto JSON UTF-8 nos resultados tratados:
+Os doze comandos (`init`, `providers`, `doctor`, `scan`, `plan`, `review`,
+`approve`, `run`, `recover-lock`, `preview`, `propose`, `review-proposal`) devolvem um único objeto JSON UTF-8 nos resultados tratados:
 
 ```json
 {
   "schema": 1,
-  "safeops_version": "0.3.0a9",
+  "safeops_version": "0.3.0a10",
   "command": "scan",
   "ok": true,
   "exit_code": 0,
@@ -81,7 +81,7 @@ potencialmente sensível. Não é um serviço adicional de remoção de dados, u
 assinatura, autorização automática ou isolamento. A funcionalidade e os testes
 offline não exigem pedidos a fornecedores.
 
-A versão 0.3.0a9 preserva os schemas 1/2 de configuração, 1 de plano e 2 de
+A versão 0.3.0a10 preserva os schemas 1/2 de configuração, 1 de plano e 2 de
 aprovação; o protocolo 3 do runner mantém protocolo 1 do bloqueio nativo. A ligação à versão continua a invalidar
 aprovações anteriores: preservar o histórico e criar novo plano revisto e
 aprovação. Não há migração automática nem publicação de release ou pacote.
@@ -117,3 +117,5 @@ Mantêm-se `quality-gate` e as permissões. Consultar o [CI](CI.md), a
 [execução](EXECUTION.md) e o [estado](STATUS.md).
 
 [Previews de candidatos](PREVIEW.md) usam este envelope; diffs contêm texto local potencialmente sensível. Um preview aprovado não autoriza execução.
+
+A [criação/revisão de propostas](PROPOSALS.md) usa o mesmo envelope. A criação devolve identificadores/hashes sem o texto; a revisão inclui os diffs completos. O sucesso não aprova execução nem aplicação.

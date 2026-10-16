@@ -39,3 +39,7 @@ No sandbox, untrusted-code isolation, signature-based approval, hardened secure 
 Use a dedicated nonprivileged development account. Keep credentials outside the repository. Verify planned task and source-tree state. Run only trusted test suites. Treat every model suggestion as untrusted. Use independent secret scanning and security review before any public release.
 
 Discovery imports executable test modules only after approval, in the child process. A compile-only configuration remains supported and makes no claim that unit tests ran. See [execution policy](EXECUTION.md), [ADR 0002](adr/0002-versioned-check-contract.md) and [current implementation status](STATUS.md).
+
+## Local proposal boundary
+
+[Plan-bound proposals](PROPOSALS.md) add bounded local candidate persistence and context revalidation. Exact plan file membership is required only for proposals. Review detects common stale/tampered state but hashes are unkeyed and records mutable. Stored candidate text and diffs can be sensitive; no automatic publication/redaction, application or execution authority is added.

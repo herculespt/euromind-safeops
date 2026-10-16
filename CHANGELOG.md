@@ -4,7 +4,15 @@ The format follows Keep a Changelog conventions; versions follow Semantic Versio
 
 ## [Unreleased]
 
-Current source milestone: **0.3.0a9**. First GitHub alpha published on 2026-10-16; PyPI remains pending. See [delivery evidence](docs/audits/2026-10-16-first-alpha.md).
+Current source milestone: **0.3.0a10**. First GitHub alpha published on 2026-10-16; PyPI remains pending. See [delivery evidence](docs/audits/2026-10-16-first-alpha.md).
+
+## [0.3.0a10] — 2026-10-16 (source alpha; no new published release)
+
+- Add `propose PLAN_ID CANDIDATE` and read-only `review-proposal PROPOSAL_ID` for locally authored candidates. Strict schema-1 records contain the original candidate, canonical hashes and plan/workspace/configuration/selected-target/execution-contract bindings.
+- Require explicit exact plan file paths and a non-critical unchanged plan. Recheck context around validation; reject stale/tampered records, unsafe storage, invalid schemas and bounded-input violations.
+- Store proposals with private file permissions where supported and a content-free creation audit event. Source, approvals and Git state are untouched; reviewing grants no application or execution authority. Local records remain mutable and unsigned.
+- Propostas locais e guias EN/PT-PT, README, estado, arquitetura, compatibilidade, roadmap e versão sincronizados. Atualizações continuam a exigir novo plano/revisão/aprovação de execução; sem migração automática.
+- Config/plan/approval/output schemas and runner/lock protocols retained. No runtime dependency or provider request added. Application/rollback, AI generation and later source publication remain planned; public v0.3.0a8 assets stay unchanged and PyPI remains pending.
 
 ## [0.3.0a9] — 2026-10-16 (source alpha; no new published release)
 

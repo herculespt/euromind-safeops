@@ -1,6 +1,6 @@
-# Release alfa e publicação do pacote — 0.3.0a9
+# Release alfa e publicação do pacote — 0.3.0a10
 
-<!-- safeops-version: 0.3.0a9 -->
+<!-- safeops-version: 0.3.0a10 -->
 
 [English](../RELEASING.md)
 

@@ -2,7 +2,7 @@
 
 This roadmap is directional, not a promise of dates or delivered features.
 
-Current source version: **0.3.0a9** (alpha prerelease). See [status](docs/STATUS.md)
+Current source version: **0.3.0a10** (alpha prerelease). See [status](docs/STATUS.md)
 and [PT-PT](docs/pt-PT/STATUS.md). The first [GitHub alpha](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8) was published on 2026-10-16; PyPI remains pending. See [delivery evidence](docs/audits/2026-10-16-first-alpha.md).
 
 ## v0.1.0 — Initial open-source foundation (implemented)
@@ -82,7 +82,13 @@ No tagged release or package publication is implied by this source version.
 - [x] Exact per-file base hashes, bounded regular-file reads, portable path checks and unified diffs with candidate/result hashes.
 - [x] Reject stale files, duplicate/case-colliding paths, links/reparse points, malformed JSON/UTF-8 and unsupported text forms; no write, provider request or approval grant.
 - [x] Offline regressions, installed-package validation and EN/PT-PT preview/compatibility/status documentation.
-- [ ] A separately authorized release of this source milestone; public v0.3.0a8 remains unchanged.
+
+## 0.3.0a10 — Plan-bound local proposals (implemented in source)
+- [x] Persist bounded, fingerprinted local candidates using `propose`; require exact explicit plan file paths and a non-critical unchanged plan.
+- [x] Bind plan/workspace/configuration/selected targets/execution contract and package version; `review-proposal` revalidates bindings and exact diffs.
+- [x] Reject stale/tampered records and unsafe storage without applying source changes, granting approval or contacting a provider.
+- [x] Offline lifecycle regressions, installed-wheel checks and synchronized EN/PT-PT guides, versions and GitHub tracking.
+- [ ] Publication of a later source milestone; public v0.3.0a8 remains unchanged.
 
 ## Next — Policy and integration hardening (planned)
 - [ ] OS-enforced workspace filesystem allowlists that restrict arbitrary reads; 0.3.0a4 check target selection does not implement this isolation boundary.
@@ -97,7 +103,7 @@ No tagged release or package publication is implied by this source version.
 
 ## Future — Controlled agent workflows (planned; no version or date committed)
 - [ ] Specialist plugin protocol and capability manifests.
-- [ ] Candidate patch proposals without direct workspace mutation.
+- [x] Persisted manually authored candidate proposals without source mutation (0.3.0a10).
 - [x] Read-only diffs and content-hash records for manually supplied existing-text replacements (0.3.0a9).
 - [ ] AI-generated candidates, richer patch operations, authenticated provenance and human-reviewed application.
 - [ ] Isolated worktrees and safer filesystem scopes.

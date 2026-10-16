@@ -18,7 +18,7 @@ MAX_BYTES = 256_000
 MAX_TOTAL_BYTES = 1_000_000
 
 
-def _read_regular(path: Path) -> bytes:
+def _read_regular(path: Path, *, limit: int = MAX_BYTES) -> bytes:
     """Bound reads and reject nonregular descriptors; no write or blocking FIFO."""
     try:
         info = path.lstat()
@@ -33,9 +33,9 @@ def _read_regular(path: Path) -> bytes:
             if (not stat.S_ISREG(opened.st_mode) or
                     (opened.st_dev, opened.st_ino) != (info.st_dev, info.st_ino)):
                 raise SafeOpsError("Preview input changed during inspection")
-            raw = handle.read(MAX_BYTES + 1)
-        if len(raw) > MAX_BYTES:
-            raise SafeOpsError("Preview input exceeds 256000 bytes")
+            raw = handle.read(limit + 1)
+        if len(raw) > limit:
+            raise SafeOpsError(f"Preview input exceeds {limit} bytes")
         return raw
     except OSError as exc:
         raise SafeOpsError("Cannot read a preview input") from exc
@@ -54,16 +54,25 @@ def _text(raw: bytes) -> str:
     return text
 
 
-def preview_candidate(root: Path, candidate: Path) -> dict:
-    """Validate every entry before returning diffs; never persist or authorize it.
-
-    Paths are checked again before a final byte comparison. This detects common
-    concurrent edits, not all filesystem races, and is not an isolation boundary.
-    """
+def read_candidate(candidate: Path) -> dict:
+    """Read a bounded candidate; do not expose JSON parser input in failures."""
     try:
-        document = decode_json_object(_read_regular(candidate))
+        return decode_json_object(_read_regular(candidate))
     except (ValueError, UnicodeError, RecursionError) as exc:
         raise SafeOpsError("Candidate must be an unambiguous UTF-8 JSON object") from exc
+
+
+def preview_candidate(root: Path, candidate: Path) -> dict:
+    """Read a local candidate and return validated diffs without persistence."""
+    return preview_document(root, read_candidate(candidate))
+
+
+def preview_document(root: Path, document: dict) -> dict:
+    """Validate all entries, then recheck paths and bytes before returning diffs.
+
+    This detects common concurrent edits, not all filesystem races, and is not
+    an isolation boundary. Callers must bound the decoded document's input.
+    """
     if (set(document) != {"schema", "files"} or type(document["schema"]) is not int or
             document["schema"] != 1 or not isinstance(document["files"], list) or
             not 1 <= len(document["files"]) <= 20):

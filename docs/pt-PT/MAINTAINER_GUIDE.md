@@ -68,3 +68,5 @@ O comando de [preview de candidatos](PREVIEW.md) só lê e é independente da
 aprovação de execução. Rever diffs localmente: podem conter texto ou segredos,
 sem upload automático com relatórios. Não implementa geração por IA ou aplicação
 revista de patches.
+
+Nas [propostas persistentes](PROPOSALS.md), revê caminhos exatos explícitos, ligações, privacidade do armazenamento e rejeição de registos alterados/desatualizados. Não publiques texto, registos ou diffs automaticamente. A auditoria pode falhar depois da gravação da proposta: inspeciona o estado antes de repetir. Aplicação e geração com IA continuam planeadas.

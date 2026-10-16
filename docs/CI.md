@@ -128,3 +128,5 @@ rewrite history or weaken the required checks. Releases need separate approval.
 - [Setuptools pyproject configuration](https://setuptools.pypa.io/en/latest/userguide/pyproject_config.html)
 - [Setuptools history](https://setuptools.pypa.io/en/latest/history.html)
 - [Upstream setuptools path-traversal advisory](https://github.com/pypa/setuptools/security/advisories/GHSA-5rjg-fvgr-3xxf)
+
+Installed-distribution checks also require the proposal module, EN/PT-PT proposal guides and lifecycle regression tests in the archives. Proposal regressions use temporary local fixtures; they do not request provider inference or upload candidate content.

@@ -1,10 +1,10 @@
 # Execution policy and upgrade compatibility
 
-<!-- safeops-version: 0.3.0a9 -->
+<!-- safeops-version: 0.3.0a10 -->
 
 [Português (Portugal)](pt-PT/EXECUTION.md)
 
-Current source version: **0.3.0a9**, alpha prerelease. This document describes
+Current source version: **0.3.0a10**, alpha prerelease. This document describes
 implemented behavior; see [status](STATUS.md) for exclusions and publication state.
 
 ## Configuration
@@ -139,4 +139,8 @@ not verify assertions, coverage or hostile-code behavior and is not a sandbox.
 - [Python JSON documentation](https://docs.python.org/3.11/library/json.html)
 - [CI and distribution contract](CI.md)
 
-Source 0.3.0a9 adds [local candidate previews](PREVIEW.md). Preview requires no initialized workspace and cannot approve/apply/run a candidate. Execution still needs a fresh reviewed plan and explicit approval bound to this installed version; no schema migration or automatic renewal occurs.
+Source 0.3.0a9 introduced [local candidate previews](PREVIEW.md). Preview requires no initialized workspace and cannot approve/apply/run a candidate. Execution still needs a fresh reviewed plan and explicit approval bound to this installed version; no schema migration or automatic renewal occurs.
+
+## Local proposals and version compatibility
+
+Source 0.3.0a10 adds [persisted local proposals](PROPOSALS.md). Proposal schema 1 is separate from execution approval. `propose` requires exact explicit plan file paths; this does not restrict fixed-check execution. `review-proposal` rechecks bindings and returns diffs without application, approval or checks. Preserve old records; this version still requires a fresh reviewed plan and explicit execution approval. Proposal records have a separate 260,096-byte read limit; existing plan/configuration/approval reads retain 256,000 bytes.

@@ -1,6 +1,6 @@
-# Caminhos de âmbito consultivo — 0.3.0a9
+# Caminhos de âmbito consultivo — 0.3.0a10
 
-<!-- safeops-version: 0.3.0a9 -->
+<!-- safeops-version: 0.3.0a10 -->
 
 [English](../SCOPE.md)
 
@@ -71,3 +71,5 @@ não efetua pedidos faturáveis adicionais.
 
 Consulta a [compatibilidade de execução](EXECUTION.md), o [estado](STATUS.md) e as
 [referências primárias](../SCOPE.md#compatibility-and-limits).
+
+As [propostas locais](PROPOSALS.md) exigem correspondência exata entre cada ficheiro proposto e um `--path` explícito do plano; diretórios não incluem descendentes. Esta regra das propostas não altera o âmbito consultivo nem os alvos das verificações fixas descritos acima.

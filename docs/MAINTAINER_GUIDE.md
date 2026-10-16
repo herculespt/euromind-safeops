@@ -85,3 +85,5 @@ The [candidate preview](PREVIEW.md) command is read-only and separate from execu
 approval. Review diffs locally; they can contain source text or secrets and must
 not be automatically uploaded with reports. Candidate support does not implement
 AI-generated patches or reviewed application.
+
+For [persisted proposals](PROPOSALS.md), review exact explicit plan paths, bindings, storage privacy and stale/tampered record failures. Keep candidate text/records/diffs out of public artifacts. Creation audit can fail after the record is saved; inspect local state before retrying. Application and AI generation remain planned.
