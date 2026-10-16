@@ -83,8 +83,7 @@ step. Dependabot remains responsible for proposing reviewed updates to pinned
 Actions; tags and comments alone do not authorize integration.
 
 These pins address direct Action references. They do not make runner images,
-downloaded Python interpreters or all build dependencies immutable. Workflow
-dependency lockfiles and complete build reproducibility remain separate work.
+downloaded Python interpreters or all build dependencies immutable. Coverage/release tool closures now use reviewed wheel hashes for the documented Linux/CPython 3.12 profiles; compatibility jobs remain deliberately unlocked. Complete build reproducibility remains separate work. See [tooling policy](TOOLING.md).
 
 ## Build backend and artifacts
 

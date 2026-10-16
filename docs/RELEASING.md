@@ -1,6 +1,6 @@
-# Alpha release and package procedure — 0.3.0a17
+# Alpha release and package procedure — 0.3.0a18
 
-<!-- safeops-version: 0.3.0a17 -->
+<!-- safeops-version: 0.3.0a18 -->
 
 [Português (Portugal)](pt-PT/RELEASING.md)
 
@@ -9,15 +9,14 @@ releases require their own authorization. See [status](STATUS.md) and
 [issue #31](https://github.com/herculespt/euromind-safeops/issues/31) for actual
 publication evidence. A successful candidate validation does not publish to PyPI.
 
-First alpha delivery (2026-10-16): GitHub prerelease and [PyPI 0.3.0a8](https://pypi.org/project/euromind-safeops/0.3.0a8/) published with identical original distribution hashes, clean registry installation and PyPI-verified publishing attestations. Current source remains 0.3.0a17. See [verified evidence](audits/2026-10-16-first-alpha.md).
+First alpha delivery (2026-10-16): GitHub prerelease and [PyPI 0.3.0a8](https://pypi.org/project/euromind-safeops/0.3.0a8/) published with identical original distribution hashes, clean registry installation and PyPI-verified publishing attestations. Current source remains 0.3.0a18. See [verified evidence](audits/2026-10-16-first-alpha.md).
 
 ## Review and GitHub release
 
 Merge through a reviewed PR, with active main protection and all required
 checks passing. Verify the exact source/version, EN/PT-PT documentation,
 license, public source contents and alpha limits. Preserve dated evidence and
-Git history. Build tools are pinned in requirements-release.txt; transitive
-dependencies and runner images are not fully locked.
+Git history. Direct/transitive release tools use reviewed wheel hashes in requirements-release.txt for the dedicated supported profile; see [tooling policy](TOOLING.md). Runner images and complete build reproducibility remain separate.
 
 The package uses bilingual [PACKAGE.md](PACKAGE.md), with absolute links for
 registry display. Check wheel/sdist metadata with twine check --strict, run the
@@ -122,3 +121,5 @@ plan and explicit approval; no automatic renewal or history rewriting.
 - [Trusted Publishing](https://docs.pypi.org/trusted-publishers/using-a-publisher/)
 - [Trust security model](https://docs.pypi.org/trusted-publishers/security-model/)
 - [Official PyPA publisher](https://github.com/pypa/gh-action-pypi-publish)
+
+Prepare the locked tool environment from workflow source before historical tag checkout. Existing tags may lack locks; the workflow source chooses current tool policy while original release-byte verification remains mandatory.

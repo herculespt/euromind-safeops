@@ -87,8 +87,7 @@ fixados; as propostas têm de ser revistas antes da integração.
 
 Os SHAs fixam as referências diretas das Actions. Não tornam imutáveis as imagens
 dos runners, as versões Python descarregadas ou todas as dependências de
-construção. Os lockfiles de workflows e a reprodução integral das builds ficam
-para trabalho separado.
+construção. As ferramentas de cobertura/release usam agora hashes revistos nos perfis Linux/CPython 3.12; jobs de compatibilidade mantêm resolução deliberada. A reprodução integral das builds continua separada; ver [política](TOOLING.md).
 
 ## Ferramentas e artefactos
 

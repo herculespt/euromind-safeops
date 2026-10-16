@@ -1,10 +1,10 @@
-# Fixed-check process supervision — 0.3.0a17
+# Fixed-check process supervision — 0.3.0a18
 
-<!-- safeops-version: 0.3.0a17 -->
+<!-- safeops-version: 0.3.0a18 -->
 
 [Português (Portugal)](pt-PT/SUPERVISION.md)
 
-Implemented in source 0.3.0a17. Public GitHub/PyPI 0.3.0a8 predates this capability.
+Implemented in source 0.3.0a18. Public GitHub/PyPI 0.3.0a8 predates this capability.
 
 Each approved fixed check gets an internal gated Python launcher. It starts no project code until the parent establishes native ownership and sends a one-byte start token. Actual check arguments, UTF-8 streams, disabled automatic import bytecode and schema-1/schema-2 targets remain fixed. The worker gets closed/empty stdin. No provider, shell, arbitrary command option, PID scan, external taskkill utility or runtime dependency is introduced.
 
@@ -28,4 +28,4 @@ The launcher starts with Python `-I`, excluding workspace/PYTHONPATH/user-site s
 
 Cleanup diagnostics use fixed phase/reason codes and optional numeric OS errno, never native exception text. A signal request can fail after processes have already exited (observed on macOS after TERM); cleanup still attempts reaping and independently requires native group absence/zero job members plus output EOF. Permission errors are never interpreted as absence: unavailable observations retain the marker.
 
-Source 0.3.0a17 waits for final zero Windows job accounting within the same three-second cleanup budget used for launcher exit, EOF and failure cleanup. A transitional positive count cannot turn a completed failed check into an immediate operational error; persistent/unavailable confirmation remains fail-closed with retained state. Fixed-phase diagnostics exclude native exception text. Runner 5/lock 3 and schemas remain; the updated version/cleanup-policy binding requires fresh reviewed plans/proposals/approvals.
+Source 0.3.0a17 introduced waiting; current source waits for final zero Windows job accounting within the same three-second cleanup budget used for launcher exit, EOF and failure cleanup. A transitional positive count cannot turn a completed failed check into an immediate operational error; persistent/unavailable confirmation remains fail-closed with retained state. Fixed-phase diagnostics exclude native exception text. Runner 5/lock 3 and schemas remain; the updated version/cleanup-policy binding requires fresh reviewed plans/proposals/approvals.

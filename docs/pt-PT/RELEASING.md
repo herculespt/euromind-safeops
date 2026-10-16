@@ -1,6 +1,6 @@
-# Release alfa e publicação do pacote — 0.3.0a17
+# Release alfa e publicação do pacote — 0.3.0a18
 
-<!-- safeops-version: 0.3.0a17 -->
+<!-- safeops-version: 0.3.0a18 -->
 
 [English](../RELEASING.md)
 
@@ -9,15 +9,13 @@ Releases futuras exigem autorização própria. O [estado](STATUS.md) e a
 [issue #31](https://github.com/herculespt/euromind-safeops/issues/31) registam a
 publicação efetiva. Aprovar uma validação de candidato não publica no PyPI.
 
-Primeira entrega alfa (16 de outubro de 2026): release GitHub e [PyPI 0.3.0a8](https://pypi.org/project/euromind-safeops/0.3.0a8/) publicados, com hashes dos ficheiros originais iguais, instalação limpa pelo registo e atestações de publicação verificadas pelo PyPI. O código atual mantém a versão 0.3.0a17. Consulta a [evidência verificada](audits/2026-10-16-first-alpha.md).
+Primeira entrega alfa (16 de outubro de 2026): release GitHub e [PyPI 0.3.0a8](https://pypi.org/project/euromind-safeops/0.3.0a8/) publicados, com hashes dos ficheiros originais iguais, instalação limpa pelo registo e atestações de publicação verificadas pelo PyPI. O código atual mantém a versão 0.3.0a18. Consulta a [evidência verificada](audits/2026-10-16-first-alpha.md).
 
 ## Revisão e pré-release GitHub
 
 Integrar por PR com proteção main ativa e todos os checks aprovados. Rever
 commit/versão exatos, documentação EN/PT-PT, licença, conteúdo público e limites
-alfa. Preservar histórico e evidência datada. As ferramentas principais estão
-fixadas em requirements-release.txt; dependências transitivas e imagens do
-runner não estão integralmente fixadas.
+alfa. Preservar histórico e evidência datada. As ferramentas diretas/transitivas usam hashes revistos em requirements-release.txt no perfil dedicado suportado; ver [política](TOOLING.md). Imagens dos runners e reprodução integral continuam separadas.
 
 A descrição do pacote vem de [PACKAGE.md](../PACKAGE.md), bilingue e com ligações
 absolutas para o registo. Validar metadados wheel/sdist com twine check --strict,
@@ -116,3 +114,5 @@ sem renovação automática ou reescrita do histórico.
 - [Trusted Publishing](https://docs.pypi.org/trusted-publishers/using-a-publisher/)
 - [Modelo de segurança](https://docs.pypi.org/trusted-publishers/security-model/)
 - [Publisher PyPA](https://github.com/pypa/gh-action-pypi-publish)
+
+Preparar ferramentas fixadas a partir do código do workflow antes de selecionar o tag histórico. Tags antigos podem não ter locks; a política atual vem do workflow e a verificação dos ficheiros originais continua obrigatória.

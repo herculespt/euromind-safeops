@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "euromind-safeops"
-version = "0.3.0a17"
+version = "0.3.0a18"
 description = "Provider-agnostic, safety-focused AI engineering orchestration CLI"
 readme = "docs/PACKAGE.md"
 requires-python = ">=3.11"

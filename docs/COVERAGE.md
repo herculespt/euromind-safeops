@@ -1,6 +1,6 @@
-# Measured CI coverage — 0.3.0a17
+# Measured CI coverage — 0.3.0a18
 
-<!-- safeops-version: 0.3.0a17 -->
+<!-- safeops-version: 0.3.0a18 -->
 
 [Português (Portugal)](pt-PT/COVERAGE.md)
 
@@ -45,7 +45,7 @@ before changing a threshold; do not lower it to hide a regression.
 
 ## Reproduce locally — trusted environment
 
-Install the editable project and `python -m pip install -r requirements-ci.txt`.
+Prepare the dedicated supported environment through [locked tooling](TOOLING.md), then install the editable project with `python -m pip --isolated install --no-index --no-deps --no-build-isolation -e .`. Do not use the Linux wheel lock on other platforms.
 Use an existing temporary directory **outside the checkout** for data/reports.
 For Bash, after setting `SAFEOPS_REPORT_DIR` to that directory:
 

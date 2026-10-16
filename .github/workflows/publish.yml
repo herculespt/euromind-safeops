@@ -41,6 +41,11 @@ jobs:
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: '3.12'
+      - name: Prepare locked release tools from workflow source
+        run: |
+          python -m venv "$RUNNER_TEMP/safeops-release-tools"
+          "$RUNNER_TEMP/safeops-release-tools/bin/python" scripts/locked_tools.py release
+          printf '%s\n' "$RUNNER_TEMP/safeops-release-tools/bin" >> "$GITHUB_PATH"
       - name: Verify exact alpha source and main CI
         id: release
         env:
@@ -84,8 +89,6 @@ jobs:
               output.write('version=' + version + '\nsha=' + sha + '\n')
           print('Exact alpha source, ancestry and main CI verified: ' + sha)
           PY
-      - name: Install pinned release tools
-        run: python -m pip install -r requirements-release.txt
       - name: Independent source secret scan (reviewed fixture hashes only)
         run: python scripts/release_secrets.py --root . --baseline .secrets.baseline --tracked
       - name: Build candidate distributions

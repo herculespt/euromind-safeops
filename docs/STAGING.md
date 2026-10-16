@@ -1,6 +1,6 @@
-# Separate local staging copies — 0.3.0a17
+# Separate local staging copies — 0.3.0a18
 
-<!-- safeops-version: 0.3.0a17 -->
+<!-- safeops-version: 0.3.0a18 -->
 
 [Português (Portugal)](pt-PT/STAGING.md)
 
@@ -109,7 +109,7 @@ it. `inspect-stage` provides the bounded comparison below; authenticated
 provenance, write isolation and transactional filesystem guarantees remain absent.
 
 Config 1/2, plan 1, approval 2, envelope 1 and runner 5/lock 3 remain supported.
-Upgrading to 0.3.0a17 requires fresh version-bound proposals and execution
+Upgrading to 0.3.0a18 requires fresh version-bound proposals and execution
 approval; history is retained without migration. [Applying reviewed original replacements and conservative rollback](APPLICATION.md) are implemented separately. Isolated Git worktrees and OS sandboxing remain planned.
 See [status](STATUS.md) and [roadmap](../ROADMAP.md).
 

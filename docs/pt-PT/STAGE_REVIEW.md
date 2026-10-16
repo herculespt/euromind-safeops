@@ -1,6 +1,6 @@
-# Revisão do contexto original atual — 0.3.0a17
+# Revisão do contexto original atual — 0.3.0a18
 
-<!-- safeops-version: 0.3.0a17 -->
+<!-- safeops-version: 0.3.0a18 -->
 
 [English](../STAGE_REVIEW.md)
 
