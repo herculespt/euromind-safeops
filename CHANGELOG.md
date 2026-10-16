@@ -2,6 +2,16 @@
 
 The format follows Keep a Changelog conventions; versions follow Semantic Versioning where practicable.
 
+## 0.3.0a15 — 2026-10-16
+
+- Add `review-application`, `apply-stage`, `inspect-application` and `rollback-application` for explicitly reviewed existing writable UTF-8 replacements after unchanged staged compile and unit tests pass.
+- Bind exact current confirmation to source/control/stage/run evidence; serialize original/stage operations with native guards and lock protocol 2. Retained application markers block later runs/applications.
+- Prepare bounded private backups/replacements and immutable intent before source writes; retain per-file identity/hash metadata and completion records without public source/output/credential text.
+- Restore only known owned candidate files after fresh inspection/confirmation; refuse observed human edits, unsafe/unknown partial evidence and foreign markers. Retain all history; no forced recovery, Git operation, multi-file atomicity, power-loss durability or OS isolation claim.
+- Add interruption, intermediate failure, stale confirmation, rollback conflict, strict bounds and real installed-check regressions; synchronize EN/PT-PT guides, metadata, package contents and GitHub tracking.
+- Runner 4, config 1/2, plan 1, approval 2 and envelope 1 retained; upgrading requires fresh version-bound execution approval/proposals. Public GitHub/PyPI 0.3.0a8 assets remain unchanged.
+- PT-PT: aplicação explícita de substituições revistas ao original após testes aprovados na cópia, backups/journal privados, bloqueio de operações pendentes e rollback conservador confirmado; falhas e alterações humanas preservadas para inspeção.
+
 ## 0.3.0a14 — 2026-10-16
 
 - Persist exclusive schema-1 run intents/results with bounded before/after plan, approval, source, configuration, selected-target and execution-contract hashes. Keep captured output, task/advice and approval reasons out of these records.

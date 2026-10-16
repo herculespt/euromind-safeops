@@ -1,10 +1,10 @@
 # Estado de implementação e publicação
 
-<!-- safeops-version: 0.3.0a14 -->
+<!-- safeops-version: 0.3.0a15 -->
 
 [English](../STATUS.md)
 
-**Versão atual do código: 0.3.0a14 — pré-versão alfa.** O CI cobre Python
+**Versão atual do código: 0.3.0a15 — pré-versão alfa.** O CI cobre Python
 3.11–3.13 em Linux, Windows e macOS. Não existem dependências externas em
 execução. A primeira [release GitHub v0.3.0a8](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8)
 foi publicada em 16 de outubro de 2026 no commit
@@ -24,7 +24,7 @@ o código do pacote mantém o commit imutável 0.3.0a8 indicado acima. Esta evid
 é de proveniência da publicação; não demonstra builds reproduzíveis nem
 aprovações SafeOps assinadas.
 
-O código 0.3.0a14 acrescenta recibos limitados dos checks aprovados, revalidação dos inputs após cada check e inspeção histórica sem escrita, mantendo revisão do original e cópias separadas; ainda não foi publicada uma nova release.
+O código 0.3.0a15 acrescenta substituições revistas no original após checks aprovados na cópia, journals e backups privados, bloqueio de execuções pendentes e rollback conservador com confirmação humana; ainda não foi publicada uma nova release.
 
 ## Implementado
 
@@ -33,6 +33,7 @@ O código 0.3.0a14 acrescenta recibos limitados dos checks aprovados, revalidaç
 | Recibos dos checks aprovados e inspeção histórica | Metadados/hashes/resultados limitados, revalidação antes/depois e estados explícitos de timeout/alteração/incompleto; sem output guardado, renovação de aprovação ou aplicação; [contrato](RUN_RECEIPTS.md) |
 | Revisão do contexto original atual | Exige cópia correspondente e duas observações limitadas do original/plano/bases/configuração/alvos/versão/contrato; current/stale/incompatible, sem escrita nem aprovação; [contrato](STAGE_REVIEW.md) |
 | Inspeção dos recibos/cópias sem escrita | Schema/ligações estritos e duas leituras limitadas; matching/changed/incomplete sem texto dos ficheiros ou escrita; sem revalidar o original atual nem conceder aprovação; [contrato](STAGING.md) |
+| Aplicação revista ao original e rollback | Revisão atual, compile/testes aprovados e inalterados na cópia, fingerprint exato, backups/journal privados e reposição conservadora; sem atomicidade entre vários ficheiros ou isolamento; [contrato](APPLICATION.md) |
 | Cópias locais de preparação | Fingerprint revisto exato, ficheiros independentes, exclusões e manifesto/recibo; sem aplicação ao original, testes automáticos ou sandbox; [contrato](STAGING.md) |
 | Propostas locais ligadas ao plano | Caminhos explícitos exatos, ligações ao snapshot/configuração/contrato e revisão sem aplicação nem aprovação; [contrato](PROPOSALS.md) |
 | Preview local de candidatos de texto | Hash exato por ficheiro e diff unificado sem escrita; candidatos fornecidos manualmente; [contrato](PREVIEW.md) |
@@ -59,7 +60,7 @@ O código 0.3.0a14 acrescenta recibos limitados dos checks aprovados, revalidaç
 | Capacidade | Estado |
 |---|---|
 | Restrição de caminhos imposta pelo sistema operativo | Planeada; selecionar entradas não impede leituras arbitrárias |
-| Edição autónoma por múltiplos agentes ou aplicação ao projeto original | Não implementada; a preparação explícita escreve apenas numa cópia separada |
+| Edição autónoma por múltiplos agentes | Não implementada; candidatos manuais e aplicação explícita apenas |
 | Commits Git ou PRs geradas pelo SafeOps | Não implementados; a manutenção do repositório é externa à ferramenta |
 | Comandos arbitrários ou plugins de execução | Não implementados |
 | Isolamento por contentor/sistema operativo e execução de código hostil | Não implementados |
@@ -91,7 +92,7 @@ Consulta a [compatibilidade de execução](EXECUTION.md), o
 A [validação dos fornecedores](PROVIDER_TESTING.md) distingue respostas fixas dos
 pedidos reais separados nos registos [OpenAI](audits/2026-10-15-openai-smoke.md) e
 [Anthropic](audits/2026-10-15-anthropic-smoke.md), testados na versão 0.3.0a2.
-A versão atual 0.3.0a14 acrescenta [recibos dos checks aprovados](RUN_RECEIPTS.md), mantendo [revisão do original atual](STAGE_REVIEW.md), mantendo [inspeção histórica das cópias](STAGING.md), cópias separadas, [propostas ligadas ao plano](PROPOSALS.md), [previews locais](PREVIEW.md), [cobertura medida](COVERAGE.md), [JUnit local](REPORTING.md),
+A versão atual 0.3.0a15 acrescenta [aplicação revista e rollback](APPLICATION.md), mantendo [recibos dos checks aprovados](RUN_RECEIPTS.md), mantendo [revisão do original atual](STAGE_REVIEW.md), mantendo [inspeção histórica das cópias](STAGING.md), cópias separadas, [propostas ligadas ao plano](PROPOSALS.md), [previews locais](PREVIEW.md), [cobertura medida](COVERAGE.md), [JUnit local](REPORTING.md),
 [bloqueio nativo e recuperação explícita](LOCKING.md),
 [saída estruturada/resumos CI](OUTPUT.md), [diretórios opcionais](TARGETS.md),
 a [validação do âmbito](SCOPE.md) e o schema 1 predefinido.

@@ -1,6 +1,6 @@
-# Revisão do contexto original atual — 0.3.0a14
+# Revisão do contexto original atual — 0.3.0a15
 
-<!-- safeops-version: 0.3.0a14 -->
+<!-- safeops-version: 0.3.0a15 -->
 
 [English](../STAGE_REVIEW.md)
 
@@ -96,8 +96,7 @@ versão e/ou contrato desatualizadas se a restante evidência continuar válida.
 Preserva o histórico; cria plano/proposta revistos e uma cópia separada novos
 quando precisares de ligações atuais. Executar testes de confiança na cópia
 continua a exigir inicialização, plano novo e aprovação explícita nessa cópia.
-Aplicação ao original, rollback, worktrees Git, isolamento pelo SO e proveniência
-SafeOps autenticada continuam planeados. A alfa pública GitHub/PyPI mantém-se
+[Aplicação explícita ao original e rollback](APPLICATION.md) estão implementados separadamente. Worktrees Git, isolamento pelo SO e proveniência SafeOps autenticada continuam planeados. A alfa pública GitHub/PyPI mantém-se
 em 0.3.0a8.
 
-Os [recibos dos checks aprovados](RUN_RECEIPTS.md) estão implementados separadamente. Este comando de compatibilidade não executa testes nem interpreta recibo aprovado como autorização de aplicação. Aplicação ao original/rollback continuam planeados; evidência histórica de execução não substitui revisão do contexto atual.
+Os [recibos dos checks aprovados](RUN_RECEIPTS.md) estão implementados separadamente. Este comando de compatibilidade não executa testes nem interpreta recibo aprovado como autorização de aplicação. [Aplicação ao original/rollback](APPLICATION.md) exigem confirmação atual própria; evidência histórica de execução não substitui revisão do contexto atual.

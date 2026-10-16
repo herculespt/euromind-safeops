@@ -1,8 +1,8 @@
 # Quickstart
 
-<!-- safeops-version: 0.3.0a14 -->
+<!-- safeops-version: 0.3.0a15 -->
 
-Current source version: **0.3.0a14**, alpha prerelease. Requires Python 3.11+, Git optional, and a trusted source tree. The default schema-1 checks require `src/` and a nonempty unittest suite under `tests/`; optional [schema-2 targets](TARGETS.md) select other directories. Nested test packages need `__init__.py`.
+Current source version: **0.3.0a15**, alpha prerelease. Requires Python 3.11+, Git optional, and a trusted source tree. The default schema-1 checks require `src/` and a nonempty unittest suite under `tests/`; optional [schema-2 targets](TARGETS.md) select other directories. Nested test packages need `__init__.py`.
 
 ```bash
 git clone https://github.com/herculespt/euromind-safeops.git
@@ -71,3 +71,5 @@ With the workspace initialized, create a non-critical plan naming every candidat
 ## Prepare a copy for trusted checks
 
 Use `stage-proposal PROPOSAL_ID --confirm PROPOSAL_FINGERPRINT` after inspecting `review-proposal`. The returned workspace is a separate local copy. Review it, initialize it and create a fresh plan/approval before fixed checks; see the [complete staging workflow](STAGING.md). The original code is not updated.
+
+Source 0.3.0a15 adds [explicit reviewed application and conservative rollback](APPLICATION.md). Both staged fixed checks must pass with unchanged current bindings and the same configuration as the original; exact fresh human confirmation and native guards precede private backup/journal preparation and source writes. Any retained application marker blocks new approved runs/applications. Read-only inspection and separately confirmed rollback preserve evidence and refuse observed human edits. No multi-file transaction, power-loss guarantee, Git operation, provider request or OS isolation is added. Runner remains 4; lock protocol is 2. Fresh version-bound execution approval is required.

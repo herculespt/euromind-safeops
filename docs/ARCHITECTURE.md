@@ -1,6 +1,6 @@
-# Architecture — 0.3.0a14
+# Architecture — 0.3.0a15
 
-<!-- safeops-version: 0.3.0a14 -->
+<!-- safeops-version: 0.3.0a15 -->
 
 ## Data flow
 
@@ -26,6 +26,8 @@ flowchart TD
 
 | Module | Responsibility |
 |---|---|
+| `application.py` | Current review, exact confirmation, two native guards, write-ahead preparation, per-file revalidation/replacement and conservative rollback |
+| `application_journal.py` | Bounded intent/restore/completion records, private backups and read-only double inspection with ownership/conflict fingerprints |
 | `cli.py` | Parser, command lifecycle, default display and optional schema-1 JSON envelopes |
 | `core.py` | Workspace path hygiene, shared strict UTF-8 JSON decoder, storage, file snapshotting, audit |
 | `scope.py` | Portable advisory path syntax, link/reparse checks and lifecycle preflight |
@@ -63,6 +65,14 @@ See [reporting](REPORTING.md).
   stages/<12hex>/intent.json
   stages/<12hex>/receipt.json
   stages/<12hex>/workspace/
+  applications/<12hex>/intent.json
+  applications/<12hex>/backup-<index>.bin
+  applications/<12hex>/new-<index>.bin
+  applications/<12hex>/restore-<index>.bin
+  applications/<12hex>/restore-<index>.json
+  applications/<12hex>/applied.json
+  applications/<12hex>/rolled-back.json
+  application.pending  # retained ownership marker blocks new runs/applications
   audit.jsonl
   run.guard  # persistent empty native-lock file; never unlink
   run.lock   # owned run marker; retained after abrupt death/initialization failure
@@ -105,7 +115,7 @@ The project favors transparency, no third-party runtime dependencies and determi
 
 [Candidate preview](PREVIEW.md) is a separate read-only path from local JSON to validated diffs. It does not enter the plan/approval/run data flow, call providers or write audit/workspace files.
 
-[Local proposals](PROPOSALS.md) extend candidate inspection with a stored copy and plan/workspace/configuration/selected-target/contract bindings. Creation writes only the proposal and a content-free audit event. Review recomputes context and diffs without writes. No edge to patch application or check approval is implemented.
+[Local proposals](PROPOSALS.md) extend candidate inspection with a stored copy and plan/workspace/configuration/selected-target/contract bindings. Creation writes only the proposal and a content-free audit event. Review recomputes context and diffs without writes. Proposals alone grant neither application nor check approval; [application](APPLICATION.md) consumes a matching staged run and a separate exact confirmation.
 
 [Staging](STAGING.md) extends review with an exact-fingerprint-confirmed copy under `.safeops/stages`. Replacements affect independent copied files only. The original snapshot is revalidated; incomplete state is retained. Checks on a staged project need their own init/plan/review/approval cycle. This is not a Git worktree or OS isolation boundary.
 
@@ -117,3 +127,5 @@ observations never create an edge to application or execution approval.
 `stage_review.py` implements `review-stage`: reuse strict historical inspection, require matching copy, observe current original/context twice, reread safe bounded controls and require unchanged final inspection. It reuses decoded configuration validation without reopening an unsafe policy file. Original snapshot scope differs from filtered staging scope; selected targets retain their own digest/budgets. Result booleans and fixed reasons contain no file text and grant no execution/application authority. See [contract](STAGE_REVIEW.md).
 
 Runner protocol 4 binds receipt schema 1 and disabled import bytecode. Execution lazily imports receipt helpers to avoid module initialization cycles; helpers reuse bounded stage-review snapshots/selected reads and strict native-lock file opens. The guard covers initial observation, intent and post-check revalidation. Terminal receipt follows successful marker cleanup/guard release and audit; inspection remains historical and independent of current control files. See [full result contract](RUN_RECEIPTS.md).
+
+Source 0.3.0a15 adds [explicit reviewed application and conservative rollback](APPLICATION.md). Both staged fixed checks must pass with unchanged current bindings and the same configuration as the original; exact fresh human confirmation and native guards precede private backup/journal preparation and source writes. Any retained application marker blocks new approved runs/applications. Read-only inspection and separately confirmed rollback preserve evidence and refuse observed human edits. No multi-file transaction, power-loss guarantee, Git operation, provider request or OS isolation is added. Runner remains 4; lock protocol is 2. Fresh version-bound execution approval is required.

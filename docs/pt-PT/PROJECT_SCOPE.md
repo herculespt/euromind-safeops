@@ -1,10 +1,10 @@
 # Âmbito e origem do projeto
 
-<!-- safeops-version: 0.3.0a14 -->
+<!-- safeops-version: 0.3.0a15 -->
 
 [English](../PROJECT_SCOPE.md)
 
-O EuroMind SafeOps 0.3.0a14 é um projeto open source original e autónomo: uma
+O EuroMind SafeOps 0.3.0a15 é um projeto open source original e autónomo: uma
 ferramenta genérica de linha de comandos para políticas e verificações em fluxos
 de desenvolvimento. O [estado de implementação](STATUS.md) distingue as
 capacidades existentes, o trabalho futuro e as publicações efetivas.
@@ -32,6 +32,8 @@ Código, exemplos, artefactos gerados e licenciamento devem ser revistos antes
 da publicação. O caráter público do repositório não autoriza a divulgação de
 software proprietário nem de informação confidencial.
 
-As [propostas locais persistentes](PROPOSALS.md) ligam substituições escritas manualmente a um plano explícito inalterado e permitem revisão sem escrita. Aplicação ao código e geração com IA continuam planeadas.
+As [propostas locais persistentes](PROPOSALS.md) ligam substituições escritas manualmente a um plano explícito inalterado e permitem revisão sem escrita. Aplicação explícita tem [contrato separado](APPLICATION.md); geração com IA continua planeada.
 
 As [cópias locais separadas](STAGING.md) permitem inspecionar/testar substituições revistas com confirmação exata do fingerprint. Não aplicam ao original, não inicializam/aprovam testes automaticamente nem implementam worktrees Git ou isolamento pelo SO.
+
+O código 0.3.0a15 acrescenta [aplicação revista e rollback conservador](APPLICATION.md). Ambos os checks fixos da cópia têm de passar com ligações atuais inalteradas e configuração igual à do original; confirmação humana exata e guards nativos precedem backups/journal privados e escrita. Marcador pendente bloqueia checks aprovados/aplicações novos. Inspeção sem escrita e rollback confirmado separadamente preservam evidência e recusam edições humanas observadas. Sem transação de vários ficheiros, garantia de energia/armazenamento, operações Git, pedidos a fornecedores ou isolamento pelo SO. Runner 4/lock 2; aprovação de execução nova ligada à versão obrigatória.

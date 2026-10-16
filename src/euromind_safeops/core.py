@@ -153,10 +153,10 @@ def tree_digest(root: Path) -> str:
     return h.hexdigest()
 
 
-def audit(root: Path, action: str, plan_id: str, status: str) -> None:
+def audit(root: Path, action: str, plan_id: str, status: str, *, require_config: bool = True) -> None:
     import json
     from .locking import _directory, _open_file
-    path = workspace(root) / "audit.jsonl"
+    path = (workspace(root) if require_config else secure_dir(root)) / "audit.jsonl"
     _directory(path.parent)
     if path.is_symlink():
         raise SafeOpsError("Refusing symlink audit log")

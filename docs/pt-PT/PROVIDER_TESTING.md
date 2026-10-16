@@ -1,16 +1,16 @@
 # Validação dos fornecedores e procedimento de teste real
 
-<!-- safeops-version: 0.3.0a14 -->
+<!-- safeops-version: 0.3.0a15 -->
 
 [English](../PROVIDER_TESTING.md)
 
-Versão atual do código: **0.3.0a14**, pré-versão alfa. Este registo inclui
+Versão atual do código: **0.3.0a15**, pré-versão alfa. Este registo inclui
 pedidos reais separados OpenAI e Anthropic verificados, sem afirmar publicação
 de release ou validação universal de fornecedores/modelos.
 
 Os registos reais abaixo mantêm a versão testada 0.3.0a2. O bloqueio/recuperação,
 os recibos/inspeção de execução, a revisão do original atual, a inspeção de cópias/propostas, a saída/relatórios, a seleção de diretórios e a admissão de caminhos da versão
-atual 0.3.0a14 são validados offline, sem novo pedido faturável.
+atual 0.3.0a15 são validados offline, sem novo pedido faturável.
 
 ## Evidência — 15 de outubro de 2026
 
@@ -94,3 +94,5 @@ verificações. Este teste apenas obtém aconselhamento e não exige aprovação
 
 Consulta a [compatibilidade](EXECUTION.md), o [estado](STATUS.md) e as
 [referências primárias](../PROVIDER_TESTING.md#compatibility-and-primary-references).
+
+Aplicação revista/journal/rollback na versão 0.3.0a15 são testados offline, incluindo checks reais e interrupção do processo em projetos temporários. Não invocam modelos/fornecedores. Os registos OpenAI/Anthropic anteriores são preservados, sem os apresentar como testes desta versão.

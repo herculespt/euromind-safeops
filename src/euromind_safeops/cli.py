@@ -21,6 +21,8 @@ from .staging import stage_proposal
 from .stage_inspection import inspect_stage
 from .stage_review import review_stage
 from .run_receipts import inspect_run
+from .application import apply_stage, review_application, rollback_application
+from .application_journal import inspect_application
 
 
 class ArgumentUsageError(Exception):
@@ -78,6 +80,18 @@ def make_parser() -> argparse.ArgumentParser:
     compatibility.add_argument("stage_id", help="Exact stage ID under the original project's .safeops/stages")
     receipt = commands.add_parser("inspect-run", help="Read-only historical inspection of approved-check receipts")
     receipt.add_argument("run_id", help="Exact run ID under the project's .safeops/runs")
+    application_review = commands.add_parser("review-application", help="Review exact original replacements and current passed staged checks")
+    application_review.add_argument("stage_id")
+    application_review.add_argument("--run", required=True, dest="run_id", help="Passed run ID within the staged workspace")
+    application = commands.add_parser("apply-stage", help="Apply reviewed existing text replacements with a recoverable journal")
+    application.add_argument("stage_id")
+    application.add_argument("--run", required=True, dest="run_id")
+    application.add_argument("--confirm", required=True, help="Repeat exact fingerprint from review-application")
+    application_inspection = commands.add_parser("inspect-application", help="Read-only journal and candidate-file recovery observations")
+    application_inspection.add_argument("application_id")
+    rollback = commands.add_parser("rollback-application", help="Explicitly restore only known journal-owned candidate files")
+    rollback.add_argument("application_id")
+    rollback.add_argument("--confirm", required=True, help="Repeat fresh rollback fingerprint from inspect-application")
     recovery = commands.add_parser("recover-lock", help="Archive a retained marker after verifying no checks are running")
     recovery.add_argument("--confirm", required=True, help="Repeat the exact doctor marker fingerprint")
     recovery.add_argument("--reason", required=True)
@@ -137,6 +151,15 @@ def _execute(args: argparse.Namespace) -> tuple[dict, int, list[str]]:
                 "note": "Pattern checks are not a full security audit"}, 1 if findings else 0, []
     if args.command == "preview":
         return preview_candidate(root, args.candidate), 0, []
+    if args.command == "review-application":
+        return review_application(root, args.stage_id, args.run_id), 0, []
+    if args.command == "apply-stage":
+        return apply_stage(root, args.stage_id, args.run_id, args.confirm), 0, []
+    if args.command == "inspect-application":
+        result = inspect_application(root, args.application_id)
+        return result, 0 if result["status"] in {"applied", "rolled-back"} else 1, []
+    if args.command == "rollback-application":
+        return rollback_application(root, args.application_id, args.confirm), 0, []
     if args.command == "inspect-run":
         result = inspect_run(root, args.run_id)
         return result, 0 if result["status"] == "passed" else 1, []

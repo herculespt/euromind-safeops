@@ -1,6 +1,6 @@
-# AI advisory providers — 0.3.0a14
+# AI advisory providers — 0.3.0a15
 
-<!-- safeops-version: 0.3.0a14 -->
+<!-- safeops-version: 0.3.0a15 -->
 
 [Português (Portugal)](pt-PT/PROVIDERS.md)
 

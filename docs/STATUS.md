@@ -1,10 +1,10 @@
 # Implementation and publication status
 
-<!-- safeops-version: 0.3.0a14 -->
+<!-- safeops-version: 0.3.0a15 -->
 
 [Português (Portugal)](pt-PT/STATUS.md)
 
-**Current source version: 0.3.0a14 — alpha prerelease.** Python 3.11–3.13 is
+**Current source version: 0.3.0a15 — alpha prerelease.** Python 3.11–3.13 is
 covered by CI on Linux, Windows and macOS. No third-party runtime dependencies.
 The first [GitHub alpha v0.3.0a8](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8)
 was published on 2026-10-16 at `035c36b1b646a6c75178d5db6c19d8c55d624dcf`,
@@ -22,12 +22,13 @@ administrator bypass. Attestations identify the publishing workflow commit
 0.3.0a8 release commit above. This is publishing provenance, not reproducible-build
 proof or signed SafeOps approvals.
 
-Source 0.3.0a14 adds bounded approved-check receipts, post-check input revalidation and read-only historical run inspection, retaining current original-context review and separate staging copies. It has not been published as a new release.
+Source 0.3.0a15 adds explicitly reviewed original replacements after passed staged checks, private recovery journals, pending-run blocking and conservative human-confirmed rollback. It has not been published as a new release.
 
 ## Implemented
 
 | Capability | Practical boundary |
 |---|---|
+| Explicit reviewed original replacements and rollback | Current original review, passed unchanged staged compile/tests, exact fingerprint, private bounded backups/journal and conservative restoration; no multi-file atomicity or isolation; [contract](APPLICATION.md) |
 | Approved-check receipts and historical inspection | Bounded metadata/hash/outcome records, before/after revalidation and explicit timeout/change/incomplete outcomes; no captured output, approval renewal or application; [contract](RUN_RECEIPTS.md) |
 | Current original-context review | Matching staged copy plus bounded double observations of original/plan/base/config/targets/version/contract; current/stale/incompatible, no writes or approval; [contract](STAGE_REVIEW.md) |
 | Read-only stage receipt inspection | Strict schema/linkage and bounded double scan; matching/changed/incomplete observations without file text or writes; no current-source revalidation or approval; [contract](STAGING.md) |
@@ -57,7 +58,7 @@ Source 0.3.0a14 adds bounded approved-check receipts, post-check input revalidat
 | Capability | State |
 |---|---|
 | OS-enforced workspace filesystem allowlists | Planned; selecting check inputs does not restrict arbitrary reads |
-| Autonomous multi-agent editing or original-workspace patch application | Not implemented; explicit staging writes only a separate local copy |
+| Autonomous multi-agent editing | Not implemented; manual candidates and explicit application only |
 | SafeOps-generated Git commits or pull requests | Not implemented; repository maintenance is performed externally |
 | General-purpose/plugin command execution | Not implemented |
 | Container/OS sandboxing and hostile-code isolation | Not implemented |
@@ -87,8 +88,8 @@ See [execution compatibility](EXECUTION.md), [trust model](TRUST_MODEL.md),
 Provider evidence distinguishes fixtures from the separate verified live requests in
 [provider testing](PROVIDER_TESTING.md), the [OpenAI record](audits/2026-10-15-openai-smoke.md)
 and the [Anthropic record](audits/2026-10-15-anthropic-smoke.md).
-The live requests above were tested on source 0.3.0a2. Current source 0.3.0a14
-adds [approved-check receipts](RUN_RECEIPTS.md), retaining [current original-context review](STAGE_REVIEW.md), retaining [historical stage inspection](STAGING.md), retaining separate copies, [plan-bound proposals](PROPOSALS.md), [local candidate previews](PREVIEW.md), [measured coverage](COVERAGE.md), [local JUnit reporting](REPORTING.md),
+The live requests above were tested on source 0.3.0a2. Current source 0.3.0a15
+adds [reviewed application and rollback](APPLICATION.md), retaining [approved-check receipts](RUN_RECEIPTS.md), retaining [current original-context review](STAGE_REVIEW.md), retaining [historical stage inspection](STAGING.md), retaining separate copies, [plan-bound proposals](PROPOSALS.md), [local candidate previews](PREVIEW.md), [measured coverage](COVERAGE.md), [local JUnit reporting](REPORTING.md),
 [native locking and explicit recovery](LOCKING.md),
 [structured output and summaries](OUTPUT.md), optional
 [check directory targets](TARGETS.md), advisory [scope preflight](SCOPE.md) and
