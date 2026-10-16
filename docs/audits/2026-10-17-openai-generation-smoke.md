@@ -1,6 +1,6 @@
 # OpenAI reviewed-generation smoke — 2026-10-17
 
-[Português (Portugal)](../../pt-PT/audits/2026-10-17-openai-generation-smoke.md)
+[Português (Portugal)](../pt-PT/audits/2026-10-17-openai-generation-smoke.md)
 
 Observed at 2026-10-16T23:28:36Z (2026-10-17 00:28:36 Europe/Lisbon), using
 source **0.3.0a19**. This is separate from the source-0.3.0a2 advisory smokes.
