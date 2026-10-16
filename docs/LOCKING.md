@@ -1,12 +1,12 @@
-# Local run locking and recovery — 0.3.0a13
+# Local run locking and recovery — 0.3.0a14
 
-<!-- safeops-version: 0.3.0a13 -->
+<!-- safeops-version: 0.3.0a14 -->
 
 [Português (Portugal)](pt-PT/LOCKING.md)
 
 Runs use two cooperating mechanisms: a persistent native guard and an exclusive
-owned marker. Neither is a sandbox or a distributed lock. Source 0.3.0a13 uses
-runner protocol 3 and lock protocol 1 in the version-bound execution contract.
+owned marker. Neither is a sandbox or a distributed lock. Source 0.3.0a14 uses
+runner protocol 4 and lock protocol 1 in the version-bound execution contract.
 Config schemas 1/2, plan schema 1, approval schema 2 and output schema 1 remain.
 Upgrading requires a fresh reviewed plan/approval; records are not migrated.
 
@@ -98,3 +98,5 @@ is recovered and no provider request is made by these tests.
 See [execution](EXECUTION.md), [output](OUTPUT.md), [status](STATUS.md) and
 [CI](CI.md). Primary API references: [Python flock](https://docs.python.org/3.11/library/fcntl.html#fcntl.flock)
 and [Python msvcrt locking](https://docs.python.org/3.11/library/msvcrt.html#msvcrt.locking).
+
+Runner protocol 4 keeps native-lock protocol 1. The guard now also covers bounded before/after input observation and run-intent allocation. Final [run receipt](RUN_RECEIPTS.md) is written only after owned-marker cleanup/guard release and audit append; a cleanup failure leaves intent without a terminal receipt. Finalization outside the guard does not freeze the observed source or block a later run. Existing recovery never finalizes interrupted receipts or grants approval.

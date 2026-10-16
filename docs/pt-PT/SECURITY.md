@@ -1,12 +1,12 @@
 # Política de segurança
 
-<!-- safeops-version: 0.3.0a13 -->
+<!-- safeops-version: 0.3.0a14 -->
 
 [English](../../SECURITY.md)
 
 ## Âmbito e maturidade
 
-O EuroMind SafeOps 0.3.0a13 é uma **ferramenta de desenvolvimento em versão alfa**.
+O EuroMind SafeOps 0.3.0a14 é uma **ferramenta de desenvolvimento em versão alfa**.
 Não implementa isolamento seguro, não garante a segurança do código testado e
 não deve ser utilizado para autorizar operações de produção. A classificação
 de risco e a pesquisa por padrões são heurísticas com limitações.
@@ -53,3 +53,5 @@ Evidência sem chave igual não autentica autoria, não revalida o original atua
 não demonstra testes aprovados nem concede aprovação de execução/aplicação.
 
 `review-stage` revalida separadamente o contexto original atual com observações limitadas sem escrita, exigindo cópia correspondente. Pode ler bytes de ambiente/alvos selecionados para hash local, sem os devolver. `current` não concede aprovação, autenticação ou autoridade de aplicação. Consulta [âmbito e limites de concorrência](STAGE_REVIEW.md).
+
+Intenções/recibos de execução só guardam metadados limitados, hashes e resultados fixos, sem output/tarefa/conselho/motivos de aprovação. `inspect-run` é apenas histórico e nunca autentica proveniência nem renova aprovação. Observações posteriores param sequências com inputs alterados/indisponíveis; a auditoria rejeita hardlinks/reparse/ficheiros não regulares sem bloquear em FIFOs. Testes de confiança mantêm acesso ao sistema de ficheiros/processos e registos sem chave são mutáveis. Consulta [os limites](RUN_RECEIPTS.md).

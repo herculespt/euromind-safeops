@@ -155,10 +155,12 @@ def tree_digest(root: Path) -> str:
 
 def audit(root: Path, action: str, plan_id: str, status: str) -> None:
     import json
+    from .locking import _directory, _open_file
     path = workspace(root) / "audit.jsonl"
+    _directory(path.parent)
     if path.is_symlink():
         raise SafeOpsError("Refusing symlink audit log")
     record = {"timestamp": utc_now(), "action": action, "plan_id": plan_id, "status": status}
-    fd = os.open(path, os.O_CREAT | os.O_WRONLY | os.O_APPEND | getattr(os, "O_NOFOLLOW", 0), 0o600)
+    fd = _open_file(path, os.O_CREAT | os.O_WRONLY | os.O_APPEND)
     with os.fdopen(fd, "a", encoding="utf-8") as handle:
         handle.write(json.dumps(record, ensure_ascii=False, sort_keys=True) + "\n")

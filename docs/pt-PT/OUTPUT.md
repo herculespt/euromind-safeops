@@ -1,6 +1,6 @@
-# Saída estruturada da CLI — 0.3.0a13
+# Saída estruturada da CLI — 0.3.0a14
 
-<!-- safeops-version: 0.3.0a13 -->
+<!-- safeops-version: 0.3.0a14 -->
 
 [English](../OUTPUT.md)
 
@@ -21,13 +21,13 @@ conter literalmente `--json` sem ativar o modo global.
 
 ## Envelope de schema 1
 
-Os quinze comandos (`init`, `providers`, `doctor`, `scan`, `plan`, `review`,
-`approve`, `run`, `recover-lock`, `preview`, `propose`, `review-proposal`, `stage-proposal`, `inspect-stage`, `review-stage`) devolvem um único objeto JSON UTF-8 nos resultados tratados:
+Os dezasseis comandos (`init`, `providers`, `doctor`, `scan`, `plan`, `review`,
+`approve`, `run`, `recover-lock`, `preview`, `propose`, `review-proposal`, `stage-proposal`, `inspect-stage`, `review-stage`, `inspect-run`) devolvem um único objeto JSON UTF-8 nos resultados tratados:
 
 ```json
 {
   "schema": 1,
-  "safeops_version": "0.3.0a13",
+  "safeops_version": "0.3.0a14",
   "command": "scan",
   "ok": true,
   "exit_code": 0,
@@ -52,7 +52,7 @@ Os quinze comandos (`init`, `providers`, `doctor`, `scan`, `plan`, `review`,
 | `error` | `null` ou objeto com `code` e `message` |
 | `warnings` | Lista de textos; inclui o aviso de política dos planos críticos |
 
-O código 1 indica resultados do scanner, verificações aprovadas que falharam ou inspeção de cópia alterada/incompleta.
+O código 1 indica resultados do scanner, execuções aprovadas failed/timed-out/changed-inputs/incomplete ou inspeção de cópia alterada/incompleta.
 Esses resultados mantêm `data`, com `ok: false` e `error: null`. O código 2 indica
 erros tratados de utilização/política/sistema de ficheiros. Os códigos do erro
 são `invalid_arguments`, `policy_error` e `filesystem_error`. Os erros dos
@@ -81,8 +81,8 @@ potencialmente sensível. Não é um serviço adicional de remoção de dados, u
 assinatura, autorização automática ou isolamento. A funcionalidade e os testes
 offline não exigem pedidos a fornecedores.
 
-A versão 0.3.0a13 preserva os schemas 1/2 de configuração, 1 de plano e 2 de
-aprovação; o protocolo 3 do runner mantém protocolo 1 do bloqueio nativo. A ligação à versão continua a invalidar
+A versão 0.3.0a14 preserva os schemas 1/2 de configuração, 1 de plano e 2 de
+aprovação; o protocolo 4 do runner mantém protocolo 1 do bloqueio nativo. A ligação à versão continua a invalidar
 aprovações anteriores: preservar o histórico e criar novo plano revisto e
 aprovação. Não há migração automática nem publicação de release ou pacote.
 
@@ -129,3 +129,5 @@ consulta o [contrato](STAGING.md). Evidência inválida/insegura/excessiva/ileg�
 ou alterada durante a inspeção devolve erro genérico de política (2).
 
 `review-stage` usa o mesmo envelope: `current` (0), `stale` (1) ou `incompatible` (1), sem texto dos ficheiros/escrita/aprovação. Evidência inválida/insegura devolve erro de política saneado (2). Consulta [a revisão do original](STAGE_REVIEW.md) para verificações booleanas, códigos fixos e limites. A saída 1 inclui também esta revisão desatualizada/incompatível.
+
+`run` acrescenta `run_id`, `receipt_fingerprint` e `reasons` fixos. `run`/`inspect-run` utilizam passed (0), failed/timed-out/changed-inputs/incomplete (1); erros operacionais/de integridade utilizam 2. A inspeção histórica não devolve output capturado nem revalida o original atual e nunca renova aprovação. Consulta [recibos](RUN_RECEIPTS.md), incluindo persistência parcial e falhas de auditoria.

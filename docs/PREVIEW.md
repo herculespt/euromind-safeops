@@ -1,6 +1,6 @@
-# Local candidate previews — 0.3.0a13
+# Local candidate previews — 0.3.0a14
 
-<!-- safeops-version: 0.3.0a13 -->
+<!-- safeops-version: 0.3.0a14 -->
 
 [Português (Portugal)](pt-PT/PREVIEW.md)
 

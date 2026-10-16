@@ -2,6 +2,15 @@
 
 The format follows Keep a Changelog conventions; versions follow Semantic Versioning where practicable.
 
+## 0.3.0a14 — 2026-10-16
+
+- Persist exclusive schema-1 run intents/results with bounded before/after plan, approval, source, configuration, selected-target and execution-contract hashes. Keep captured output, task/advice and approval reasons out of these records.
+- Revalidate inputs after each completed fixed check and stop on change/unavailable context. Distinguish passed, failed, timed-out, changed-inputs and incomplete; finalize only after lock cleanup/audit, retaining partial evidence on operational failure without retry or deletion.
+- Add read-only historical `inspect-run` with strict bounded schema/fingerprint/link/outcome checks. It never renews approval, revalidates current source or authenticates provenance.
+- Runner protocol 4 binds receipt schema 1 and suppresses automatic Python import bytecode in fixed children. Config schemas 1/2, plan 1, approval 2, lock 1 and envelope 1 remain supported; upgrading requires fresh reviewed approval.
+- Harden local audit opens against hardlinks/reparse points/nonregular files, including nonblocking FIFO rejection. Add offline/distribution regressions and synchronize English/PT-PT contracts, capability tables, roadmap and source version. Public GitHub/PyPI alpha stays 0.3.0a8.
+- PT-PT: recibos locais ligados aos inputs e resultados dos checks aprovados, inspeção histórica sem escrita e deteção de alterações durante a execução; sem aplicação ao original nem renovação de aprovação.
+
 ## 0.3.0a13 — 2026-10-16
 
 - Add read-only `review-stage`: require a matching retained stage, then compare two bounded observations of the current original snapshot, candidate bases, bound plan, configuration, selected targets, installed version and execution contract.

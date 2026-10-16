@@ -21,14 +21,15 @@ CHECKS = {
 }
 CONFIG_SCHEMA_VERSION = 1
 APPROVAL_SCHEMA_VERSION = 2
-RUNNER_PROTOCOL_VERSION = 3
+RUNNER_PROTOCOL_VERSION = 4
 
 
 def execution_contract_digest() -> str:
     """Invalidate approvals when the installed version or fixed runner contract changes."""
     return sha256({"safeops_version": __version__, "runner_protocol": RUNNER_PROTOCOL_VERSION,
                    "checks": CHECKS, "target_command": TARGET_COMMAND,
-                   "lock_protocol": LOCK_PROTOCOL_VERSION, "python_io_encoding": "utf-8"})
+                   "lock_protocol": LOCK_PROTOCOL_VERSION, "python_io_encoding": "utf-8",
+                   "python_dont_write_bytecode": True, "run_receipt_schema": 1})
 
 
 def get_config(root: Path) -> dict:
@@ -103,49 +104,78 @@ def approve(root: Path, plan_id: str, reason: str, confirmation: str) -> dict:
 
 
 def run(root: Path, plan_id: str, *, timeout: int = 60) -> dict:
-    if timeout < 1 or timeout > 300:
+    # Local import keeps receipt inspection independent of execution-module load order.
+    from .run_receipts import begin_run, changed_inputs, finish_run, read_plan, result_status, stable_context
+
+    if type(timeout) is not int or timeout < 1 or timeout > 300:
         raise SafeOpsError("--timeout must be between 1 and 300 seconds")
-    plan = load_plan(root, plan_id)
+    root = root.resolve(strict=True)
+    plan = read_plan(root, plan_id)
     if plan["risk"] == "critical":
         raise SafeOpsError("Critical-risk plans are blocked")
     validate_scope_paths(root, plan.get("paths"))
-    with execution_lock(root, plan_id):
-        approved = read_json(file_in_workspace(root, "approvals", plan_id))
-        cfg = get_config(root)
-        if (approved.get("schema") != APPROVAL_SCHEMA_VERSION or
-                approved.get("execution_contract") != execution_contract_digest() or
-                approved.get("plan_id") != plan_id or
-                approved.get("fingerprint") != plan["fingerprint"] or
-                approved.get("workspace_digest") != plan["workspace_digest"] or
-                approved.get("config_digest") != sha256(cfg)):
-            raise SafeOpsError("Missing or stale approval; create a new plan and approve it under this version")
-        if tree_digest(root) != plan["workspace_digest"]:
-            raise SafeOpsError("Workspace changed since planning; approval is stale")
-        if cfg["schema"] == 2 and approved.get("targets_digest") != targets_digest(root, cfg):
-            raise SafeOpsError("Selected targets changed; approval is stale")
-        results = []
-        # Keep Python check streams and their decoding independent of the OS locale.
-        check_env = {**os.environ, "PYTHONIOENCODING": "utf-8"}
-        for check in cfg["checks"]:
-            if cfg["schema"] == 2:
-                paths = cfg["targets"][check]
-                validate_targets(root, check, paths)
-                command = [sys.executable, *TARGET_COMMAND, check, *paths]
-            elif check == "compile" and not ((root / "src").is_dir() and (root / "tests").is_dir()):
-                raise SafeOpsError("compile requires src/ and tests/ directories")
-            else:
-                command = [sys.executable, *CHECKS[check]]
-            try:
-                completed = subprocess.run(command, cwd=root, capture_output=True, text=True,
-                                           timeout=timeout, check=False, encoding="utf-8",
-                                           errors="replace", env=check_env)
-                result = {"check": check, "exit_code": completed.returncode,
-                          "stdout": completed.stdout[-12000:], "stderr": completed.stderr[-12000:]}
-            except subprocess.TimeoutExpired:
-                result = {"check": check, "exit_code": -1, "stdout": "", "stderr": "Timed out"}
-            results.append(result)
-            if result["exit_code"] != 0:
-                break
-        status = "passed" if len(results) == len(cfg["checks"]) and all(r["exit_code"] == 0 for r in results) else "failed"
-    audit(root, "run", plan_id, status)
-    return {"plan_id": plan_id, "status": status, "checks": results}
+    owner = None
+    try:
+        with execution_lock(root, plan_id):
+            before, current_plan, approved, cfg = stable_context(root, plan_id)
+            if (type(approved.get("schema")) is not int or approved.get("schema") != APPROVAL_SCHEMA_VERSION or
+                    approved.get("execution_contract") != execution_contract_digest() or
+                    approved.get("plan_id") != plan_id or
+                    approved.get("fingerprint") != plan["fingerprint"] or
+                    approved.get("workspace_digest") != plan["workspace_digest"] or
+                    approved.get("config_digest") != before["config_digest"] or current_plan != plan):
+                raise SafeOpsError("Missing or stale approval; create a new plan and approve it under this version")
+            if before["workspace_digest"] != plan["workspace_digest"]:
+                raise SafeOpsError("Workspace changed since planning; approval is stale")
+            if cfg["schema"] == 2 and approved.get("targets_digest") != before["targets_digest"]:
+                raise SafeOpsError("Selected targets changed; approval is stale")
+            owner = begin_run(root, plan_id, before, cfg["checks"], timeout)
+            results = []
+            outcomes = []
+            # Keep Python check streams and their decoding independent of the OS locale.
+            check_env = {**os.environ, "PYTHONIOENCODING": "utf-8", "PYTHONDONTWRITEBYTECODE": "1"}
+            for check in cfg["checks"]:
+                if cfg["schema"] == 2:
+                    paths = cfg["targets"][check]
+                    validate_targets(root, check, paths)
+                    command = [sys.executable, *TARGET_COMMAND, check, *paths]
+                elif check == "compile" and not ((root / "src").is_dir() and (root / "tests").is_dir()):
+                    raise SafeOpsError("compile requires src/ and tests/ directories")
+                else:
+                    command = [sys.executable, *CHECKS[check]]
+                try:
+                    completed = subprocess.run(command, cwd=root, capture_output=True, text=True,
+                                               timeout=timeout, check=False, encoding="utf-8",
+                                               errors="replace", env=check_env)
+                    result = {"check": check, "exit_code": completed.returncode,
+                              "stdout": completed.stdout[-12000:], "stderr": completed.stderr[-12000:]}
+                    outcome = "passed" if completed.returncode == 0 else "failed"
+                except subprocess.TimeoutExpired:
+                    result = {"check": check, "exit_code": -1, "stdout": "", "stderr": "Timed out"}
+                    outcome = "timed-out"
+                except OSError as exc:
+                    raise SafeOpsError("cannot start the fixed check") from exc
+                results.append(result)
+                outcomes.append({"check": check, "exit_code": result["exit_code"], "status": outcome})
+                try:
+                    after = stable_context(root, plan_id)[0]
+                except SafeOpsError:
+                    after = None
+                if outcome != "passed" or after is None or changed_inputs(before, after):
+                    break
+            status, _ = result_status(owner["intent"], outcomes, after)
+    except (SafeOpsError, OSError) as exc:
+        if owner is None:
+            raise
+        message = str(exc) if isinstance(exc, SafeOpsError) else "cannot execute approved checks"
+        raise SafeOpsError(f"Run {owner['intent']['run_id']} incomplete: {message}") from exc
+    # A terminal receipt is created only after successful guard/marker cleanup and
+    # audit append. Failures leave the unique intent for historical inspection.
+    run_id = owner["intent"]["run_id"]
+    try:
+        audit(root, "run", plan_id, status)
+    except (SafeOpsError, OSError) as exc:
+        raise SafeOpsError(f"Run {run_id} incomplete: cannot append the run audit event") from exc
+    receipt = finish_run(root, owner, outcomes, after)
+    return {"plan_id": plan_id, "run_id": run_id, "status": status, "checks": results,
+            "receipt_fingerprint": receipt["fingerprint"], "reasons": receipt["reasons"]}

@@ -1,6 +1,6 @@
-# Architecture — 0.3.0a13
+# Architecture — 0.3.0a14
 
-<!-- safeops-version: 0.3.0a13 -->
+<!-- safeops-version: 0.3.0a14 -->
 
 ## Data flow
 
@@ -17,7 +17,9 @@ flowchart TD
   H --> G{"Non-critical, valid scope and unchanged integrity?"}
   G -->|No| X[Fail closed]
   G -->|Yes| E["Fixed compile / unit test checks"]
-  E --> L[Local JSONL audit]
+  E --> C["Post-check input observation"]
+  C --> L[Local JSONL audit]
+  L --> F["Historical run receipt"]
 ```
 
 ## Package modules
@@ -34,6 +36,7 @@ flowchart TD
 | `proposals.py` | Local candidate persistence, plan/context bindings and read-only stale/integrity review; no execution authority |
 | `planning.py` | Rule-based risk and role suggestions, plan fingerprinting |
 | `providers.py` | Offline, native OpenAI Responses, Anthropic Messages and compatible non-executable advice |
+| `run_receipts.py` | Bounded safe run contexts, exclusive intent/final metadata, strict historical inspection; no output persistence or approval |
 | `execution.py` | Config validation, approval and strict fixed check commands |
 | `locking.py` | Persistent native guard, owned-marker cleanup, doctor status and explicit archival recovery |
 | `check_runner.py` | Child-process unittest discovery, fail-closed execution and aggregate statistics |
@@ -54,6 +57,8 @@ See [reporting](REPORTING.md).
   config.json
   plans/<12hex>.json
   approvals/<12hex>.json
+  runs/<12hex>/intent.json
+  runs/<12hex>/receipt.json
   proposals/<12hex>.json
   stages/<12hex>/intent.json
   stages/<12hex>/receipt.json
@@ -110,3 +115,5 @@ load current configuration to establish equivalence with the original. Historica
 observations never create an edge to application or execution approval.
 
 `stage_review.py` implements `review-stage`: reuse strict historical inspection, require matching copy, observe current original/context twice, reread safe bounded controls and require unchanged final inspection. It reuses decoded configuration validation without reopening an unsafe policy file. Original snapshot scope differs from filtered staging scope; selected targets retain their own digest/budgets. Result booleans and fixed reasons contain no file text and grant no execution/application authority. See [contract](STAGE_REVIEW.md).
+
+Runner protocol 4 binds receipt schema 1 and disabled import bytecode. Execution lazily imports receipt helpers to avoid module initialization cycles; helpers reuse bounded stage-review snapshots/selected reads and strict native-lock file opens. The guard covers initial observation, intent and post-check revalidation. Terminal receipt follows successful marker cleanup/guard release and audit; inspection remains historical and independent of current control files. See [full result contract](RUN_RECEIPTS.md).

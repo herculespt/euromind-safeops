@@ -40,6 +40,7 @@ class RepositoryHygieneTests(unittest.TestCase):
             "docs/PROPOSALS.md", "docs/pt-PT/PROPOSALS.md",
             "docs/STAGING.md", "docs/pt-PT/STAGING.md",
             "docs/STAGE_REVIEW.md", "docs/pt-PT/STAGE_REVIEW.md",
+            "docs/RUN_RECEIPTS.md", "docs/pt-PT/RUN_RECEIPTS.md",
             "docs/PACKAGE.md", "docs/RELEASING.md", "docs/pt-PT/RELEASING.md",
         ):
             with self.subTest(path=name):
@@ -87,10 +88,12 @@ class RepositoryHygieneTests(unittest.TestCase):
             "docs/PROPOSALS.md", "docs/pt-PT/PROPOSALS.md",
             "docs/STAGING.md", "docs/pt-PT/STAGING.md",
             "docs/STAGE_REVIEW.md", "docs/pt-PT/STAGE_REVIEW.md",
+            "docs/RUN_RECEIPTS.md", "docs/pt-PT/RUN_RECEIPTS.md",
             "src/euromind_safeops/proposals.py", "tests/test_proposals.py",
             "src/euromind_safeops/staging.py", "tests/test_staging.py",
             "src/euromind_safeops/stage_inspection.py", "tests/test_stage_inspection.py",
             "src/euromind_safeops/stage_review.py", "tests/test_stage_review.py",
+            "src/euromind_safeops/run_receipts.py", "tests/test_run_receipts.py",
             "requirements-ci.txt", ".github/workflows/ci.yml", ".github/CODEOWNERS",
             "requirements-release.txt", ".github/workflows/publish.yml", ".secrets.baseline", "scripts/release_secrets.py", "tests/test_release_gate.py",
         ):

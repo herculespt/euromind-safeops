@@ -136,7 +136,7 @@ class ExecutionTests(unittest.TestCase):
         plan = self.plan()
         approve(self.root, plan["id"], "reviewed", plan["id"])
         self.assertFalse(marker.exists())
-        self.assertEqual(run(self.root, plan["id"])["status"], "passed")
+        self.assertEqual(run(self.root, plan["id"])["status"], "changed-inputs")
         self.assertTrue(marker.exists())
 
     def test_discovery_import_error_is_failure(self):
@@ -155,7 +155,7 @@ class ExecutionTests(unittest.TestCase):
         plan = self.plan()
         approve(self.root, plan["id"], "reviewed", plan["id"])
         response = run(self.root, plan["id"], timeout=1)
-        self.assertEqual(response["status"], "failed")
+        self.assertEqual(response["status"], "timed-out")
         self.assertEqual(response["checks"][-1]["exit_code"], -1)
         self.assertFalse((self.root / ".safeops" / "run.lock").exists())
 

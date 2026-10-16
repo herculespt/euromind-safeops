@@ -110,3 +110,5 @@ Retain all records on failure. Verify exclusions, byte/path bounds, no file-text
 disclosure and no audit/approval writes in regression and installed-wheel tests.
 
 For `review-stage` (source 0.3.0a13), review the matching-copy prerequisite, original/plan/candidate-base/configuration/target/version/contract checks, sanitized bounds/race failures and no-write/no-provider/no-approval behavior. Keep [English](STAGE_REVIEW.md) and [PT-PT](pt-PT/STAGE_REVIEW.md), source metadata, distribution inclusion, capability tables and GitHub tracking aligned. A `current` result never authorizes original application or substitutes for trusted checks.
+
+For source 0.3.0a14, review [run receipts](RUN_RECEIPTS.md) and [PT-PT](pt-PT/RUN_RECEIPTS.md): metadata-only persistence, before/after checks, failure/timeout/change/incomplete precedence, guard cleanup/audit/final-write failures, bounded historical inspection and fresh runner-protocol-4 approval. Do not treat a historical passed receipt as current compatibility or permission to apply source changes. Keep distribution contents, version/capability tables and GitHub tracking synchronized.
