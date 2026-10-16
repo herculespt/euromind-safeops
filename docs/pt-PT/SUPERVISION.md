@@ -1,10 +1,10 @@
-# Supervisão dos processos das verificações — 0.3.0a16
+# Supervisão dos processos das verificações — 0.3.0a17
 
-<!-- safeops-version: 0.3.0a16 -->
+<!-- safeops-version: 0.3.0a17 -->
 
 [English](../SUPERVISION.md)
 
-Implementado no código 0.3.0a16. A alfa pública GitHub/PyPI 0.3.0a8 é anterior a esta capacidade.
+Implementado no código 0.3.0a17. A alfa pública GitHub/PyPI 0.3.0a8 é anterior a esta capacidade.
 
 Cada check aprovado usa um launcher Python interno bloqueado à entrada. Não inicia código do projeto antes de o processo principal estabelecer identidade nativa e enviar um byte de arranque. Mantêm-se argumentos fixos, streams UTF-8, imports sem bytecode automático e alvos schema 1/2. O worker recebe stdin vazio/fechado. Sem fornecedor, shell, opção de comando arbitrário, pesquisa de PIDs, taskkill externo ou dependência de runtime.
 
@@ -27,3 +27,5 @@ Limites: timeout existente de 1–300 segundos por check, orçamento adicional d
 O launcher arranca com Python `-I`, excluindo imports de arranque do workspace/PYTHONPATH/user-site antes do bloqueio. Intérprete instalado, ambiente e pacote SafeOps continuam de confiança. O worker fixo mantém argumentos e ambiente aprovados originais após associação nativa.
 
 Diagnóstico de limpeza usa códigos fixos de fase/motivo e errno numérico opcional, sem texto da exceção nativa. Um sinal pode falhar depois de os processos terminarem (observado no macOS após TERM); tenta-se ainda recolher o launcher e exige-se ausência nativa do grupo/zero membros do job mais EOF. Erros de permissão nunca significam ausência: observação indisponível mantém o marcador.
+
+O código 0.3.0a17 aguarda contagem final zero do job Windows no mesmo orçamento de limpeza de três segundos usado para saída do launcher, EOF e limpeza de falha. Contagem positiva transitória não transforma imediatamente um check falhado concluído em erro operacional; confirmação persistente/indisponível mantém recusa e estado retido. Diagnóstico por fases fixas exclui texto nativo de exceções. Mantêm-se runner 5/lock 3 e schemas; versão/política de limpeza atualizadas exigem planos/propostas/aprovações novos e revistos.

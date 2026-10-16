@@ -1,6 +1,6 @@
-# Diretórios das verificações fixas — 0.3.0a16
+# Diretórios das verificações fixas — 0.3.0a17
 
-<!-- safeops-version: 0.3.0a16 -->
+<!-- safeops-version: 0.3.0a17 -->
 
 [English](../TARGETS.md)
 
@@ -87,4 +87,4 @@ A funcionalidade e os seus testes offline não exigem pedidos a fornecedores.
 Consultar a [compatibilidade](EXECUTION.md), o [estado](STATUS.md), o
 [modelo de confiança](../TRUST_MODEL.md) e a [validação em CI](CI.md).
 
-O código 0.3.0a16 usa protocolo 5 do runner com bytecode automático dos imports desativado nos filhos fixos. Escritas geradas explícitas continuam a contar como inputs selecionados e alterações após checks produzem changed-inputs; observação segura indisponível produz incomplete. As leituras do contexto acrescentam os limites do original/alvos dos [recibos](RUN_RECEIPTS.md). Compileall explícito do schema 1 continua a escrever bytecode gerado fora do digest normal do original.
+O código 0.3.0a17 usa protocolo 5 do runner com bytecode automático dos imports desativado nos filhos fixos. Escritas geradas explícitas continuam a contar como inputs selecionados e alterações após checks produzem changed-inputs; observação segura indisponível produz incomplete. As leituras do contexto acrescentam os limites do original/alvos dos [recibos](RUN_RECEIPTS.md). Compileall explícito do schema 1 continua a escrever bytecode gerado fora do digest normal do original.

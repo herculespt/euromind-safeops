@@ -1,11 +1,11 @@
-# Local run locking and recovery — 0.3.0a16
+# Local run locking and recovery — 0.3.0a17
 
-<!-- safeops-version: 0.3.0a16 -->
+<!-- safeops-version: 0.3.0a17 -->
 
 [Português (Portugal)](pt-PT/LOCKING.md)
 
 Runs use two cooperating mechanisms: a persistent native guard and an exclusive
-owned marker. Neither is a sandbox or a distributed lock. Source 0.3.0a16 uses
+owned marker. Neither is a sandbox or a distributed lock. Source 0.3.0a17 uses
 runner protocol 5 and lock protocol 3 in the version-bound execution contract.
 Config schemas 1/2, plan schema 1, approval schema 2 and output schema 1 remain.
 Upgrading requires a fresh reviewed plan/approval; records are not migrated.
@@ -105,3 +105,5 @@ Source 0.3.0a15 adds [explicit reviewed application and conservative rollback](A
 `doctor.data.run_lock.application_pending` reports presence of any application marker entry without reading/removing it. Native-lock protocol 3 refuses new runs before allocating `run.lock` whenever that entry exists. Application holds original and staged native guards; rollback holds the original guard. Retained run markers also block either writer. `recover-lock` never clears application evidence. The [application guide](APPLICATION.md) defines owned-marker release and manual recovery limits.
 
 Source 0.3.0a16 adds [owned fixed-check supervision](SUPERVISION.md): a gated launcher, POSIX group/PID anchor or Windows kill-on-close job, native completion/termination checks and continuously drained bounded stream tails. Timeout includes ordinary owned descendants and pipe retention; uncertain cleanup retains run.lock and incomplete intent without a final receipt. Runner 5/lock 3 require fresh version-bound approval. This covers cooperating same-group POSIX descendants/job members, not deliberate group/session escapes, hostile-code isolation or automatic stale recovery. The guide defines normal, timeout, cancellation and abrupt-parent-death limits.
+
+Source 0.3.0a17 waits for final zero Windows job accounting within the same three-second cleanup budget used for launcher exit, EOF and failure cleanup. A transitional positive count cannot turn a completed failed check into an immediate operational error; persistent/unavailable confirmation remains fail-closed with retained state. Fixed-phase diagnostics exclude native exception text. Runner 5/lock 3 and schemas remain; the updated version/cleanup-policy binding requires fresh reviewed plans/proposals/approvals.

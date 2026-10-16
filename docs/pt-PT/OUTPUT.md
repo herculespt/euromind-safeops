@@ -1,6 +1,6 @@
-# Saída estruturada da CLI — 0.3.0a16
+# Saída estruturada da CLI — 0.3.0a17
 
-<!-- safeops-version: 0.3.0a16 -->
+<!-- safeops-version: 0.3.0a17 -->
 
 [English](../OUTPUT.md)
 
@@ -27,7 +27,7 @@ Os vinte comandos (`init`, `providers`, `doctor`, `scan`, `plan`, `review`,
 ```json
 {
   "schema": 1,
-  "safeops_version": "0.3.0a16",
+  "safeops_version": "0.3.0a17",
   "command": "scan",
   "ok": true,
   "exit_code": 0,
@@ -81,7 +81,7 @@ potencialmente sensível. Não é um serviço adicional de remoção de dados, u
 assinatura, autorização automática ou isolamento. A funcionalidade e os testes
 offline não exigem pedidos a fornecedores.
 
-A versão 0.3.0a16 preserva os schemas 1/2 de configuração, 1 de plano e 2 de
+A versão 0.3.0a17 preserva os schemas 1/2 de configuração, 1 de plano e 2 de
 aprovação; o protocolo 5 do runner usa protocolo 3 do bloqueio nativo. A ligação à versão continua a invalidar
 aprovações anteriores: preservar o histórico e criar novo plano revisto e
 aprovação. Não há migração automática nem publicação de release ou pacote.
@@ -135,3 +135,5 @@ ou alterada durante a inspeção devolve erro genérico de política (2).
 `review-application` devolve metadados e `fingerprint` atual exato sem escrita. `apply-stage`/`rollback-application` devolvem inspeção após conclusão normal (0); falhas tratadas usam 2 e podem reter original parcialmente alterado, marcador próprio ou conclusão. Inspecionar sempre o estado. `inspect-application` usa `applied`/`rolled-back` (0), `pending`/`conflicted` (1), evidência insegura/inválida/alterada (2); devolve metadados/estados por ficheiro e `rollback_fingerprint` novo, sem texto. Consulta [estados e limites](APPLICATION.md).
 
 O código 0.3.0a16 acrescenta [supervisão dos processos próprios](SUPERVISION.md): launcher bloqueado à entrada, grupo/âncora PID POSIX ou job Windows com kill-on-close, confirmação nativa e caudas de output drenadas continuamente com limite. Timeout inclui descendentes normais próprios e pipes retidos; limpeza incerta mantém run.lock e intent incompleto sem recibo final. Runner 5/lock 3 exigem aprovação nova ligada à versão. Abrange descendentes cooperantes no grupo POSIX/membros do job, sem conter escapes deliberados de grupo/sessão, isolar código hostil ou decidir recuperação automática. O guia define conclusão, timeout, cancelamento e morte abrupta do principal.
+
+O código 0.3.0a17 aguarda contagem final zero do job Windows no mesmo orçamento de limpeza de três segundos usado para saída do launcher, EOF e limpeza de falha. Contagem positiva transitória não transforma imediatamente um check falhado concluído em erro operacional; confirmação persistente/indisponível mantém recusa e estado retido. Diagnóstico por fases fixas exclui texto nativo de exceções. Mantêm-se runner 5/lock 3 e schemas; versão/política de limpeza atualizadas exigem planos/propostas/aprovações novos e revistos.

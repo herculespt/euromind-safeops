@@ -2,6 +2,14 @@
 
 The format follows Keep a Changelog conventions; versions follow Semantic Versioning where practicable.
 
+## 0.3.0a17 — 2026-10-16
+
+- Recheck final Windows job accounting until zero within the existing cleanup budget; preserve normal failed-check results across transitional positive counts.
+- Share the same three-second budget across launcher release/exit, accounting/EOF and failure cleanup; do not reset it after an operational exception. Persistent/unavailable confirmation retains blocking/incomplete evidence.
+- Add native delayed/persistent final-accounting regressions and fixed-phase operational diagnostics; update EN/PT-PT current version/contracts, metadata, roadmap/status and GitHub tracking.
+- Runner 5/lock 3 and record schemas retained; updated version/cleanup-policy bindings require fresh reviewed approval/proposals. Public GitHub/PyPI 0.3.0a8 unchanged.
+- PT-PT: confirmação final do job Windows com reobservação limitada, orçamento de limpeza partilhado e retenção segura na incerteza; versões e documentação atualizadas.
+
 ## 0.3.0a16 — 2026-10-16
 
 - Supervise each fixed check through a gated launcher and owned POSIX process group or native Windows Job Object; wait for ordinary owned descendants and preserve a PID anchor before group signaling. No arbitrary command, shell, PID scan or runtime dependency.

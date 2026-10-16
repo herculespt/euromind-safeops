@@ -26,6 +26,7 @@ SUPERVISION_CONTRACT = {"schema": 1, "launcher": ["-I", "-m", "euromind_safeops.
                         "posix": "gated-group-anchor", "windows": "gated-kill-on-close-job",
                         "tail_bytes": TAIL_BYTES, "returned_characters": 12_000,
                         "cleanup_seconds": CLEANUP_SECONDS, "term_grace": TERM_GRACE,
+                        "cleanup_budget": "shared-after-release-or-failure",
                         "stdin": "devnull", "unconfirmed_cleanup": "retain-marker-no-receipt"}
 
 
@@ -110,9 +111,11 @@ class _Cleanup:
         return self.confirmed
 
 
-def _stop(process, job: Job | None, tails: list[_Tail], *, assigned: bool, released: bool) -> _Cleanup:
+def _stop(process, job: Job | None, tails: list[_Tail], *, assigned: bool, released: bool,
+          deadline: float | None = None) -> _Cleanup:
     """Never reap the POSIX anchor until every group signal has been sent."""
-    deadline, confirmed = time.monotonic() + CLEANUP_SECONDS, True
+    deadline = time.monotonic() + CLEANUP_SECONDS if deadline is None else deadline
+    confirmed = True
     phase, reason = "native-termination", "confirmed"
     try:
         if job is not None and assigned:
@@ -126,7 +129,7 @@ def _stop(process, job: Job | None, tails: list[_Tail], *, assigned: bool, relea
                 _signal_group(process.pid, signal.SIGTERM)
             except OSError:
                 pass
-            time.sleep(TERM_GRACE)
+            time.sleep(min(TERM_GRACE, max(0, deadline - time.monotonic())))
             phase = "group-kill"
             try:
                 _signal_group(process.pid, signal.SIGKILL)
@@ -177,18 +180,22 @@ def _stop(process, job: Job | None, tails: list[_Tail], *, assigned: bool, relea
 def run_check(command: list[str], *, cwd: Path, timeout: int, env: dict) -> subprocess.CompletedProcess:
     parent_group = _preflight()
     job, process, tails, assigned, clean, released = None, None, [], False, False, False
+    cleanup_deadline, phase = None, "initialization"
     try:
         if os.name == "nt":
+            phase = "job-allocation"
             job = Job()
         with tempfile.TemporaryDirectory(prefix="safeops-check-") as temporary:
             destination = Path(temporary) / "completion.json"
             token = secrets.token_hex(16)
             flags = {"process_group": 0} if os.name == "posix" else {}
+            phase = "launcher-start"
             process = subprocess.Popen([sys.executable, *SUPERVISION_CONTRACT["launcher"], str(destination), token,
                                         str(parent_group), *command], cwd=cwd, env=env, stdin=subprocess.PIPE,
                                        stdout=subprocess.PIPE, stderr=subprocess.PIPE, bufsize=0, close_fds=True, **flags)
             deadline = time.monotonic() + timeout
             if job is not None:
+                phase = "job-assignment"
                 job.assign(process)
                 assigned = True
             elif os.getpgid(process.pid) != process.pid:
@@ -198,7 +205,9 @@ def run_check(command: list[str], *, cwd: Path, timeout: int, env: dict) -> subp
                 tail.thread.start()
             process.stdin.write(b"G")
             while True:
+                phase = "completion-observation"
                 code = _completion(destination, process, token)
+                phase = "owned-members-observation"
                 if code is not None and (job.active() == 1 if job is not None else _group_empty(process.pid)):
                     break
                 if code is None and all(t.eof.is_set() for t in tails):
@@ -206,14 +215,20 @@ def run_check(command: list[str], *, cwd: Path, timeout: int, env: dict) -> subp
                 if time.monotonic() >= deadline:
                     raise subprocess.TimeoutExpired(command, timeout)
                 time.sleep(POLL_SECONDS)
+            cleanup_deadline = time.monotonic() + CLEANUP_SECONDS
+            phase = "launcher-release"
             released = True  # No further POSIX group signals: the group was observed absent.
             process.stdin.write(b"X")
             process.stdin.close()
-            cleanup_deadline = time.monotonic() + CLEANUP_SECONDS
-            if process.wait(timeout=CLEANUP_SECONDS) != 0:
+            phase = "launcher-exit"
+            if process.wait(timeout=max(0.01, cleanup_deadline - time.monotonic())) != 0:
                 raise ValueError("Launcher did not complete")
-            if job is not None and job.active() != 0:
-                raise ValueError("Job still active")
+            phase = "final-job-accounting"
+            while job is not None and job.active() != 0:
+                if time.monotonic() >= cleanup_deadline:
+                    raise ValueError("Job termination not confirmed within cleanup budget")
+                time.sleep(POLL_SECONDS)
+            phase = "output-eof"
             for tail in tails:
                 tail.thread.join(max(0, cleanup_deadline - time.monotonic()))
             if any(not t.eof.is_set() or t.failed for t in tails):
@@ -224,13 +239,13 @@ def run_check(command: list[str], *, cwd: Path, timeout: int, env: dict) -> subp
         if process is not None and not clean:
             if isinstance(exc, RetainRunMarker):
                 raise
-            cleanup = _stop(process, job, tails, assigned=assigned, released=released)
+            cleanup = _stop(process, job, tails, assigned=assigned, released=released, deadline=cleanup_deadline)
             if not cleanup:
                 reason = getattr(cleanup, "reason", "unconfirmed")
                 raise RetainRunMarker(f"Check supervision incomplete ({reason}); retained run marker requires independent process verification") from exc
         if isinstance(exc, (KeyboardInterrupt, SystemExit, subprocess.TimeoutExpired)):
             raise
-        raise SafeOpsError("Cannot supervise the fixed check safely") from exc
+        raise SafeOpsError(f"Cannot supervise the fixed check safely ({phase})") from exc
     finally:
         if process is not None and process.stdin is not None and not process.stdin.closed:
             try:
