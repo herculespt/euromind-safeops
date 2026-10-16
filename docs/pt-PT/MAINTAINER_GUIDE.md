@@ -63,3 +63,8 @@ forma independente os processos principais/filhos, rever o fingerprint e
 arquivar com confirmação e razão expressas. Nunca apagar a guarda nem deduzir
 o estado dos processos pelo PID. Rever recibo/arquivo/auditoria após um erro;
 a recuperação não é uma transação única nem concede aprovação de execução.
+
+O comando de [preview de candidatos](PREVIEW.md) só lê e é independente da
+aprovação de execução. Rever diffs localmente: podem conter texto ou segredos,
+sem upload automático com relatórios. Não implementa geração por IA ou aplicação
+revista de patches.

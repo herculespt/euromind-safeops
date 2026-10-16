@@ -1,10 +1,10 @@
 # Implementation and publication status
 
-<!-- safeops-version: 0.3.0a8 -->
+<!-- safeops-version: 0.3.0a9 -->
 
 [Português (Portugal)](pt-PT/STATUS.md)
 
-**Current source version: 0.3.0a8 — alpha prerelease.** Python 3.11–3.13 is
+**Current source version: 0.3.0a9 — alpha prerelease.** Python 3.11–3.13 is
 covered by CI on Linux, Windows and macOS. No third-party runtime dependencies.
 The first [GitHub alpha v0.3.0a8](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8)
 was published on 2026-10-16 at `035c36b1b646a6c75178d5db6c19d8c55d624dcf`,
@@ -15,10 +15,13 @@ The workflow is prepared for PyPI, but account authentication, publisher registr
 and actual registry publication remain pending. The sign-in request was interrupted;
 no account grant, registry installation or attestation was verified.
 
+Source 0.3.0a9 adds local previews; it has not been published as a new release.
+
 ## Implemented
 
 | Capability | Practical boundary |
 |---|---|
+| Local candidate text previews | Exact per-file base hashes and read-only unified diffs; manually supplied candidates only; [contract](PREVIEW.md) |
 | CLI, offline plans, risk and specialist suggestions | Heuristic classification, advisory task scope |
 | Source/plan integrity and local audit | SHA-256 linkage; mutable local records, not signatures |
 | Strict configuration and stored JSON | Schema-1 defaults and opt-in schema-2 targets, unique fixed checks, UTF-8/finite/unique-key JSON |
@@ -72,8 +75,8 @@ See [execution compatibility](EXECUTION.md), [trust model](TRUST_MODEL.md),
 Provider evidence distinguishes fixtures from the separate verified live requests in
 [provider testing](PROVIDER_TESTING.md), the [OpenAI record](audits/2026-10-15-openai-smoke.md)
 and the [Anthropic record](audits/2026-10-15-anthropic-smoke.md).
-The live requests above were tested on source 0.3.0a2. Current source 0.3.0a8
-adds [measured coverage](COVERAGE.md), preserving [local JUnit reporting](REPORTING.md),
+The live requests above were tested on source 0.3.0a2. Current source 0.3.0a9
+adds [local candidate previews](PREVIEW.md), retaining [measured coverage](COVERAGE.md), [local JUnit reporting](REPORTING.md),
 [native locking and explicit recovery](LOCKING.md),
 [structured output and summaries](OUTPUT.md), optional
 [check directory targets](TARGETS.md), advisory [scope preflight](SCOPE.md) and

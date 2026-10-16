@@ -1,10 +1,10 @@
 # Execution policy and upgrade compatibility
 
-<!-- safeops-version: 0.3.0a8 -->
+<!-- safeops-version: 0.3.0a9 -->
 
 [Português (Portugal)](pt-PT/EXECUTION.md)
 
-Current source version: **0.3.0a8**, alpha prerelease. This document describes
+Current source version: **0.3.0a9**, alpha prerelease. This document describes
 implemented behavior; see [status](STATUS.md) for exclusions and publication state.
 
 ## Configuration
@@ -93,7 +93,7 @@ Source 0.3.0a7 added optional maintainer-only [JUnit reporting](REPORTING.md),
 retaining runner protocol 3 and lock protocol 1. The version binding still requires
 a new reviewed plan/approval. Approved checks do not create JUnit reports.
 
-Source 0.3.0a8 adds a maintainer [coverage gate](COVERAGE.md), retaining these
+Source 0.3.0a8 added a maintainer [coverage gate](COVERAGE.md), retaining these
 schemas/protocols and the package-version approval binding. Creating or merging
 a GitHub PR does not create a SafeOps execution approval. For an authorized check
 run, create a plan against the final unchanged tree, review it, explicitly approve
@@ -138,3 +138,5 @@ not verify assertions, coverage or hostile-code behavior and is not a sandbox.
 - [Python unittest documentation](https://docs.python.org/3.11/library/unittest.html)
 - [Python JSON documentation](https://docs.python.org/3.11/library/json.html)
 - [CI and distribution contract](CI.md)
+
+Source 0.3.0a9 adds [local candidate previews](PREVIEW.md). Preview requires no initialized workspace and cannot approve/apply/run a candidate. Execution still needs a fresh reviewed plan and explicit approval bound to this installed version; no schema migration or automatic renewal occurs.

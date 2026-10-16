@@ -80,3 +80,8 @@ verify parent/child checks stopped, inspect the marker fingerprint and archive
 with explicit acknowledgement/reason. Never remove the persistent guard or
 infer liveness from a PID. Inspect receipt/archive/audit after any recovery
 error; recovery is not one transaction and grants no execution approval.
+
+The [candidate preview](PREVIEW.md) command is read-only and separate from execution
+approval. Review diffs locally; they can contain source text or secrets and must
+not be automatically uploaded with reports. Candidate support does not implement
+AI-generated patches or reviewed application.

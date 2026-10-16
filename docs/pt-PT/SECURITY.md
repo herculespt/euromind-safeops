@@ -1,12 +1,12 @@
 # Política de segurança
 
-<!-- safeops-version: 0.3.0a8 -->
+<!-- safeops-version: 0.3.0a9 -->
 
 [English](../../SECURITY.md)
 
 ## Âmbito e maturidade
 
-O EuroMind SafeOps 0.3.0a8 é uma **ferramenta de desenvolvimento em versão alfa**.
+O EuroMind SafeOps 0.3.0a9 é uma **ferramenta de desenvolvimento em versão alfa**.
 Não implementa isolamento seguro, não garante a segurança do código testado e
 não deve ser utilizado para autorizar operações de produção. A classificação
 de risco e a pesquisa por padrões são heurísticas com limitações.
@@ -40,3 +40,5 @@ recompensas.
 O grafo de dependências, os alertas e as atualizações de segurança do Dependabot
 foram também ativados após autorização. As atualizações são propostas através
 de PR e continuam sujeitas ao `quality-gate` e às regras da `main`.
+
+A [saída do preview](PREVIEW.md) contém texto dos ficheiros locais; não a publiques sem revisão. Hashes de candidatos verificam integridade, sem assinatura ou aprovação.
