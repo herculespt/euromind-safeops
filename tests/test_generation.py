@@ -37,7 +37,7 @@ class GenerationTests(unittest.TestCase):
         self.root.mkdir()
         self.source = self.root / "hello.txt"
         self.source.write_bytes("Olá\nworld\n".encode())
-        (self.root / "unselected.txt").write_text("unrelated_private_fixture\n")
+        (self.root / "unselected.txt").write_text("unrelated_private_fixture\n", encoding="utf-8", newline="\n")
         with contextlib.redirect_stdout(io.StringIO()):
             self.assertEqual(main(["--root", str(self.root), "init"]), 0)
         self.plan = self.plan_for()
@@ -152,7 +152,7 @@ class GenerationTests(unittest.TestCase):
         for paths, task in ((["hello.txt"], "Publish production"), ([], "Improve docs"), (["folder"], "Improve docs"),
                             ([f"f{i}.txt" for i in range(5)], "Improve docs")):
             (self.root / "folder").mkdir(exist_ok=True)
-            for i in range(5): (self.root / f"f{i}.txt").write_text("fixture\n")
+            for i in range(5): (self.root / f"f{i}.txt").write_text("fixture\n", encoding="utf-8", newline="\n")
             self.plan = self.plan_for(paths, task)
             with self.assertRaises(SafeOpsError): self.review()
         self.no_proposal()
@@ -176,7 +176,7 @@ class GenerationTests(unittest.TestCase):
     def test_source_disappears_or_gains_hardlink_during_read_is_refused(self):
         original = generation._read_regular
         for operation in ("unlink", "hardlink"):
-            self.source.write_text("fixture\n"); self.plan = self.plan_for()
+            self.source.write_text("fixture\n", encoding="utf-8", newline="\n"); self.plan = self.plan_for()
             def changing(path, **kwargs):
                 raw = original(path, **kwargs)
                 if operation == "unlink": path.unlink()
@@ -191,7 +191,7 @@ class GenerationTests(unittest.TestCase):
         def changing(*args):
             nonlocal count
             result = original(*args); count += 1
-            if count == 2: self.source.write_text("human edit\n")
+            if count == 2: self.source.write_text("human edit\n", encoding="utf-8", newline="\n")
             return result
         with patch.object(generation, "_context", side_effect=changing), self.assertRaises(SafeOpsError):
             self.review()
@@ -218,7 +218,7 @@ class GenerationTests(unittest.TestCase):
         self.plan = self.plan_for()
         with self.assertRaises(SafeOpsError): self.review()
         linked.unlink()
-        external = self.base / "external.txt"; external.write_text("private fixture\n")
+        external = self.base / "external.txt"; external.write_text("private fixture\n", encoding="utf-8", newline="\n")
         self.source.unlink()
         try: self.source.symlink_to(external)
         except OSError: self.skipTest("Symlinks unavailable")
@@ -226,17 +226,17 @@ class GenerationTests(unittest.TestCase):
 
     def test_obvious_credentials_in_source_or_model_are_refused_without_echo(self):
         marker = "sk-" + "x" * 40
-        self.source.write_text(marker + "\n")
+        self.source.write_text(marker + "\n", encoding="utf-8", newline="\n")
         self.plan = self.plan_for()
         with self.assertRaises(SafeOpsError) as error: self.review()
         self.assertNotIn(marker, str(error.exception))
-        self.source.write_text("fixture\n"); self.plan = self.plan_for()
+        self.source.write_text("fixture\n", encoding="utf-8", newline="\n"); self.plan = self.plan_for()
         with self.assertRaises(SafeOpsError): self.review(model=marker)
         with self.assertRaises(SafeOpsError): self.review(model=None)
 
     def test_changed_source_config_plan_or_version_invalidates_confirmation(self):
         fingerprint = self.review()["fingerprint"]
-        self.source.write_text("human edit\n")
+        self.source.write_text("human edit\n", encoding="utf-8", newline="\n")
         with patch.object(generation, "send_request") as send, self.assertRaises(SafeOpsError):
             generation.generate_proposal(self.root, self.plan["id"], fingerprint, allow_source_upload=True, **self.options)
         send.assert_not_called()
@@ -250,7 +250,7 @@ class GenerationTests(unittest.TestCase):
         original = generation.review_generation
         def changing(*args, **kwargs):
             result = original(*args, **kwargs)
-            (self.root / "unselected.txt").write_text("human edit\n")
+            (self.root / "unselected.txt").write_text("human edit\n", encoding="utf-8", newline="\n")
             return result
         with patch.object(generation, "review_generation", side_effect=changing), patch.object(generation, "send_request") as send:
             with self.assertRaises(SafeOpsError):
@@ -259,11 +259,11 @@ class GenerationTests(unittest.TestCase):
 
     def test_observed_change_during_provider_call_retains_no_candidate(self):
         for target in (self.source, self.root / ".safeops/config.json"):
-            if target == self.source: self.source.write_text("fixture\n")
+            if target == self.source: self.source.write_text("fixture\n", encoding="utf-8", newline="\n")
             else: target.write_bytes(json_bytes({"schema": 1, "checks": ["compile"]}))
             self.plan = self.plan_for(); fingerprint = self.review()["fingerprint"]
             def changing(request):
-                if target == self.source: target.write_text("human edit\n")
+                if target == self.source: target.write_text("human edit\n", encoding="utf-8", newline="\n")
                 else: target.write_bytes(json_bytes({"schema": 1, "checks": ["unit-tests"]}))
                 return json_bytes(self.document).decode()
             with patch.object(generation, "send_request", side_effect=changing), self.assertRaises(SafeOpsError):
@@ -300,7 +300,7 @@ class GenerationTests(unittest.TestCase):
         paths = []
         entries = []
         for i in range(3):
-            p = self.root / f"f{i}.txt"; p.write_text("fixture\n"); paths.append(p.name)
+            p = self.root / f"f{i}.txt"; p.write_text("fixture\n", encoding="utf-8", newline="\n"); paths.append(p.name)
             entries += self.candidate(p.name, "x" * 12000 + "\n")["files"]
         self.plan = self.plan_for(paths); self.document = {"schema": 1, "files": entries}
         with self.assertRaises(SafeOpsError): self.generate()
@@ -326,9 +326,9 @@ class GenerationTests(unittest.TestCase):
         from euromind_safeops.execution import approve, run
         from euromind_safeops.application import review_application, apply_stage, rollback_application
         from euromind_safeops.application_journal import inspect_application
-        (self.root / "src").mkdir(); (self.root / "src/main.py").write_text("value = 1\n")
+        (self.root / "src").mkdir(); (self.root / "src/main.py").write_text("value = 1\n", encoding="utf-8", newline="\n")
         (self.root / "tests").mkdir(); test = self.root / "tests/test_text.py"
-        test.write_text("import unittest\nfrom pathlib import Path\nclass T(unittest.TestCase):\n def test_text(self): self.assertIn('world', Path('hello.txt').read_text(encoding='utf-8'))\n")
+        test.write_text("import unittest\nfrom pathlib import Path\nclass T(unittest.TestCase):\n def test_text(self): self.assertIn('world', Path('hello.txt').read_text(encoding='utf-8'))\n", encoding="utf-8", newline="\n")
         self.plan = self.plan_for(["hello.txt", "tests/test_text.py"])
         self.document = self.candidate(); self.document["files"] += self.candidate("tests/test_text.py", test.read_text().replace("'world'", "'Portugal'"))["files"]
         result = self.generate(); reviewed = proposals.review_proposal(self.root, result["proposal_id"])
