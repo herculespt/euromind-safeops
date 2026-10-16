@@ -87,3 +87,5 @@ not be automatically uploaded with reports. Candidate support does not implement
 AI-generated patches or reviewed application.
 
 For [persisted proposals](PROPOSALS.md), review exact explicit plan paths, bindings, storage privacy and stale/tampered record failures. Keep candidate text/records/diffs out of public artifacts. Creation audit can fail after the record is saved; inspect local state before retrying. Application and AI generation remain planned.
+
+For [staging copies](STAGING.md), inspect exclusions, independent file writes, fingerprint confirmation and retained failure state. Never treat the receipt as a sandbox or original-source application approval. Do not delete partial stages automatically or publish their contents. Trusted staged checks require their own fresh approval; environment files/dependencies may need separate preparation.

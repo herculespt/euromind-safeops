@@ -1,10 +1,10 @@
 # Implementation and publication status
 
-<!-- safeops-version: 0.3.0a10 -->
+<!-- safeops-version: 0.3.0a11 -->
 
 [Português (Portugal)](pt-PT/STATUS.md)
 
-**Current source version: 0.3.0a10 — alpha prerelease.** Python 3.11–3.13 is
+**Current source version: 0.3.0a11 — alpha prerelease.** Python 3.11–3.13 is
 covered by CI on Linux, Windows and macOS. No third-party runtime dependencies.
 The first [GitHub alpha v0.3.0a8](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8)
 was published on 2026-10-16 at `035c36b1b646a6c75178d5db6c19d8c55d624dcf`,
@@ -15,12 +15,13 @@ The workflow is prepared for PyPI, but account authentication, publisher registr
 and actual registry publication remain pending. The sign-in request was interrupted;
 no account grant, registry installation or attestation was verified.
 
-Source 0.3.0a10 adds persisted plan-bound proposals and read-only review; it has not been published as a new release.
+Source 0.3.0a11 adds separate local staging copies of reviewed proposals; it has not been published as a new release.
 
 ## Implemented
 
 | Capability | Practical boundary |
 |---|---|
+| Separate local staging copies | Exact reviewed fingerprint, independent files, exclusions and manifest/receipt; no original-source application, automatic checks or OS sandbox; [contract](STAGING.md) |
 | Persisted plan-bound local proposals | Exact explicit plan paths, snapshot/config/contract binding and read-only review; no source application or approval; [contract](PROPOSALS.md) |
 | Local candidate text previews | Exact per-file base hashes and read-only unified diffs; manually supplied candidates only; [contract](PREVIEW.md) |
 | CLI, offline plans, risk and specialist suggestions | Heuristic classification, advisory task scope |
@@ -46,7 +47,7 @@ Source 0.3.0a10 adds persisted plan-bound proposals and read-only review; it has
 | Capability | State |
 |---|---|
 | OS-enforced workspace filesystem allowlists | Planned; selecting check inputs does not restrict arbitrary reads |
-| Autonomous multi-agent editing or patch application | Not implemented |
+| Autonomous multi-agent editing or original-workspace patch application | Not implemented; explicit staging writes only a separate local copy |
 | SafeOps-generated Git commits or pull requests | Not implemented; repository maintenance is performed externally |
 | General-purpose/plugin command execution | Not implemented |
 | Container/OS sandboxing and hostile-code isolation | Not implemented |
@@ -76,8 +77,8 @@ See [execution compatibility](EXECUTION.md), [trust model](TRUST_MODEL.md),
 Provider evidence distinguishes fixtures from the separate verified live requests in
 [provider testing](PROVIDER_TESTING.md), the [OpenAI record](audits/2026-10-15-openai-smoke.md)
 and the [Anthropic record](audits/2026-10-15-anthropic-smoke.md).
-The live requests above were tested on source 0.3.0a2. Current source 0.3.0a10
-adds [plan-bound proposals](PROPOSALS.md), retaining [local candidate previews](PREVIEW.md), [measured coverage](COVERAGE.md), [local JUnit reporting](REPORTING.md),
+The live requests above were tested on source 0.3.0a2. Current source 0.3.0a11
+adds [separate staging copies](STAGING.md), retaining [plan-bound proposals](PROPOSALS.md), [local candidate previews](PREVIEW.md), [measured coverage](COVERAGE.md), [local JUnit reporting](REPORTING.md),
 [native locking and explicit recovery](LOCKING.md),
 [structured output and summaries](OUTPUT.md), optional
 [check directory targets](TARGETS.md), advisory [scope preflight](SCOPE.md) and

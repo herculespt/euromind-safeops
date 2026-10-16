@@ -70,3 +70,5 @@ sem upload automático com relatórios. Não implementa geração por IA ou apli
 revista de patches.
 
 Nas [propostas persistentes](PROPOSALS.md), revê caminhos exatos explícitos, ligações, privacidade do armazenamento e rejeição de registos alterados/desatualizados. Não publiques texto, registos ou diffs automaticamente. A auditoria pode falhar depois da gravação da proposta: inspeciona o estado antes de repetir. Aplicação e geração com IA continuam planeadas.
+
+Nas [cópias locais](STAGING.md), revê exclusões, escrita independente, confirmação do fingerprint e estado retido nas falhas. O recibo não é sandbox nem aprovação de aplicação ao original. Não elimines cópias parciais nem publiques conteúdo automaticamente. As verificações exigem aprovação nova; ambiente/dependências podem precisar de preparação separada.

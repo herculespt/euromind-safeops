@@ -1,6 +1,6 @@
-# Structured CLI output — 0.3.0a10
+# Structured CLI output — 0.3.0a11
 
-<!-- safeops-version: 0.3.0a10 -->
+<!-- safeops-version: 0.3.0a11 -->
 
 [Português (Portugal)](pt-PT/OUTPUT.md)
 
@@ -21,14 +21,14 @@ contain `--json` without enabling the global mode.
 
 ## Envelope schema 1
 
-All twelve commands (`init`, `providers`, `doctor`, `scan`, `plan`, `review`,
-`approve`, `run`, `recover-lock`, `preview`, `propose`, `review-proposal`) emit one UTF-8 JSON object for handled outcomes
+All thirteen commands (`init`, `providers`, `doctor`, `scan`, `plan`, `review`,
+`approve`, `run`, `recover-lock`, `preview`, `propose`, `review-proposal`, `stage-proposal`) emit one UTF-8 JSON object for handled outcomes
 in this mode:
 
 ```json
 {
   "schema": 1,
-  "safeops_version": "0.3.0a10",
+  "safeops_version": "0.3.0a11",
   "command": "scan",
   "ok": true,
   "exit_code": 0,
@@ -80,7 +80,7 @@ checks. Treat saved JSON as potentially sensitive. This is not a new redaction
 service, signature, machine authorization or sandbox. No provider request is
 needed for the output feature or its offline tests.
 
-Source 0.3.0a10 preserves config schemas 1/2, plan schema 1 and approval schema 2;
+Source 0.3.0a11 preserves config schemas 1/2, plan schema 1 and approval schema 2;
 runner protocol 3 retains native-lock protocol 1. The package-version
 binding still invalidates old execution approvals: preserve history and create a fresh reviewed plan and approval.
 No automatic migration, release or package publication occurs.
@@ -117,3 +117,5 @@ See [CI details](CI.md), [execution](EXECUTION.md) and [status](STATUS.md).
 [Candidate previews](PREVIEW.md) use this envelope; diffs contain local file text and are potentially sensitive. Preview success grants no execution authority.
 
 [Proposal creation/review](PROPOSALS.md) use this envelope too. Creation returns identifiers/hashes without candidate text; review includes full diffs. Success is not execution or application approval.
+
+[Staging](STAGING.md) returns local identifiers, workspace path, receipt fingerprint and counts without file text. Handled failure after allocation identifies the retained stage; an audit failure may leave a ready receipt even with exit 2. Inspect actual state before retrying.

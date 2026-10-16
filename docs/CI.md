@@ -130,3 +130,5 @@ rewrite history or weaken the required checks. Releases need separate approval.
 - [Upstream setuptools path-traversal advisory](https://github.com/pypa/setuptools/security/advisories/GHSA-5rjg-fvgr-3xxf)
 
 Installed-distribution checks also require the proposal module, EN/PT-PT proposal guides and lifecycle regression tests in the archives. Proposal regressions use temporary local fixtures; they do not request provider inference or upload candidate content.
+
+Distribution checks require `staging.py`, EN/PT-PT staging guides and offline staging regressions in the archives. The tests validate fresh-approval trusted checks on a temporary copy without provider requests. Document-link exclusion paths are relative to the package root so copies nested under `.safeops` remain checked.

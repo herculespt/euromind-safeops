@@ -17,6 +17,7 @@ from .proposals import create_proposal, review_proposal
 from .providers import offline_advice, remote_advice, provider_status
 from .scope import validate_scope_paths
 from .scanning import scan
+from .staging import stage_proposal
 
 
 class ArgumentUsageError(Exception):
@@ -65,6 +66,9 @@ def make_parser() -> argparse.ArgumentParser:
     proposal.add_argument("candidate", type=Path, help="Local candidate JSON; exact explicit plan paths required")
     proposal_review = commands.add_parser("review-proposal", help="Revalidate a stored proposal and show diffs")
     proposal_review.add_argument("proposal_id")
+    staging = commands.add_parser("stage-proposal", help="Materialize a reviewed proposal in a separate local copy")
+    staging.add_argument("proposal_id")
+    staging.add_argument("--confirm", required=True, help="Repeat the exact fingerprint from review-proposal")
     recovery = commands.add_parser("recover-lock", help="Archive a retained marker after verifying no checks are running")
     recovery.add_argument("--confirm", required=True, help="Repeat the exact doctor marker fingerprint")
     recovery.add_argument("--reason", required=True)
@@ -129,6 +133,8 @@ def _execute(args: argparse.Namespace) -> tuple[dict, int, list[str]]:
         return create_proposal(root, args.plan_id, args.candidate), 0, []
     if args.command == "review-proposal":
         return review_proposal(root, args.proposal_id), 0, []
+    if args.command == "stage-proposal":
+        return stage_proposal(root, args.proposal_id, args.confirm), 0, []
     if args.command == "recover-lock":
         return recover_lock(root, args.confirm, args.reason, args.confirm_no_running_checks), 0, []
     if args.command == "plan":

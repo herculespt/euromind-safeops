@@ -4,7 +4,16 @@ The format follows Keep a Changelog conventions; versions follow Semantic Versio
 
 ## [Unreleased]
 
-Current source milestone: **0.3.0a10**. First GitHub alpha published on 2026-10-16; PyPI remains pending. See [delivery evidence](docs/audits/2026-10-16-first-alpha.md).
+Current source milestone: **0.3.0a11**. First GitHub alpha published on 2026-10-16; PyPI remains pending. See [delivery evidence](docs/audits/2026-10-16-first-alpha.md).
+
+## [0.3.0a11] — 2026-10-16 (source alpha; no new published release)
+
+- Add `stage-proposal PROPOSAL_ID --confirm FINGERPRINT`: materialize replacements only in a new local copy after exact reviewed-fingerprint confirmation. Revalidate proposal/source context; leave original source, approvals and Git untouched.
+- Bounded independent regular-file copying with conventional environment, Git/SafeOps and generated-state exclusions; private requested file/directory modes, intent, copy manifest and fingerprinted receipt and no execution permission grant.
+- Retain incomplete stage directories on failure; no automatic deletion or rollback. Ready receipt and audit are separate writes, so audit failure can return an error with the ready copy retained.
+- 21 offline lifecycle/failure regressions, including separate fresh approval and real fixed checks on staged code. Document-link hygiene now scopes exclusions relative to the package root so staged copies under `.safeops` are checked.
+- Cópias locais, versão, guias EN/PT-PT, README, capacidades, roadmap, changelog e registos GitHub sincronizados. Sem novas dependências, pedidos a fornecedores ou aplicação ao projeto original.
+- Config/plan/approval/output schemas and runner/lock protocols retained; version binding requires fresh reviewed execution approval and proposals under this version. Git worktrees, original-source application/rollback, OS isolation and signed provenance remain planned. Public v0.3.0a8 remains unchanged; PyPI pending.
 
 ## [0.3.0a10] — 2026-10-16 (source alpha; no new published release)
 

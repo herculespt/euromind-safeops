@@ -1,10 +1,10 @@
 # Estado de implementação e publicação
 
-<!-- safeops-version: 0.3.0a10 -->
+<!-- safeops-version: 0.3.0a11 -->
 
 [English](../STATUS.md)
 
-**Versão atual do código: 0.3.0a10 — pré-versão alfa.** O CI cobre Python
+**Versão atual do código: 0.3.0a11 — pré-versão alfa.** O CI cobre Python
 3.11–3.13 em Linux, Windows e macOS. Não existem dependências externas em
 execução. A primeira [release GitHub v0.3.0a8](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8)
 foi publicada em 16 de outubro de 2026 no commit
@@ -16,12 +16,13 @@ O workflow está preparado para PyPI, mas autenticação, registo do publisher e
 publicação efetiva continuam pendentes: o pedido de login foi interrompido.
 Não foram verificadas concessões na conta, instalação pelo registo ou atestações.
 
-O código 0.3.0a10 acrescenta propostas locais ligadas ao plano e revisão sem escrita; ainda não foi publicada uma nova release.
+O código 0.3.0a11 acrescenta cópias locais separadas de propostas revistas; ainda não foi publicada uma nova release.
 
 ## Implementado
 
 | Capacidade | Limite prático |
 |---|---|
+| Cópias locais de preparação | Fingerprint revisto exato, ficheiros independentes, exclusões e manifesto/recibo; sem aplicação ao original, testes automáticos ou sandbox; [contrato](STAGING.md) |
 | Propostas locais ligadas ao plano | Caminhos explícitos exatos, ligações ao snapshot/configuração/contrato e revisão sem aplicação nem aprovação; [contrato](PROPOSALS.md) |
 | Preview local de candidatos de texto | Hash exato por ficheiro e diff unificado sem escrita; candidatos fornecidos manualmente; [contrato](PREVIEW.md) |
 | CLI, planos offline, sugestões de risco e especialidade | Classificação heurística e âmbito indicativo |
@@ -47,7 +48,7 @@ O código 0.3.0a10 acrescenta propostas locais ligadas ao plano e revisão sem e
 | Capacidade | Estado |
 |---|---|
 | Restrição de caminhos imposta pelo sistema operativo | Planeada; selecionar entradas não impede leituras arbitrárias |
-| Edição autónoma por múltiplos agentes ou aplicação de patches | Não implementada |
+| Edição autónoma por múltiplos agentes ou aplicação ao projeto original | Não implementada; a preparação explícita escreve apenas numa cópia separada |
 | Commits Git ou PRs geradas pelo SafeOps | Não implementados; a manutenção do repositório é externa à ferramenta |
 | Comandos arbitrários ou plugins de execução | Não implementados |
 | Isolamento por contentor/sistema operativo e execução de código hostil | Não implementados |
@@ -79,7 +80,7 @@ Consulta a [compatibilidade de execução](EXECUTION.md), o
 A [validação dos fornecedores](PROVIDER_TESTING.md) distingue respostas fixas dos
 pedidos reais separados nos registos [OpenAI](audits/2026-10-15-openai-smoke.md) e
 [Anthropic](audits/2026-10-15-anthropic-smoke.md), testados na versão 0.3.0a2.
-A versão atual 0.3.0a10 acrescenta [propostas ligadas ao plano](PROPOSALS.md), mantendo [previews locais](PREVIEW.md), [cobertura medida](COVERAGE.md), [JUnit local](REPORTING.md),
+A versão atual 0.3.0a11 acrescenta [cópias locais separadas](STAGING.md), mantendo [propostas ligadas ao plano](PROPOSALS.md), [previews locais](PREVIEW.md), [cobertura medida](COVERAGE.md), [JUnit local](REPORTING.md),
 [bloqueio nativo e recuperação explícita](LOCKING.md),
 [saída estruturada/resumos CI](OUTPUT.md), [diretórios opcionais](TARGETS.md),
 a [validação do âmbito](SCOPE.md) e o schema 1 predefinido.

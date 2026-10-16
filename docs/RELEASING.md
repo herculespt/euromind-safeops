@@ -1,6 +1,6 @@
-# Alpha release and package procedure — 0.3.0a10
+# Alpha release and package procedure — 0.3.0a11
 
-<!-- safeops-version: 0.3.0a10 -->
+<!-- safeops-version: 0.3.0a11 -->
 
 [Português (Portugal)](pt-PT/RELEASING.md)
 

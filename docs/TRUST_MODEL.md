@@ -43,3 +43,7 @@ Discovery imports executable test modules only after approval, in the child proc
 ## Local proposal boundary
 
 [Plan-bound proposals](PROPOSALS.md) add bounded local candidate persistence and context revalidation. Exact plan file membership is required only for proposals. Review detects common stale/tampered state but hashes are unkeyed and records mutable. Stored candidate text and diffs can be sensitive; no automatic publication/redaction, application or execution authority is added.
+
+## Staging copy boundary
+
+[Staging](STAGING.md) requires the exact reviewed proposal fingerprint and materializes replacements only in independent local files. Snapshot/exclusion checks are point-in-time, not transactional isolation. Receipts are mutable/unkeyed and no original approval is reused. Copied code can still access the host when explicitly approved checks execute it.

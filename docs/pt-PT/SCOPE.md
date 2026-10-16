@@ -1,6 +1,6 @@
-# Caminhos de âmbito consultivo — 0.3.0a10
+# Caminhos de âmbito consultivo — 0.3.0a11
 
-<!-- safeops-version: 0.3.0a10 -->
+<!-- safeops-version: 0.3.0a11 -->
 
 [English](../SCOPE.md)
 
@@ -73,3 +73,5 @@ Consulta a [compatibilidade de execução](EXECUTION.md), o [estado](STATUS.md) 
 [referências primárias](../SCOPE.md#compatibility-and-limits).
 
 As [propostas locais](PROPOSALS.md) exigem correspondência exata entre cada ficheiro proposto e um `--path` explícito do plano; diretórios não incluem descendentes. Esta regra das propostas não altera o âmbito consultivo nem os alvos das verificações fixas descritos acima.
+
+As [cópias locais](STAGING.md) copiam o snapshot normal suportado com as omissões documentadas. Os caminhos exatos do plano restringem as substituições, não todos os ficheiros lidos/copiados. Não impõem restrição de acesso pelo SO.

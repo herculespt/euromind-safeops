@@ -1,6 +1,6 @@
-# Architecture — 0.3.0a10
+# Architecture — 0.3.0a11
 
-<!-- safeops-version: 0.3.0a10 -->
+<!-- safeops-version: 0.3.0a11 -->
 
 ## Data flow
 
@@ -28,6 +28,7 @@ flowchart TD
 | `core.py` | Workspace path hygiene, shared strict UTF-8 JSON decoder, storage, file snapshotting, audit |
 | `scope.py` | Portable advisory path syntax, link/reparse checks and lifecycle preflight |
 | `preview.py` | Read-only local text replacement validation, exact base hashes and unified diffs; no persisted state or execution authority |
+| `staging.py` | Exact-fingerprint confirmation, bounded separate local copy and manifest/receipt; no source application or check execution |
 | `proposals.py` | Local candidate persistence, plan/context bindings and read-only stale/integrity review; no execution authority |
 | `planning.py` | Rule-based risk and role suggestions, plan fingerprinting |
 | `providers.py` | Offline, native OpenAI Responses, Anthropic Messages and compatible non-executable advice |
@@ -52,6 +53,9 @@ See [reporting](REPORTING.md).
   plans/<12hex>.json
   approvals/<12hex>.json
   proposals/<12hex>.json
+  stages/<12hex>/intent.json
+  stages/<12hex>/receipt.json
+  stages/<12hex>/workspace/
   audit.jsonl
   run.guard  # persistent empty native-lock file; never unlink
   run.lock   # owned run marker; retained after abrupt death/initialization failure
@@ -95,3 +99,5 @@ The project favors transparency, no third-party runtime dependencies and determi
 [Candidate preview](PREVIEW.md) is a separate read-only path from local JSON to validated diffs. It does not enter the plan/approval/run data flow, call providers or write audit/workspace files.
 
 [Local proposals](PROPOSALS.md) extend candidate inspection with a stored copy and plan/workspace/configuration/selected-target/contract bindings. Creation writes only the proposal and a content-free audit event. Review recomputes context and diffs without writes. No edge to patch application or check approval is implemented.
+
+[Staging](STAGING.md) extends review with an exact-fingerprint-confirmed copy under `.safeops/stages`. Replacements affect independent copied files only. The original snapshot is revalidated; incomplete state is retained. Checks on a staged project need their own init/plan/review/approval cycle. This is not a Git worktree or OS isolation boundary.

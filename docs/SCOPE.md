@@ -1,6 +1,6 @@
-# Advisory scope paths — 0.3.0a10
+# Advisory scope paths — 0.3.0a11
 
-<!-- safeops-version: 0.3.0a10 -->
+<!-- safeops-version: 0.3.0a11 -->
 
 [Português (Portugal)](pt-PT/SCOPE.md)
 
@@ -70,3 +70,5 @@ See [execution compatibility](EXECUTION.md), [status](STATUS.md),
 [Microsoft path naming](https://learn.microsoft.com/en-us/windows/win32/fileio/naming-a-file).
 
 [Local proposals](PROPOSALS.md) require each proposed file to exactly match an explicit plan `--path`; directory entries do not cover descendants. This proposal-only rule does not change the advisory scope or fixed-check targets described above.
+
+[Staging copies](STAGING.md) copy the supported ordinary project snapshot with documented omissions. Exact proposal plan paths restrict replacement targets, not all files read/copied. Copies do not enforce an OS filesystem allowlist.
