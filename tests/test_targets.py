@@ -168,7 +168,7 @@ class TargetTests(unittest.TestCase):
     def test_outside_change_still_invalidates_approval(self):
         plan_id = self.approved()
         (self.root / "outside" / "bad.py").write_text("changed = True\n", encoding="utf-8")
-        with patch("euromind_safeops.execution.subprocess.run") as child:
+        with patch("euromind_safeops.execution.run_check") as child:
             with self.assertRaisesRegex(SafeOpsError, "Workspace changed"):
                 run(self.root, plan_id)
             child.assert_not_called()
@@ -177,7 +177,7 @@ class TargetTests(unittest.TestCase):
         plan_id = self.approved()
         self.config["targets"]["compile"] = ["checks"]
         self.write_config()
-        with patch("euromind_safeops.execution.subprocess.run") as child:
+        with patch("euromind_safeops.execution.run_check") as child:
             with self.assertRaisesRegex(SafeOpsError, "stale approval"):
                 run(self.root, plan_id)
             child.assert_not_called()
@@ -197,7 +197,7 @@ class TargetTests(unittest.TestCase):
     def test_broken_link_blocks_run_before_child(self):
         plan_id = self.approved()
         self.symlink(self.root / "checks" / "broken", self.root / "missing")
-        with patch("euromind_safeops.execution.subprocess.run") as child:
+        with patch("euromind_safeops.execution.run_check") as child:
             with self.assertRaises(SafeOpsError):
                 run(self.root, plan_id)
             child.assert_not_called()
@@ -232,7 +232,7 @@ class TargetTests(unittest.TestCase):
         resource.write_text("reviewed", encoding="utf-8")
         plan_id = self.approved()
         resource.write_text("changed", encoding="utf-8")
-        with patch("euromind_safeops.execution.subprocess.run") as child:
+        with patch("euromind_safeops.execution.run_check") as child:
             with self.assertRaisesRegex(SafeOpsError, "Selected targets changed"):
                 run(self.root, plan_id)
             child.assert_not_called()

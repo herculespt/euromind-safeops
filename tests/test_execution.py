@@ -201,7 +201,7 @@ class ExecutionTests(unittest.TestCase):
         record.pop("execution_contract", None)
         path = self.root / ".safeops" / "approvals" / (plan["id"] + ".json")
         path.write_text(json.dumps(record), encoding="utf-8")
-        with patch("euromind_safeops.execution.subprocess.run") as process:
+        with patch("euromind_safeops.execution.run_check") as process:
             with self.assertRaises(SafeOpsError):
                 run(self.root, plan["id"])
             process.assert_not_called()

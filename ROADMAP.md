@@ -2,8 +2,8 @@
 
 This roadmap is directional, not a promise of dates or delivered features.
 
-Current source version: **0.3.0a15** (alpha prerelease). See [status](docs/STATUS.md)
-and [PT-PT](docs/pt-PT/STATUS.md). The first [GitHub alpha](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8) and [PyPI 0.3.0a8](https://pypi.org/project/euromind-safeops/0.3.0a8/) were published on 2026-10-16. Registry hashes, clean installation and PyPI-verified publishing attestations were checked. See [delivery evidence](docs/audits/2026-10-16-first-alpha.md). Current source 0.3.0a15 remains unpublished.
+Current source version: **0.3.0a16** (alpha prerelease). See [status](docs/STATUS.md)
+and [PT-PT](docs/pt-PT/STATUS.md). The first [GitHub alpha](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8) and [PyPI 0.3.0a8](https://pypi.org/project/euromind-safeops/0.3.0a8/) were published on 2026-10-16. Registry hashes, clean installation and PyPI-verified publishing attestations were checked. See [delivery evidence](docs/audits/2026-10-16-first-alpha.md). Current source 0.3.0a16 remains unpublished.
 
 ## v0.1.0 — Initial open-source foundation (implemented)
 - [x] Packageable CLI, offline plans and specialist suggestions.
@@ -123,6 +123,12 @@ No tagged release or package publication is implied by this source version.
 - [x] Read-only journal inspection and fresh-confirmed conservative rollback, with retained partial state and refusal of observed human edits/unsafe evidence.
 - [x] Offline and installed-wheel regression validation, real interruption recovery and synchronized EN/PT-PT documentation/distribution checks.
 
+## 0.3.0a16 — Owned fixed-check lifecycle supervision (implemented in source)
+- [x] Gated fixed-command launcher, POSIX group/PID anchor and Windows kill-on-close Job Object, with no project code before native assignment.
+- [x] Wait for owned descendants, bounded timeout/termination and EOF, with private bounded stream tails instead of complete in-memory capture.
+- [x] Retain run marker/intent without final receipt when owned cleanup cannot be confirmed; preserve independent explicit recovery and application-pending blocks.
+- [x] Real child/grandchild, parent death, unrelated-child preservation, cancellation, output and fail-closed regressions; EN/PT-PT contracts, metadata and distribution synchronized.
+
 ## Next — Policy and integration hardening (planned)
 - [ ] OS-enforced workspace filesystem allowlists that restrict arbitrary reads; 0.3.0a4 check target selection does not implement this isolation boundary.
 - [ ] Broader OS/Python coverage profiles and reviewed report-artifact publication; Linux/Python 3.12 measurement and local JUnit/summaries are implemented.
@@ -131,7 +137,8 @@ No tagged release or package publication is implied by this source version.
 - [x] Authorized PyPI Trusted Publisher, main-only environment without administrator bypass, original v0.3.0a8 distributions, matching registry hashes, clean installation and PyPI-verified publishing attestations (2026-10-16).
 - [ ] Live compatible/local-model checks and broader account/model validation; the separate OpenAI and Anthropic smokes do not establish universal compatibility.
 - [ ] Broader test adapters without permitting AI-generated commands.
-- [ ] Process-tree supervision/termination, independently verified automatic recovery and distributed/network-filesystem leases; current recovery remains explicitly human-confirmed and local.
+- [x] Cooperative owned process-group/Job Object supervision and termination with bounded streams/cleanup (0.3.0a16, [issue #51](https://github.com/herculespt/euromind-safeops/issues/51)); deliberate POSIX escapes and hostile-code containment are outside that boundary.
+- [ ] Independently verified automatic recovery, hostile/escaped-process containment and distributed/network-filesystem leases; current recovery remains explicitly human-confirmed and local.
 - [ ] Expand the PT-PT documentation alongside English documentation.
 
 ## Future — Controlled agent workflows (planned; no version or date committed)

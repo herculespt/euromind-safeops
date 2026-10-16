@@ -1,6 +1,6 @@
-# Architecture — 0.3.0a15
+# Architecture — 0.3.0a16
 
-<!-- safeops-version: 0.3.0a15 -->
+<!-- safeops-version: 0.3.0a16 -->
 
 ## Data flow
 
@@ -39,6 +39,9 @@ flowchart TD
 | `planning.py` | Rule-based risk and role suggestions, plan fingerprinting |
 | `providers.py` | Offline, native OpenAI Responses, Anthropic Messages and compatible non-executable advice |
 | `run_receipts.py` | Bounded safe run contexts, exclusive intent/final metadata, strict historical inspection; no output persistence or approval |
+| `supervision.py` | Gated native group/job lifecycle, bounded stream tails, exact completion and confirmed cleanup; retained marker on uncertainty |
+| `check_bootstrap.py` | Private fixed-command gate, worker reaping and waiting PID anchor; no approval command |
+| `windows_job.py` | Native unnamed job assignment/accounting/termination with noninheritable kill-on-close handle |
 | `execution.py` | Config validation, approval and strict fixed check commands |
 | `locking.py` | Persistent native guard, owned-marker cleanup, doctor status and explicit archival recovery |
 | `check_runner.py` | Child-process unittest discovery, fail-closed execution and aggregate statistics |
@@ -126,6 +129,8 @@ observations never create an edge to application or execution approval.
 
 `stage_review.py` implements `review-stage`: reuse strict historical inspection, require matching copy, observe current original/context twice, reread safe bounded controls and require unchanged final inspection. It reuses decoded configuration validation without reopening an unsafe policy file. Original snapshot scope differs from filtered staging scope; selected targets retain their own digest/budgets. Result booleans and fixed reasons contain no file text and grant no execution/application authority. See [contract](STAGE_REVIEW.md).
 
-Runner protocol 4 binds receipt schema 1 and disabled import bytecode. Execution lazily imports receipt helpers to avoid module initialization cycles; helpers reuse bounded stage-review snapshots/selected reads and strict native-lock file opens. The guard covers initial observation, intent and post-check revalidation. Terminal receipt follows successful marker cleanup/guard release and audit; inspection remains historical and independent of current control files. See [full result contract](RUN_RECEIPTS.md).
+Runner protocol 5 binds receipt schema 1 and disabled import bytecode. Execution lazily imports receipt helpers to avoid module initialization cycles; helpers reuse bounded stage-review snapshots/selected reads and strict native-lock file opens. The guard covers initial observation, intent and post-check revalidation. Terminal receipt follows successful marker cleanup/guard release and audit; inspection remains historical and independent of current control files. See [full result contract](RUN_RECEIPTS.md).
 
-Source 0.3.0a15 adds [explicit reviewed application and conservative rollback](APPLICATION.md). Both staged fixed checks must pass with unchanged current bindings and the same configuration as the original; exact fresh human confirmation and native guards precede private backup/journal preparation and source writes. Any retained application marker blocks new approved runs/applications. Read-only inspection and separately confirmed rollback preserve evidence and refuse observed human edits. No multi-file transaction, power-loss guarantee, Git operation, provider request or OS isolation is added. Runner remains 4; lock protocol is 2. Fresh version-bound execution approval is required.
+Source 0.3.0a15 adds [explicit reviewed application and conservative rollback](APPLICATION.md). Both staged fixed checks must pass with unchanged current bindings and the same configuration as the original; exact fresh human confirmation and native guards precede private backup/journal preparation and source writes. Any retained application marker blocks new approved runs/applications. Read-only inspection and separately confirmed rollback preserve evidence and refuse observed human edits. No multi-file transaction, power-loss guarantee, Git operation, provider request or OS isolation is added. That milestone used runner 4/lock 2. Fresh version-bound execution approval is required.
+
+Source 0.3.0a16 adds [owned fixed-check supervision](SUPERVISION.md): a gated launcher, POSIX group/PID anchor or Windows kill-on-close job, native completion/termination checks and continuously drained bounded stream tails. Timeout includes ordinary owned descendants and pipe retention; uncertain cleanup retains run.lock and incomplete intent without a final receipt. Runner 5/lock 3 require fresh version-bound approval. This covers cooperating same-group POSIX descendants/job members, not deliberate group/session escapes, hostile-code isolation or automatic stale recovery. The guide defines normal, timeout, cancellation and abrupt-parent-death limits.

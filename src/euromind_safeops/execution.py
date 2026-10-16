@@ -14,6 +14,7 @@ from .locking import LOCK_PROTOCOL_VERSION, execution_lock
 from .planning import load_plan
 from .scope import validate_scope_paths
 from .target_runner import TARGET_COMMAND, validate_targets
+from .supervision import SUPERVISION_CONTRACT, run_check
 
 CHECKS = {
     "compile": ["-m", "compileall", "-q", "src", "tests"],
@@ -21,7 +22,7 @@ CHECKS = {
 }
 CONFIG_SCHEMA_VERSION = 1
 APPROVAL_SCHEMA_VERSION = 2
-RUNNER_PROTOCOL_VERSION = 4
+RUNNER_PROTOCOL_VERSION = 5
 
 
 def execution_contract_digest() -> str:
@@ -29,7 +30,8 @@ def execution_contract_digest() -> str:
     return sha256({"safeops_version": __version__, "runner_protocol": RUNNER_PROTOCOL_VERSION,
                    "checks": CHECKS, "target_command": TARGET_COMMAND,
                    "lock_protocol": LOCK_PROTOCOL_VERSION, "python_io_encoding": "utf-8",
-                   "python_dont_write_bytecode": True, "run_receipt_schema": 1})
+                   "python_dont_write_bytecode": True, "run_receipt_schema": 1,
+                   "supervision": SUPERVISION_CONTRACT})
 
 
 def get_config(root: Path) -> dict:
@@ -144,9 +146,7 @@ def run(root: Path, plan_id: str, *, timeout: int = 60) -> dict:
                 else:
                     command = [sys.executable, *CHECKS[check]]
                 try:
-                    completed = subprocess.run(command, cwd=root, capture_output=True, text=True,
-                                               timeout=timeout, check=False, encoding="utf-8",
-                                               errors="replace", env=check_env)
+                    completed = run_check(command, cwd=root, timeout=timeout, env=check_env)
                     result = {"check": check, "exit_code": completed.returncode,
                               "stdout": completed.stdout[-12000:], "stderr": completed.stderr[-12000:]}
                     outcome = "passed" if completed.returncode == 0 else "failed"

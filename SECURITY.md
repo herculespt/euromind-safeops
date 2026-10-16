@@ -1,12 +1,12 @@
 # Security Policy
 
-<!-- safeops-version: 0.3.0a15 -->
+<!-- safeops-version: 0.3.0a16 -->
 
 [Português (Portugal)](docs/pt-PT/SECURITY.md)
 
 ## Scope and maturity
 
-EuroMind SafeOps 0.3.0a15 is an **alpha developer tool**. It is not a sandbox, cannot ensure the safety of source code being tested, and must not be used to authorize production operations. The risk classifier and pattern scanner are best-effort heuristics.
+EuroMind SafeOps 0.3.0a16 is an **alpha developer tool**. It is not a sandbox, cannot ensure the safety of source code being tested, and must not be used to authorize production operations. The risk classifier and pattern scanner are best-effort heuristics.
 
 ## Reporting vulnerabilities
 
@@ -43,4 +43,6 @@ passing tests, an execution approval or authorization to apply changes.
 
 Run intents/final receipts persist only bounded metadata, hashes and fixed outcomes, excluding captured output/task/advice/approval reasons. `inspect-run` is historical-only and never authenticates provenance or renews approval. Post-check observations stop changed/unavailable input sequences; audit opens reject hardlinks/reparse/nonregular files without FIFO blocking. Trusted tests retain filesystem/process access and unkeyed records remain mutable. See [run receipt limits](docs/RUN_RECEIPTS.md).
 
-Source 0.3.0a15 adds [explicit reviewed application and conservative rollback](docs/APPLICATION.md). Both staged fixed checks must pass with unchanged current bindings and the same configuration as the original; exact fresh human confirmation and native guards precede private backup/journal preparation and source writes. Any retained application marker blocks new approved runs/applications. Read-only inspection and separately confirmed rollback preserve evidence and refuse observed human edits. No multi-file transaction, power-loss guarantee, Git operation, provider request or OS isolation is added. Runner remains 4; lock protocol is 2. Fresh version-bound execution approval is required. Backups and proposals contain local source text: keep `.safeops` private and out of public artifacts. Local hashes and identity checks cannot prevent a malicious state owner or every check/replace race.
+Source 0.3.0a15 adds [explicit reviewed application and conservative rollback](docs/APPLICATION.md). Both staged fixed checks must pass with unchanged current bindings and the same configuration as the original; exact fresh human confirmation and native guards precede private backup/journal preparation and source writes. Any retained application marker blocks new approved runs/applications. Read-only inspection and separately confirmed rollback preserve evidence and refuse observed human edits. No multi-file transaction, power-loss guarantee, Git operation, provider request or OS isolation is added. That milestone used runner 4/lock 2. Fresh version-bound execution approval is required. Backups and proposals contain local source text: keep `.safeops` private and out of public artifacts. Local hashes and identity checks cannot prevent a malicious state owner or every check/replace race.
+
+Source 0.3.0a16 adds [owned fixed-check supervision](docs/SUPERVISION.md): a gated launcher, POSIX group/PID anchor or Windows kill-on-close job, native completion/termination checks and continuously drained bounded stream tails. Timeout includes ordinary owned descendants and pipe retention; uncertain cleanup retains run.lock and incomplete intent without a final receipt. Runner 5/lock 3 require fresh version-bound approval. This covers cooperating same-group POSIX descendants/job members, not deliberate group/session escapes, hostile-code isolation or automatic stale recovery. The guide defines normal, timeout, cancellation and abrupt-parent-death limits.

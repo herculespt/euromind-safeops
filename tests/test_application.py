@@ -73,7 +73,7 @@ class ApplicationTests(unittest.TestCase):
         self.staged_run()
 
     def staged_run(self, returncode=0):
-        with patch("euromind_safeops.execution.subprocess.run",
+        with patch("euromind_safeops.execution.run_check",
                    return_value=subprocess.CompletedProcess([], returncode, "", "")):
             self.run_id = run(self.copied, self.staged_plan)["run_id"]
 

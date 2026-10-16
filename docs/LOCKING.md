@@ -1,12 +1,12 @@
-# Local run locking and recovery — 0.3.0a15
+# Local run locking and recovery — 0.3.0a16
 
-<!-- safeops-version: 0.3.0a15 -->
+<!-- safeops-version: 0.3.0a16 -->
 
 [Português (Portugal)](pt-PT/LOCKING.md)
 
 Runs use two cooperating mechanisms: a persistent native guard and an exclusive
-owned marker. Neither is a sandbox or a distributed lock. Source 0.3.0a15 uses
-runner protocol 4 and lock protocol 2 in the version-bound execution contract.
+owned marker. Neither is a sandbox or a distributed lock. Source 0.3.0a16 uses
+runner protocol 5 and lock protocol 3 in the version-bound execution contract.
 Config schemas 1/2, plan schema 1, approval schema 2 and output schema 1 remain.
 Upgrading requires a fresh reviewed plan/approval; records are not migrated.
 
@@ -83,8 +83,7 @@ receipt without an archived marker records an attempted recovery. Inspect
 This is cooperative local locking tested on the supported CI filesystems, not
 a lease across hosts, a network-filesystem guarantee or protection from an owner
 who can rewrite `.safeops`. Ordinary source/selected-target integrity checks and
-trusted-test restrictions remain. Timeouts concern the direct subprocess; process
-tree supervision/termination and automatic stale recovery are not implemented.
+trusted-test restrictions remain. [Owned process supervision](SUPERVISION.md) now covers cooperative groups/jobs and bounded cleanup. Deliberate POSIX escapes, hostile-code containment and automatic stale recovery remain unsupported.
 Legacy versions do not understand the native guard: their markers remain blocking
 and require the same independent process verification before recovery.
 
@@ -99,8 +98,10 @@ See [execution](EXECUTION.md), [output](OUTPUT.md), [status](STATUS.md) and
 [CI](CI.md). Primary API references: [Python flock](https://docs.python.org/3.11/library/fcntl.html#fcntl.flock)
 and [Python msvcrt locking](https://docs.python.org/3.11/library/msvcrt.html#msvcrt.locking).
 
-Runner protocol 4 uses native-lock protocol 2. The guard now also covers bounded before/after input observation and run-intent allocation. Final [run receipt](RUN_RECEIPTS.md) is written only after owned-marker cleanup/guard release and audit append; a cleanup failure leaves intent without a terminal receipt. Finalization outside the guard does not freeze the observed source or block a later run. Existing recovery never finalizes interrupted receipts or grants approval.
+Runner protocol 5 uses native-lock protocol 3. The guard now also covers bounded before/after input observation and run-intent allocation. Final [run receipt](RUN_RECEIPTS.md) is written only after owned-marker cleanup/guard release and audit append; a cleanup failure leaves intent without a terminal receipt. Finalization outside the guard does not freeze the observed source or block a later run. Existing recovery never finalizes interrupted receipts or grants approval.
 
-Source 0.3.0a15 adds [explicit reviewed application and conservative rollback](APPLICATION.md). Both staged fixed checks must pass with unchanged current bindings and the same configuration as the original; exact fresh human confirmation and native guards precede private backup/journal preparation and source writes. Any retained application marker blocks new approved runs/applications. Read-only inspection and separately confirmed rollback preserve evidence and refuse observed human edits. No multi-file transaction, power-loss guarantee, Git operation, provider request or OS isolation is added. Runner remains 4; lock protocol is 2. Fresh version-bound execution approval is required.
+Source 0.3.0a15 adds [explicit reviewed application and conservative rollback](APPLICATION.md). Both staged fixed checks must pass with unchanged current bindings and the same configuration as the original; exact fresh human confirmation and native guards precede private backup/journal preparation and source writes. Any retained application marker blocks new approved runs/applications. Read-only inspection and separately confirmed rollback preserve evidence and refuse observed human edits. No multi-file transaction, power-loss guarantee, Git operation, provider request or OS isolation is added. That milestone used runner 4/lock 2. Fresh version-bound execution approval is required.
 
-`doctor.data.run_lock.application_pending` reports presence of any application marker entry without reading/removing it. Native-lock protocol 2 refuses new runs before allocating `run.lock` whenever that entry exists. Application holds original and staged native guards; rollback holds the original guard. Retained run markers also block either writer. `recover-lock` never clears application evidence. The [application guide](APPLICATION.md) defines owned-marker release and manual recovery limits.
+`doctor.data.run_lock.application_pending` reports presence of any application marker entry without reading/removing it. Native-lock protocol 3 refuses new runs before allocating `run.lock` whenever that entry exists. Application holds original and staged native guards; rollback holds the original guard. Retained run markers also block either writer. `recover-lock` never clears application evidence. The [application guide](APPLICATION.md) defines owned-marker release and manual recovery limits.
+
+Source 0.3.0a16 adds [owned fixed-check supervision](SUPERVISION.md): a gated launcher, POSIX group/PID anchor or Windows kill-on-close job, native completion/termination checks and continuously drained bounded stream tails. Timeout includes ordinary owned descendants and pipe retention; uncertain cleanup retains run.lock and incomplete intent without a final receipt. Runner 5/lock 3 require fresh version-bound approval. This covers cooperating same-group POSIX descendants/job members, not deliberate group/session escapes, hostile-code isolation or automatic stale recovery. The guide defines normal, timeout, cancellation and abrupt-parent-death limits.

@@ -1,6 +1,6 @@
-# Propostas locais ligadas ao plano — 0.3.0a15
+# Propostas locais ligadas ao plano — 0.3.0a16
 
-<!-- safeops-version: 0.3.0a15 -->
+<!-- safeops-version: 0.3.0a16 -->
 
 [English](../PROPOSALS.md)
 
@@ -97,9 +97,9 @@ não são assinaturas, prova autenticada de autoria ou auditoria inviolável.
 
 ## Compatibilidade e trabalho seguinte
 
-Mantêm-se configuração 1/2, plano 1, aprovação 2, envelope 1 e protocolos runner 4/
-bloqueio 2. O schema separado da proposta não concede aprovação de execução.
-Atualizar para 0.3.0a15 exige plano novo revisto e aprovação expressa segundo o
+Mantêm-se configuração 1/2, plano 1, aprovação 2, envelope 1 e protocolos runner 5/
+bloqueio 3. O schema separado da proposta não concede aprovação de execução.
+Atualizar para 0.3.0a16 exige plano novo revisto e aprovação expressa segundo o
 contrato ligado à versão. `approve` e `run` não recebem propostas; continuam
 limitados às verificações fixas existentes.
 

@@ -42,6 +42,7 @@ class RepositoryHygieneTests(unittest.TestCase):
             "docs/STAGE_REVIEW.md", "docs/pt-PT/STAGE_REVIEW.md",
             "docs/RUN_RECEIPTS.md", "docs/pt-PT/RUN_RECEIPTS.md",
             "docs/APPLICATION.md", "docs/pt-PT/APPLICATION.md",
+            "docs/SUPERVISION.md", "docs/pt-PT/SUPERVISION.md",
             "docs/PACKAGE.md", "docs/RELEASING.md", "docs/pt-PT/RELEASING.md",
         ):
             with self.subTest(path=name):
@@ -91,12 +92,14 @@ class RepositoryHygieneTests(unittest.TestCase):
             "docs/STAGE_REVIEW.md", "docs/pt-PT/STAGE_REVIEW.md",
             "docs/RUN_RECEIPTS.md", "docs/pt-PT/RUN_RECEIPTS.md",
             "docs/APPLICATION.md", "docs/pt-PT/APPLICATION.md",
+            "docs/SUPERVISION.md", "docs/pt-PT/SUPERVISION.md",
             "src/euromind_safeops/proposals.py", "tests/test_proposals.py",
             "src/euromind_safeops/staging.py", "tests/test_staging.py",
             "src/euromind_safeops/stage_inspection.py", "tests/test_stage_inspection.py",
             "src/euromind_safeops/stage_review.py", "tests/test_stage_review.py",
             "src/euromind_safeops/run_receipts.py", "tests/test_run_receipts.py",
             "src/euromind_safeops/application.py", "src/euromind_safeops/application_journal.py", "tests/test_application.py",
+            "src/euromind_safeops/supervision.py", "src/euromind_safeops/check_bootstrap.py", "src/euromind_safeops/windows_job.py", "tests/test_supervision.py",
             "requirements-ci.txt", ".github/workflows/ci.yml", ".github/CODEOWNERS",
             "requirements-release.txt", ".github/workflows/publish.yml", ".secrets.baseline", "scripts/release_secrets.py", "tests/test_release_gate.py",
         ):
