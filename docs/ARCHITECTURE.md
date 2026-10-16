@@ -1,6 +1,6 @@
-# Architecture — 0.3.0a11
+# Architecture — 0.3.0a12
 
-<!-- safeops-version: 0.3.0a11 -->
+<!-- safeops-version: 0.3.0a12 -->
 
 ## Data flow
 
@@ -29,6 +29,7 @@ flowchart TD
 | `scope.py` | Portable advisory path syntax, link/reparse checks and lifecycle preflight |
 | `preview.py` | Read-only local text replacement validation, exact base hashes and unified diffs; no persisted state or execution authority |
 | `staging.py` | Exact-fingerprint confirmation, bounded separate local copy and manifest/receipt; no source application or check execution |
+| `stage_inspection.py` | Strict historical stage/proposal linkage and bounded double content scan; observations without writes, current-source revalidation or approval |
 | `proposals.py` | Local candidate persistence, plan/context bindings and read-only stale/integrity review; no execution authority |
 | `planning.py` | Rule-based risk and role suggestions, plan fingerprinting |
 | `providers.py` | Offline, native OpenAI Responses, Anthropic Messages and compatible non-executable advice |
@@ -101,3 +102,8 @@ The project favors transparency, no third-party runtime dependencies and determi
 [Local proposals](PROPOSALS.md) extend candidate inspection with a stored copy and plan/workspace/configuration/selected-target/contract bindings. Creation writes only the proposal and a content-free audit event. Review recomputes context and diffs without writes. No edge to patch application or check approval is implemented.
 
 [Staging](STAGING.md) extends review with an exact-fingerprint-confirmed copy under `.safeops/stages`. Replacements affect independent copied files only. The original snapshot is revalidated; incomplete state is retained. Checks on a staged project need their own init/plan/review/approval cycle. This is not a Git worktree or OS isolation boundary.
+
+`inspect-stage` separately reads retained evidence and compares the filtered staged
+copy with its historical manifest. It does not call current proposal review or
+load current configuration to establish equivalence with the original. Historical
+observations never create an edge to application or execution approval.

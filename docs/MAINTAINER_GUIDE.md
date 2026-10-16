@@ -93,7 +93,7 @@ For [staging copies](STAGING.md), inspect exclusions, independent file writes, f
 ## Registry delivery observation — 2026-10-16
 
 The first [PyPI alpha 0.3.0a8](https://pypi.org/project/euromind-safeops/0.3.0a8/)
-is published; main source remains 0.3.0a11. The exact Trusted Publisher is
+is published; main source at that delivery was 0.3.0a11. See [current source status](STATUS.md). The exact Trusted Publisher is
 `herculespt/euromind-safeops`, `publish.yml`, environment `pypi`. That environment
 allows only branch `main`, zero tags and no administrator bypass; there are no
 environment secrets/variables or required reviewers. Publication still requires
@@ -102,3 +102,9 @@ Keep these environment rules alongside main protection, inspect any trust change
 and preserve immutable package bytes. Record distribution hashes, clean registry
 installation and actual publishing attestations separately from source/version
 and SafeOps execution approval. See [delivery evidence](audits/2026-10-16-first-alpha.md).
+
+For `inspect-stage` (source 0.3.0a12), review the historical linkage and filtered
+copy results separately from current-original state and test evidence. Exit 1
+with data means changed/incomplete; malformed or unsafe evidence returns 2.
+Retain all records on failure. Verify exclusions, byte/path bounds, no file-text
+disclosure and no audit/approval writes in regression and installed-wheel tests.

@@ -4,13 +4,22 @@ The format follows Keep a Changelog conventions; versions follow Semantic Versio
 
 ## [Unreleased]
 
-Current source milestone: **0.3.0a11**. First GitHub alpha and [PyPI 0.3.0a8](https://pypi.org/project/euromind-safeops/0.3.0a8/) published on 2026-10-16. Source 0.3.0a11 remains unpublished. See [delivery evidence](docs/audits/2026-10-16-first-alpha.md).
+Current source milestone: **0.3.0a12**. First GitHub alpha and [PyPI 0.3.0a8](https://pypi.org/project/euromind-safeops/0.3.0a8/) published on 2026-10-16. Source 0.3.0a12 remains unpublished. See [delivery evidence](docs/audits/2026-10-16-first-alpha.md).
 
 ### Registry delivery follow-up / Conclusão da entrega no registo — 2026-10-16
 
 - Registered the explicitly authorized Trusted Publisher for `herculespt/euromind-safeops`, workflow `publish.yml`, environment `pypi`; exact `main` deployment branch only, zero tags and administrator bypass disabled.
 - Published original v0.3.0a8 wheel/sdist without rebuilding or changing the tag. Workflow 38874124869 passed all three jobs, including registry filename/hash equality and fresh installation/CLI version verification. Both registry files show publishing attestations verified by PyPI.
 - Atualizados README, estado, roadmap, guias de publicação/manutenção, descrição do pacote, evidência EN/PT-PT e textos GitHub. O commit do publisher é 95a8bd5; o código distribuído mantém o commit 035c36b. Sem nova versão, alteração de comportamento ou pedido a fornecedores; a descrição incorporada nos pacotes já publicados mantém os bytes originais.
+
+## [0.3.0a12] — 2026-10-16 (source alpha; no new published release)
+
+- Add read-only `inspect-stage STAGE_ID` for retained schema-1 stages: strict bounded intent/receipt parsing, canonical fingerprint, manifest validation and historical proposal/candidate/source linkage.
+- Compare two bounded scans of included independent regular files and report sorted missing/extra/changed paths, counts and digests without file text. Matching returns 0; changed/incomplete return 1; invalid/unsafe/unreadable/oversized/changing evidence returns sanitized error 2.
+- Inspect old versions without renewing current-original/configuration bindings, execution approvals or source-application authority. Preserve partial copies and every record; no writes, cleanup, provider requests or code execution.
+- Testes offline de integridade, ciclo de vida, caminhos, limites, concorrência e ausência de escrita; CLI, versão, documentação EN/PT-PT, capacidades, roadmap e contratos de distribuição atualizados. A release GitHub/PyPI 0.3.0a8 mantém os ficheiros originais.
+- Content-disclosure assertions use exact fixture text and an explicit `private` path component, avoiding false failures for normal macOS `/private/` workspace paths.
+- Config/plan/approval/output schemas and runner 3/lock 1 retained; new execution approvals/proposals still require a fresh reviewed plan after this version update. Original-workspace application, rollback, Git worktrees, OS isolation and signed SafeOps provenance remain planned.
 
 ## [0.3.0a11] — 2026-10-16 (source alpha; no new published release)
 

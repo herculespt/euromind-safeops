@@ -76,7 +76,7 @@ Nas [cópias locais](STAGING.md), revê exclusões, escrita independente, confir
 ## Observação da entrega no registo — 16 de outubro de 2026
 
 A primeira [alfa PyPI 0.3.0a8](https://pypi.org/project/euromind-safeops/0.3.0a8/)
-está publicada; o código da main mantém a versão 0.3.0a11. O Trusted Publisher
+está publicada; a main tinha código 0.3.0a11 nessa entrega. Consulta o [estado atual](STATUS.md). O Trusted Publisher
 exato é `herculespt/euromind-safeops`, `publish.yml`, ambiente `pypi`. Esse ambiente
 permite apenas a branch `main`, zero tags e nenhum bypass administrativo; não
 tem segredos/variáveis nem revisores obrigatórios. A publicação continua manual,
@@ -85,3 +85,9 @@ ambiente e da main, rever alterações de confiança e manter os ficheiros públ
 imutáveis. Registar hashes, instalação limpa e atestações reais de publicação
 separadamente da versão do código e das aprovações de execução SafeOps.
 Consulta a [evidência de entrega](audits/2026-10-16-first-alpha.md).
+
+Em `inspect-stage` (código 0.3.0a12), rever a ligação histórica e o resultado da
+cópia filtrada separadamente do original atual e dos testes. Código 1 com dados
+indica alteração/cópia incompleta; evidência inválida ou insegura devolve 2.
+Preservar todos os registos. Validar exclusões, limites/caminhos, ausência de
+texto dos ficheiros e de escrita em auditoria/aprovações, incluindo na wheel.

@@ -1,10 +1,10 @@
 # Política de execução e compatibilidade
 
-<!-- safeops-version: 0.3.0a11 -->
+<!-- safeops-version: 0.3.0a12 -->
 
 [English](../EXECUTION.md)
 
-Versão atual do código: **0.3.0a11**, pré-versão alfa. Este guia descreve o que está
+Versão atual do código: **0.3.0a12**, pré-versão alfa. Este guia descreve o que está
 implementado; consulta o [estado](STATUS.md) para limitações e publicações.
 
 ## Configuração
@@ -152,3 +152,10 @@ A versão 0.3.0a10 introduziu [propostas locais persistentes](PROPOSALS.md). O s
 ## Verificar uma cópia preparada
 
 A versão 0.3.0a11 acrescenta [cópias locais](STAGING.md), com confirmação exata do fingerprint da proposta. Não herda aprovação nem estado SafeOps original. Inspeciona a cópia e inicializa/cria plano/revê/aprova separadamente antes das verificações fixas. Cópias e recibos não concedem execução nem isolamento pelo SO. A aplicação ao original continua planeada.
+
+O código 0.3.0a12 acrescenta `inspect-stage` sem escrita para cópias de schema 1.
+Resultados matching/changed/incomplete não renovam aprovação, não importam
+código do projeto nem executam verificações. Registos antigos continuam
+consultáveis após alterar versão/original, com contexto expressamente histórico.
+Executar continua a exigir plano novo revisto e aprovação ligada à versão;
+consulta a [inspeção das cópias](STAGING.md).

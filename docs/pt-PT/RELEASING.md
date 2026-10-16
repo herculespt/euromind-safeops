@@ -1,6 +1,6 @@
-# Release alfa e publicação do pacote — 0.3.0a11
+# Release alfa e publicação do pacote — 0.3.0a12
 
-<!-- safeops-version: 0.3.0a11 -->
+<!-- safeops-version: 0.3.0a12 -->
 
 [English](../RELEASING.md)
 
@@ -9,7 +9,7 @@ Releases futuras exigem autorização própria. O [estado](STATUS.md) e a
 [issue #31](https://github.com/herculespt/euromind-safeops/issues/31) registam a
 publicação efetiva. Aprovar uma validação de candidato não publica no PyPI.
 
-Primeira entrega alfa (16 de outubro de 2026): release GitHub e [PyPI 0.3.0a8](https://pypi.org/project/euromind-safeops/0.3.0a8/) publicados, com hashes dos ficheiros originais iguais, instalação limpa pelo registo e atestações de publicação verificadas pelo PyPI. O código atual mantém a versão 0.3.0a11. Consulta a [evidência verificada](audits/2026-10-16-first-alpha.md).
+Primeira entrega alfa (16 de outubro de 2026): release GitHub e [PyPI 0.3.0a8](https://pypi.org/project/euromind-safeops/0.3.0a8/) publicados, com hashes dos ficheiros originais iguais, instalação limpa pelo registo e atestações de publicação verificadas pelo PyPI. O código atual mantém a versão 0.3.0a12. Consulta a [evidência verificada](audits/2026-10-16-first-alpha.md).
 
 ## Revisão e pré-release GitHub
 
