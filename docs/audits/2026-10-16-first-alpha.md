@@ -64,7 +64,7 @@ python -m pip install --no-cache-dir --no-deps --index-url https://pypi.org/simp
 safeops --version
 ```
 
-Current source 0.3.0a11 includes later previews, proposals and staging copies;
+At registry publication, main source 0.3.0a11 included later previews, proposals and staging copies;
 these are absent from the immutable 0.3.0a8 registry package. Documentation and
 release-note updates do not rewrite the package's embedded description.
 

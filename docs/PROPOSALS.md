@@ -1,6 +1,6 @@
-# Local plan-bound proposals — 0.3.0a11
+# Local plan-bound proposals — 0.3.0a12
 
-<!-- safeops-version: 0.3.0a11 -->
+<!-- safeops-version: 0.3.0a12 -->
 
 [Português (Portugal)](pt-PT/PROPOSALS.md)
 
@@ -97,7 +97,7 @@ signatures, authenticated provenance or a tamper-proof audit.
 
 Config schemas 1/2, plan schema 1, approval schema 2, output schema 1 and runner
 3/lock 1 protocols remain supported. This separate proposal schema grants no
-execution approval. Upgrading to 0.3.0a11 requires a fresh reviewed plan and
+execution approval. Upgrading to 0.3.0a12 requires a fresh reviewed plan and
 explicit execution approval under the version-bound contract. A proposal is not
 an input to `approve` or `run`, which still perform only the existing fixed checks.
 

@@ -1,12 +1,12 @@
 # Security Policy
 
-<!-- safeops-version: 0.3.0a11 -->
+<!-- safeops-version: 0.3.0a12 -->
 
 [Português (Portugal)](docs/pt-PT/SECURITY.md)
 
 ## Scope and maturity
 
-EuroMind SafeOps 0.3.0a11 is an **alpha developer tool**. It is not a sandbox, cannot ensure the safety of source code being tested, and must not be used to authorize production operations. The risk classifier and pattern scanner are best-effort heuristics.
+EuroMind SafeOps 0.3.0a12 is an **alpha developer tool**. It is not a sandbox, cannot ensure the safety of source code being tested, and must not be used to authorize production operations. The risk classifier and pattern scanner are best-effort heuristics.
 
 ## Reporting vulnerabilities
 
@@ -33,3 +33,8 @@ There is no guaranteed response-time SLA. No bug bounty is offered.
 [Local proposal records](docs/PROPOSALS.md) contain full proposed text. Keep them private and out of Git. Recomputed local hashes cannot authenticate a malicious writer; successful review does not grant application or execution authority.
 
 [Staging copies](docs/STAGING.md) omit conventional environment files and Git/SafeOps state, but other copied files can contain secrets. They do not sanitize inherited environment/network access or sandbox trusted tests. Partial copies remain on failure; do not upload or delete them automatically.
+
+Read-only `inspect-stage` emits historical identifiers, relative paths, counts
+and digests without file text. Keep those observations private when sensitive.
+Matching unkeyed evidence is not authentication, current-original revalidation,
+passing tests, an execution approval or authorization to apply changes.

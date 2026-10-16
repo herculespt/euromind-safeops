@@ -18,6 +18,7 @@ from .providers import offline_advice, remote_advice, provider_status
 from .scope import validate_scope_paths
 from .scanning import scan
 from .staging import stage_proposal
+from .stage_inspection import inspect_stage
 
 
 class ArgumentUsageError(Exception):
@@ -69,6 +70,8 @@ def make_parser() -> argparse.ArgumentParser:
     staging = commands.add_parser("stage-proposal", help="Materialize a reviewed proposal in a separate local copy")
     staging.add_argument("proposal_id")
     staging.add_argument("--confirm", required=True, help="Repeat the exact fingerprint from review-proposal")
+    inspection = commands.add_parser("inspect-stage", help="Read-only comparison of a retained stage receipt and copy")
+    inspection.add_argument("stage_id", help="Exact stage ID under the original project's .safeops/stages")
     recovery = commands.add_parser("recover-lock", help="Archive a retained marker after verifying no checks are running")
     recovery.add_argument("--confirm", required=True, help="Repeat the exact doctor marker fingerprint")
     recovery.add_argument("--reason", required=True)
@@ -135,6 +138,9 @@ def _execute(args: argparse.Namespace) -> tuple[dict, int, list[str]]:
         return review_proposal(root, args.proposal_id), 0, []
     if args.command == "stage-proposal":
         return stage_proposal(root, args.proposal_id, args.confirm), 0, []
+    if args.command == "inspect-stage":
+        result = inspect_stage(root, args.stage_id)
+        return result, 0 if result["status"] == "matching" else 1, []
     if args.command == "recover-lock":
         return recover_lock(root, args.confirm, args.reason, args.confirm_no_running_checks), 0, []
     if args.command == "plan":

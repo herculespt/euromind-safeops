@@ -1,6 +1,6 @@
-# Saída estruturada da CLI — 0.3.0a11
+# Saída estruturada da CLI — 0.3.0a12
 
-<!-- safeops-version: 0.3.0a11 -->
+<!-- safeops-version: 0.3.0a12 -->
 
 [English](../OUTPUT.md)
 
@@ -21,13 +21,13 @@ conter literalmente `--json` sem ativar o modo global.
 
 ## Envelope de schema 1
 
-Os treze comandos (`init`, `providers`, `doctor`, `scan`, `plan`, `review`,
-`approve`, `run`, `recover-lock`, `preview`, `propose`, `review-proposal`, `stage-proposal`) devolvem um único objeto JSON UTF-8 nos resultados tratados:
+Os catorze comandos (`init`, `providers`, `doctor`, `scan`, `plan`, `review`,
+`approve`, `run`, `recover-lock`, `preview`, `propose`, `review-proposal`, `stage-proposal`, `inspect-stage`) devolvem um único objeto JSON UTF-8 nos resultados tratados:
 
 ```json
 {
   "schema": 1,
-  "safeops_version": "0.3.0a11",
+  "safeops_version": "0.3.0a12",
   "command": "scan",
   "ok": true,
   "exit_code": 0,
@@ -52,7 +52,7 @@ Os treze comandos (`init`, `providers`, `doctor`, `scan`, `plan`, `review`,
 | `error` | `null` ou objeto com `code` e `message` |
 | `warnings` | Lista de textos; inclui o aviso de política dos planos críticos |
 
-O código 1 indica resultados do scanner ou verificações aprovadas que falharam.
+O código 1 indica resultados do scanner, verificações aprovadas que falharam ou inspeção de cópia alterada/incompleta.
 Esses resultados mantêm `data`, com `ok: false` e `error: null`. O código 2 indica
 erros tratados de utilização/política/sistema de ficheiros. Os códigos do erro
 são `invalid_arguments`, `policy_error` e `filesystem_error`. Os erros dos
@@ -81,7 +81,7 @@ potencialmente sensível. Não é um serviço adicional de remoção de dados, u
 assinatura, autorização automática ou isolamento. A funcionalidade e os testes
 offline não exigem pedidos a fornecedores.
 
-A versão 0.3.0a11 preserva os schemas 1/2 de configuração, 1 de plano e 2 de
+A versão 0.3.0a12 preserva os schemas 1/2 de configuração, 1 de plano e 2 de
 aprovação; o protocolo 3 do runner mantém protocolo 1 do bloqueio nativo. A ligação à versão continua a invalidar
 aprovações anteriores: preservar o histórico e criar novo plano revisto e
 aprovação. Não há migração automática nem publicação de release ou pacote.
@@ -121,3 +121,9 @@ Mantêm-se `quality-gate` e as permissões. Consultar o [CI](CI.md), a
 A [criação/revisão de propostas](PROPOSALS.md) usa o mesmo envelope. A criação devolve identificadores/hashes sem o texto; a revisão inclui os diffs completos. O sucesso não aprova execução nem aplicação.
 
 A [preparação da cópia](STAGING.md) devolve IDs, caminho, fingerprint do recibo e contagens, sem texto dos ficheiros. Após criar o diretório, os erros identificam o estado retido; uma falha de auditoria pode deixar recibo pronto mesmo com código 2. Inspeciona antes de repetir.
+
+`inspect-stage` devolve `matching` (0), `changed` (1) ou `incomplete` (1), sem
+texto/diffs, escrita ou evento de auditoria. Os caminhos em falta/novos/alterados
+são relativos e ordenados. Versão e origem históricas não renovam aprovação;
+consulta o [contrato](STAGING.md). Evidência inválida/insegura/excessiva/ilegível
+ou alterada durante a inspeção devolve erro genérico de política (2).

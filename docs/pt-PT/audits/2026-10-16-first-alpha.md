@@ -66,7 +66,7 @@ python -m pip install --no-cache-dir --no-deps --index-url https://pypi.org/simp
 safeops --version
 ```
 
-O código atual 0.3.0a11 inclui previews, propostas e cópias de preparação
+Na publicação PyPI, a main tinha código 0.3.0a11, com previews, propostas e cópias de preparação
 posteriores, ausentes do pacote imutável 0.3.0a8. Atualizar documentação/notas da
 release não reescreve a descrição incorporada no pacote publicado.
 

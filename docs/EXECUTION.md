@@ -1,10 +1,10 @@
 # Execution policy and upgrade compatibility
 
-<!-- safeops-version: 0.3.0a11 -->
+<!-- safeops-version: 0.3.0a12 -->
 
 [Português (Portugal)](pt-PT/EXECUTION.md)
 
-Current source version: **0.3.0a11**, alpha prerelease. This document describes
+Current source version: **0.3.0a12**, alpha prerelease. This document describes
 implemented behavior; see [status](STATUS.md) for exclusions and publication state.
 
 ## Configuration
@@ -148,3 +148,9 @@ Source 0.3.0a10 introduced [persisted local proposals](PROPOSALS.md). Proposal s
 ## Checking a staged copy
 
 Source 0.3.0a11 adds [local staging copies](STAGING.md), requiring exact proposal-fingerprint confirmation. No approval or original SafeOps state is inherited. Inspect copied code and initialize/plan/review/approve separately before running fixed checks in that copy. Copies and receipts do not grant execution permission or OS isolation. Original-workspace application remains planned.
+
+Source 0.3.0a12 adds read-only `inspect-stage` for retained schema-1 copies.
+Matching/changed/incomplete observations never renew approval, import project
+code or execute checks. Old records remain inspectable across version/source
+changes with explicit historical-only context. Execution still requires a fresh
+reviewed plan and version-bound approval; see [staging inspection](STAGING.md).

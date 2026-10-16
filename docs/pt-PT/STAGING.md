@@ -1,6 +1,6 @@
-# Cópias locais de preparação — 0.3.0a11
+# Cópias locais de preparação — 0.3.0a12
 
-<!-- safeops-version: 0.3.0a11 -->
+<!-- safeops-version: 0.3.0a12 -->
 
 [English](../STAGING.md)
 
@@ -18,6 +18,7 @@ Cria um plano e proposta novos na versão instalada e revê-os:
 ```powershell
 safeops --root PROJETO --json review-proposal ID_DA_PROPOSTA
 safeops --root PROJETO --json stage-proposal ID_DA_PROPOSTA --confirm FINGERPRINT_DA_PROPOSTA
+safeops --root PROJETO --json inspect-stage ID_DA_COPIA
 ```
 
 Usa o `fingerprint` exato de 64 caracteres devolvido por `review-proposal`, não
@@ -106,11 +107,60 @@ a cópia/recibo ficarem prontos. Confirma sempre a evidência local efetiva.
 As verificações detetam alterações concorrentes comuns, não todas as corridas
 do sistema de ficheiros. Um escritor local malicioso pode substituir ficheiros
 ou recalcular hashes sem chave. O recibo descreve um momento; edições ou testes
-posteriores podem alterar a cópia. Não há comando de inspeção da cópia, prova
-autenticada de autoria, isolamento de escrita ou transação garantida.
+posteriores podem alterar a cópia. `inspect-stage` faz a comparação limitada
+descrita abaixo; não há prova autenticada de autoria, isolamento de escrita ou
+transação garantida.
 
 Mantêm-se configuração 1/2, plano 1, aprovação 2, envelope 1 e protocolos runner
-3/bloqueio 1. Atualizar para 0.3.0a11 exige propostas e aprovação de execução
+3/bloqueio 1. Atualizar para 0.3.0a12 exige propostas e aprovação de execução
 novas ligadas à versão. Preserva o histórico sem migração. Aplicação ao projeto
 original, rollback, worktrees Git isoladas e sandboxing continuam planeados.
 Consulta o [estado](STATUS.md) e o [roadmap](../../ROADMAP.md).
+
+## Inspeção histórica sem escrita — código 0.3.0a12
+
+Executar `safeops --json --root PROJETO_ORIGINAL inspect-stage ID_DA_COPIA`, no
+projeto original inicializado e com o ID exato de 12 caracteres hexadecimais
+minúsculos. Não grava ficheiros/eventos de auditoria, não importa código do
+projeto e não contacta fornecedores nem executa verificações. Não exige
+aprovação de execução.
+
+A inspeção analisa intenção/recibo de schema 1, identidade, fingerprint canónico
+do recibo, contagens/tipos/caminhos do manifesto e ligação à proposta/candidato/
+digest histórico de origem. Hashes e tamanhos das substituições têm de
+corresponder ao candidato guardado. A proposta retida é obrigatória; não renova
+nem revalida as ligações ao código/configuração atuais. Um manifesto igual exige
+digest coerente com o recibo. Duas leituras limitadas da cópia têm de coincidir;
+a evidência de controlo volta a ser lida antes do resultado.
+
+| Resultado `status` | Código | Significado |
+|---|---:|---|
+| `matching` | 0 | Caminhos regulares incluídos, hashes, tamanhos e digest iguais ao recibo |
+| `changed` | 1 | Evidência válida; `missing`, `extra` e/ou `changed` contêm caminhos relativos ordenados |
+| `incomplete` | 1 | Intenção/proposta válidas e recibo ausente; a cópia parcial é preservada e não analisada |
+| Erro tratado de integridade/acesso/limite | 2 | Mensagem genérica sem detalhes sensíveis e sem dados de resultado; todo o estado preservado |
+
+Os resultados matching/changed incluem fingerprint do recibo, contagens de
+ficheiros/bytes e digests registados/observados. Todos incluem identidade da
+cópia/proposta, versão registada, `version_matches`, digest histórico original
+e `source_context: "historical-binding-only"`. Não incluem texto nem diffs;
+caminhos e hashes podem ser sensíveis. É possível inspecionar schema 1 após
+atualizar a versão ou alterar o original/configuração. `matching` descreve apenas
+a cópia filtrada, sem comprovar equivalência com o original atual, autoria,
+testes aprovados, aprovação de execução ou autorização para aplicar alterações.
+
+Cada leitura permite 5 000 ficheiros, 12 000 000 bytes por ficheiro, 64 000 000
+bytes no total, 10 000 entradas encontradas e 64 níveis de diretórios abaixo da
+raiz da cópia. Intenção/recibo têm limites de 4 096/1 000 000 bytes; a proposta
+mantém 260 096 bytes. Chaves JSON repetidas, schemas/campos não suportados,
+UTF-8 inválido, números não finitos e caminhos ambíguos falham. Ligações/reparse
+points incluídos, ficheiros não regulares, ficheiros/evidência com múltiplas
+ligações físicas, árvores ilegíveis e caminhos com colisão de maiúsculas falham.
+
+Componentes exatos `SKIP_DIRS` e `.env`/`.env.*` sem distinção de maiúsculas são
+omitidos sem travessia, incluindo ligações nesses nomes excluídos. Assim, caches
+geradas e estado `.safeops` inicializado separadamente na cópia ficam fora da
+comparação. Dados excluídos, bits de execução, datas, proprietário e alterações
+de diretórios vazios não são comparados. Não acrescenta bloqueio do sistema de
+ficheiros nem isolamento; duas leituras não eliminam todas as corridas.
+Um escritor local malicioso pode reescrever evidência e hashes sem chave.

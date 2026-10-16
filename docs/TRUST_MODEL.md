@@ -32,7 +32,11 @@ Human approval intent; source code under review; local credentials; repository i
 
 ## Explicitly unsupported
 
-No sandbox, untrusted-code isolation, signature-based approval, hardened secure enclave, reproducible attestation, protected CI release channels, cryptographic transparency log or guaranteed prompt-injection resistance.
+SafeOps does not provide a sandbox, untrusted-code isolation, signature-based
+approval, hardened secure enclave, reproducible-build proof or guaranteed
+prompt-injection resistance. The separate maintainer publication workflow uses
+protected main, PyPI OIDC and PyPI-verified publishing attestations; those do not
+sign local SafeOps plans, approvals or stage records.
 
 ## Operational guidance
 
@@ -47,3 +51,8 @@ Discovery imports executable test modules only after approval, in the child proc
 ## Staging copy boundary
 
 [Staging](STAGING.md) requires the exact reviewed proposal fingerprint and materializes replacements only in independent local files. Snapshot/exclusion checks are point-in-time, not transactional isolation. Receipts are mutable/unkeyed and no original approval is reused. Copied code can still access the host when explicitly approved checks execute it.
+
+Read-only `inspect-stage` checks historical integrity and current filtered copy
+bytes, not current-original equivalence or authorship. Excluded state, file
+metadata and every concurrent race are outside the comparison. A matching result
+does not establish passing tests or grant execution/application approval.

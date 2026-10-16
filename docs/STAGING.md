@@ -1,6 +1,6 @@
-# Separate local staging copies — 0.3.0a11
+# Separate local staging copies — 0.3.0a12
 
-<!-- safeops-version: 0.3.0a11 -->
+<!-- safeops-version: 0.3.0a12 -->
 
 [Português (Portugal)](pt-PT/STAGING.md)
 
@@ -17,6 +17,7 @@ Create a fresh plan and proposal under the installed version, then review it:
 ```bash
 safeops --root PROJECT --json review-proposal PROPOSAL_ID
 safeops --root PROJECT --json stage-proposal PROPOSAL_ID --confirm PROPOSAL_FINGERPRINT
+safeops --root PROJECT --json inspect-stage STAGE_ID
 ```
 
 Use the exact 64-character `fingerprint` returned by `review-proposal`, not the
@@ -104,11 +105,58 @@ return an error even when the receipt/copy is ready. Check actual local evidence
 Source/manifest checks detect common concurrent edits, not every filesystem
 race. A hostile local writer can replace files or recompute unkeyed hashes.
 A receipt records point-in-time content; later editing/check execution can change
-it. No stage-inspection command, authenticated provenance, write isolation or
-transactional filesystem guarantee is provided.
+it. `inspect-stage` provides the bounded comparison below; authenticated
+provenance, write isolation and transactional filesystem guarantees remain absent.
 
 Config 1/2, plan 1, approval 2, envelope 1 and runner 3/lock 1 remain supported.
-Upgrading to 0.3.0a11 requires fresh version-bound proposals and execution
+Upgrading to 0.3.0a12 requires fresh version-bound proposals and execution
 approval; history is retained without migration. Applying changes to the original
 workspace, rollback, isolated Git worktrees and OS sandboxing remain planned.
 See [status](STATUS.md) and [roadmap](../ROADMAP.md).
+
+## Read-only historical inspection — source 0.3.0a12
+
+Run `safeops --json --root ORIGINAL_PROJECT inspect-stage STAGE_ID`, using the
+original initialized project and exact 12-character lowercase stage ID. This
+command writes no file/audit event, imports no project code and invokes no
+provider or check. It does not require an execution approval.
+
+The inspector strictly parses the schema-1 intent and receipt, verifies their
+identity, canonical receipt fingerprint, manifest counts/types/paths and retained
+proposal fingerprint/candidate/source linkage. Replaced-file hashes and lengths
+must match the stored candidate. The retained proposal is required; its current
+source/configuration bindings are deliberately not renewed or revalidated.
+Receipt digest consistency is checked for a matching manifest. Two bounded
+content scans must agree; control evidence is reread before returning.
+
+| Result `status` | Exit code | Meaning |
+|---|---:|---|
+| `matching` | 0 | Included regular paths, hashes, lengths and digest match the receipt |
+| `changed` | 1 | Valid evidence; `missing`, `extra` and/or `changed` contain sorted relative paths |
+| `incomplete` | 1 | Valid intent/proposal but absent receipt; partial workspace is retained and not scanned |
+| Handled integrity/access/limit error | 2 | Generic sanitized message, no result data; all existing state retained |
+
+Matching/changed results include receipt fingerprint, recorded/observed file and
+byte counts and workspace digests. All results include stage/proposal identity,
+recorded version, `version_matches`, original historical digest and
+`source_context: "historical-binding-only"`. They contain no file text or diffs;
+paths and hashes can still be sensitive. An old schema-1 stage remains inspectable
+after upgrading, even when version/source/configuration changed. `matching`
+describes only the filtered copy, never current-original equivalence, trusted
+authorship, passing tests, execution approval or permission to apply changes.
+
+Each scan allows 5,000 regular files, 12,000,000 bytes per file, 64,000,000 bytes
+total, 10,000 encountered directory entries and 64 directory levels below the
+workspace root. Reads of intent/receipt are bounded at 4,096/1,000,000 bytes;
+the existing proposal limit remains 260,096 bytes. Duplicate JSON keys, unsupported
+schemas/fields, invalid UTF-8, non-finite values and ambiguous manifest paths fail.
+Included links/reparse points, nonregular files, multiply linked files/evidence,
+unreadable trees and case-colliding file paths fail instead of silently vanishing.
+
+Exact `SKIP_DIRS` components and case-insensitive `.env`/`.env.*` components are
+omitted without traversal, including links at those excluded names. This lets
+ordinary generated caches and independently initialized staged `.safeops` state
+stay outside the comparison. Ignored data and metadata such as executable bits,
+timestamps, ownership and empty directory changes are not compared. No filesystem
+lock or OS isolation is added; double scans do not exclude every concurrent race.
+Mutable, unkeyed evidence can be rewritten by a hostile local writer.

@@ -2,8 +2,8 @@
 
 This roadmap is directional, not a promise of dates or delivered features.
 
-Current source version: **0.3.0a11** (alpha prerelease). See [status](docs/STATUS.md)
-and [PT-PT](docs/pt-PT/STATUS.md). The first [GitHub alpha](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8) and [PyPI 0.3.0a8](https://pypi.org/project/euromind-safeops/0.3.0a8/) were published on 2026-10-16. Registry hashes, clean installation and PyPI-verified publishing attestations were checked. See [delivery evidence](docs/audits/2026-10-16-first-alpha.md). Current source 0.3.0a11 remains unpublished.
+Current source version: **0.3.0a12** (alpha prerelease). See [status](docs/STATUS.md)
+and [PT-PT](docs/pt-PT/STATUS.md). The first [GitHub alpha](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8) and [PyPI 0.3.0a8](https://pypi.org/project/euromind-safeops/0.3.0a8/) were published on 2026-10-16. Registry hashes, clean installation and PyPI-verified publishing attestations were checked. See [delivery evidence](docs/audits/2026-10-16-first-alpha.md). Current source 0.3.0a12 remains unpublished.
 
 ## v0.1.0 — Initial open-source foundation (implemented)
 - [x] Packageable CLI, offline plans and specialist suggestions.
@@ -96,6 +96,12 @@ No tagged release or package publication is implied by this source version.
 - [x] Offline regressions, fresh-approval trusted checks on staged code and installed-wheel/EN/PT-PT documentation validation.
 - [ ] Publication of a later source milestone; public v0.3.0a8 remains unchanged.
 
+## 0.3.0a12 — Historical stage inspection (implemented in source)
+- [x] Read-only `inspect-stage` validates strict intent/receipt metadata, canonical fingerprint and retained proposal/candidate linkage.
+- [x] Two bounded scans compare included regular paths, content hashes, lengths and digest; report matching/changed/incomplete without file text, writes or checks.
+- [x] Preserve old schema-1 records across version/source changes, explicitly reporting historical source context without renewing execution/application authority.
+- [x] Offline lifecycle/tamper/path/budget/concurrency tests and EN/PT-PT contracts, version and distribution validation.
+
 ## Next — Policy and integration hardening (planned)
 - [ ] OS-enforced workspace filesystem allowlists that restrict arbitrary reads; 0.3.0a4 check target selection does not implement this isolation boundary.
 - [ ] Broader OS/Python coverage profiles and reviewed report-artifact publication; Linux/Python 3.12 measurement and local JUnit/summaries are implemented.
@@ -113,7 +119,7 @@ No tagged release or package publication is implied by this source version.
 - [x] Read-only diffs and content-hash records for manually supplied existing-text replacements (0.3.0a9).
 - [ ] AI-generated candidates, richer patch operations, authenticated provenance and human-reviewed original-workspace application.
 - [x] Separate local staging copies for reviewed candidates, with no source mutation (0.3.0a11).
-- [ ] Verify staging receipts and detect later staged-file changes; [issue #42](https://github.com/herculespt/euromind-safeops/issues/42), without a committed version/date.
+- [x] Verify staging receipts and detect later staged-file changes (0.3.0a12); [issue #42](https://github.com/herculespt/euromind-safeops/issues/42), without granting source-application or execution authority.
 - [ ] Isolated Git worktrees and OS-enforced filesystem scopes; local copies do not implement these boundaries.
 
 ## Long-term research directions
