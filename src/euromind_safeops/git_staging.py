@@ -87,6 +87,7 @@ def _entries(root, raw, *, index=False):
 
 
 def validate_context(value, root):
+    root = root.resolve(strict=True)
     current = shutil.which("git")
     if (not isinstance(value, dict) or set(value) != _FIELDS or type(value["schema"]) is not int or
             value["schema"] != 1 or value["git_dir"] != str(root / ".git") or
@@ -102,6 +103,7 @@ def validate_context(value, root):
 
 
 def _repository(root):
+    root = root.resolve(strict=True)
     directory = root / ".git"
     identity = _directory(directory)
     executable = shutil.which("git")
@@ -152,6 +154,7 @@ def _repository(root):
 
 def review_git_stage(root, proposal_id):
     try:
+        root = root.resolve(strict=True)
         proposal = review_proposal(root, proposal_id)
         context, _ = _repository(root)
         if review_proposal(root, proposal_id) != proposal or _repository(root)[0] != context:
@@ -176,6 +179,9 @@ def create_link(root, destination, context):
 
 
 def inspect_link(root, destination, context):
+    root = root.resolve(strict=True)
+    _directory(destination)
+    destination = destination.resolve(strict=True)
     validate_context(context, root)
     directory = root / ".git"
     _directory(directory)
@@ -205,6 +211,7 @@ def stage_git_proposal(root, proposal_id, confirmation):
     from .locking import execution_lock
     from .proposals import _load
     from .staging import stage_proposal
+    root = root.resolve(strict=True)
     reviewed = review_git_stage(root, proposal_id)
     if confirmation != reviewed["fingerprint"]:
         raise SafeOpsError("Git staging requires --confirm matching the exact review-git-stage fingerprint")

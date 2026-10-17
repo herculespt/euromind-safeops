@@ -27,7 +27,7 @@ from euromind_safeops.stage_review import review_stage
 class GitStagingTests(unittest.TestCase):
     def setUp(self):
         temp = tempfile.TemporaryDirectory(); self.addCleanup(temp.cleanup)
-        self.base = Path(temp.name); self.root = self.base / "project"; self.root.mkdir()
+        self.base = Path(temp.name).resolve(); self.root = self.base / "project"; self.root.mkdir()
         (self.root / "src").mkdir(); (self.root / "tests").mkdir()
         self.source = self.root / "src/main.py"; self.source.write_bytes('greeting = "Olá"\n'.encode())
         self.test = self.root / "tests/test_main.py"
@@ -60,6 +60,8 @@ class GitStagingTests(unittest.TestCase):
     def test_review_is_stable_and_preserves_repository_and_state(self):
         before = {str(p.relative_to(self.root)): p.read_bytes() for p in self.root.rglob("*") if p.is_file()}
         reviewed = self.review(); self.assertEqual(reviewed, self.review())
+        alias = self.root / ".." / self.root.name
+        self.assertEqual(reviewed, git.review_git_stage(alias, self.proposal["proposal_id"]))
         after = {str(p.relative_to(self.root)): p.read_bytes() for p in self.root.rglob("*") if p.is_file()}
         self.assertEqual(before, after); self.assertFalse((self.root / ".safeops/stages").exists())
         self.assertFalse(reviewed["policy"]["checkout"])
