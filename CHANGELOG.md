@@ -8,6 +8,8 @@ The format follows Keep a Changelog conventions; versions follow Semantic Versio
 - Bind the complete request/body hash, destination/model/limits and current source/plan/configuration/targets/version/contract; reobserve before/after access and persistence. Reject unsafe/sensitive inputs, incomplete/nontext output, ambiguous JSON, unselected paths, stale bases and exceeded bounds without automatic retry or execution.
 - Preserve manual schema-1 proposals and introduce strictly validated schema-2 AI origin metadata without authenticated-provenance claims. Existing explicit review/staging/approved-check/application/rollback gates remain required.
 - Add offline/loopback/native-envelope and real staged-check/application/rollback regressions with explicit UTF-8/LF fixtures across platforms; synchronize EN/PT-PT privacy/provider/proposal/security/CLI contracts, version/status, roadmap and distribution contents. Fresh reviewed version-bound approval is required; public GitHub/PyPI 0.3.0a8 remains unchanged.
+- Reject compatible-provider message envelopes with non-object values as controlled generation errors; add null/list/text/number/boolean response regressions before any candidate persistence. This follow-up remains within the unpublished 0.3.0a19 milestone.
+- PT-PT: respostas compatíveis com `message` de tipo inválido são recusadas de forma controlada, com regressões para todos os tipos JSON não suportados.
 - PT-PT: candidatos IA com revisão prévia do pedido e consentimento exato para ficheiros selecionados, propostas não aprovadas e validações limitadas; sem execução nem aplicação automática; fixtures dos testes gravadas explicitamente em UTF-8/LF em todas as plataformas.
 
 ## 0.3.0a18 — 2026-10-16

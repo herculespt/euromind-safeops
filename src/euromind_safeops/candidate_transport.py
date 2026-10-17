@@ -82,7 +82,8 @@ def _answer(response, provider):
         if not isinstance(choices, list) or len(choices) != 1 or choices[0]["finish_reason"] != "stop":
             raise ValueError("Incomplete generation")
         message = choices[0]["message"]
-        if message.get("tool_calls") or message.get("function_call") or message.get("refusal"):
+        if (not isinstance(message, dict) or message.get("tool_calls") or
+                message.get("function_call") or message.get("refusal")):
             raise ValueError("Unsupported output")
         text = message["content"]
     if not isinstance(text, str) or not text.strip() or len(text.encode("utf-8")) > MAX_CANDIDATE_BYTES:

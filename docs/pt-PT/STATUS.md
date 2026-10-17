@@ -63,7 +63,7 @@ O código 0.3.0a19 acrescenta candidatos IA limitados com consentimento exato pa
 | Capacidade | Estado |
 |---|---|
 | Restrição de caminhos imposta pelo sistema operativo | Planeada; selecionar entradas não impede leituras arbitrárias |
-| Edição autónoma por múltiplos agentes | Não implementada; candidatos manuais e aplicação explícita apenas |
+| Edição autónoma por múltiplos agentes | Não implementada; candidatos manuais ou IA revistos exigem revisão humana e aplicação explícita |
 | Commits Git ou PRs geradas pelo SafeOps | Não implementados; a manutenção do repositório é externa à ferramenta |
 | Comandos arbitrários ou plugins de execução | Não implementados |
 | Isolamento por contentor/sistema operativo e execução de código hostil | Não implementados |

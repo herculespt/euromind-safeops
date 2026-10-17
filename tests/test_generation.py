@@ -394,6 +394,8 @@ class CandidateTransportTests(unittest.TestCase):
                  ("anthropic", {"stop_reason": "end_turn", "content": None}), ("anthropic", {"stop_reason": "end_turn", "content": []}),
                  ("openai-compatible", {"choices": []}), ("openai-compatible", {"choices": [{"finish_reason": "length"}]}),
                  ("openai-compatible", {"choices": [{"finish_reason": "stop", "message": {"tool_calls": [{}]}}]}),
+                 *[("openai-compatible", {"choices": [{"finish_reason": "stop", "message": value}]})
+                   for value in (None, [], "invalid", 1, True)],
                  ("openai-compatible", response(" ")), ("openai-compatible", response("x" * (transport.MAX_CANDIDATE_BYTES + 1))),
                  ("openai-compatible", response("\ud800"))]
         with patch.dict(os.environ, {name: "test" for name in ("OPENAI_API_KEY", "ANTHROPIC_API_KEY")}):
