@@ -1,6 +1,6 @@
 # EuroMind SafeOps
 
-<!-- safeops-version: 0.3.0a19 -->
+<!-- safeops-version: 0.3.0a20 -->
 
 **A safety-focused, provider-agnostic engineering orchestration CLI.**
 
@@ -8,7 +8,7 @@
 ![Status](https://img.shields.io/badge/status-alpha-orange)
 ![License](https://img.shields.io/badge/license-Apache--2.0-blue)
 
-> **Source version: 0.3.0a19 (alpha prerelease).** See [current implementation and publication status](docs/STATUS.md) and [Implemented vs. planned](#implemented-vs-planned). The first [GitHub alpha v0.3.0a8](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8) and [PyPI 0.3.0a8](https://pypi.org/project/euromind-safeops/0.3.0a8/) were published on 2026-10-16. Original wheel/sdist hashes, registry installation and PyPI-verified publishing attestations were checked; see [delivery evidence](docs/audits/2026-10-16-first-alpha.md). Source 0.3.0a19 adds bounded AI candidates with exact reviewed source-upload consent, retaining unapproved proposals, explicit application gates, reviewed tooling and native supervision; it is not a published package.
+> **Source version: 0.3.0a20 (alpha prerelease).** See [current implementation and publication status](docs/STATUS.md) and [Implemented vs. planned](#implemented-vs-planned). The first [GitHub alpha v0.3.0a8](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8) and [PyPI 0.3.0a8](https://pypi.org/project/euromind-safeops/0.3.0a8/) were published on 2026-10-16. Original wheel/sdist hashes, registry installation and PyPI-verified publishing attestations were checked; see [delivery evidence](docs/audits/2026-10-16-first-alpha.md). Source 0.3.0a20 adds explicitly reviewed detached Git staging worktrees, retaining bounded AI candidates with exact source-upload consent, unapproved proposals, explicit application gates, reviewed tooling and native supervision; it is not a published package.
 >
 
 EuroMind SafeOps helps software maintainers plan engineering tasks, classify risk, obtain an explicit human approval, and run a small set of deterministic checks while maintaining a locally stored integrity and audit trail. Optional OpenAI, Anthropic Claude and compatible providers supply task-only plan advice or separately consented candidate replacements. AI candidates remain unapproved until the existing explicit review/check/application gates; model-supplied commands are never dispatched.
@@ -37,7 +37,7 @@ EuroMind SafeOps is developed independently as a general-purpose open-source too
 Install the published alpha in a virtual environment with
 `python -m pip install euromind-safeops==0.3.0a8`.
 That release predates candidate previews, persisted proposals, staging copies and receipt inspection.
-Use the source checkout below for the current 0.3.0a19 capabilities.
+Use the source checkout below for the current 0.3.0a20 capabilities.
 
 In a shell at the root of this repository:
 
@@ -69,7 +69,7 @@ safeops --root examples/demo_project run YOUR_PLAN_ID
 **Upgrading from 0.2.0:** keep the workspace and its history. Valid schema-1 configuration remains supported, but old approvals are rejected. Review the current source, create a new plan and approve it explicitly. See [execution policy and compatibility](docs/EXECUTION.md).
 
 The existing version binding also requires new execution approval when upgrading
-to 0.3.0a19. Schema-1 defaults remain supported; optional schema 2 selects
+to 0.3.0a20. Schema-1 defaults remain supported; optional schema 2 selects
 [fixed-check directories](docs/TARGETS.md). Plan schema 1 and approval schema 2
 remain supported, with an additional target digest required for schema-2 config.
 
@@ -126,7 +126,7 @@ Review application prerequisites with `review-application STAGE_ID --run RUN_ID`
 
 ## Implemented vs. planned
 
-| Capability | 0.3.0a19 |
+| Capability | 0.3.0a20 |
 |---|---|
 | Reviewed AI candidates | Exact source/request consent, strict bounded responses and unapproved schema-2 proposals; explicit downstream review/check/application required; [contract](docs/GENERATION.md) |
 | Reviewed maintainer tooling locks | Two Linux/CPython 3.12 profiles with complete wheel hashes, restricted installation and explicit compatibility-job exceptions; [policy](docs/TOOLING.md) |
@@ -157,7 +157,8 @@ Review application prerequisites with `review-application STAGE_ID --run RUN_ID`
 | OS-enforced filesystem allowlist / check isolation | **Not implemented**; trusted Python retains filesystem access |
 | Container or OS sandboxing / isolation | **Not implemented** |
 | Explicit reviewed original replacements and rollback | Implemented for existing writable text files; current original review, passed unchanged staged checks, exact confirmation and retained private journal; [contract](docs/APPLICATION.md) |
-| Git writes and PR generation by SafeOps | **Not implemented** |
+| Git-backed staging | Implemented; exact local review/confirmation, detached locked worktree, schema-2 evidence and unchanged downstream gates; [contract](docs/GIT_STAGING.md) |
+| Git commits, pushes and PR generation by SafeOps | **Not implemented** |
 | Multi-agent autonomous orchestration | **Not implemented** |
 | Policy signing / remote attestation | **Not implemented** |
 

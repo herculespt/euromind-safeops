@@ -1,6 +1,6 @@
-# Reviewed AI candidates — 0.3.0a19
+# Reviewed AI candidates — 0.3.0a20
 
-<!-- safeops-version: 0.3.0a19 -->
+<!-- safeops-version: 0.3.0a20 -->
 
 [Português (Portugal)](pt-PT/GENERATION.md)
 
@@ -72,3 +72,8 @@ and semantic correctness are never inferred from a valid candidate or prior smok
 
 Primary references: [OpenAI Responses](https://developers.openai.com/api/reference/resources/responses/methods/create),
 [Anthropic stop reasons](https://platform.claude.com/docs/en/build-with-claude/handling-stop-reasons).
+
+
+## Optional Git staging boundary
+
+[Git staging worktrees](GIT_STAGING.md) require separate exact confirmation and schema-2 stage evidence. Default copies retain schema 1. Git-stage inspection/current review/application preflight invoke fixed read-only installed Git commands to validate linkage/base/index; they never execute project code or grant approval. A regular `.git` metadata file is excluded from source digests and validated separately for Git stages. Registration alone uses the original native guard and preserves partial locked worktrees on failure. Shared Git metadata is not OS isolation; signed SafeOps provenance remains planned in #61. Existing explicit fresh staged approval/check/application/rollback gates remain.

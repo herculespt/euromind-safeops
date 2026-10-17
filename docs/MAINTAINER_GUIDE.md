@@ -122,3 +122,8 @@ Source 0.3.0a17 waits for final zero Windows job accounting within the same thre
 Maintainer coverage/release tooling uses dedicated reviewed Linux/CPython 3.12 wheel/hash closures. See [tooling policy](TOOLING.md) for exact profiles, refusal/update procedure and deliberate unlocked compatibility jobs. This does not lock runner/interpreter bootstrap or certify dependency safety.
 
 [Reviewed AI generation](GENERATION.md) is a separate source-sharing operation: offline full-request review, exact fingerprint plus source-upload consent, then an unapproved schema-2 proposal. Manual schema 1 remains supported; existing explicit review/staging/check/application gates still apply. Local request reviews contain source text and must not be published blindly. Ordinary `plan` calls remain task-only.
+
+
+## Optional Git staging boundary
+
+[Git staging worktrees](GIT_STAGING.md) require separate exact confirmation and schema-2 stage evidence. Default copies retain schema 1. Git-stage inspection/current review/application preflight invoke fixed read-only installed Git commands to validate linkage/base/index; they never execute project code or grant approval. A regular `.git` metadata file is excluded from source digests and validated separately for Git stages. Registration alone uses the original native guard and preserves partial locked worktrees on failure. Shared Git metadata is not OS isolation; signed SafeOps provenance remains planned in #61. Existing explicit fresh staged approval/check/application/rollback gates remain.

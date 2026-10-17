@@ -101,3 +101,8 @@ O código 0.3.0a17 aguarda contagem final zero do job Windows no mesmo orçament
 Ferramentas de cobertura/release usam conjuntos transitivos de wheels/hashes revistos em perfis Linux/CPython 3.12 dedicados. A [política](TOOLING.md) define instalação/recusa, atualização e exceções dos jobs de compatibilidade. Não fixa o bootstrap do runner/intérprete nem certifica segurança das dependências.
 
 A [geração IA revista](GENERATION.md) é uma operação separada de partilha de código: revisão offline do pedido completo, fingerprint e consentimento de upload, depois proposta schema 2 não aprovada. Schema 1 manual e gates explícitos de revisão/staging/checks/aplicação mantêm-se. A revisão contém código e não deve ser publicada sem inspeção; `plan` continua a enviar só a tarefa.
+
+
+## Fronteira da preparação Git opcional
+
+[Worktrees Git de preparação](GIT_STAGING.md) exigem confirmação exata própria e evidência de stage schema 2. Cópias simples mantêm schema 1. Inspeção/revisão/preflight da aplicação de stages Git invocam comandos fixos do Git instalado para verificar ligação/base/índice, sem executar código do projeto ou conceder aprovação. O ficheiro regular `.git` é excluído dos digests e validado separadamente nos stages Git. A criação usa o guard nativo original; falhas conservam worktrees locked parciais. Metadados partilhados não constituem isolamento pelo SO; proveniência assinada continua planeada em #61. Aprovação nova/checks/aplicação/rollback mantêm-se explícitos.

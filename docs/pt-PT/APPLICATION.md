@@ -1,6 +1,6 @@
-# Aplicação revista ao original — 0.3.0a19
+# Aplicação revista ao original — 0.3.0a20
 
-<!-- safeops-version: 0.3.0a19 -->
+<!-- safeops-version: 0.3.0a20 -->
 
 [English](../APPLICATION.md)
 
@@ -15,7 +15,7 @@ A revisão exige compatibilidade atual do original, cópia correspondente e exec
 aprovada de compile e unit-tests ainda ligada aos inputs atuais da cópia, com a
 mesma configuração do original. Não escreve nem concede permissão. A aplicação
 exige fingerprint exato, guards nativos e revalidação. Não invoca fornecedores,
-subprocessos ou operações Git.
+código do projeto ou integração Git. Stages Git invocam comandos fixos sem mutação para verificar ligação/base/índice durante o preflight.
 
 Preparar backups privados limitados dos originais e substituições, seguindo-se
 manifesto imutável com hash, antes de criar marcador próprio de operação pendente
@@ -86,10 +86,15 @@ Ficheiros são descarregados/fsynced antes da substituição. Entradas dos diret
 - Revisão/inspeção não escrevem nem invocam fornecedores/código do projeto. Envelope comum schema 1. Inspeção devolve 0 em `applied`/`rolled-back`, 1 em `pending`/`conflicted`; erros operacionais/integridade tratados devolvem 2 sem detalhes sensíveis. Saída com caminhos, hashes, tamanhos e metadados locais, sem conteúdo. Revisão devolve `fingerprint`; inspeção devolve `rollback_fingerprint` e `rollback_candidate` pontual, que não concede permissão por si.
 - Runner mantém protocolo 4; lock nativo passa a 2 porque qualquer entrada pendente bloqueia checks aprovados/aplicações novos. Mantêm-se configuração 1/2, plano 1, aprovação 2 e envelope 1. Atualizar exige planos/propostas/aprovações novos ligados à versão; journals schema 1 retidos permitem inspeção/recuperação independente com `version_matches`, sem renovar aprovação.
 
-Regressões offline cobrem vários ficheiros, checks reais de confiança, terminação real do processo, aplicação/rollback parciais, falhas de auditoria/conclusão/libertação, confirmações antigas, edições humanas, identidade, caminhos inseguros e limites estritos. A mesma suite é usada com wheels instaladas e matriz SO/Python suportada. Sem pedido faturável nem aplicação real no repositório para estes testes. Geração de candidatos com IA, criar/eliminar/renomear, worktrees/escritas Git, proveniência assinada, isolamento pelo SO e contenção de processos hostis continuam planeados.
+Regressões offline cobrem vários ficheiros, checks reais de confiança, terminação real do processo, aplicação/rollback parciais, falhas de auditoria/conclusão/libertação, confirmações antigas, edições humanas, identidade, caminhos inseguros e limites estritos. A mesma suite é usada com wheels instaladas e matriz SO/Python suportada. Sem pedido faturável nem aplicação real no repositório para estes testes. Criar/eliminar/renomear, commits/pushes Git, proveniência assinada, isolamento pelo SO e contenção de processos hostis continuam planeados.
 
 A maioria dos testes de ciclo/parser usa respostas sintéticas de checks bem-sucedidos; um caso separado executa compile/unittest aprovados reais. O teste de terminação abrupta executa aplicação num processo filho real e termina-o após a primeira substituição.
 
 O código 0.3.0a16 acrescenta [supervisão dos processos próprios](SUPERVISION.md): launcher bloqueado à entrada, grupo/âncora PID POSIX ou job Windows com kill-on-close, confirmação nativa e caudas de output drenadas continuamente com limite. Timeout inclui descendentes normais próprios e pipes retidos; limpeza incerta mantém run.lock e intent incompleto sem recibo final. Runner 5/lock 3 exigem aprovação nova ligada à versão. Abrange descendentes cooperantes no grupo POSIX/membros do job, sem conter escapes deliberados de grupo/sessão, isolar código hostil ou decidir recuperação automática. O guia define conclusão, timeout, cancelamento e morte abrupta do principal.
 
 A [geração IA revista](GENERATION.md) é uma operação separada de partilha de código: revisão offline do pedido completo, fingerprint e consentimento de upload, depois proposta schema 2 não aprovada. Schema 1 manual e gates explícitos de revisão/staging/checks/aplicação mantêm-se. A revisão contém código e não deve ser publicada sem inspeção; `plan` continua a enviar só a tarefa.
+
+
+## Fronteira da preparação Git opcional
+
+[Worktrees Git de preparação](GIT_STAGING.md) exigem confirmação exata própria e evidência de stage schema 2. Cópias simples mantêm schema 1. Inspeção/revisão/preflight da aplicação de stages Git invocam comandos fixos do Git instalado para verificar ligação/base/índice; não executam código do projeto nem concedem aprovação. O ficheiro regular `.git` é excluído dos digests e validado separadamente nos stages Git. Só a criação usa o guard nativo original; falhas conservam worktrees locked parciais. Metadados partilhados não constituem isolamento pelo SO; proveniência SafeOps assinada continua planeada em #61. Mantêm-se aprovação nova/checks/aplicação/rollback explícitos.

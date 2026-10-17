@@ -1,6 +1,6 @@
-# Current original-context review — 0.3.0a19
+# Current original-context review — 0.3.0a20
 
-<!-- safeops-version: 0.3.0a19 -->
+<!-- safeops-version: 0.3.0a20 -->
 
 [Português (Portugal)](pt-PT/STAGE_REVIEW.md)
 
@@ -48,7 +48,7 @@ Two complete original observations must agree. Each validates control files,
 checks target selection before/after reading, hashes the original and rereads
 control evidence/parent identities. A final historical inspection must equal the
 initial one. The review writes no file, audit event, approval or receipt; invokes
-no provider, subprocess or project code; and performs no persistence, cleanup,
+no provider or project code; Git stages invoke fixed read-only installed Git commands for linkage checks. It performs no persistence, cleanup,
 rollback, Git operation or application to either workspace.
 
 ## Snapshot scope and limits
@@ -92,8 +92,13 @@ and/or execution-contract bindings when its other evidence is still valid.
 Preserve that history; create a fresh reviewed plan/proposal and separate staged
 copy if current bindings are needed. Running trusted staged checks still requires
 initialization, a fresh plan and explicit execution approval in that copy.
-[Explicit original application and rollback](APPLICATION.md) are implemented separately. Git worktrees, OS isolation and authenticated SafeOps provenance remain planned. Public GitHub/PyPI alpha remains 0.3.0a8.
+[Explicit original application and rollback](APPLICATION.md) are implemented separately. [Git staging](GIT_STAGING.md) is separately implemented; OS isolation and authenticated SafeOps provenance remain planned. Public GitHub/PyPI alpha remains 0.3.0a8.
 
 [Approved-check receipts](RUN_RECEIPTS.md) are now implemented separately. This compatibility command neither runs tests nor consumes a passed receipt as application authority. [Original application/rollback](APPLICATION.md) require their own exact current confirmation; historical run evidence does not replace current context review.
 
 [Reviewed AI generation](GENERATION.md) is a separate source-sharing operation: offline full-request review, exact fingerprint plus source-upload consent, then an unapproved schema-2 proposal. Manual schema 1 remains supported; existing explicit review/staging/check/application gates still apply. Local request reviews contain source text and must not be published blindly. Ordinary `plan` calls remain task-only.
+
+
+## Optional Git staging boundary
+
+[Git staging worktrees](GIT_STAGING.md) require separate exact confirmation and schema-2 stage evidence. Default copies retain schema 1. Git-stage inspection/current review/application preflight invoke fixed read-only installed Git commands to validate linkage/base/index; they never execute project code or grant approval. A regular `.git` metadata file is excluded from source digests and validated separately for Git stages. Registration alone uses the original native guard and preserves partial locked worktrees on failure. Shared Git metadata is not OS isolation; signed SafeOps provenance remains planned in #61. Existing explicit fresh staged approval/check/application/rollback gates remain.

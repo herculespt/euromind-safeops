@@ -1,10 +1,10 @@
-# Fixed-check process supervision — 0.3.0a19
+# Fixed-check process supervision — 0.3.0a20
 
-<!-- safeops-version: 0.3.0a19 -->
+<!-- safeops-version: 0.3.0a20 -->
 
 [Português (Portugal)](pt-PT/SUPERVISION.md)
 
-Implemented in source 0.3.0a19. Public GitHub/PyPI 0.3.0a8 predates this capability.
+Implemented in source 0.3.0a20. Public GitHub/PyPI 0.3.0a8 predates this capability.
 
 Each approved fixed check gets an internal gated Python launcher. It starts no project code until the parent establishes native ownership and sends a one-byte start token. Actual check arguments, UTF-8 streams, disabled automatic import bytecode and schema-1/schema-2 targets remain fixed. The worker gets closed/empty stdin. No provider, shell, arbitrary command option, PID scan, external taskkill utility or runtime dependency is introduced.
 

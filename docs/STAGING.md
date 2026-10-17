@@ -1,6 +1,6 @@
-# Separate local staging copies — 0.3.0a19
+# Separate local staging copies — 0.3.0a20
 
-<!-- safeops-version: 0.3.0a19 -->
+<!-- safeops-version: 0.3.0a20 -->
 
 [Português (Portugal)](pt-PT/STAGING.md)
 
@@ -51,8 +51,7 @@ applying the proposal to the original project.
 The copy uses ordinary [snapshot enumeration](EXECUTION.md), with at most 5,000
 regular files and 12,000,000 bytes per source file. Snapshot-generated directories
 (`.git`, `.safeops`, `.venv`, `venv`, caches, `.tox`, `node_modules`, `dist`, `build`)
-are omitted; matching internal file components such as a worktree `.git` file
-are omitted too. Symlinks/nonregular entries are omitted by enumeration; selected
+are omitted; a linked-worktree `.git` metadata file is also omitted. Other ordinary files named like generated directories remain in source snapshots but are refused by staging scope validation. Symlinks/nonregular entries are omitted by enumeration; selected
 candidate paths still reject links. Every copied path undergoes portable scope
 preflight and each opened source descriptor must be regular and match its
 inspected identity. Unsupported paths or unsafe ancestors fail.
@@ -109,8 +108,8 @@ it. `inspect-stage` provides the bounded comparison below; authenticated
 provenance, write isolation and transactional filesystem guarantees remain absent.
 
 Config 1/2, plan 1, approval 2, envelope 1 and runner 5/lock 3 remain supported.
-Upgrading to 0.3.0a19 requires fresh version-bound proposals and execution
-approval; history is retained without migration. [Applying reviewed original replacements and conservative rollback](APPLICATION.md) are implemented separately. Isolated Git worktrees and OS sandboxing remain planned.
+Upgrading to 0.3.0a20 requires fresh version-bound proposals and execution
+approval; history is retained without migration. [Applying reviewed original replacements and conservative rollback](APPLICATION.md) are implemented separately. [Detached linked Git staging](GIT_STAGING.md) is separately implemented; OS sandboxing remains planned.
 See [status](STATUS.md) and [roadmap](../ROADMAP.md).
 
 ## Read-only historical inspection — introduced in source 0.3.0a12
@@ -120,7 +119,7 @@ original initialized project and exact 12-character lowercase stage ID. This
 command writes no file/audit event, imports no project code and invokes no
 provider or check. It does not require an execution approval.
 
-The inspector strictly parses the schema-1 intent and receipt, verifies their
+The inspector strictly parses schema-1 copy or schema-2 Git intent/receipt, verifies their
 identity, canonical receipt fingerprint, manifest counts/types/paths and retained
 proposal fingerprint/candidate/source linkage. Replaced-file hashes and lengths
 must match the stored candidate. The retained proposal is required; its current
@@ -167,3 +166,8 @@ Source 0.3.0a13 adds `review-stage STAGE_ID` at the original root. It requires a
 Approved checks in a staged copy now create independent [run receipts](RUN_RECEIPTS.md), bound to that copy’s observed inputs and its own fresh approval. Historical receipt inspection does not certify current original compatibility or authorize applying the staged candidate.
 
 [Reviewed AI generation](GENERATION.md) is a separate source-sharing operation: offline full-request review, exact fingerprint plus source-upload consent, then an unapproved schema-2 proposal. Manual schema 1 remains supported; existing explicit review/staging/check/application gates still apply. Local request reviews contain source text and must not be published blindly. Ordinary `plan` calls remain task-only.
+
+
+## Optional Git staging boundary
+
+[Git staging worktrees](GIT_STAGING.md) require separate exact confirmation and schema-2 stage evidence. Default copies retain schema 1. Git-stage inspection/current review/application preflight invoke fixed read-only installed Git commands to validate linkage/base/index; they never execute project code or grant approval. A regular `.git` metadata file is excluded from source digests and validated separately for Git stages. Registration alone uses the original native guard and preserves partial locked worktrees on failure. Shared Git metadata is not OS isolation; signed SafeOps provenance remains planned in #61. Existing explicit fresh staged approval/check/application/rollback gates remain.

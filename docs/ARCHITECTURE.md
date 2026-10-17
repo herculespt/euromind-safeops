@@ -1,6 +1,6 @@
-# Architecture — 0.3.0a19
+# Architecture — 0.3.0a20
 
-<!-- safeops-version: 0.3.0a19 -->
+<!-- safeops-version: 0.3.0a20 -->
 
 ## Data flow
 
@@ -121,7 +121,7 @@ The project favors transparency, no third-party runtime dependencies and determi
 
 [Local proposals](PROPOSALS.md) extend candidate inspection with a stored copy and plan/workspace/configuration/selected-target/contract bindings. Creation writes only the proposal and a content-free audit event. Review recomputes context and diffs without writes. Proposals alone grant neither application nor check approval; [application](APPLICATION.md) consumes a matching staged run and a separate exact confirmation.
 
-[Staging](STAGING.md) extends review with an exact-fingerprint-confirmed copy under `.safeops/stages`. Replacements affect independent copied files only. The original snapshot is revalidated; incomplete state is retained. Checks on a staged project need their own init/plan/review/approval cycle. This is not a Git worktree or OS isolation boundary.
+[Staging](STAGING.md) extends review with an exact-fingerprint-confirmed copy under `.safeops/stages`. Replacements affect independent copied files only. The original snapshot is revalidated; incomplete state is retained. Checks on a staged project need their own init/plan/review/approval cycle. Default copies are not Git worktrees or OS isolation. [Optional Git staging](GIT_STAGING.md) adds a separate fixed-command adapter in `git_staging.py`; schema-2 linkage is revalidated by stage inspection and all existing human gates remain.
 
 `inspect-stage` separately reads retained evidence and compares the filtered staged
 copy with its historical manifest. It does not call current proposal review or

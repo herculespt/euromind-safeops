@@ -40,7 +40,8 @@ def _source_snapshot(root: Path) -> tuple[dict, str]:
     """Match tree_digest ordering/exclusions, with strict reads and total bounds.
 
     Environment files and ordinary files named like generated directories remain
-    in the original snapshot. Only actual generated directories are omitted.
+    in the original snapshot. Generated directories and a regular .git metadata
+    file are omitted; Git-stage linkage has its own inspection contract.
     """
     observed, folded, total, entries = {}, set(), 0, 0
     digest = hashlib.sha256()
@@ -65,6 +66,8 @@ def _source_snapshot(root: Path) -> tuple[dict, str]:
                     getattr(info, "st_file_attributes", 0) & stat.FILE_ATTRIBUTE_REPARSE_POINT):
                 raise ValueError("Unsafe source link")
             if stat.S_ISDIR(info.st_mode) and name in SKIP_DIRS:
+                continue
+            if name == ".git" and stat.S_ISREG(info.st_mode):
                 continue
             # Names are never echoed in errors; require unambiguous UTF-8 paths.
             name.encode("utf-8")

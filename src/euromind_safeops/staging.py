@@ -47,7 +47,7 @@ def _environment_path(relative: str) -> bool:
                for part in Path(relative).parts)
 
 
-def stage_proposal(root: Path, proposal_id: str, confirmation: str) -> dict:
+def stage_proposal(root: Path, proposal_id: str, confirmation: str, *, _git_context: dict | None = None) -> dict:
     reviewed = review_proposal(root, proposal_id)
     if confirmation != reviewed["fingerprint"]:
         raise SafeOpsError("Staging requires --confirm matching the exact reviewed proposal fingerprint")
@@ -68,9 +68,15 @@ def stage_proposal(root: Path, proposal_id: str, confirmation: str) -> dict:
               "proposal_fingerprint": reviewed["fingerprint"],
               "candidate_sha256": reviewed["candidate_sha256"],
               "source_workspace_digest": record["bindings"]["workspace_digest"]}
+    if _git_context is not None:
+        intent.update(schema=2, git=_git_context)
     try:
         atomic_json_write(owned / "intent.json", intent)
         destination = owned / "workspace"
+        git_entries = None
+        if _git_context is not None:
+            from .git_staging import create_link
+            git_entries = create_link(root, destination, _git_context)
         _directory(destination)
         manifest, total, replaced = [], 0, set()
         for path in source_files(root):
@@ -88,6 +94,8 @@ def stage_proposal(root: Path, proposal_id: str, confirmation: str) -> dict:
             if total > MAX_COPY_BYTES:
                 raise SafeOpsError("Staging copy exceeds 64000000 bytes")
             _write_new(destination, relative, after)
+            if git_entries is not None and git_entries[relative]["mode"] == "100755":
+                (destination / relative).chmod(0o700)
             manifest.append({"path": relative, "source_sha256": before_hash,
                              "staged_sha256": hashlib.sha256(after).hexdigest(),
                              "bytes": len(after), "replaced": item is not None})
@@ -106,6 +114,11 @@ def stage_proposal(root: Path, proposal_id: str, confirmation: str) -> dict:
         final = review_proposal(root, proposal_id)
         if final["fingerprint"] != reviewed["fingerprint"]:
             raise SafeOpsError("Proposal changed during staging")
+        if _git_context is not None:
+            from .git_staging import _repository, inspect_link
+            inspect_link(root, destination, _git_context)
+            if _repository(root)[0] != _git_context:
+                raise SafeOpsError("Original Git context changed during staging")
         receipt = {**intent, "status": "staged", "files": manifest, "copied_bytes": total,
                    "staged_workspace_digest": tree_digest(destination)}
         receipt["fingerprint"] = sha256(receipt)
@@ -113,10 +126,12 @@ def stage_proposal(root: Path, proposal_id: str, confirmation: str) -> dict:
             raise SafeOpsError("Staging receipt exceeds 1000000 bytes")
         atomic_json_write(owned / "receipt.json", receipt)
         audit(root, "stage-proposal", reviewed["plan_id"], "staged")
-    except (SafeOpsError, OSError, UnicodeError) as exc:
+    except (SafeOpsError, OSError, UnicodeError, ValueError, KeyError) as exc:
         raise SafeOpsError(f"Staging did not complete; inspect retained local stage {stage_id}") from exc
     return {"schema": 1, "status": "staged", "stage_id": stage_id,
             "proposal_id": proposal_id, "proposal_fingerprint": reviewed["fingerprint"],
             "workspace": str(destination), "receipt_fingerprint": receipt["fingerprint"],
             "files": len(manifest), "copied_bytes": total,
-            "notice": "Separate local copy only; no execution approval, checks or OS isolation"}
+            "notice": ("Detached linked Git worktree; shared Git metadata, no approval, checks or OS isolation"
+                       if _git_context is not None else
+                       "Separate local copy only; no execution approval, checks or OS isolation")}

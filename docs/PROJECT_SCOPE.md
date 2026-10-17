@@ -1,10 +1,10 @@
 # Project scope and provenance
 
-<!-- safeops-version: 0.3.0a19 -->
+<!-- safeops-version: 0.3.0a20 -->
 
 [Português (Portugal)](pt-PT/PROJECT_SCOPE.md)
 
-EuroMind SafeOps 0.3.0a19 is an original, independent, generic command-line policy and verification tool for development workflows. The [status](STATUS.md) distinguishes implemented capabilities from future work and public releases.
+EuroMind SafeOps 0.3.0a20 is an original, independent, generic command-line policy and verification tool for development workflows. The [status](STATUS.md) distinguishes implemented capabilities from future work and public releases.
 
 ## Public components
 
@@ -26,7 +26,7 @@ The project founder should confirm ownership of every contribution and verify no
 
 [Persisted local proposals](PROPOSALS.md) bind manually authored candidate replacements to an unchanged explicit plan and support read-only review. Explicit application has [a separate contract](APPLICATION.md); [Bounded AI-generated candidates](GENERATION.md) are now implemented with exact reviewed source-upload consent and unapproved schema-2 records; autonomous editing remains planned.
 
-[Separate local staging copies](STAGING.md) support inspection/testing of reviewed replacements after exact fingerprint confirmation. They do not apply changes to the original source, initialize/approve checks automatically or implement Git worktrees/OS isolation.
+[Separate local staging copies](STAGING.md) support inspection/testing of reviewed replacements after exact fingerprint confirmation. They do not apply changes to the original source, initialize/approve checks automatically or implement OS isolation. [Optional Git staging](GIT_STAGING.md) has its own reviewed consent and shared-metadata boundary.
 
 Source 0.3.0a15 adds [explicit reviewed application and conservative rollback](APPLICATION.md). Both staged fixed checks must pass with unchanged current bindings and the same configuration as the original; exact fresh human confirmation and native guards precede private backup/journal preparation and source writes. Any retained application marker blocks new approved runs/applications. Read-only inspection and separately confirmed rollback preserve evidence and refuse observed human edits. No multi-file transaction, power-loss guarantee, Git operation, provider request or OS isolation is added. That milestone used runner 4/lock 2. Fresh version-bound execution approval is required.
 

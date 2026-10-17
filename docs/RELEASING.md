@@ -1,6 +1,6 @@
-# Alpha release and package procedure — 0.3.0a19
+# Alpha release and package procedure — 0.3.0a20
 
-<!-- safeops-version: 0.3.0a19 -->
+<!-- safeops-version: 0.3.0a20 -->
 
 [Português (Portugal)](pt-PT/RELEASING.md)
 
@@ -9,7 +9,7 @@ releases require their own authorization. See [status](STATUS.md) and
 [issue #31](https://github.com/herculespt/euromind-safeops/issues/31) for actual
 publication evidence. A successful candidate validation does not publish to PyPI.
 
-First alpha delivery (2026-10-16): GitHub prerelease and [PyPI 0.3.0a8](https://pypi.org/project/euromind-safeops/0.3.0a8/) published with identical original distribution hashes, clean registry installation and PyPI-verified publishing attestations. Current source remains 0.3.0a19. See [verified evidence](audits/2026-10-16-first-alpha.md).
+First alpha delivery (2026-10-16): GitHub prerelease and [PyPI 0.3.0a8](https://pypi.org/project/euromind-safeops/0.3.0a8/) published with identical original distribution hashes, clean registry installation and PyPI-verified publishing attestations. Current source remains 0.3.0a20. See [verified evidence](audits/2026-10-16-first-alpha.md).
 
 ## Review and GitHub release
 
@@ -123,3 +123,6 @@ plan and explicit approval; no automatic renewal or history rewriting.
 - [Official PyPA publisher](https://github.com/pypa/gh-action-pypi-publish)
 
 Prepare the locked tool environment from workflow source before historical tag checkout. Existing tags may lack locks; the workflow source chooses current tool policy while original release-byte verification remains mandatory.
+
+
+Git staging / Preparação Git (source 0.3.0a20): separate exact-confirmed detached worktrees and schema-2 linkage evidence; default copies remain schema 1. Shared Git state is not isolation; no commit/push/PR automation or signed SafeOps provenance. [EN](https://github.com/herculespt/euromind-safeops/blob/main/docs/GIT_STAGING.md) / [PT-PT](https://github.com/herculespt/euromind-safeops/blob/main/docs/pt-PT/GIT_STAGING.md). Worktrees ligados com confirmação própria e validação de ligação/índice; aprovação/testes/aplicação mantêm gates explícitos. Pacote público GitHub/PyPI 0.3.0a8 inalterado.

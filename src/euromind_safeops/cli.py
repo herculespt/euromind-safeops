@@ -19,6 +19,7 @@ from .providers import offline_advice, remote_advice, provider_status
 from .scope import validate_scope_paths
 from .scanning import scan
 from .staging import stage_proposal
+from .git_staging import review_git_stage, stage_git_proposal
 from .stage_inspection import inspect_stage
 from .stage_review import review_stage
 from .run_receipts import inspect_run
@@ -72,6 +73,11 @@ def make_parser() -> argparse.ArgumentParser:
     proposal.add_argument("candidate", type=Path, help="Local candidate JSON; exact explicit plan paths required")
     proposal_review = commands.add_parser("review-proposal", help="Revalidate a stored proposal and show diffs")
     proposal_review.add_argument("proposal_id")
+    git_review = commands.add_parser("review-git-stage", help="Review exact local detached Git staging without mutation")
+    git_review.add_argument("proposal_id")
+    git_stage = commands.add_parser("stage-git-proposal", help="Create an explicitly reviewed detached linked Git stage")
+    git_stage.add_argument("proposal_id")
+    git_stage.add_argument("--confirm", required=True, help="Exact fingerprint from review-git-stage")
     for command, help_text in (("review-generation", "Review exact source upload without contacting a provider"),
                                ("generate-proposal", "Send exact reviewed source and store an unapproved AI proposal")):
         generation = commands.add_parser(command, help=help_text)
@@ -163,6 +169,10 @@ def _execute(args: argparse.Namespace) -> tuple[dict, int, list[str]]:
                 "note": "Pattern checks are not a full security audit"}, 1 if findings else 0, []
     if args.command == "preview":
         return preview_candidate(root, args.candidate), 0, []
+    if args.command == "review-git-stage":
+        return review_git_stage(root, args.proposal_id), 0, []
+    if args.command == "stage-git-proposal":
+        return stage_git_proposal(root, args.proposal_id, args.confirm), 0, []
     if args.command == "review-application":
         return review_application(root, args.stage_id, args.run_id), 0, []
     if args.command == "apply-stage":

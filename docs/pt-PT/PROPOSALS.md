@@ -1,6 +1,6 @@
-# Propostas locais ligadas ao plano — 0.3.0a19
+# Propostas locais ligadas ao plano — 0.3.0a20
 
-<!-- safeops-version: 0.3.0a19 -->
+<!-- safeops-version: 0.3.0a20 -->
 
 [English](../PROPOSALS.md)
 
@@ -99,16 +99,16 @@ não são assinaturas, prova autenticada de autoria ou auditoria inviolável.
 
 Mantêm-se configuração 1/2, plano 1, aprovação 2, envelope 1 e protocolos runner 5/
 bloqueio 3. O schema separado da proposta não concede aprovação de execução.
-Atualizar para 0.3.0a19 exige plano novo revisto e aprovação expressa segundo o
+Atualizar para 0.3.0a20 exige plano novo revisto e aprovação expressa segundo o
 contrato ligado à versão. `approve` e `run` não recebem propostas; continuam
 limitados às verificações fixas existentes.
 
 Geração com IA, criação/eliminação/mudança de nome de
-ficheiros, edições CRLF/binárias, worktrees isoladas e proveniência assinada
+ficheiros, edições CRLF/binárias, isolamento pelo SO e proveniência assinada
 continuam planeados. A versão do código não publica uma release; consulta o
 [estado atual](STATUS.md).
 
-Uma proposta revista pode agora ser materializada com [stage-proposal](STAGING.md): exige o fingerprint exato e escreve substituições apenas numa cópia local separada. [Aplicação explícita ao original e rollback conservador](APPLICATION.md) estão implementados separadamente; worktrees Git continuam planeadas.
+Uma proposta revista pode agora ser materializada com [stage-proposal](STAGING.md): exige o fingerprint exato e escreve substituições apenas numa cópia local separada. [Aplicação explícita ao original e rollback conservador](APPLICATION.md) estão implementados separadamente; [worktrees Git de preparação](GIT_STAGING.md) estão implementados separadamente, com consentimento próprio.
 
 ## Compatibilidade das propostas com origem IA
 
