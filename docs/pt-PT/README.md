@@ -8,7 +8,7 @@
 
 - [Aplicação explícita ao original e rollback](APPLICATION.md): revisão atual, ambos os checks aprovados na cópia, confirmação exata, backups privados e journal retido; recusa sobrepor alterações humanas observadas.
 - [Supervisão dos processos próprios](SUPERVISION.md): grupos POSIX/jobs Windows, descendentes normais, caudas UTF-8 limitadas e marcador/intent retidos quando a limpeza é incerta; sem isolamento hostil.
-- CLI Python 3.11+ sem dependências externas obrigatórias em tempo de execução.
+- CLI Python 3.11+ sem dependências Python externas obrigatórias; o modo Git opcional exige Git instalado.
 - `inspect-run ID_DA_EXECUCAO`: [recibos dos checks aprovados](RUN_RECEIPTS.md), ligados aos inputs antes/depois; resultados passed/failed/timed-out/changed-inputs/incomplete sem guardar output dos testes nem renovar aprovação.
 - `review-stage ID_DA_COPIA`: [revisão do original atual](STAGE_REVIEW.md), exige cópia correspondente e verifica plano, original, bases, configuração, alvos, versão e contrato sem escrita nem aprovação.
 - `inspect-stage ID_DA_COPIA`: [inspeção histórica do recibo/cópia](STAGING.md), sem escrita, texto dos ficheiros ou aprovação; deteta ficheiros alterados, novos ou em falta.

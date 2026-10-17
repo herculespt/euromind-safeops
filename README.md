@@ -17,7 +17,7 @@ EuroMind SafeOps is developed independently as a general-purpose open-source too
 
 ## Features
 
-- Python 3.11+ and no third-party runtime dependencies.
+- Python 3.11+ without third-party Python runtime dependencies; optional Git staging requires installed Git.
 - Risk classification: low, medium, high, critical; critical execution blocked.
 - Specialist routing suggestion: general engineering, backend, DevOps, mobile, security, documentation.
 - Advisory provider adapters: offline, OpenAI Responses API, Anthropic Messages API, and OpenAI-compatible chat-completions (remote access is opt-in).

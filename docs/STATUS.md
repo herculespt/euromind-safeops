@@ -5,7 +5,7 @@
 [Português (Portugal)](pt-PT/STATUS.md)
 
 **Current source version: 0.3.0a20 — alpha prerelease.** Python 3.11–3.13 is
-covered by CI on Linux, Windows and macOS. No third-party runtime dependencies.
+covered by CI on Linux, Windows and macOS. No third-party Python runtime dependencies; optional Git staging requires an installed Git executable.
 The first [GitHub alpha v0.3.0a8](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8)
 was published on 2026-10-16 at `035c36b1b646a6c75178d5db6c19d8c55d624dcf`,
 with verified wheel, sdist and SHA256SUMS. All twelve main CI jobs and candidate
