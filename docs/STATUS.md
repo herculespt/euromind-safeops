@@ -61,7 +61,7 @@ Source 0.3.0a19 adds bounded AI-generated candidates with exact source-upload co
 | Capability | State |
 |---|---|
 | OS-enforced workspace filesystem allowlists | Planned; selecting check inputs does not restrict arbitrary reads |
-| Autonomous multi-agent editing | Not implemented; manual candidates and explicit application only |
+| Autonomous multi-agent editing | Not implemented; manual or reviewed AI candidates still require explicit human review and application |
 | SafeOps-generated Git commits or pull requests | Not implemented; repository maintenance is performed externally |
 | General-purpose/plugin command execution | Not implemented |
 | Container/OS sandboxing and hostile-code isolation | Not implemented |
