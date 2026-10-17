@@ -1,13 +1,13 @@
 # Provider validation and live-test procedure
 
-<!-- safeops-version: 0.3.0a19 -->
+<!-- safeops-version: 0.3.0a20 -->
 
 [Português (Portugal)](pt-PT/PROVIDER_TESTING.md)
 
-Current source: **0.3.0a19**, alpha prerelease. This is a validation record and
+Current source: **0.3.0a20**, alpha prerelease. This is a validation record and
 procedure, including separate verified live OpenAI and Anthropic requests. It does not imply a published release or universal provider/model validation.
 
-The live records below remain tied to source 0.3.0a2. Current 0.3.0a19
+The live records below remain tied to source 0.3.0a2. Current 0.3.0a20
 approved-run receipts/inspection, original-context review, stage inspection, staging/proposals, locking/recovery, output/reporting, check-directory selection and path admission
 are verified offline, without another paid vendor request.
 
@@ -95,9 +95,9 @@ smoke test itself never needs execution approval because it only obtains advice.
 - [OpenAI Responses API](https://developers.openai.com/api/reference/resources/responses/methods/create)
 - [Anthropic Messages API](https://platform.claude.com/docs/en/api/http/messages)
 
-Reviewed original application/journal inspection/rollback in source 0.3.0a19 are tested offline, including real fixed checks and parent-process interruption in temporary projects. These operations invoke no model or provider. The earlier live OpenAI/Anthropic records are preserved and are not relabelled as tests of this version.
+Reviewed original application/journal inspection/rollback in source 0.3.0a20 are tested offline, including real fixed checks and parent-process interruption in temporary projects. These operations invoke no model or provider. The earlier live OpenAI/Anthropic records are preserved and are not relabelled as tests of this version.
 
-Owned-check supervision in source 0.3.0a19 is validated with offline temporary processes, real descendants and interruption fixtures. No model/provider request is involved. Earlier paid OpenAI/Anthropic evidence remains tied to source 0.3.0a2.
+Owned-check supervision in source 0.3.0a20 is validated with offline temporary processes, real descendants and interruption fixtures. No model/provider request is involved. Earlier paid OpenAI/Anthropic evidence remains tied to source 0.3.0a2.
 
 [Reviewed AI generation](GENERATION.md) is a separate source-sharing operation: offline full-request review, exact fingerprint plus source-upload consent, then an unapproved schema-2 proposal. Manual schema 1 remains supported; existing explicit review/staging/check/application gates still apply. Local request reviews contain source text and must not be published blindly. Ordinary `plan` calls remain task-only.
 

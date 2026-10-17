@@ -1,6 +1,6 @@
-# Recibos dos checks aprovados — 0.3.0a19
+# Recibos dos checks aprovados — 0.3.0a20
 
-<!-- safeops-version: 0.3.0a19 -->
+<!-- safeops-version: 0.3.0a20 -->
 
 [English](../RUN_RECEIPTS.md)
 
@@ -131,7 +131,7 @@ automático dos imports, permitindo que testes normais de schema 2 preservem
 os inputs selecionados. `compileall` explícito do schema 1 continua a escrever
 bytecode gerado; testes também podem escrever ficheiros explicitamente.
 Mantêm-se streams UTF-8, configuração 1/2, plano 1, aprovação 2, envelope 1 e
-protocolo nativo do lock 3. Atualizar para 0.3.0a19 exige plano/aprovação novos e
+protocolo nativo do lock 3. Atualizar para 0.3.0a20 exige plano/aprovação novos e
 revistos; o histórico é preservado.
 
 Snapshots e observações duplas são evidência pontual: não detetam todas as
@@ -139,9 +139,9 @@ alterações transitórias/ABA, provam asserções, contêm descendentes que del
 restringem acesso ao sistema de ficheiros pelo Python de confiança. Um autor
 local malicioso pode reescrever todos os registos. `passed` só indica que os checks
 ativados passaram com inputs observados iguais; configuração só com compile não
-prova testes unitários. Este comando de recibos não aplica ao original. [Aplicação explícita/rollback](APPLICATION.md) estão implementados separadamente; operações Git, proveniência autenticada e sandbox pelo SO continuam por implementar. A alfa pública
+prova testes unitários. Este comando de recibos não aplica ao original. [Aplicação explícita/rollback](APPLICATION.md) estão implementados separadamente; automatização de commits/pushes Git, proveniência autenticada e sandbox pelo SO continuam por implementar. [Preparação Git](GIT_STAGING.md) implementada separadamente. A alfa pública
 GitHub/PyPI mantém-se em 0.3.0a8.
 
 O código 0.3.0a16 acrescenta [supervisão dos processos próprios](SUPERVISION.md): launcher bloqueado à entrada, grupo/âncora PID POSIX ou job Windows com kill-on-close, confirmação nativa e caudas de output drenadas continuamente com limite. Timeout inclui descendentes normais próprios e pipes retidos; limpeza incerta mantém run.lock e intent incompleto sem recibo final. Runner 5/lock 3 exigem aprovação nova ligada à versão. Abrange descendentes cooperantes no grupo POSIX/membros do job, sem conter escapes deliberados de grupo/sessão, isolar código hostil ou decidir recuperação automática. O guia define conclusão, timeout, cancelamento e morte abrupta do principal.
 
-O código 0.3.0a19 aguarda contagem final zero do job Windows no mesmo orçamento de limpeza de três segundos usado para saída do launcher, EOF e limpeza de falha. Contagem positiva transitória não transforma imediatamente um check falhado concluído em erro operacional; confirmação persistente/indisponível mantém recusa e estado retido. Diagnóstico por fases fixas exclui texto nativo de exceções. Mantêm-se runner 5/lock 3 e schemas; versão/política de limpeza atualizadas exigem planos/propostas/aprovações novos e revistos.
+O código 0.3.0a20 aguarda contagem final zero do job Windows no mesmo orçamento de limpeza de três segundos usado para saída do launcher, EOF e limpeza de falha. Contagem positiva transitória não transforma imediatamente um check falhado concluído em erro operacional; confirmação persistente/indisponível mantém recusa e estado retido. Diagnóstico por fases fixas exclui texto nativo de exceções. Mantêm-se runner 5/lock 3 e schemas; versão/política de limpeza atualizadas exigem planos/propostas/aprovações novos e revistos.

@@ -1,11 +1,11 @@
 # Implementation and publication status
 
-<!-- safeops-version: 0.3.0a19 -->
+<!-- safeops-version: 0.3.0a20 -->
 
 [Português (Portugal)](pt-PT/STATUS.md)
 
-**Current source version: 0.3.0a19 — alpha prerelease.** Python 3.11–3.13 is
-covered by CI on Linux, Windows and macOS. No third-party runtime dependencies.
+**Current source version: 0.3.0a20 — alpha prerelease.** Python 3.11–3.13 is
+covered by CI on Linux, Windows and macOS. No third-party Python runtime dependencies; optional Git staging requires an installed Git executable.
 The first [GitHub alpha v0.3.0a8](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8)
 was published on 2026-10-16 at `035c36b1b646a6c75178d5db6c19d8c55d624dcf`,
 with verified wheel, sdist and SHA256SUMS. All twelve main CI jobs and candidate
@@ -22,12 +22,13 @@ administrator bypass. Attestations identify the publishing workflow commit
 0.3.0a8 release commit above. This is publishing provenance, not reproducible-build
 proof or signed SafeOps approvals.
 
-Source 0.3.0a19 adds bounded AI-generated candidates with exact source-upload consent and unapproved origin-labelled proposals; manual workflows, reviewed tooling and native supervision remain. It has not been published as a new release.
+Source 0.3.0a20 adds opt-in detached Git staging worktrees, preserving bounded AI-generated candidates with exact source-upload consent and unapproved origin-labelled proposals; manual workflows, reviewed tooling and native supervision remain. It has not been published as a new release.
 
 ## Implemented
 
 | Capability | Practical boundary |
 |---|---|
+| Explicit Git staging worktrees | Separate exact review/consent, committed literal-file base, preserved original index and schema-2 linkage evidence; [contract](GIT_STAGING.md). Shared Git metadata, no OS isolation |
 | Reviewed AI candidate generation | Offline exact-upload review, separate fingerprint/source consent, strict bounded provider output and schema-2 unapproved proposals; [contract](GENERATION.md) |
 | Reviewed maintainer tooling locks | Two Linux/CPython 3.12 profiles with complete wheel hashes, restricted installation and explicit compatibility-job exceptions; [policy](TOOLING.md) |
 | Owned fixed-check process supervision | Gated launcher, native POSIX group/Windows job, bounded output tails and confirmed cleanup before normal result; uncertain cleanup retains marker/intent; [contract](SUPERVISION.md) |
@@ -91,7 +92,7 @@ See [execution compatibility](EXECUTION.md), [trust model](TRUST_MODEL.md),
 Provider evidence distinguishes fixtures from the separate verified live requests in
 [provider testing](PROVIDER_TESTING.md), the [OpenAI record](audits/2026-10-15-openai-smoke.md)
 and the [Anthropic record](audits/2026-10-15-anthropic-smoke.md).
-The live requests above were tested on source 0.3.0a2. Current source 0.3.0a19
+The live requests above were tested on source 0.3.0a2. Current source 0.3.0a20
 adds [owned process supervision](SUPERVISION.md), retaining [reviewed application and rollback](APPLICATION.md), retaining [approved-check receipts](RUN_RECEIPTS.md), retaining [current original-context review](STAGE_REVIEW.md), retaining [historical stage inspection](STAGING.md), retaining separate copies, [plan-bound proposals](PROPOSALS.md), [local candidate previews](PREVIEW.md), [measured coverage](COVERAGE.md), [local JUnit reporting](REPORTING.md),
 [native locking and explicit recovery](LOCKING.md),
 [structured output and summaries](OUTPUT.md), optional

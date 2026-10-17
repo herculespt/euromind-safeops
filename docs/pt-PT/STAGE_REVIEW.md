@@ -1,6 +1,6 @@
-# Revisão do contexto original atual — 0.3.0a19
+# Revisão do contexto original atual — 0.3.0a20
 
-<!-- safeops-version: 0.3.0a19 -->
+<!-- safeops-version: 0.3.0a20 -->
 
 [English](../STAGE_REVIEW.md)
 
@@ -50,7 +50,7 @@ ficheiros de controlo, confirma a seleção de alvos antes/depois da leitura,
 calcula o hash do original e relê a evidência/identidades dos diretórios de
 controlo. A inspeção histórica final tem de coincidir com a inicial. A revisão
 não escreve ficheiros, auditoria, aprovação ou recibos; não invoca fornecedores,
-subprocessos ou código do projeto; não persiste, limpa, reverte, opera o Git ou
+código do projeto; stages Git invocam comandos fixos sem mutação para validar a ligação. Não persiste, limpa, reverte, modifica o Git ou
 aplica alterações a qualquer espaço de trabalho.
 
 ## Âmbito do snapshot e limites
@@ -96,9 +96,14 @@ versão e/ou contrato desatualizadas se a restante evidência continuar válida.
 Preserva o histórico; cria plano/proposta revistos e uma cópia separada novos
 quando precisares de ligações atuais. Executar testes de confiança na cópia
 continua a exigir inicialização, plano novo e aprovação explícita nessa cópia.
-[Aplicação explícita ao original e rollback](APPLICATION.md) estão implementados separadamente. Worktrees Git, isolamento pelo SO e proveniência SafeOps autenticada continuam planeados. A alfa pública GitHub/PyPI mantém-se
+[Aplicação explícita ao original e rollback](APPLICATION.md) estão implementados separadamente. [Preparação Git](GIT_STAGING.md) implementada separadamente; isolamento pelo SO e proveniência SafeOps autenticada continuam planeados. A alfa pública GitHub/PyPI mantém-se
 em 0.3.0a8.
 
 Os [recibos dos checks aprovados](RUN_RECEIPTS.md) estão implementados separadamente. Este comando de compatibilidade não executa testes nem interpreta recibo aprovado como autorização de aplicação. [Aplicação ao original/rollback](APPLICATION.md) exigem confirmação atual própria; evidência histórica de execução não substitui revisão do contexto atual.
 
 A [geração IA revista](GENERATION.md) é uma operação separada de partilha de código: revisão offline do pedido completo, fingerprint e consentimento de upload, depois proposta schema 2 não aprovada. Schema 1 manual e gates explícitos de revisão/staging/checks/aplicação mantêm-se. A revisão contém código e não deve ser publicada sem inspeção; `plan` continua a enviar só a tarefa.
+
+
+## Fronteira da preparação Git opcional
+
+[Worktrees Git de preparação](GIT_STAGING.md) exigem confirmação exata própria e evidência de stage schema 2. Cópias simples mantêm schema 1. Inspeção/revisão/preflight da aplicação de stages Git invocam comandos fixos do Git instalado para verificar ligação/base/índice; não executam código do projeto nem concedem aprovação. O ficheiro regular `.git` é excluído dos digests e validado separadamente nos stages Git. Só a criação usa o guard nativo original; falhas conservam worktrees locked parciais. Metadados partilhados não constituem isolamento pelo SO; proveniência SafeOps assinada continua planeada em #61. Mantêm-se aprovação nova/checks/aplicação/rollback explícitos.

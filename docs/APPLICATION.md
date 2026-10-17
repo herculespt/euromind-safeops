@@ -1,6 +1,6 @@
-# Reviewed original application — 0.3.0a19
+# Reviewed original application — 0.3.0a20
 
-<!-- safeops-version: 0.3.0a19 -->
+<!-- safeops-version: 0.3.0a20 -->
 
 [Português (Portugal)](pt-PT/APPLICATION.md)
 
@@ -15,7 +15,7 @@ Review requires current original-context compatibility, a matching stage, and a
 current unchanged staged run with both compile and unit-tests passed under the
 same configuration as the original. Review itself writes nothing and grants no
 permission. Application requires its exact fingerprint, native guards and fresh
-revalidation. No provider, subprocess or Git operation runs during application.
+revalidation. No provider or project code runs during application. Git-backed stages invoke fixed read-only installed Git commands during linkage preflight; application never commits, pushes or integrates Git changes.
 
 Prepare bounded private original backups and replacement files, then an immutable
 hashed manifest before setting an owned pending marker or changing source. Only
@@ -83,10 +83,15 @@ Files are flushed/fsynced before source replacement. Directory entries are not f
 - Review and inspection write nothing and invoke neither provider nor project code. Successful operations use the common schema-1 envelope. Inspection returns 0 for `applied`/`rolled-back`, 1 for `pending`/`conflicted`; handled operational/integrity errors return sanitized 2. Output contains local paths, hashes, sizes and file metadata, never file content. Review returns `fingerprint`; inspection returns `rollback_fingerprint` and a point-in-time `rollback_candidate`, which is not permission by itself.
 - Runner protocol is 5; native-lock protocol is 3 because any pending application entry blocks new approved runs/applications. Config 1/2, plan 1, approval 2 and envelope 1 remain. Upgrades require fresh version-bound plans/proposals/approvals; retained schema-1 application journals remain independently inspectable/recoverable with `version_matches` reported, not approval renewed.
 
-Offline regressions cover multiple files, real trusted checks, actual parent termination, partial application/rollback, audit/finalization/release failures, stale confirmations, human edits, ownership, unsafe paths and strict bounds. The same suite runs against installed wheels and the supported OS/Python matrix. No paid provider request or real repository application is needed for these fixtures. Create/delete/rename operations, Git worktrees/writes, signed provenance, OS isolation and hostile-process containment remain planned.
+Offline regressions cover multiple files, real trusted checks, actual parent termination, partial application/rollback, audit/finalization/release failures, stale confirmations, human edits, ownership, unsafe paths and strict bounds. The same suite runs against installed wheels and the supported OS/Python matrix. No paid provider request or real repository application is needed for these fixtures. Create/delete/rename operations, Git commits/pushes, signed provenance, OS isolation and hostile-process containment remain planned.
 
 Most lifecycle/parser fixtures use synthetic successful fixed-check responses; a separate case executes the real approved compile/unittest pair. The abrupt-death case runs the application in an actual child process and terminates it after the first replacement.
 
 Source 0.3.0a16 adds [owned fixed-check supervision](SUPERVISION.md): a gated launcher, POSIX group/PID anchor or Windows kill-on-close job, native completion/termination checks and continuously drained bounded stream tails. Timeout includes ordinary owned descendants and pipe retention; uncertain cleanup retains run.lock and incomplete intent without a final receipt. Runner 5/lock 3 require fresh version-bound approval. This covers cooperating same-group POSIX descendants/job members, not deliberate group/session escapes, hostile-code isolation or automatic stale recovery. The guide defines normal, timeout, cancellation and abrupt-parent-death limits.
 
 [Reviewed AI generation](GENERATION.md) is a separate source-sharing operation: offline full-request review, exact fingerprint plus source-upload consent, then an unapproved schema-2 proposal. Manual schema 1 remains supported; existing explicit review/staging/check/application gates still apply. Local request reviews contain source text and must not be published blindly. Ordinary `plan` calls remain task-only.
+
+
+## Optional Git staging boundary
+
+[Git staging worktrees](GIT_STAGING.md) require separate exact confirmation and schema-2 stage evidence. Default copies retain schema 1. Git-stage inspection/current review/application preflight invoke fixed read-only installed Git commands to validate linkage/base/index; they never execute project code or grant approval. A regular `.git` metadata file is excluded from source digests and validated separately for Git stages. Registration alone uses the original native guard and preserves partial locked worktrees on failure. Shared Git metadata is not OS isolation; signed SafeOps provenance remains planned in #61. Existing explicit fresh staged approval/check/application/rollback gates remain.

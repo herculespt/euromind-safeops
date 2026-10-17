@@ -2,6 +2,16 @@
 
 The format follows Keep a Changelog conventions; versions follow Semantic Versioning where practicable.
 
+## 0.3.0a20 — 2026-10-17
+
+- Add local `review-git-stage` and exact-confirmed `stage-git-proposal`, registering a detached, locked linked worktree only for a supported committed literal-file base and unchanged index/source/context. Default copy-only staging remains compatible.
+- Use fixed Git commands without shell, checkout hooks/filters, provider/network access, commits, branch creation, push, force or automatic deletion; sanitized environment and bounded parsed output/timeouts. Git remains a trusted installed executable; shared metadata is not a sandbox.
+- Retain schema-2 staging intent before Git mutation and receipt only after source/linkage/index validation; existing schema-1 histories remain readable. Inspect Git pointers/base/index before and after scans, refuse foreign executables in records and retain partial locked worktrees on failure.
+- Exclude a linked `.git` metadata file from source snapshots as well as `.git` directories. Preserve fresh version-bound staged approval/check/application/rollback gates.
+- Add real Git lifecycle, refusal, hook/filter, tamper and full approved-check/application/rollback regressions; synchronize EN/PT-PT contracts, current/planned status, archives and GitHub tracking. Public GitHub/PyPI 0.3.0a8 remains unchanged.
+- Give native descendant fixtures a four-second startup/timeout window and twelve-second natural lifetime, with a nine-second elapsed bound and fixed-status readiness diagnostics; preserve unrelated-child and owned-cleanup assertions without changing runtime timeout policy.
+- PT-PT: worktrees Git locais com revisão/consentimento próprios, recibos compatíveis e falhas conservadas; sem commits, push ou execução automática. Proveniência assinada tem tarefa e modelo de confiança próprios (#61), não está implementada. Fixtures de descendentes com margem de arranque superior e expiração natural posterior ao limite de execução/limpeza, sem alterar a política de runtime.
+
 ## 0.3.0a19 — 2026-10-17
 
 - Add offline `review-generation` and exact-fingerprint/source-upload-confirmed `generate-proposal` for bounded AI candidates through OpenAI, Anthropic and compatible endpoints; ordinary advisory plans remain task-only.

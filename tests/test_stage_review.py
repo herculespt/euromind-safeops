@@ -137,13 +137,14 @@ class StageReviewTests(unittest.TestCase):
         selected.write_bytes(b"after")
         self.assertEqual(self.call()[1]["data"]["reasons"], ["selected-targets-changed"])
 
-    def test_original_environment_and_git_files_remain_in_snapshot(self):
+    def test_original_environment_and_generated_named_files_remain_in_snapshot(self):
         for name in (".env.local", ".git", "build"):
             (self.root / name).write_bytes(b"original local bytes\n")
         self.prepare()
         files, digest = review._source_snapshot(self.root)
         self.assertEqual(digest, tree_digest(self.root))
-        self.assertTrue({".env.local", ".git", "build"}.issubset(files))
+        self.assertTrue({".env.local", "build"}.issubset(files))
+        self.assertNotIn(".git", files)  # Linked metadata is inspected separately in schema-2 Git stages.
         self.assertEqual(self.call()[0], 0)
         (self.root / ".env.local").write_bytes(b"changed local bytes\n")
         code, payload = self.call()

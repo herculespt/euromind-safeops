@@ -1,6 +1,6 @@
-# Saída estruturada da CLI — 0.3.0a19
+# Saída estruturada da CLI — 0.3.0a20
 
-<!-- safeops-version: 0.3.0a19 -->
+<!-- safeops-version: 0.3.0a20 -->
 
 [English](../OUTPUT.md)
 
@@ -27,7 +27,7 @@ Os vinte comandos (`init`, `providers`, `doctor`, `scan`, `plan`, `review`,
 ```json
 {
   "schema": 1,
-  "safeops_version": "0.3.0a19",
+  "safeops_version": "0.3.0a20",
   "command": "scan",
   "ok": true,
   "exit_code": 0,
@@ -81,7 +81,7 @@ potencialmente sensível. Não é um serviço adicional de remoção de dados, u
 assinatura, autorização automática ou isolamento. A funcionalidade e os testes
 offline não exigem pedidos a fornecedores.
 
-A versão 0.3.0a19 preserva os schemas 1/2 de configuração, 1 de plano e 2 de
+A versão 0.3.0a20 preserva os schemas 1/2 de configuração, 1 de plano e 2 de
 aprovação; o protocolo 5 do runner usa protocolo 3 do bloqueio nativo. A ligação à versão continua a invalidar
 aprovações anteriores: preservar o histórico e criar novo plano revisto e
 aprovação. Não há migração automática nem publicação de release ou pacote.
@@ -136,6 +136,11 @@ ou alterada durante a inspeção devolve erro genérico de política (2).
 
 O código 0.3.0a16 acrescenta [supervisão dos processos próprios](SUPERVISION.md): launcher bloqueado à entrada, grupo/âncora PID POSIX ou job Windows com kill-on-close, confirmação nativa e caudas de output drenadas continuamente com limite. Timeout inclui descendentes normais próprios e pipes retidos; limpeza incerta mantém run.lock e intent incompleto sem recibo final. Runner 5/lock 3 exigem aprovação nova ligada à versão. Abrange descendentes cooperantes no grupo POSIX/membros do job, sem conter escapes deliberados de grupo/sessão, isolar código hostil ou decidir recuperação automática. O guia define conclusão, timeout, cancelamento e morte abrupta do principal.
 
-O código 0.3.0a19 aguarda contagem final zero do job Windows no mesmo orçamento de limpeza de três segundos usado para saída do launcher, EOF e limpeza de falha. Contagem positiva transitória não transforma imediatamente um check falhado concluído em erro operacional; confirmação persistente/indisponível mantém recusa e estado retido. Diagnóstico por fases fixas exclui texto nativo de exceções. Mantêm-se runner 5/lock 3 e schemas; versão/política de limpeza atualizadas exigem planos/propostas/aprovações novos e revistos.
+O código 0.3.0a20 aguarda contagem final zero do job Windows no mesmo orçamento de limpeza de três segundos usado para saída do launcher, EOF e limpeza de falha. Contagem positiva transitória não transforma imediatamente um check falhado concluído em erro operacional; confirmação persistente/indisponível mantém recusa e estado retido. Diagnóstico por fases fixas exclui texto nativo de exceções. Mantêm-se runner 5/lock 3 e schemas; versão/política de limpeza atualizadas exigem planos/propostas/aprovações novos e revistos.
 
 A [geração IA revista](GENERATION.md) é uma operação separada de partilha de código: revisão offline do pedido completo, fingerprint e consentimento de upload, depois proposta schema 2 não aprovada. Schema 1 manual e gates explícitos de revisão/staging/checks/aplicação mantêm-se. A revisão contém código e não deve ser publicada sem inspeção; `plan` continua a enviar só a tarefa.
+
+
+## Fronteira da preparação Git opcional
+
+[Worktrees Git de preparação](GIT_STAGING.md) exigem confirmação exata própria e evidência de stage schema 2. Cópias simples mantêm schema 1. Inspeção/revisão/preflight da aplicação de stages Git invocam comandos fixos do Git instalado para verificar ligação/base/índice; não executam código do projeto nem concedem aprovação. O ficheiro regular `.git` é excluído dos digests e validado separadamente nos stages Git. Só a criação usa o guard nativo original; falhas conservam worktrees locked parciais. Metadados partilhados não constituem isolamento pelo SO; proveniência SafeOps assinada continua planeada em #61. Mantêm-se aprovação nova/checks/aplicação/rollback explícitos.

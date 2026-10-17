@@ -1,6 +1,6 @@
-# Release alfa e publicação do pacote — 0.3.0a19
+# Release alfa e publicação do pacote — 0.3.0a20
 
-<!-- safeops-version: 0.3.0a19 -->
+<!-- safeops-version: 0.3.0a20 -->
 
 [English](../RELEASING.md)
 
@@ -9,7 +9,7 @@ Releases futuras exigem autorização própria. O [estado](STATUS.md) e a
 [issue #31](https://github.com/herculespt/euromind-safeops/issues/31) registam a
 publicação efetiva. Aprovar uma validação de candidato não publica no PyPI.
 
-Primeira entrega alfa (16 de outubro de 2026): release GitHub e [PyPI 0.3.0a8](https://pypi.org/project/euromind-safeops/0.3.0a8/) publicados, com hashes dos ficheiros originais iguais, instalação limpa pelo registo e atestações de publicação verificadas pelo PyPI. O código atual mantém a versão 0.3.0a19. Consulta a [evidência verificada](audits/2026-10-16-first-alpha.md).
+Primeira entrega alfa (16 de outubro de 2026): release GitHub e [PyPI 0.3.0a8](https://pypi.org/project/euromind-safeops/0.3.0a8/) publicados, com hashes dos ficheiros originais iguais, instalação limpa pelo registo e atestações de publicação verificadas pelo PyPI. O código atual mantém a versão 0.3.0a20. Consulta a [evidência verificada](audits/2026-10-16-first-alpha.md).
 
 ## Revisão e pré-release GitHub
 
@@ -116,3 +116,6 @@ sem renovação automática ou reescrita do histórico.
 - [Publisher PyPA](https://github.com/pypa/gh-action-pypi-publish)
 
 Preparar ferramentas fixadas a partir do código do workflow antes de selecionar o tag histórico. Tags antigos podem não ter locks; a política atual vem do workflow e a verificação dos ficheiros originais continua obrigatória.
+
+
+Preparação Git no código 0.3.0a20: worktrees locais detached com confirmação própria e evidência de ligação schema 2; cópias simples mantêm schema 1. [Contrato](GIT_STAGING.md). Metadados Git partilhados não constituem isolamento; commits/pushes/PRs automáticos e proveniência SafeOps assinada não estão implementados. Aprovação/testes/aplicação mantêm gates explícitos. O pacote público GitHub/PyPI 0.3.0a8 mantém-se inalterado.

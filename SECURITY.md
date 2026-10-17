@@ -1,12 +1,12 @@
 # Security Policy
 
-<!-- safeops-version: 0.3.0a19 -->
+<!-- safeops-version: 0.3.0a20 -->
 
 [Português (Portugal)](docs/pt-PT/SECURITY.md)
 
 ## Scope and maturity
 
-EuroMind SafeOps 0.3.0a19 is an **alpha developer tool**. It is not a sandbox, cannot ensure the safety of source code being tested, and must not be used to authorize production operations. The risk classifier and pattern scanner are best-effort heuristics.
+EuroMind SafeOps 0.3.0a20 is an **alpha developer tool**. It is not a sandbox, cannot ensure the safety of source code being tested, and must not be used to authorize production operations. The risk classifier and pattern scanner are best-effort heuristics.
 
 ## Reporting vulnerabilities
 
@@ -47,8 +47,13 @@ Source 0.3.0a15 adds [explicit reviewed application and conservative rollback](d
 
 Source 0.3.0a16 adds [owned fixed-check supervision](docs/SUPERVISION.md): a gated launcher, POSIX group/PID anchor or Windows kill-on-close job, native completion/termination checks and continuously drained bounded stream tails. Timeout includes ordinary owned descendants and pipe retention; uncertain cleanup retains run.lock and incomplete intent without a final receipt. Runner 5/lock 3 require fresh version-bound approval. This covers cooperating same-group POSIX descendants/job members, not deliberate group/session escapes, hostile-code isolation or automatic stale recovery. The guide defines normal, timeout, cancellation and abrupt-parent-death limits.
 
-Source 0.3.0a19 waits for final zero Windows job accounting within the same three-second cleanup budget used for launcher exit, EOF and failure cleanup. A transitional positive count cannot turn a completed failed check into an immediate operational error; persistent/unavailable confirmation remains fail-closed with retained state. Fixed-phase diagnostics exclude native exception text. Runner 5/lock 3 and schemas remain; the updated version/cleanup-policy binding requires fresh reviewed plans/proposals/approvals.
+Source 0.3.0a20 waits for final zero Windows job accounting within the same three-second cleanup budget used for launcher exit, EOF and failure cleanup. A transitional positive count cannot turn a completed failed check into an immediate operational error; persistent/unavailable confirmation remains fail-closed with retained state. Fixed-phase diagnostics exclude native exception text. Runner 5/lock 3 and schemas remain; the updated version/cleanup-policy binding requires fresh reviewed plans/proposals/approvals.
 
 Maintainer coverage/release tooling uses dedicated reviewed Linux/CPython 3.12 wheel/hash closures. See [tooling policy](docs/TOOLING.md) for exact profiles, refusal/update procedure and deliberate unlocked compatibility jobs. This does not lock runner/interpreter bootstrap or certify dependency safety.
 
 Reviewed [AI generation](docs/GENERATION.md) uploads exact selected source only after separate fingerprint/source consent. Review output contains full input text. Pattern refusals are incomplete; do not confirm private data unintentionally. Candidates stay unapproved and can contain unsafe Python that later trusted checks execute only after explicit review/approval. Origin labels are mutable metadata, not attestation.
+
+
+## Optional Git staging boundary
+
+[Git staging worktrees](docs/GIT_STAGING.md) require separate exact confirmation and schema-2 stage evidence. Default copies retain schema 1. Git-stage inspection/current review/application preflight invoke fixed read-only installed Git commands to validate linkage/base/index; they never execute project code or grant approval. A regular `.git` metadata file is excluded from source digests and validated separately for Git stages. Registration alone uses the original native guard and preserves partial locked worktrees on failure. Shared Git metadata is not OS isolation; signed SafeOps provenance remains planned in #61. Existing explicit fresh staged approval/check/application/rollback gates remain.

@@ -1,6 +1,6 @@
-# Candidatos IA com revisão explícita — 0.3.0a19
+# Candidatos IA com revisão explícita — 0.3.0a20
 
-<!-- safeops-version: 0.3.0a19 -->
+<!-- safeops-version: 0.3.0a20 -->
 
 [English](../GENERATION.md)
 
@@ -70,3 +70,8 @@ anterior não demonstram correção semântica nem disponibilidade universal.
 
 Referências: [OpenAI Responses](https://developers.openai.com/api/reference/resources/responses/methods/create),
 [conclusão Anthropic](https://platform.claude.com/docs/en/build-with-claude/handling-stop-reasons).
+
+
+## Fronteira da preparação Git opcional
+
+[Worktrees Git de preparação](GIT_STAGING.md) exigem confirmação exata própria e evidência de stage schema 2. Cópias simples mantêm schema 1. Inspeção/revisão/preflight da aplicação de stages Git invocam comandos fixos do Git instalado para verificar ligação/base/índice, sem executar código do projeto ou conceder aprovação. O ficheiro regular `.git` é excluído dos digests e validado separadamente nos stages Git. A criação usa o guard nativo original; falhas conservam worktrees locked parciais. Metadados partilhados não constituem isolamento pelo SO; proveniência assinada continua planeada em #61. Aprovação nova/checks/aplicação/rollback mantêm-se explícitos.

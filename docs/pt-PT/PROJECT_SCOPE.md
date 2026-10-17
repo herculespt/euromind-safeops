@@ -1,10 +1,10 @@
 # Âmbito e origem do projeto
 
-<!-- safeops-version: 0.3.0a19 -->
+<!-- safeops-version: 0.3.0a20 -->
 
 [English](../PROJECT_SCOPE.md)
 
-O EuroMind SafeOps 0.3.0a19 é um projeto open source original e autónomo: uma
+O EuroMind SafeOps 0.3.0a20 é um projeto open source original e autónomo: uma
 ferramenta genérica de linha de comandos para políticas e verificações em fluxos
 de desenvolvimento. O [estado de implementação](STATUS.md) distingue as
 capacidades existentes, o trabalho futuro e as publicações efetivas.
@@ -34,7 +34,7 @@ software proprietário nem de informação confidencial.
 
 As [propostas locais persistentes](PROPOSALS.md) ligam substituições escritas manualmente a um plano explícito inalterado e permitem revisão sem escrita. Aplicação explícita tem [contrato separado](APPLICATION.md); a geração IA limitada está implementada com consentimento exato e [contrato separado](GENERATION.md); edição autónoma continua planeada.
 
-As [cópias locais separadas](STAGING.md) permitem inspecionar/testar substituições revistas com confirmação exata do fingerprint. Não aplicam ao original, não inicializam/aprovam testes automaticamente nem implementam worktrees Git ou isolamento pelo SO.
+As [cópias locais separadas](STAGING.md) permitem inspecionar/testar substituições revistas com confirmação exata do fingerprint. Não aplicam ao original, não inicializam/aprovam testes automaticamente nem implementam isolamento pelo SO. [Preparação Git opcional](GIT_STAGING.md) tem revisão/consentimento próprios e partilha metadados Git.
 
 O código 0.3.0a15 acrescenta [aplicação revista e rollback conservador](APPLICATION.md). Ambos os checks fixos da cópia têm de passar com ligações atuais inalteradas e configuração igual à do original; confirmação humana exata e guards nativos precedem backups/journal privados e escrita. Marcador pendente bloqueia checks aprovados/aplicações novos. Inspeção sem escrita e rollback confirmado separadamente preservam evidência e recusam edições humanas observadas. Sem transação de vários ficheiros, garantia de energia/armazenamento, operações Git, pedidos a fornecedores ou isolamento pelo SO. Nesse marco, runner 4/lock 2; aprovação de execução nova ligada à versão obrigatória.
 

@@ -1,12 +1,12 @@
 # Política de segurança
 
-<!-- safeops-version: 0.3.0a19 -->
+<!-- safeops-version: 0.3.0a20 -->
 
 [English](../../SECURITY.md)
 
 ## Âmbito e maturidade
 
-O EuroMind SafeOps 0.3.0a19 é uma **ferramenta de desenvolvimento em versão alfa**.
+O EuroMind SafeOps 0.3.0a20 é uma **ferramenta de desenvolvimento em versão alfa**.
 Não implementa isolamento seguro, não garante a segurança do código testado e
 não deve ser utilizado para autorizar operações de produção. A classificação
 de risco e a pesquisa por padrões são heurísticas com limitações.
@@ -60,8 +60,13 @@ O código 0.3.0a15 acrescenta [aplicação revista e rollback conservador](APPLI
 
 O código 0.3.0a16 acrescenta [supervisão dos processos próprios](SUPERVISION.md): launcher bloqueado à entrada, grupo/âncora PID POSIX ou job Windows com kill-on-close, confirmação nativa e caudas de output drenadas continuamente com limite. Timeout inclui descendentes normais próprios e pipes retidos; limpeza incerta mantém run.lock e intent incompleto sem recibo final. Runner 5/lock 3 exigem aprovação nova ligada à versão. Abrange descendentes cooperantes no grupo POSIX/membros do job, sem conter escapes deliberados de grupo/sessão, isolar código hostil ou decidir recuperação automática. O guia define conclusão, timeout, cancelamento e morte abrupta do principal.
 
-O código 0.3.0a19 aguarda contagem final zero do job Windows no mesmo orçamento de limpeza de três segundos usado para saída do launcher, EOF e limpeza de falha. Contagem positiva transitória não transforma imediatamente um check falhado concluído em erro operacional; confirmação persistente/indisponível mantém recusa e estado retido. Diagnóstico por fases fixas exclui texto nativo de exceções. Mantêm-se runner 5/lock 3 e schemas; versão/política de limpeza atualizadas exigem planos/propostas/aprovações novos e revistos.
+O código 0.3.0a20 aguarda contagem final zero do job Windows no mesmo orçamento de limpeza de três segundos usado para saída do launcher, EOF e limpeza de falha. Contagem positiva transitória não transforma imediatamente um check falhado concluído em erro operacional; confirmação persistente/indisponível mantém recusa e estado retido. Diagnóstico por fases fixas exclui texto nativo de exceções. Mantêm-se runner 5/lock 3 e schemas; versão/política de limpeza atualizadas exigem planos/propostas/aprovações novos e revistos.
 
 Ferramentas de cobertura/release usam conjuntos transitivos de wheels/hashes revistos em perfis Linux/CPython 3.12 dedicados. A [política](TOOLING.md) define instalação/recusa, atualização e exceções dos jobs de compatibilidade. Não fixa o bootstrap do runner/intérprete nem certifica segurança das dependências.
 
 A [geração IA revista](GENERATION.md) envia ficheiros selecionados apenas após consentimento/fingerprint próprios. A revisão mostra texto completo; padrões não detetam toda a informação privada. Candidatos continuam não aprovados e podem conter Python inseguro que os checks só executam após revisão/aprovação explícitas. A origem é metadado mutável, não atestação.
+
+
+## Fronteira da preparação Git opcional
+
+[Worktrees Git de preparação](GIT_STAGING.md) exigem confirmação exata própria e evidência de stage schema 2. Cópias simples mantêm schema 1. Inspeção/revisão/preflight da aplicação de stages Git invocam comandos fixos do Git instalado para verificar ligação/base/índice; não executam código do projeto nem concedem aprovação. O ficheiro regular `.git` é excluído dos digests e validado separadamente nos stages Git. Só a criação usa o guard nativo original; falhas conservam worktrees locked parciais. Metadados partilhados não constituem isolamento pelo SO; proveniência SafeOps assinada continua planeada em #61. Mantêm-se aprovação nova/checks/aplicação/rollback explícitos.

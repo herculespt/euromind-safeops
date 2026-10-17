@@ -1,8 +1,8 @@
 # Quickstart
 
-<!-- safeops-version: 0.3.0a19 -->
+<!-- safeops-version: 0.3.0a20 -->
 
-Current source version: **0.3.0a19**, alpha prerelease. Requires Python 3.11+, Git optional, and a trusted source tree. The default schema-1 checks require `src/` and a nonempty unittest suite under `tests/`; optional [schema-2 targets](TARGETS.md) select other directories. Nested test packages need `__init__.py`.
+Current source version: **0.3.0a20**, alpha prerelease. Requires Python 3.11+, Git optional, and a trusted source tree. The default schema-1 checks require `src/` and a nonempty unittest suite under `tests/`; optional [schema-2 targets](TARGETS.md) select other directories. Nested test packages need `__init__.py`.
 
 ```bash
 git clone https://github.com/herculespt/euromind-safeops.git
@@ -77,3 +77,8 @@ Source 0.3.0a15 adds [explicit reviewed application and conservative rollback](A
 Source 0.3.0a16 adds [owned fixed-check supervision](SUPERVISION.md): a gated launcher, POSIX group/PID anchor or Windows kill-on-close job, native completion/termination checks and continuously drained bounded stream tails. Timeout includes ordinary owned descendants and pipe retention; uncertain cleanup retains run.lock and incomplete intent without a final receipt. Runner 5/lock 3 require fresh version-bound approval. This covers cooperating same-group POSIX descendants/job members, not deliberate group/session escapes, hostile-code isolation or automatic stale recovery. The guide defines normal, timeout, cancellation and abrupt-parent-death limits.
 
 [Reviewed AI generation](GENERATION.md) is a separate source-sharing operation: offline full-request review, exact fingerprint plus source-upload consent, then an unapproved schema-2 proposal. Manual schema 1 remains supported; existing explicit review/staging/check/application gates still apply. Local request reviews contain source text and must not be published blindly. Ordinary `plan` calls remain task-only.
+
+
+## Optional Git staging boundary
+
+[Git staging worktrees](GIT_STAGING.md) require separate exact confirmation and schema-2 stage evidence. Default copies retain schema 1. Git-stage inspection/current review/application preflight invoke fixed read-only installed Git commands to validate linkage/base/index; they never execute project code or grant approval. A regular `.git` metadata file is excluded from source digests and validated separately for Git stages. Registration alone uses the original native guard and preserves partial locked worktrees on failure. Shared Git metadata is not OS isolation; signed SafeOps provenance remains planned in #61. Existing explicit fresh staged approval/check/application/rollback gates remain.

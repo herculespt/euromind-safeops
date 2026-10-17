@@ -48,7 +48,9 @@ def _evidence(path: Path, *, limit: int) -> bytes:
 
 
 def _intent(value: dict, stage_id: str) -> None:
-    if (set(value) != _INTENT or type(value["schema"]) is not int or value["schema"] != 1 or
+    git = value.get("schema") == 2
+    if (set(value) != _INTENT | ({"git"} if git else set()) or
+            type(value["schema"]) is not int or value["schema"] not in (1, 2) or
             value["stage_id"] != stage_id or not _hex(value["proposal_id"], 12) or
             any(not _hex(value[name]) for name in
                 ("proposal_fingerprint", "candidate_sha256", "source_workspace_digest")) or
@@ -92,7 +94,8 @@ def _proposal(root: Path, intent: dict) -> dict:
 
 
 def _manifest(receipt: dict, intent: dict, proposal: dict, root: Path) -> dict:
-    if (set(receipt) != _RECEIPT or type(receipt["schema"]) is not int or
+    if (set(receipt) != _RECEIPT | ({"git"} if intent["schema"] == 2 else set()) or
+            type(receipt["schema"]) is not int or
             any(receipt[key] != value for key, value in intent.items()) or
             receipt["status"] != "staged" or not _hex(receipt["fingerprint"]) or
             sha256({k: v for k, v in receipt.items() if k != "fingerprint"}) != receipt["fingerprint"] or
@@ -207,6 +210,9 @@ def inspect_stage(root: Path, stage_id: str) -> dict:
         intent_raw = _evidence(intent_path, limit=4096)
         intent = decode_json_object(intent_raw)
         _intent(intent, stage_id)
+        if intent["schema"] == 2:
+            from .git_staging import validate_context
+            validate_context(intent["git"], root)
         proposal = _proposal(root, intent)
         result = {"schema": 1, "stage_id": stage_id, "proposal_id": intent["proposal_id"],
                   "proposal_fingerprint": intent["proposal_fingerprint"],
@@ -228,6 +234,10 @@ def inspect_stage(root: Path, stage_id: str) -> dict:
             destination = owned / "workspace"
             _directory(destination)
             expected = _manifest(receipt, intent, proposal, destination)
+            git = None
+            if intent["schema"] == 2:
+                from .git_staging import inspect_link
+                git = inspect_link(root, destination, intent["git"])
             observed, digest = _scan(destination)
             if _scan(destination) != (observed, digest):
                 raise ValueError("Workspace changed during inspection")
@@ -245,6 +255,10 @@ def inspect_stage(root: Path, stage_id: str) -> dict:
                           observed_bytes=sum(item["bytes"] for item in observed.values()),
                           recorded_workspace_digest=receipt["staged_workspace_digest"],
                           observed_workspace_digest=digest)
+            if git is not None:
+                if inspect_link(root, destination, intent["git"]) != git:
+                    raise ValueError("Git linkage changed during inspection")
+                result["git"] = git
         if (_evidence(intent_path, limit=4096) != intent_raw or
                 _proposal(root, intent) != proposal or
                 [_directory(path) for path in parents] != identities):

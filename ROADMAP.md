@@ -2,8 +2,8 @@
 
 This roadmap is directional, not a promise of dates or delivered features.
 
-Current source version: **0.3.0a19** (alpha prerelease). See [status](docs/STATUS.md)
-and [PT-PT](docs/pt-PT/STATUS.md). The first [GitHub alpha](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8) and [PyPI 0.3.0a8](https://pypi.org/project/euromind-safeops/0.3.0a8/) were published on 2026-10-16. Registry hashes, clean installation and PyPI-verified publishing attestations were checked. See [delivery evidence](docs/audits/2026-10-16-first-alpha.md). Current source 0.3.0a19 remains unpublished.
+Current source version: **0.3.0a20** (alpha prerelease). See [status](docs/STATUS.md)
+and [PT-PT](docs/pt-PT/STATUS.md). The first [GitHub alpha](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8) and [PyPI 0.3.0a8](https://pypi.org/project/euromind-safeops/0.3.0a8/) were published on 2026-10-16. Registry hashes, clean installation and PyPI-verified publishing attestations were checked. See [delivery evidence](docs/audits/2026-10-16-first-alpha.md). Current source 0.3.0a20 remains unpublished.
 
 ## v0.1.0 — Initial open-source foundation (implemented)
 - [x] Packageable CLI, offline plans and specialist suggestions.
@@ -168,10 +168,21 @@ No tagged release or package publication is implied by this source version.
 - [x] Verify staging receipts and detect later staged-file changes (0.3.0a12); [issue #42](https://github.com/herculespt/euromind-safeops/issues/42), without granting source-application or execution authority.
 - [x] Review current original-source compatibility before any application (0.3.0a13); [issue #45](https://github.com/herculespt/euromind-safeops/issues/45), without granting application or execution authority.
 - [x] Integrity-bound local results for approved checks (0.3.0a14); [issue #47](https://github.com/herculespt/euromind-safeops/issues/47), without granting application authority.
-- [ ] Isolated Git worktrees and OS-enforced filesystem scopes; local copies do not implement these boundaries.
+- [x] Explicit detached linked Git staging worktrees (0.3.0a20, #60); shared Git state is not OS isolation.
+- [ ] OS-enforced filesystem scopes and hostile-code isolation.
 
 ## Long-term research directions
 - [ ] OS/container sandboxing with verifiable isolation properties.
 - [ ] Independently signed audit artifacts and supply-chain provenance.
 - [ ] Additional advisory provider adapters where justified.
 - [ ] Community-reviewed release automation integrations.
+
+## 0.3.0a20 — Explicit Git staging worktrees (implemented in source)
+- [x] Separate local Git review and exact confirmation for detached linked staging; default schema-1 copies preserved. [#60](https://github.com/herculespt/euromind-safeops/issues/60), [contract](docs/GIT_STAGING.md).
+- [x] Committed literal regular-file base, unchanged index/context, no-checkout/read-tree fixed Git operations, retained schema-2 intent/receipt and Git linkage inspection.
+- [x] Existing explicit staged checks/application/rollback gates; native Git refusal/lifecycle regressions and EN/PT-PT documentation/distribution coverage.
+- [ ] Branch/commit/push/PR generation, automated worktree cleanup and hostile-code isolation remain separate work.
+
+## Prioritized follow-ups / Prioridades seguintes
+- [ ] Authenticated SafeOps provenance [#61](https://github.com/herculespt/euromind-safeops/issues/61): define signer/statement/trust/revocation and bounded verification; publication attestations already exist but do not sign SafeOps approvals.
+- [ ] Declarative specialist capability manifests [#58](https://github.com/herculespt/euromind-safeops/issues/58), independent of Git staging and cryptographic provenance.

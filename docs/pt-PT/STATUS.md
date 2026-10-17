@@ -1,12 +1,11 @@
 # Estado de implementação e publicação
 
-<!-- safeops-version: 0.3.0a19 -->
+<!-- safeops-version: 0.3.0a20 -->
 
 [English](../STATUS.md)
 
-**Versão atual do código: 0.3.0a19 — pré-versão alfa.** O CI cobre Python
-3.11–3.13 em Linux, Windows e macOS. Não existem dependências externas em
-execução. A primeira [release GitHub v0.3.0a8](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8)
+**Versão atual do código: 0.3.0a20 — pré-versão alfa.** O CI cobre Python
+3.11–3.13 em Linux, Windows e macOS. Sem dependências Python externas; o modo Git opcional exige Git instalado. A primeira [release GitHub v0.3.0a8](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8)
 foi publicada em 16 de outubro de 2026 no commit
 `035c36b1b646a6c75178d5db6c19d8c55d624dcf`, com wheel, sdist e SHA256SUMS
 verificados. Os 12 jobs da main e a validação do candidato passaram; o wheel
@@ -24,12 +23,13 @@ o código do pacote mantém o commit imutável 0.3.0a8 indicado acima. Esta evid
 é de proveniência da publicação; não demonstra builds reproduzíveis nem
 aprovações SafeOps assinadas.
 
-O código 0.3.0a19 acrescenta candidatos IA limitados com consentimento exato para partilha de código e propostas não aprovadas, mantendo fluxos manuais, ferramentas revistas e supervisão nativa; ainda não foi publicada uma nova release.
+O código 0.3.0a20 acrescenta worktrees Git de preparação opcionais, preservando candidatos IA limitados com consentimento exato para partilha de código e propostas não aprovadas, mantendo fluxos manuais, ferramentas revistas e supervisão nativa; ainda não foi publicada uma nova release.
 
 ## Implementado
 
 | Capacidade | Limite prático |
 |---|---|
+| Worktrees Git de preparação explícita | Revisão/consentimento próprios, base literal versionada, índice original preservado e recibos schema 2; [contrato](GIT_STAGING.md). Metadados Git partilhados, sem isolamento pelo SO |
 | Geração de candidatos IA com revisão | Revisão offline do pedido, consentimento exato separado, resposta limitada/validada e proposta schema 2 não aprovada; [contrato](GENERATION.md) |
 | Ferramentas de manutenção com hashes revistos | Dois perfis Linux/CPython 3.12 com dependências transitivas e instalação restrita; [política](TOOLING.md) |
 | Recibos dos checks aprovados e inspeção histórica | Metadados/hashes/resultados limitados, revalidação antes/depois e estados explícitos de timeout/alteração/incompleto; sem output guardado, renovação de aprovação ou aplicação; [contrato](RUN_RECEIPTS.md) |
@@ -95,7 +95,7 @@ Consulta a [compatibilidade de execução](EXECUTION.md), o
 A [validação dos fornecedores](PROVIDER_TESTING.md) distingue respostas fixas dos
 pedidos reais separados nos registos [OpenAI](audits/2026-10-15-openai-smoke.md) e
 [Anthropic](audits/2026-10-15-anthropic-smoke.md), testados na versão 0.3.0a2.
-A versão atual 0.3.0a19 acrescenta [supervisão dos processos próprios](SUPERVISION.md), mantendo [aplicação revista e rollback](APPLICATION.md), mantendo [recibos dos checks aprovados](RUN_RECEIPTS.md), mantendo [revisão do original atual](STAGE_REVIEW.md), mantendo [inspeção histórica das cópias](STAGING.md), cópias separadas, [propostas ligadas ao plano](PROPOSALS.md), [previews locais](PREVIEW.md), [cobertura medida](COVERAGE.md), [JUnit local](REPORTING.md),
+A versão atual 0.3.0a20 acrescenta [supervisão dos processos próprios](SUPERVISION.md), mantendo [aplicação revista e rollback](APPLICATION.md), mantendo [recibos dos checks aprovados](RUN_RECEIPTS.md), mantendo [revisão do original atual](STAGE_REVIEW.md), mantendo [inspeção histórica das cópias](STAGING.md), cópias separadas, [propostas ligadas ao plano](PROPOSALS.md), [previews locais](PREVIEW.md), [cobertura medida](COVERAGE.md), [JUnit local](REPORTING.md),
 [bloqueio nativo e recuperação explícita](LOCKING.md),
 [saída estruturada/resumos CI](OUTPUT.md), [diretórios opcionais](TARGETS.md),
 a [validação do âmbito](SCOPE.md) e o schema 1 predefinido.

@@ -45,6 +45,7 @@ class RepositoryHygieneTests(unittest.TestCase):
             "docs/SUPERVISION.md", "docs/pt-PT/SUPERVISION.md",
             "docs/TOOLING.md", "docs/pt-PT/TOOLING.md",
             "docs/GENERATION.md", "docs/pt-PT/GENERATION.md",
+            "docs/GIT_STAGING.md", "docs/pt-PT/GIT_STAGING.md",
             "docs/PACKAGE.md", "docs/RELEASING.md", "docs/pt-PT/RELEASING.md",
         ):
             with self.subTest(path=name):
@@ -97,6 +98,7 @@ class RepositoryHygieneTests(unittest.TestCase):
             "docs/SUPERVISION.md", "docs/pt-PT/SUPERVISION.md",
             "docs/TOOLING.md", "docs/pt-PT/TOOLING.md",
             "docs/GENERATION.md", "docs/pt-PT/GENERATION.md",
+            "docs/GIT_STAGING.md", "docs/pt-PT/GIT_STAGING.md",
             "src/euromind_safeops/proposals.py", "tests/test_proposals.py",
             "src/euromind_safeops/staging.py", "tests/test_staging.py",
             "src/euromind_safeops/stage_inspection.py", "tests/test_stage_inspection.py",
@@ -104,6 +106,7 @@ class RepositoryHygieneTests(unittest.TestCase):
             "src/euromind_safeops/run_receipts.py", "tests/test_run_receipts.py",
             "src/euromind_safeops/application.py", "src/euromind_safeops/application_journal.py", "tests/test_application.py",
             "docs/audits/2026-10-17-openai-generation-smoke.md", "docs/pt-PT/audits/2026-10-17-openai-generation-smoke.md",
+            "src/euromind_safeops/git_staging.py", "tests/test_git_staging.py",
             "src/euromind_safeops/generation.py", "src/euromind_safeops/candidate_transport.py", "tests/test_generation.py",
             "src/euromind_safeops/supervision.py", "src/euromind_safeops/check_bootstrap.py", "src/euromind_safeops/windows_job.py", "tests/test_supervision.py",
             "requirements-ci.txt", ".github/workflows/ci.yml", ".github/CODEOWNERS",

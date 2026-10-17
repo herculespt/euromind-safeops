@@ -79,7 +79,7 @@ class SupervisionTests(unittest.TestCase):
             "f=open('.safeops/descendant.lease','r+b',buffering=0)\n"
             "if os.name=='nt':\n import msvcrt\n msvcrt.locking(f.fileno(),msvcrt.LK_NBLCK,1)\n"
             "else:\n import fcntl\n fcntl.flock(f.fileno(),fcntl.LOCK_EX|fcntl.LOCK_NB)\n"
-            "Path('.safeops/descendant.ready').write_bytes(b'ready')\ntime.sleep(6)\n")
+            "Path('.safeops/descendant.ready').write_bytes(b'ready')\ntime.sleep(12)\n")
         child = "import subprocess,sys\nsubprocess.Popen([sys.executable,'-c'," + repr(grandchild) + "])\n"
         self.source.write_text(
             "import subprocess,sys,time,unittest\nfrom pathlib import Path\n"
@@ -88,7 +88,7 @@ class SupervisionTests(unittest.TestCase):
             "  p.wait(timeout=4)\n  end=time.monotonic()+4\n"
             "  while not Path('.safeops/descendant.ready').exists() and time.monotonic()<end: time.sleep(.01)\n"
             "  self.assertTrue(Path('.safeops/descendant.ready').exists())\n" +
-            ("  time.sleep(6)\n" if parent_stays else ""), encoding="utf-8")
+            ("  time.sleep(12)\n" if parent_stays else ""), encoding="utf-8")
         return lease, ready
 
     def test_success_preserves_history_and_releases_native_ownership(self):
@@ -106,10 +106,10 @@ class SupervisionTests(unittest.TestCase):
         lease, ready = self.descendant_fixture()
         plan = self.approved()
         started = time.monotonic()
-        result = run(self.root, plan, timeout=2)
-        self.assertTrue(ready.exists())
+        result = run(self.root, plan, timeout=4)
+        self.assertTrue(ready.exists(), f"Fixture startup not observed: {result['status']}")
         self.assertEqual(result["status"], "timed-out")
-        self.assertLess(time.monotonic() - started, 7)
+        self.assertLess(time.monotonic() - started, 9)
         self.assertTrue(self.lease_free(lease))
         self.assertFalse((self.state / "run.lock").exists())
 
@@ -118,9 +118,11 @@ class SupervisionTests(unittest.TestCase):
         self.addCleanup(lambda: unrelated.wait(timeout=5))
         self.addCleanup(lambda: unrelated.terminate() if unrelated.poll() is None else None)
         lease, ready = self.descendant_fixture(parent_stays=True)
-        result = run(self.root, self.approved(), timeout=2)
-        self.assertTrue(ready.exists())
+        started = time.monotonic()
+        result = run(self.root, self.approved(), timeout=4)
+        self.assertTrue(ready.exists(), f"Fixture startup not observed: {result['status']}")
         self.assertEqual(result["status"], "timed-out")
+        self.assertLess(time.monotonic() - started, 9)  # Below the fixture's 12-second natural lifetime.
         self.assertTrue(self.lease_free(lease))
         self.assertIsNone(unrelated.poll())
 

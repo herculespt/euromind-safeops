@@ -127,6 +127,8 @@ def source_files(root: Path):
     for base, directories, names in os.walk(root, followlinks=False):
         directories[:] = sorted(d for d in directories if d not in SKIP_DIRS and not (Path(base) / d).is_symlink())
         for name in sorted(names):
+            if name == ".git":  # Linked-worktree metadata is internal, like a .git directory.
+                continue
             path = Path(base) / name
             if path.is_symlink():
                 continue
