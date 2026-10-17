@@ -135,8 +135,11 @@ class GitStagingTests(unittest.TestCase):
 
     def test_foreign_pointer_is_rejected_before_git_execution(self):
         r = self.stage(); copied = Path(r["workspace"]); pointer = copied / ".git"
-        pointer.chmod(0o600)  # Git for Windows protects this fixture file as read-only.
-        pointer.write_bytes(b"gitdir: /foreign/path\n")
+        pointer.chmod(0o600)
+        # Modify the existing pointer; Windows hidden-file rules can reject wb/CREATE_ALWAYS.
+        with pointer.open("r+b") as handle:
+            handle.write(b"gitdir: /foreign/path\n")
+            handle.truncate()
         with patch.object(git, "_git") as command, self.assertRaises(SafeOpsError): inspect_stage(self.root, r["stage_id"])
         command.assert_not_called()
 

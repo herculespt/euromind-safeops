@@ -9,7 +9,8 @@ The format follows Keep a Changelog conventions; versions follow Semantic Versio
 - Retain schema-2 staging intent before Git mutation and receipt only after source/linkage/index validation; existing schema-1 histories remain readable. Inspect Git pointers/base/index before and after scans, refuse foreign executables in records and retain partial locked worktrees on failure.
 - Exclude a linked `.git` metadata file from source snapshots as well as `.git` directories. Preserve fresh version-bound staged approval/check/application/rollback gates.
 - Add real Git lifecycle, refusal, hook/filter, tamper and full approved-check/application/rollback regressions; synchronize EN/PT-PT contracts, current/planned status, archives and GitHub tracking. Public GitHub/PyPI 0.3.0a8 remains unchanged.
-- PT-PT: worktrees Git locais com revisão/consentimento próprios, recibos compatíveis e falhas conservadas; sem commits, push ou execução automática. Proveniência assinada tem tarefa e modelo de confiança próprios (#61), não está implementada.
+- Give native descendant fixtures a four-second startup/timeout window and twelve-second natural lifetime, with a nine-second elapsed bound and fixed-status readiness diagnostics; preserve unrelated-child and owned-cleanup assertions without changing runtime timeout policy.
+- PT-PT: worktrees Git locais com revisão/consentimento próprios, recibos compatíveis e falhas conservadas; sem commits, push ou execução automática. Proveniência assinada tem tarefa e modelo de confiança próprios (#61), não está implementada. Fixtures de descendentes com margem de arranque superior e expiração natural posterior ao limite de execução/limpeza, sem alterar a política de runtime.
 
 ## 0.3.0a19 — 2026-10-17
 
