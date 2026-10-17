@@ -16,10 +16,12 @@ from .proposals import review_proposal
 from .scope import validate_scope_paths
 
 MAX_GIT_OUTPUT = 2_000_000
+MAX_CONTEXT_BYTES = 3000
 GIT_TIMEOUT = 15
 POLICY = {"schema": 1, "mode": "detached-linked-worktree", "checkout": False,
           "hooks": False, "filters": False, "network": False, "automatic_cleanup": False,
-          "git_output_bytes": MAX_GIT_OUTPUT, "git_command_timeout": GIT_TIMEOUT}
+          "git_output_bytes": MAX_GIT_OUTPUT, "git_command_timeout": GIT_TIMEOUT,
+          "context_bytes": MAX_CONTEXT_BYTES}
 _FIELDS = {"schema", "git_dir", "executable", "commit", "head_sha256", "index_sha256",
            "config_sha256", "refs_sha256", "tracked_sha256"}
 _ERROR = "Git staging refused: unsupported, unsafe, changed or unavailable local Git context"
@@ -95,6 +97,8 @@ def validate_context(value, root):
             any(not isinstance(value[k], str) or not re.fullmatch(r"[0-9a-f]{64}", value[k])
                 for k in _FIELDS - {"schema", "git_dir", "executable", "commit"})):
         raise ValueError("Invalid Git context")
+    if len(json_bytes(value)) > MAX_CONTEXT_BYTES:
+        raise ValueError("Git context exceeds intent budget")
 
 
 def _repository(root):

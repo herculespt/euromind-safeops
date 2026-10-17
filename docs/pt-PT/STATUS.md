@@ -5,8 +5,7 @@
 [English](../STATUS.md)
 
 **Versão atual do código: 0.3.0a20 — pré-versão alfa.** O CI cobre Python
-3.11–3.13 em Linux, Windows e macOS. Não existem dependências externas em
-execução. A primeira [release GitHub v0.3.0a8](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8)
+3.11–3.13 em Linux, Windows e macOS. Sem dependências Python externas; o modo Git opcional exige Git instalado. A primeira [release GitHub v0.3.0a8](https://github.com/herculespt/euromind-safeops/releases/tag/v0.3.0a8)
 foi publicada em 16 de outubro de 2026 no commit
 `035c36b1b646a6c75178d5db6c19d8c55d624dcf`, com wheel, sdist e SHA256SUMS
 verificados. Os 12 jobs da main e a validação do candidato passaram; o wheel

@@ -181,6 +181,10 @@ class GitStagingTests(unittest.TestCase):
                     b"120000 blob " + b"a" * 40 + b"\tlink\0", b"100644 blob " + b"a" * 40 + b"\tsrc/main.py"):
             with self.assertRaises((ValueError, SafeOpsError)): git._entries(self.root, raw)
 
+    def test_git_context_budget_is_rejected_before_stage_allocation(self):
+        with patch.object(git, "MAX_CONTEXT_BYTES", 1), self.assertRaises(SafeOpsError): self.review()
+        self.assertFalse((self.root / ".safeops/stages").exists())
+
     def test_git_timeout_and_excess_output_are_controlled(self):
         with patch.object(subprocess, "run", side_effect=subprocess.TimeoutExpired("sensitive-fixture", 1)), self.assertRaises(SafeOpsError) as error:
             git._git(self.root, shutil.which("git"), "ls-files")

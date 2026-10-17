@@ -41,7 +41,7 @@ manutenção automática ficam desativados nestas operações fixas. O Git insta
 o repositório/base de objetos local de confiança continuam fronteiras externas.
 
 Limites existentes: 5 000 ficheiros, 12 000 000 bytes por ficheiro, 64 000 000 bytes
-copiados e recibo de 1 000 000 bytes. Output Git interpretado limitado a 2 000 000
+copiados e recibo de 1 000 000 bytes. Contexto Git limitado a 3 000 bytes JSON canónicos antes de criar o stage, mantendo o intent dentro dos 4 096 bytes de inspeção. Output Git interpretado limitado a 2 000 000
 bytes e timeout de 15 segundos por comando, com erros sanitizados. Captura em disco
 evita parsing em memória ilimitado; não impõe quota rígida do disco temporário,
 prazo global ou contenção de processos hostis. Não aceita argumentos, executáveis

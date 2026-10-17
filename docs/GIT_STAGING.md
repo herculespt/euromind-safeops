@@ -43,7 +43,7 @@ disabled for the fixed operations. The installed Git executable and trusted loca
 repository/object database remain external trust boundaries.
 
 Existing limits remain 5,000 files, 12,000,000 bytes per file, 64,000,000 copied
-bytes and 1,000,000 receipt bytes. Parsed Git output is capped at 2,000,000 bytes,
+bytes and 1,000,000 receipt bytes. Git context is capped at 3,000 canonical JSON bytes before allocating a stage, keeping intent inspection within 4,096 bytes. Parsed Git output is capped at 2,000,000 bytes,
 with 15 seconds per Git command and sanitized errors. Disk-backed capture avoids
 unbounded parsed memory; it is not a hard temporary-disk quota, whole-operation
 deadline or hostile-process containment guarantee. No arbitrary Git argument,
