@@ -1,3 +1,3 @@
 # Direct tools for Linux x86_64 / CPython 3.12 measurement.
-setuptools==83.0.0
+setuptools==84.1.0
 coverage==7.16.2
