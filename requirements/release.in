@@ -1,5 +1,5 @@
 # Direct tools for Linux x86_64 / CPython 3.12 release validation.
 build==1.6.1
-setuptools==83.0.0
+setuptools==84.2.1
 twine==7.0.0
 detect-secrets==1.5.0
